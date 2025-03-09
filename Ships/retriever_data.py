@@ -4,6 +4,8 @@
 # Display name for the dropdown menu
 display_name = "Retriever Mining Barge"
 
+# Blueprint ownership status
+owned_status = "Unowned"
 retriever_requirements = {
     "Tritanium": 2742672,
     "Pyerite": 755721,

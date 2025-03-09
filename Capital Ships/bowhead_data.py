@@ -4,6 +4,10 @@
 # Display name for the dropdown menu
 display_name = "Bowhead Freighter"
 
+
+# Blueprint ownership status
+owned_status = "Unowned"
+
 # Component quantities required for Bowhead construction
 bowhead_requirements = {
     "Capital Propulsion Engine": 10,

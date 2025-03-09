@@ -100,6 +100,18 @@ class EveProductionCalculator(tk.Tk):
         ship_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
         ship_dropdown.bind("<<ComboboxSelected>>", self.on_ship_selected)
 
+        # Material Efficiency selection
+        me_label = ttk.Label(ship_selection_frame, text="Material Efficiency (ME):")
+        me_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+
+        self.me_var = tk.IntVar(value=0)
+        me_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.me_var, values=list(range(11)), state="readonly")
+        me_dropdown.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+
+        # Calculate button
+        calculate_button = ttk.Button(ship_selection_frame, text="Calculate Requirements", command=self.calculate_ship_requirements)
+        calculate_button.grid(row=2, column=0, columnspan=2, pady=10)
+
         # Frame for results
         results_frame = ttk.LabelFrame(self.ships_tab, text="Ship Requirements")
         results_frame.pack(fill="both", expand=True, padx=10, pady=10)
@@ -127,6 +139,18 @@ class EveProductionCalculator(tk.Tk):
         capital_ship_dropdown = ttk.Combobox(capital_ship_selection_frame, textvariable=self.capital_ship_var, values=capital_ship_list, state="readonly")
         capital_ship_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
         capital_ship_dropdown.bind("<<ComboboxSelected>>", self.on_capital_ship_selected)
+
+        # Material Efficiency selection
+        me_label = ttk.Label(capital_ship_selection_frame, text="Material Efficiency (ME):")
+        me_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+
+        self.capital_me_var = tk.IntVar(value=0)
+        capital_me_dropdown = ttk.Combobox(capital_ship_selection_frame, textvariable=self.capital_me_var, values=list(range(11)), state="readonly")
+        capital_me_dropdown.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+
+        # Calculate button
+        calculate_button = ttk.Button(capital_ship_selection_frame, text="Calculate Requirements", command=self.calculate_capital_ship_requirements)
+        calculate_button.grid(row=2, column=0, columnspan=2, pady=10)
 
         # Frame for results
         results_frame = ttk.LabelFrame(self.capital_ships_tab, text="Capital Ship Requirements")
@@ -185,7 +209,7 @@ class EveProductionCalculator(tk.Tk):
         selected_ship_name = self.ship_var.get()
         for module in self.discovered_modules['ships'].values():
             if module.display_name == selected_ship_name:
-                self.update_ship_requirements(module)
+                self.update_ship_requirements(module, self.me_var.get())
                 break
 
     def on_capital_ship_selected(self, event=None):
@@ -193,7 +217,7 @@ class EveProductionCalculator(tk.Tk):
         selected_capital_ship_name = self.capital_ship_var.get()
         for module in self.discovered_modules['capital_ships'].values():
             if module.display_name == selected_capital_ship_name:
-                self.update_capital_ship_requirements(module)
+                self.update_capital_ship_requirements(module, self.capital_me_var.get())
                 break
 
     def on_component_selected(self, event=None):
@@ -238,31 +262,33 @@ class EveProductionCalculator(tk.Tk):
         # Update status
         self.status_var.set(f"Calculated refining output for {quantity} {ore_type}")
 
-    def update_ship_requirements(self, ship_module):
-        """Update the ship requirements display"""
+    def update_ship_requirements(self, ship_module, me_level):
+        """Update the ship requirements display considering material efficiency"""
         self.ship_results_text.config(state=tk.NORMAL)
         self.ship_results_text.delete(1.0, tk.END)
         
         # Add header
-        self.ship_results_text.insert(tk.END, f"Requirements for {ship_module.display_name}:\n\n")
+        self.ship_results_text.insert(tk.END, f"Requirements for {ship_module.display_name} (ME{me_level}):\n\n")
         
-        # Add each requirement
+        # Calculate and add each requirement
         for mineral, amount in ship_module.retriever_requirements.items():
-            self.ship_results_text.insert(tk.END, f"{mineral}: {amount:,}\n")
+            adjusted_amount = amount * (1 - me_level / 100)  # ME level reduces by 1% per level
+            self.ship_results_text.insert(tk.END, f"{mineral}: {int(adjusted_amount):,}\n")
         
         self.ship_results_text.config(state=tk.DISABLED)
 
-    def update_capital_ship_requirements(self, capital_ship_module):
-        """Update the capital ship requirements display"""
+    def update_capital_ship_requirements(self, capital_ship_module, me_level):
+        """Update the capital ship requirements display considering material efficiency"""
         self.capital_ship_results_text.config(state=tk.NORMAL)
         self.capital_ship_results_text.delete(1.0, tk.END)
         
         # Add header
-        self.capital_ship_results_text.insert(tk.END, f"Requirements for {capital_ship_module.display_name}:\n\n")
+        self.capital_ship_results_text.insert(tk.END, f"Requirements for {capital_ship_module.display_name} (ME{me_level}):\n\n")
         
-        # Add each requirement
+        # Calculate and add each requirement
         for component, quantity in capital_ship_module.bowhead_requirements.items():
-            self.capital_ship_results_text.insert(tk.END, f"{component}: {quantity}\n")
+            adjusted_quantity = quantity * (1 - me_level / 100)  # ME level reduces by 1% per level
+            self.capital_ship_results_text.insert(tk.END, f"{component}: {int(adjusted_quantity)}\n")
         
         self.capital_ship_results_text.config(state=tk.DISABLED)
 
@@ -279,3 +305,21 @@ class EveProductionCalculator(tk.Tk):
             self.component_results_text.insert(tk.END, f"{mineral}: {amount}\n")
         
         self.component_results_text.config(state=tk.DISABLED)
+
+    def calculate_ship_requirements(self):
+        """Calculate the requirements for the selected ship"""
+        selected_ship_name = self.ship_var.get()
+        me_level = self.me_var.get()
+        for module in self.discovered_modules['ships'].values():
+            if module.display_name == selected_ship_name:
+                self.update_ship_requirements(module, me_level)
+                break
+
+    def calculate_capital_ship_requirements(self):
+        """Calculate the requirements for the selected capital ship"""
+        selected_capital_ship_name = self.capital_ship_var.get()
+        me_level = self.capital_me_var.get()
+        for module in self.discovered_modules['capital_ships'].values():
+            if module.display_name == selected_capital_ship_name:
+                self.update_capital_ship_requirements(module, me_level)
+                break
