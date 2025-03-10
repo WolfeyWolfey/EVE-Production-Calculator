@@ -284,11 +284,34 @@ class EveProductionCalculator(tk.Tk):
         self.component_results_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
 
     def create_pi_calculator_tab(self):
-        """Create the Planetary Interaction calculator tab"""
-        # Placeholder for future PI calculator implementation
-        pi_label = ttk.Label(self.pi_calculator_tab, 
-                            text="PI Calculator not yet implemented.\nThis tab will allow calculation of PI material requirements.")
-        pi_label.pack(expand=True, pady=20)
+        """Create the PI Calculator tab"""
+        # Frame for PI component selection
+        pi_selection_frame = ttk.LabelFrame(self.pi_calculator_tab, text="Select PI Component")
+        pi_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
+
+        # PI Component selection
+        pi_label = ttk.Label(pi_selection_frame, text="Select PI Component:")
+        pi_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+
+        pi_list = ["Aqueous Liquids", "Autotrophs", "Base Metals", "Carbon Compounds", "Complex Organisms",
+                   "Felsic Magma", "Heavy Metals", "Ionic Solutions", "Microorganisms", "Noble Gas",
+                   "Noble Metals", "Non-CS Crystals", "Planktic Colonies", "Reactive Gas", "Suspended Plasma"]
+        self.pi_var = tk.StringVar(value=pi_list[0])
+        pi_dropdown = ttk.Combobox(pi_selection_frame, textvariable=self.pi_var, values=pi_list, state="readonly")
+        pi_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        pi_dropdown.bind("<<ComboboxSelected>>", self.on_pi_component_selected)
+
+        # Frame for PI component details
+        pi_details_frame = ttk.LabelFrame(self.pi_calculator_tab, text="PI Component Details")
+        pi_details_frame.pack(fill="both", expand=True, padx=10, pady=10)
+
+        # Scrollable details area
+        self.pi_details_text = tk.Text(pi_details_frame, height=10, width=40, wrap=tk.WORD, state=tk.DISABLED)
+        scrollbar = ttk.Scrollbar(pi_details_frame, orient="vertical", command=self.pi_details_text.yview)
+        self.pi_details_text.configure(yscrollcommand=scrollbar.set)
+
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.pi_details_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
 
     def on_ore_selected(self, event=None):
         """Handler for ore selection change"""
@@ -431,3 +454,37 @@ class EveProductionCalculator(tk.Tk):
             if module.display_name == selected_capital_ship_name:
                 self.update_capital_ship_requirements(module, me_level)
                 break
+
+    def on_pi_component_selected(self, event=None):
+        """Handler for PI component selection change"""
+        pi_component = self.pi_var.get()
+        details = self.get_pi_component_details(pi_component)
+        self.display_pi_details(details)
+
+    def get_pi_component_details(self, component_name):
+        """Retrieve details for the selected PI component"""
+        pi_details = {
+            "Aqueous Liquids": "Harvestable Planet Types: Barren, Gas, Ice, Oceanic, Storm, Temperate\nRefines to P1: Water",
+            "Autotrophs": "Harvestable Planet Types: Temperate\nRefines to P1: Industrial Fibers",
+            "Base Metals": "Harvestable Planet Types: Barren, Gas, Lava, Plasma, Storm\nRefines to P1: Reactive Metals",
+            "Carbon Compounds": "Harvestable Planet Types: Barren, Oceanic, Temperate\nRefines to P1: Biofuels",
+            "Complex Organisms": "Harvestable Planet Types: Oceanic, Temperate\nRefines to P1: Proteins",
+            "Felsic Magma": "Harvestable Planet Types: Lava\nRefines to P1: Silicon",
+            "Heavy Metals": "Harvestable Planet Types: Ice, Lava, Plasma\nRefines to P1: Toxic Metals",
+            "Ionic Solutions": "Harvestable Planet Types: Gas, Storm\nRefines to P1: Electrolytes",
+            "Microorganisms": "Harvestable Planet Types: Barren, Ice, Oceanic, Temperate\nRefines to P1: Bacteria",
+            "Noble Gas": "Harvestable Planet Types: Gas, Ice, Storm\nRefines to P1: Oxygen",
+            "Noble Metals": "Harvestable Planet Types: Barren, Plasma\nRefines to P1: Precious Metals",
+            "Non-CS Crystals": "Harvestable Planet Types: Lava, Plasma\nRefines to P1: Chiral Structures",
+            "Planktic Colonies": "Harvestable Planet Types: Ice, Oceanic\nRefines to P1: Biomass",
+            "Reactive Gas": "Harvestable Planet Types: Gas\nRefines to P1: Oxidizing Compound",
+            "Suspended Plasma": "Harvestable Planet Types: Lava, Plasma, Storm\nRefines to P1: Plasmoids"
+        }
+        return pi_details.get(component_name, "Details not found.")
+
+    def display_pi_details(self, details):
+        """Display the details of the selected PI component"""
+        self.pi_details_text.configure(state=tk.NORMAL)
+        self.pi_details_text.delete("1.0", tk.END)
+        self.pi_details_text.insert(tk.END, details)
+        self.pi_details_text.configure(state=tk.DISABLED)
