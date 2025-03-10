@@ -82,13 +82,11 @@ class EveProductionCalculator(tk.Tk):
         self.ship_tab = ttk.Frame(self.notebook)
         self.component_tab = ttk.Frame(self.notebook)
         self.pi_tab = ttk.Frame(self.notebook)
-        self.settings_tab = ttk.Frame(self.notebook)
         
         # Add tabs to notebook
         self.notebook.add(self.ship_tab, text="Ships")
         self.notebook.add(self.component_tab, text="Components")
         self.notebook.add(self.pi_tab, text="PI Materials")
-        self.notebook.add(self.settings_tab, text="Settings")
         
         # Create shared frame for output
         self.output_frame = create_label_frame(
@@ -115,7 +113,6 @@ class EveProductionCalculator(tk.Tk):
         self.create_ship_tab()
         self.create_component_tab()
         self.create_pi_tab()
-        self.create_settings_tab()
         
         # Bind tab change event to update the details
         self.notebook.bind("<<NotebookTabChanged>>", self.on_tab_change)
@@ -278,34 +275,6 @@ class EveProductionCalculator(tk.Tk):
         
         # Initialize the PI material dropdown
         self.update_pi_material_dropdown()
-    
-    def create_settings_tab(self):
-        """Create the Settings tab content"""
-        # Frame for blueprint ownership settings
-        blueprint_frame = create_label_frame(self.settings_tab, "Blueprint Ownership")
-        
-        # Button to edit blueprint ownership
-        edit_blueprints_button = create_button(
-            blueprint_frame,
-            "Edit Blueprint Ownership",
-            self.edit_blueprint_ownership
-        )
-        
-        # Frame for import/export settings
-        import_export_frame = create_label_frame(self.settings_tab, "Import/Export")
-        
-        # Buttons for import/export
-        export_button = create_button(
-            import_export_frame,
-            "Export Settings",
-            self.export_settings
-        )
-        
-        import_button = create_button(
-            import_export_frame,
-            "Import Settings",
-            self.import_settings
-        )
     
     def update_ship_dropdown(self, event=None):
         """Update the ship dropdown based on selected faction and type"""
@@ -758,13 +727,33 @@ class EveProductionCalculator(tk.Tk):
         menu_bar.add_cascade(label="File", menu=file_menu)
         file_menu.add_command(label="Exit", command=self.destroy)
         
-        # Create Settings menu
-        settings_menu = tk.Menu(menu_bar, tearoff=0)
-        menu_bar.add_cascade(label="Settings", menu=settings_menu)
-        settings_menu.add_command(label="Blueprint Ownership Editor", command=self.edit_blueprint_ownership)
-        settings_menu.add_command(label="Reset All Ship Ownership", command=self.reset_ship_ownership)
-        settings_menu.add_command(label="Export Settings", command=self.export_settings)
-        settings_menu.add_command(label="Import Settings", command=self.import_settings)
+        # Create Options menu
+        options_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Options", menu=options_menu)
+        options_menu.add_command(label="Settings", command=self.open_settings)
+        options_menu.add_separator()
+        options_menu.add_command(label="Blueprint Ownership Editor", command=self.edit_blueprint_ownership)
+        options_menu.add_separator()
+        options_menu.add_command(label="Export Settings", command=self.export_settings)
+        options_menu.add_command(label="Import Settings", command=self.import_settings)
+    
+    def open_settings(self):
+        """Open the settings window"""
+        # Check if settings window is already open
+        for widget in self.winfo_children():
+            if isinstance(widget, SettingsWindow) and widget.winfo_exists():
+                widget.focus_force()  # Bring window to front
+                return
+        
+        # Create a new settings window
+        settings_window = SettingsWindow(self, self.registry, self.calculator, self.blueprint_config)
+        
+        # Use try/except to handle potential errors when main window is closed
+        try:
+            settings_window.transient(self)  # Make window a child of the main window
+        except tk.TclError:
+            # Main window might be destroyed, ignore the error
+            pass
     
     def export_settings(self):
         """Export settings to a JSON file"""
@@ -815,3 +804,104 @@ class EveProductionCalculator(tk.Tk):
                 
         except Exception as e:
             messagebox.showerror("Error", f"Failed to import settings: {str(e)}")
+
+class SettingsWindow(tk.Toplevel):
+    """Settings window for EVE Production Calculator"""
+    def __init__(self, parent, registry, calculator, blueprint_config):
+        """Initialize the settings window"""
+        super().__init__(parent)
+        
+        # Store references
+        self.parent = parent
+        self.registry = registry
+        self.calculator = calculator
+        self.blueprint_config = blueprint_config
+        
+        # Configure window
+        self.title("Settings")
+        self.geometry("600x400")
+        self.minsize(500, 300)
+        self.resizable(True, True)
+        
+        # Configure grid
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
+        
+        # Create UI
+        self.create_ui()
+        
+        # Make window modal
+        self.grab_set()
+        self.focus_set()
+        self.wait_window()
+    
+    def create_ui(self):
+        """Create settings window UI"""
+        # Main frame
+        main_frame = ttk.Frame(self)
+        main_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Frame for blueprint ownership settings
+        blueprint_frame = create_label_frame(main_frame, "Blueprint Ownership")
+        blueprint_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Button to edit blueprint ownership
+        edit_blueprints_button = create_button(
+            blueprint_frame,
+            "Edit Blueprint Ownership",
+            self.edit_blueprint_ownership
+        )
+        
+        # Frame for import/export settings
+        import_export_frame = create_label_frame(main_frame, "Import/Export")
+        import_export_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Buttons for import/export
+        export_button = create_button(
+            import_export_frame,
+            "Export Settings",
+            self.export_settings
+        )
+        
+        import_button = create_button(
+            import_export_frame,
+            "Import Settings",
+            self.import_settings
+        )
+        
+        # Ship Information frame
+        ship_info_frame = create_label_frame(main_frame, "Ship Information and Requirements")
+        ship_info_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Button to reset ship ownership
+        reset_ship_button = create_button(
+            ship_info_frame,
+            "Reset All Ship Ownership",
+            self.reset_ship_ownership
+        )
+        
+        # Close button at the bottom
+        close_button_frame = ttk.Frame(main_frame)
+        close_button_frame.pack(fill="x", padx=5, pady=10)
+        
+        close_button = create_button(
+            close_button_frame,
+            "Close",
+            self.destroy
+        )
+    
+    def edit_blueprint_ownership(self):
+        """Open the Blueprint Ownership Editor"""
+        self.parent.edit_blueprint_ownership()
+    
+    def reset_ship_ownership(self):
+        """Reset ownership status for all ships"""
+        self.parent.reset_ship_ownership()
+    
+    def export_settings(self):
+        """Export settings to a JSON file"""
+        self.parent.export_settings()
+    
+    def import_settings(self):
+        """Import settings from a JSON file"""
+        self.parent.import_settings()

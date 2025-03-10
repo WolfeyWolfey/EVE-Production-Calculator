@@ -1,0 +1,94 @@
+{
+  "P1_Processed_Materials": [
+    {
+      "name": "Water",
+      "produced_from_P0": "Aqueous Liquids",
+      "example_uses": "Used in standard booster reactions",
+      "inputs_for_P2": ["Coolant", "Superconductors", "Test Cultures"]
+    },
+    {
+      "name": "Industrial Fibers",
+      "produced_from_P0": "Autotrophs",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Microfiber Shielding", "Polyaramids", "Polytextiles"]
+    },
+    {
+      "name": "Reactive Metals",
+      "produced_from_P0": "Base Metals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Construction Blocks", "Mechanical Parts", "Nanites", "Water-Cooled CPU"]
+    },
+    {
+      "name": "Biofuels",
+      "produced_from_P0": "Carbon Compounds",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Biocells", "Livestock", "Polytextiles"]
+    },
+    {
+      "name": "Proteins",
+      "produced_from_P0": "Complex Organisms",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Fertilizer", "Genetically Enhanced Livestock", "Livestock"]
+    },
+    {
+      "name": "Silicon",
+      "produced_from_P0": "Felsic Magma",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Microfiber Shielding", "Miniature Electronics", "Silicate Glass"]
+    },
+    {
+      "name": "Toxic Metals",
+      "produced_from_P0": "Heavy Metals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Construction Blocks", "Consumer Electronics", "Enriched Uranium"]
+    },
+    {
+      "name": "Electrolytes",
+      "produced_from_P0": "Ionic Solutions",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Coolant", "Rocket Fuel", "Synthetic Oil"]
+    },
+    {
+      "name": "Bacteria",
+      "produced_from_P0": "Microorganisms",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Fertilizer", "Nanites", "Test Cultures", "Viral Agent"]
+    },
+    {
+      "name": "Oxygen",
+      "produced_from_P0": "Noble Gas",
+      "example_uses": "Used in improved booster reactions and structure fuel blocks",
+      "inputs_for_P2": ["Oxides", "Supertensile Plastics", "Synthetic Oil"]
+    },
+    {
+      "name": "Precious Metals",
+      "produced_from_P0": "Noble Metals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Biocells", "Enriched Uranium", "Mechanical Parts"]
+    },
+    {
+      "name": "Chiral Structures",
+      "produced_from_P0": "Non-CS Crystals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Consumer Electronics", "Miniature Electronics", "Transmitter"]
+    },
+    {
+      "name": "Biomass",
+      "produced_from_P0": "Planktic Colonies",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Genetically Enhanced Livestock", "Supertensile Plastics", "Viral Agent"]
+    },
+    {
+      "name": "Oxidizing Compound",
+      "produced_from_P0": "Reactive Gas",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Oxides", "Polyaramids", "Silicate Glass"]
+    },
+    {
+      "name": "Plasmoids",
+      "produced_from_P0": "Suspended Plasma",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Rocket Fuel", "Superconductors", "Transmitter"]
+    }
+  ]
+}

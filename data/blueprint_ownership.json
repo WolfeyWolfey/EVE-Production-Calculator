@@ -307,7 +307,7 @@
             "te": 15
         },
         "bowhead": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
@@ -683,6 +683,198 @@
             "invented": false,
             "me": 0,
             "te": 0
+        },
+        "venture": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "prospect": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "endurance": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "covetor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "skiff": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "mackinaw": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "hulk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "noctis": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "porpoise": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "worm": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "harpy": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "buzzard": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "hawk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "jackdaw": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "cerberus": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "eagle": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "onyx": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "basilisk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "falcon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rook": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "tengu": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "vulture": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "nighthawk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "sleipnir": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rattlesnake": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "widow": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "golem": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "badger": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "tayra": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crane": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "bustard": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "raptor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
         }
     },
     "capital_ship_blueprints": {
@@ -741,6 +933,18 @@
             "te": 0
         },
         "erebus": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "orca": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rorqual": {
             "owned": false,
             "invented": false,
             "me": 0,
@@ -1621,11 +1825,149 @@
             "invented": false,
             "me": 0,
             "te": 0
+        },
+        "worm": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "harpy": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "buzzard": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "hawk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "jackdaw": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "cerberus": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "eagle": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "onyx": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "basilisk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "falcon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rook": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "tengu": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "vulture": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "nighthawk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "sleipnir": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rattlesnake": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "widow": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "golem": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "badger": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "tayra": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crane": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "bustard": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "raptor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
         }
     },
     "capital_ships": {
         "bowhead": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
