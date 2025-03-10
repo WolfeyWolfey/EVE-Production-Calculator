@@ -255,6 +255,78 @@
           "details": "Thalia Logistics Frigate\nType: Gallente Tech II Logistics Frigate\nBase Build Time: ~2h 15m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Navitas: 1\n- Morphite: 15\n- R.A.M.-Starship Tech: 6\n- Construction Blocks: 25\n- Oscillator Capacitor Unit: 125\n- Pulse Shield Emitter: 15\n- Magnetometric Sensor Cluster: 60\n- Photon Microprocessor: 125\n- Ion Thruster: 25\n- Crystalline Carbonide Armor Plate: 375\n- Fusion Reactor Unit: 4"
         }
       }
+    },
+    "destroyers": {
+      "tech1": {
+        "catalyst": {
+          "display_name": "Catalyst",
+          "ship_type": "Destroyer",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 80000,
+            "Pyerite": 15000,
+            "Mexallon": 5000,
+            "Isogen": 1000
+          },
+          "details": "Catalyst\nType: Gallente Tech I Destroyer\nBase Build Time: 2h 30m\nRequired Skill: Basic Industry\n\nMaterials:\n- Tritanium: 80,000\n- Pyerite: 15,000\n- Mexallon: 5,000\n- Isogen: 1,000"
+        },
+        "algos": {
+          "display_name": "Algos",
+          "ship_type": "Destroyer",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 80000,
+            "Pyerite": 15000,
+            "Mexallon": 5000,
+            "Isogen": 1000
+          },
+          "details": "Algos\nType: Gallente Tech I Destroyer\nBase Build Time: 2h 30m\nRequired Skill: Basic Industry\n\nMaterials:\n- Tritanium: 80,000\n- Pyerite: 15,000\n- Mexallon: 5,000\n- Isogen: 1,000"
+        }
+      },
+      "tech2": {
+        "eris": {
+          "display_name": "Eris Interdictor",
+          "ship_type": "Interdictor",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Catalyst": 1,
+            "Construction Blocks": 23,
+            "Morphite": 15,
+            "R.A.M.- Starship Tech": 9,
+            "Ion Thruster": 60,
+            "Magnetometric Sensor Cluster": 75,
+            "Photon Microprocessor": 360,
+            "Crystalline Carbonide Armor Plate": 1500,
+            "Fusion Reactor Unit": 15,
+            "Oscillator Capacitor Unit": 150,
+            "Pulse Shield Emitter": 38
+          },
+          "details": "Eris Interdictor\nType: Gallente Tech II Interdictor\nBase Build Time: 2d 2h\nRequired Skills: Industry V, Advanced Small Ship Construction I\n\nMaterials:\n- Catalyst (Tech I hull): 1\n- Construction Blocks: 23\n- Morphite: 15\n- R.A.M.- Starship Tech: 9\n- Ion Thruster: 60\n- Magnetometric Sensor Cluster: 75\n- Photon Microprocessor: 360\n- Crystalline Carbonide Armor Plate: 1,500\n- Fusion Reactor Unit: 15\n- Oscillator Capacitor Unit: 150\n- Pulse Shield Emitter: 38"
+        },
+        "magus": {
+          "display_name": "Magus Command Destroyer",
+          "ship_type": "Command Destroyer",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Algos": 1,
+            "Construction Blocks": 25,
+            "Morphite": 16,
+            "R.A.M.- Starship Tech": 10,
+            "Ion Thruster": 62,
+            "Magnetometric Sensor Cluster": 75,
+            "Photon Microprocessor": 360,
+            "Crystalline Carbonide Armor Plate": 1640,
+            "Fusion Reactor Unit": 17,
+            "Oscillator Capacitor Unit": 160,
+            "Pulse Shield Emitter": 43
+          },
+          "details": "Magus Command Destroyer\nType: Gallente Tech II Command Destroyer\nBase Build Time: 2d 2h\nRequired Skills: Industry V, Advanced Small Ship Construction I\n\nMaterials:\n- Algos (Tech I hull): 1\n- Construction Blocks: 25\n- Morphite: 16\n- R.A.M.- Starship Tech: 10\n- Ion Thruster: 62\n- Magnetometric Sensor Cluster: 75\n- Photon Microprocessor: 360\n- Crystalline Carbonide Armor Plate: 1,640\n- Fusion Reactor Unit: 17\n- Oscillator Capacitor Unit: 160\n- Pulse Shield Emitter: 43"
+        }
+      }
     }
   },
   "ore": {
