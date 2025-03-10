@@ -6,6 +6,9 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import json
 import os
+import shutil
+
+from utils.debug import debug_print
 
 from core.module_registry import ModuleRegistry, ShipModule, CapitalShipModule, ComponentModule
 from core.calculator import RequirementsCalculator
@@ -79,14 +82,12 @@ class EveProductionCalculator(tk.Tk):
         self.ship_tab = ttk.Frame(self.notebook)
         self.component_tab = ttk.Frame(self.notebook)
         self.pi_tab = ttk.Frame(self.notebook)
-        # self.ore_tab = ttk.Frame(self.notebook)
         self.settings_tab = ttk.Frame(self.notebook)
         
         # Add tabs to notebook
         self.notebook.add(self.ship_tab, text="Ships")
         self.notebook.add(self.component_tab, text="Components")
         self.notebook.add(self.pi_tab, text="PI Materials")
-        # self.notebook.add(self.ore_tab, text="Ore Refining")
         self.notebook.add(self.settings_tab, text="Settings")
         
         # Create shared frame for output
@@ -114,7 +115,6 @@ class EveProductionCalculator(tk.Tk):
         self.create_ship_tab()
         self.create_component_tab()
         self.create_pi_tab()
-        # self.create_ore_tab()
         self.create_settings_tab()
         
         # Bind tab change event to update the details
@@ -279,30 +279,6 @@ class EveProductionCalculator(tk.Tk):
         # Initialize the PI material dropdown
         self.update_pi_material_dropdown()
     
-    # def create_ore_tab(self):
-    #     """Create the Ore Refining tab content"""
-    #     # Frame for ore selection
-    #     selection_frame = create_label_frame(self.ore_tab, "Ore Selection")
-        
-    #     # Create ore dropdown
-    #     self.ore_dropdown = create_labeled_dropdown(
-    #         selection_frame,
-    #         "Ore:",
-    #         tk.StringVar(),
-    #         [],
-    #         command=self.update_ore_details
-    #     )
-        
-    #     # Calculate button
-    #     self.calculate_ore_button = create_button(
-    #         selection_frame,
-    #         "Calculate Requirements",
-    #         self.calculate_ore_requirements
-    #     )
-        
-    #     # Initialize the ore dropdown
-    #     self.update_ore_dropdown()
-    
     def create_settings_tab(self):
         """Create the Settings tab content"""
         # Frame for blueprint ownership settings
@@ -390,6 +366,9 @@ class EveProductionCalculator(tk.Tk):
             
         # Update details text
         set_text_content(self.output_text, ship.details)
+        
+        # Enable the calculate button now that a valid ship is selected
+        self.calculate_button.configure(state="normal")
     
     def update_component_details(self, event=None):
         """
@@ -436,29 +415,6 @@ class EveProductionCalculator(tk.Tk):
             
         # Update details text
         set_text_content(self.output_text, pi_material.details)
-    
-    # def update_ore_details(self, event=None):
-    #     """
-    #     Update the ore details text based on selected ore
-        
-    #     Args:
-    #         event: Tkinter event (optional)
-    #     """
-    #     ore_name = self.ore_dropdown.get()
-        
-    #     if not ore_name:
-    #         set_text_content(self.output_text, "No ore selected.")
-    #         return
-            
-    #     # Find ore in registry
-    #     ore = self.registry.get_ore_by_display_name(ore_name)
-        
-    #     if not ore:
-    #         set_text_content(self.output_text, f"Ore '{ore_name}' not found in registry.")
-    #         return
-            
-    #     # Update details text
-    #     set_text_content(self.output_text, ore.details)
     
     def calculate_ship_requirements(self):
         """Calculate and display ship material requirements"""
@@ -626,38 +582,6 @@ class EveProductionCalculator(tk.Tk):
             
         set_text_content(self.output_text, requirements_text)
     
-    # def calculate_ore_requirements(self):
-    #     """Calculate and display ore material requirements"""
-    #     # Get selected ore
-    #     ore_name = self.ore_dropdown.get()
-        
-    #     if not ore_name:
-    #         messagebox.showwarning("Warning", "No ore selected.")
-    #         return
-        
-    #     # Find ore in registry
-    #     ore = self.registry.get_ore_by_display_name(ore_name)
-        
-    #     if not ore:
-    #         messagebox.showerror("Error", f"Ore '{ore_name}' not found in registry.")
-    #         return
-        
-    #     # Calculate requirements
-    #     requirements = self.calculator.calculate_ore_requirements(ore.name)
-        
-    #     # Format requirements for display
-    #     requirements_text = f"Material Requirements for {ore_name}:\n\n"
-        
-    #     # Sort materials alphabetically
-    #     sorted_materials = sorted(requirements.items())
-        
-    #     for material, amount in sorted_materials:
-    #         requirements_text += f"{material}: {amount:,}\n"
-            
-    #     # Update materials text
-    #     output_text = f"{ore.details}\n\n{requirements_text}"
-    #     set_text_content(self.output_text, output_text)
-    
     def edit_blueprint_ownership(self):
         """Open the Blueprint Ownership Editor"""
         try:
@@ -810,15 +734,15 @@ class EveProductionCalculator(tk.Tk):
     def on_close(self):
         """Save blueprint configuration before closing the application"""
         try:
-            from config.blueprint_config import save_blueprint_ownership
-            # Save the configuration
-            success = save_blueprint_ownership(self.blueprint_config)
-            if success:
-                print("Blueprint configuration saved successfully.")
-            else:
-                print("Failed to save blueprint configuration.")
+            if hasattr(self, 'blueprint_config'):
+                from config.blueprint_config import save_blueprint_ownership
+                success = save_blueprint_ownership(self.blueprint_config)
+                if success:
+                    debug_print("Blueprint configuration saved successfully.")
+                else:
+                    debug_print("Failed to save blueprint configuration.")
         except Exception as e:
-            print(f"Error saving blueprint configuration: {e}")
+            debug_print(f"Error saving blueprint configuration: {e}")
         
         # Destroy the application
         self.destroy()

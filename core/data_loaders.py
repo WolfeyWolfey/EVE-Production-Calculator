@@ -6,6 +6,8 @@ This file contains functions for loading data from JSON files into the module re
 import os
 import json
 import importlib.util
+import sys
+from utils.debug import debug_print
 from typing import Dict, List, Any, Optional, Set, Tuple
 
 from core.module_registry import ModuleRegistry
@@ -22,11 +24,12 @@ def load_ships(registry: ModuleRegistry, base_path: str):
     # Load ship data from JSON
     ship_data_path = os.path.join(base_path, 'data', 'ships.json')
     
-    if not os.path.exists(ship_data_path):
-        print(f"Ships data file not found at: {ship_data_path}")
-        return
-    
     try:
+        # Check if file exists
+        if not os.path.exists(ship_data_path):
+            debug_print(f"Ships data file not found at: {ship_data_path}")
+            return
+        
         # Store existing ownership status before loading
         existing_ownership = {}
         for ship in registry.get_all_ships():
@@ -116,9 +119,9 @@ def load_ships(registry: ModuleRegistry, base_path: str):
                         registry.register_capital_ship(capital_ship)
                         capital_ship_count += 1
             except Exception as e:
-                print(f"Error loading capital ships from separate file: {e}")
+                debug_print(f"Error loading capital ships from separate file: {e}")
     except Exception as e:
-        print(f"Error loading ships: {e}")
+        debug_print(f"Error loading ships: {e}")
 
 def process_ship_category(registry: ModuleRegistry, parent_key: str, category_data: Dict, existing_ownership: Dict = None):
     """
@@ -218,7 +221,7 @@ def load_capital_components(registry: ModuleRegistry, base_path: str):
                 registry.register_capital_component(component)
                 
     except Exception as e:
-        print(f"Error loading capital components: {e}")
+        debug_print(f"Error loading capital components: {e}")
 
 def load_components(registry: ModuleRegistry, base_path: str):
     """
@@ -251,7 +254,7 @@ def load_components(registry: ModuleRegistry, base_path: str):
                 registry.register_component(component)
                 
     except Exception as e:
-        print(f"Error loading components from JSON: {e}")
+        debug_print(f"Error loading components from JSON: {e}")
     
     # Also try loading from Python modules in Components directory
     components_dir = os.path.join(base_path, 'Components')
@@ -287,7 +290,7 @@ def load_components(registry: ModuleRegistry, base_path: str):
                         registry.register_component(component)
                         components_loaded += 1
                 except Exception as e:
-                    print(f"Error loading component module {module_path}: {e}")
+                    debug_print(f"Error loading component module {module_path}: {e}")
 
 def load_pi_data(registry: ModuleRegistry, base_path: str):
     """
@@ -462,7 +465,7 @@ def load_pi_data(registry: ModuleRegistry, base_path: str):
                 registry.register_pi_material(pi_material)
         
     except Exception as e:
-        print(f"Error loading PI data: {e}")
+        debug_print(f"Error loading PI data: {e}")
 
 def load_ore_data(base_path: str):
     """
@@ -491,7 +494,7 @@ def load_ore_data(base_path: str):
         return flat_ore_data
         
     except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f"Error loading ore data: {e}")
+        debug_print(f"Error loading ore data: {e}")
         # Fallback to the original ore_data if JSON loading fails
         try:
             import importlib.util
@@ -499,8 +502,8 @@ def load_ore_data(base_path: str):
             spec = importlib.util.spec_from_file_location('ore_data', old_ore_data_path)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
-            print("Falling back to original ore_data.py")
+            debug_print("Falling back to original ore_data.py")
             return module.ore_data
         except Exception as e2:
-            print(f"Fatal error, could not load ore data: {e2}")
+            debug_print(f"Fatal error, could not load ore data: {e2}")
             return {}

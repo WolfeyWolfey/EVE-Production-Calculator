@@ -5,10 +5,12 @@ Handles saving and loading blueprint ownership status
 
 import os
 import json
+from collections import defaultdict
+from utils.debug import debug_print
 
 # Constants
 CONFIG_FILENAME = "blueprint_ownership.json"
-CONFIG_FILE = os.path.join(os.path.dirname(__file__), CONFIG_FILENAME)
+CONFIG_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', CONFIG_FILENAME)
 
 def create_default_blueprint_config():
     """
@@ -25,34 +27,39 @@ def load_blueprint_ownership():
     """
     Load blueprint ownership configuration from file
     """
-    print("Loading blueprint ownership from file...")
-    if os.path.exists(CONFIG_FILE):
-        try:
-            with open(CONFIG_FILE, 'r') as f:
-                config = json.load(f)
-                print(f"Loaded configuration from {CONFIG_FILE}")
-                
-                # Verify if any ships are set to owned
-                owned_ships = []
-                for ship_name, ship_data in config.get('ship_blueprints', {}).items():
-                    if ship_data.get('owned', False):
-                        owned_ships.append(ship_name)
-                
-                if owned_ships:
-                    print(f"Found {len(owned_ships)} owned ships in configuration: {', '.join(owned_ships)}")
-                else:
-                    print("No owned ships found in loaded configuration")
-                
-                return migrate_blueprint_config(config)
-        except (json.JSONDecodeError, IOError) as e:
-            print(f"Error loading blueprint configuration: {e}")
-            return create_default_blueprint_config()
-    else:
-        # Create default configuration
-        print(f"Configuration file not found at {CONFIG_FILE}, creating default config")
-        config = create_default_blueprint_config()
-        save_blueprint_ownership(config)
-        return config
+    try:
+        # Check if file exists
+        if os.path.exists(CONFIG_FILE):
+            debug_print("Loading blueprint ownership from file...")
+            # Read from existing file
+            try:
+                with open(CONFIG_FILE, 'r') as f:
+                    config = json.load(f)
+                    debug_print(f"Loaded configuration from {CONFIG_FILE}")
+                    
+                    # Verify if any ships are set to owned
+                    owned_ships = []
+                    for ship_name, ship_data in config.get('ship_blueprints', {}).items():
+                        if ship_data.get('owned', False):
+                            owned_ships.append(ship_name)
+                    
+                    if owned_ships:
+                        debug_print(f"Found {len(owned_ships)} owned ships in configuration: {', '.join(owned_ships)}")
+                    else:
+                        debug_print("No owned ships found in loaded configuration")
+                    
+                    return migrate_blueprint_config(config)
+            except Exception as e:
+                debug_print(f"Error loading blueprint configuration: {e}")
+                return create_default_blueprint_config()
+        else:
+            debug_print(f"Configuration file not found at {CONFIG_FILE}, creating default config")
+            config = create_default_blueprint_config()
+            save_blueprint_ownership(config)
+            return config
+    except Exception as e:
+        debug_print(f"Error in load_blueprint_ownership: {e}")
+        return create_default_blueprint_config()
 
 def save_blueprint_ownership(config):
     """
@@ -75,7 +82,7 @@ def save_blueprint_ownership(config):
                 with open(CONFIG_FILE, 'r') as existing_file:
                     existing_config = json.load(existing_file)
             except Exception as e:
-                print(f"Could not read existing config file (will create new): {e}")
+                debug_print(f"Could not read existing config file (will create new): {e}")
                 
         # Carefully merge configs to preserve ownership settings
         # For each category in the new config
@@ -95,13 +102,13 @@ def save_blueprint_ownership(config):
                         existing_config[category][item_name][key] = value
         
         # Save the merged configuration
-        print(f"Attempting to save blueprint configuration...")
+        debug_print(f"Attempting to save blueprint configuration...")
         with open(CONFIG_FILE, 'w') as f:
             json.dump(existing_config, f, indent=4)
-        print(f"Blueprint configuration saved successfully to: {CONFIG_FILE}")
+        debug_print(f"Blueprint configuration saved successfully to: {CONFIG_FILE}")
         return True
     except Exception as e:
-        print(f"Error saving blueprint configuration: {e}")
+        debug_print(f"Error saving blueprint configuration: {e}")
         return False
 
 def update_blueprint_ownership(config, category, blueprint_name, ownership_status):
@@ -133,9 +140,9 @@ def update_blueprint_ownership(config, category, blueprint_name, ownership_statu
     # Save the updated config
     success = save_blueprint_ownership(config)
     if success:
-        print("Configuration saved successfully.")
+        debug_print("Configuration saved successfully.")
     else:
-        print("Failed to save configuration.")
+        debug_print("Failed to save configuration.")
     
     return config
 
@@ -168,9 +175,9 @@ def update_blueprint_invention(config, category, blueprint_name, is_invented):
     # Save the updated config
     success = save_blueprint_ownership(config)
     if success:
-        print("Configuration saved successfully.")
+        debug_print("Configuration saved successfully.")
     else:
-        print("Failed to save configuration.")
+        debug_print("Failed to save configuration.")
     
     return config
 
@@ -203,9 +210,9 @@ def update_blueprint_me(config, category, blueprint_name, me_value):
     # Save the updated config
     success = save_blueprint_ownership(config)
     if success:
-        print("Configuration saved successfully.")
+        debug_print("Configuration saved successfully.")
     else:
-        print("Failed to save configuration.")
+        debug_print("Failed to save configuration.")
     
     return config
 
@@ -238,9 +245,9 @@ def update_blueprint_te(config, category, blueprint_name, te_value):
     # Save the updated config
     success = save_blueprint_ownership(config)
     if success:
-        print("Configuration saved successfully.")
+        debug_print("Configuration saved successfully.")
     else:
-        print("Failed to save configuration.")
+        debug_print("Failed to save configuration.")
     
     return config
 
@@ -284,7 +291,7 @@ def get_blueprint_me(config, category, blueprint_name):
             return bp_data['me']
         return 0
     except Exception as e:
-        print(f"Error getting ME% for {blueprint_name}: {e}")
+        debug_print(f"Error getting ME% for {blueprint_name}: {e}")
         return 0
 
 def get_blueprint_te(config, category, blueprint_name):
@@ -311,7 +318,7 @@ def get_blueprint_te(config, category, blueprint_name):
             return bp_data['te']
         return 0
     except Exception as e:
-        print(f"Error getting TE% for {blueprint_name}: {e}")
+        debug_print(f"Error getting TE% for {blueprint_name}: {e}")
         return 0
 
 def apply_blueprint_ownership(config, registry):
@@ -322,17 +329,17 @@ def apply_blueprint_ownership(config, registry):
         config: The blueprint configuration dictionary
         registry: The ModuleRegistry instance
     """
-    print("Applying blueprint ownership settings to registry...")
+    debug_print("Applying blueprint ownership settings to registry...")
     
     if not config:
-        print("No blueprint configuration provided, skipping ownership application")
+        debug_print("No blueprint configuration provided, skipping ownership application")
         return
     
     owned_ship_count = 0
     
     # Apply ship ownership
     if 'ship_blueprints' in config:
-        print(f"Processing {len(config['ship_blueprints'])} ships in configuration")
+        debug_print(f"Processing {len(config['ship_blueprints'])} ships in configuration")
         for ship_name, ship_data in config['ship_blueprints'].items():
             # Find the ship in the registry
             if hasattr(registry, 'ships') and ship_name in registry.ships:
@@ -341,15 +348,15 @@ def apply_blueprint_ownership(config, registry):
                 
                 if owned_value:
                     owned_ship_count += 1
-                    print(f"Setting ship {ship_name} ownership to: True")
+                    debug_print(f"Setting ship {ship_name} ownership to: True")
                 # Only print unowned ships in debug mode to reduce console output
                 else:
-                    print(f"Ship {ship_name} remains unowned")
+                    debug_print(f"Ship {ship_name} remains unowned")
     
     # Apply capital ship ownership
     owned_capital_count = 0
     if 'capital_ship_blueprints' in config:
-        print(f"Processing {len(config['capital_ship_blueprints'])} capital ships in configuration")
+        debug_print(f"Processing {len(config['capital_ship_blueprints'])} capital ships in configuration")
         for ship_name, ship_data in config['capital_ship_blueprints'].items():
             # Find the ship in the registry
             if hasattr(registry, 'capital_ships') and ship_name in registry.capital_ships:
@@ -358,10 +365,10 @@ def apply_blueprint_ownership(config, registry):
                 
                 if owned_value:
                     owned_capital_count += 1
-                    print(f"Setting capital ship {ship_name} ownership to: True")
+                    debug_print(f"Setting capital ship {ship_name} ownership to: True")
                 # Only print unowned ships in debug mode
                 else:
-                    print(f"Capital ship {ship_name} remains unowned")
+                    debug_print(f"Capital ship {ship_name} remains unowned")
     
     # Apply component ownership
     if 'components' in config and hasattr(registry, 'components'):
@@ -375,7 +382,7 @@ def apply_blueprint_ownership(config, registry):
             if comp_name in registry.capital_components:
                 registry.capital_components[comp_name].blueprint_owned = comp_data.get('owned', False)
     
-    print(f"Blueprint ownership application complete: {owned_ship_count} owned ships, {owned_capital_count} owned capital ships")
+    debug_print(f"Blueprint ownership application complete: {owned_ship_count} owned ships, {owned_capital_count} owned capital ships")
 
 def migrate_blueprint_config(config):
     """
@@ -570,8 +577,8 @@ def migrate_blueprint_config(config):
     # Save the migrated configuration to ensure it's cleaned up
     success = save_blueprint_ownership(new_config)
     if success:
-        print("Configuration saved successfully.")
+        debug_print("Configuration saved successfully.")
     else:
-        print("Failed to save configuration.")
+        debug_print("Failed to save configuration.")
     
     return new_config

@@ -4,20 +4,16 @@ This file contains the UI components and logic for blueprint management
 """
 
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import json
 import os
-from collections import defaultdict
+import platform
+import re
 
-# Import blueprint configuration utilities
-from config.blueprint_config import (
-    get_blueprint_ownership, update_blueprint_ownership, get_blueprint_me, get_blueprint_te, 
-    update_blueprint_me, update_blueprint_te, 
-    update_blueprint_invention, save_blueprint_ownership,
-    load_blueprint_ownership
-)
-
-from tkinter import messagebox
+from config.blueprint_config import save_blueprint_ownership, update_blueprint_ownership
+from config.blueprint_config import get_blueprint_ownership, get_blueprint_me, get_blueprint_te
+from config.blueprint_config import update_blueprint_me, update_blueprint_te
+from utils.debug import debug_print
 
 class BlueprintManager:
     """
@@ -47,9 +43,6 @@ class BlueprintManager:
             self.status_var = tk.StringVar()
             self.status_var.set("Ready")
         
-        # Initialize capital component variables
-        self.initialize_capital_component_vars()
-    
     def create_blueprint_management_tab(self, parent_tab):
         """Create the main blueprint management tab"""
         # Create notebook for different blueprint types
@@ -428,7 +421,7 @@ class BlueprintManager:
         # Get category for config lookup based on module type
         config_category = self.get_category_from_module_type(modules_type)
         
-        print(f"DEBUG: Populating grid for {modules_type}, config category: {config_category}")
+        debug_print(f"Populating grid for {modules_type}, config category: {config_category}")
         
         # Iterate through modules and add to grid if they match filter criteria
         for module_name, module in sorted(modules_dict.items(), key=lambda x: x[1].display_name):
@@ -467,15 +460,15 @@ class BlueprintManager:
             # Get ownership status with the correct category
             ownership = get_blueprint_ownership(self.blueprint_config, category_for_module, module_name)
             
-            print(f"DEBUG: Module {module_name} - Config category: {category_for_module} - Status: {ownership}")
+            debug_print(f"Module {module_name} - Config category: {category_for_module} - Status: {ownership}")
             
             # Set the correct radio button based on ownership
             if ownership == "Owned":
                 module.ownership_var.set("owned")
-                print(f"DEBUG: Setting {module_name} radio to 'owned'")
+                debug_print(f"Setting {module_name} radio to 'owned'")
             else:
                 module.ownership_var.set("unowned")
-                print(f"DEBUG: Setting {module_name} radio to 'unowned'")
+                debug_print(f"Setting {module_name} radio to 'unowned'")
             
             # Store the correct category with the module for later use
             module.config_category = category_for_module
@@ -807,7 +800,7 @@ class BlueprintManager:
         blueprint_window.protocol("WM_DELETE_WINDOW", lambda: self.on_close(blueprint_window))
         
         # Force a refresh of all UI elements to ensure they reflect the current config
-        print("DEBUG: Initial refresh of blueprint window UI elements")
+        debug_print("Initial refresh of blueprint window UI elements")
         self.refresh_registry_if_needed(initial_load=True)
         
         # Update the window to force refresh of all elements
@@ -1012,72 +1005,6 @@ class BlueprintManager:
             self.status_var.set(error_msg)
             return False
             
-    def set_atron_as_owned_test(self):
-        """Test function to set Atron as owned"""
-        try:
-            # Find the Atron in the ships registry
-            if hasattr(self.module_registry, 'ships'):
-                # Try to find the Atron by key
-                atron_keys = [key for key in self.module_registry.ships.keys() if 'atron' in key.lower()]
-                
-                if atron_keys:
-                    atron_key = atron_keys[0]
-                    
-                    # Set Atron as owned in the registry
-                    self.module_registry.ships[atron_key].owned_status = True
-                    print(f"Setting Atron ({atron_key}) as owned in registry")
-                    
-                    # Update the blueprint_config
-                    if 'ship_blueprints' not in self.blueprint_config:
-                        self.blueprint_config['ship_blueprints'] = {}
-                        
-                    if atron_key not in self.blueprint_config['ship_blueprints']:
-                        self.blueprint_config['ship_blueprints'][atron_key] = {
-                            'owned': True,
-                            'invented': False,
-                            'me': 0,
-                            'te': 0
-                        }
-                    else:
-                        self.blueprint_config['ship_blueprints'][atron_key]['owned'] = True
-                    
-                    print(f"Updated blueprint config for Atron: {self.blueprint_config['ship_blueprints'][atron_key]}")
-                    
-                    # Save the configuration to file
-                    from config.blueprint_config import save_blueprint_ownership, apply_blueprint_ownership
-                    success = save_blueprint_ownership(self.blueprint_config)
-                    
-                    # Apply the config again to ensure registry is consistent
-                    apply_blueprint_ownership(self.blueprint_config, self.module_registry)
-                    
-                    # Verify the ownership state
-                    if self.module_registry.ships[atron_key].owned_status is True:
-                        print(f"Verified: Atron ({atron_key}) is now set as owned in registry")
-                    else:
-                        print(f"ERROR: Atron ({atron_key}) is still not owned in registry!")
-                    
-                    if success:
-                        self.status_var.set(f"Atron ({atron_key}) set as owned successfully")
-                        print(f"Atron ownership saved to blueprint configuration file")
-                    else:
-                        self.status_var.set("Error: Failed to save Atron ownership")
-                        print("Failed to save Atron ownership to file")
-                        
-                    return success
-                else:
-                    self.status_var.set("Error: Atron not found in ships registry")
-                    print("Atron not found in ships registry")
-                    return False
-            else:
-                self.status_var.set("Error: Ships registry not found")
-                print("Ships registry not found")
-                return False
-        except Exception as e:
-            error_msg = f"Error setting Atron as owned: {str(e)}"
-            self.status_var.set(error_msg)
-            print(error_msg)
-            return False
-
     def update_ownership(self, module_name, category, value):
         """Update the ownership status and save to config"""
         # Convert "owned"/"unowned" string to proper format for config
@@ -1089,28 +1016,11 @@ class BlueprintManager:
         # Refresh the module registry if required
         self.refresh_registry_if_needed()
         
-    def update_capital_ship_ownership(self, module_name, module, value):
-        """Update capital ship blueprint ownership in configuration"""
-        # Convert from UI value (owned/unowned) to config value (Owned/Unowned)
-        config_value = "Owned" if value == "owned" else "Unowned"
-        
-        # Update in config (using capital_ship_blueprints as the category)
-        update_blueprint_ownership(self.blueprint_config, "capital_ship_blueprints", module_name, config_value)
-        
-        # Update module state
-        module.owned_status = (config_value == "Owned")
-        
-        # Update status
-        self.status_var.set(f"Updated {module.display_name} ownership to {config_value}")
-
     def update_module_ownership(self, module_name, module, value, module_type):
         """Update module ownership based on the module type"""
         # Determine what type of module this is and use the appropriate update method
-        if hasattr(module, 'ship_type'): # This is a ship
-            if hasattr(module, 'is_capital_ship') and module.is_capital_ship:
-                self.update_capital_ship_ownership(module_name, module, value)
-            else:
-                self.update_ship_ownership(module_name, module, value)
+        if hasattr(module, 'ship_type'): # This is a ship (regular or capital)
+            self.update_ship_ownership(module_name, module, value)
         elif module_type == "Components":
             self.update_component_ownership(module_name, module, value)
         elif module_type == "Capital Components":
@@ -1127,6 +1037,54 @@ class BlueprintManager:
             # Update status
             self.status_var.set(f"Updated {module.display_name} ownership to {config_value}")
         
+    def update_ship_ownership(self, module_name, module, value):
+        """Update ship blueprint ownership in configuration"""
+        # For ships tab, determine if this is a regular ship or a capital ship
+        if hasattr(module, 'is_capital_ship') and module.is_capital_ship:
+            category = "capital_ship_blueprints"
+        else:
+            category = "ship_blueprints"
+            
+        # Convert from UI value (owned/unowned) to config value (Owned/Unowned)
+        config_value = "Owned" if value == "owned" else "Unowned"
+        
+        # Update in config
+        update_blueprint_ownership(self.blueprint_config, category, module_name, config_value)
+        
+        # Update module state
+        module.owned_status = (config_value == "Owned")
+        
+        # Update status
+        self.status_var.set(f"Updated {module.display_name} ownership to {config_value}")
+
+    def update_component_ownership(self, module_name, module, value):
+        """Update component blueprint ownership in configuration"""
+        # Convert from UI value (owned/unowned) to config value (Owned/Unowned)
+        config_value = "Owned" if value == "owned" else "Unowned"
+        
+        # Update in config
+        update_blueprint_ownership(self.blueprint_config, 'components', module_name, config_value)
+        
+        # Update module state
+        module.owned_status = (config_value == "Owned")
+        
+        # Update status
+        self.status_var.set(f"Updated {module.display_name} ownership to {config_value}")
+
+    def update_cap_component_ownership(self, module_name, module, value):
+        """Update capital component blueprint ownership in configuration"""
+        # Convert from UI value (owned/unowned) to config value (Owned/Unowned)
+        config_value = "Owned" if value == "owned" else "Unowned"
+        
+        # Update in config
+        update_blueprint_ownership(self.blueprint_config, 'component_blueprints', module_name, config_value)
+        
+        # Update module state
+        module.owned_status = (config_value == "Owned")
+        
+        # Update status
+        self.status_var.set(f"Updated {module.display_name} ownership to {config_value}")
+
     def validate_me(self, event, category, module_name):
         """Validate and update ME% value"""
         entry_widget = event.widget
@@ -1188,7 +1146,7 @@ class BlueprintManager:
     def refresh_registry_if_needed(self, initial_load=False):
         """Refresh the module registry if it's available"""
         if hasattr(self, 'module_registry') and self.module_registry:
-            print("DEBUG: Refreshing module registry and UI elements")
+            debug_print("Refreshing module registry and UI elements")
             
             # Apply blueprint config to the registry objects only on initial load
             if initial_load:
@@ -1196,13 +1154,13 @@ class BlueprintManager:
                     for ship_name, ship in self.module_registry.ships.items():
                         if 'ship_blueprints' in self.blueprint_config and ship_name in self.blueprint_config['ship_blueprints']:
                             ship.owned_status = self.blueprint_config['ship_blueprints'][ship_name].get('owned', False)
-                            print(f"DEBUG: Updated registry ship {ship_name} to owned_status={ship.owned_status}")
+                            debug_print(f"Updated registry ship {ship_name} to owned_status={ship.owned_status}")
                 
                 if hasattr(self.module_registry, 'capital_ships'):
                     for ship_name, ship in self.module_registry.capital_ships.items():
                         if 'capital_ship_blueprints' in self.blueprint_config and ship_name in self.blueprint_config['capital_ship_blueprints']:
                             ship.owned_status = self.blueprint_config['capital_ship_blueprints'][ship_name].get('owned', False)
-                            print(f"DEBUG: Updated registry capital ship {ship_name} to owned_status={ship.owned_status}")
+                            debug_print(f"Updated registry capital ship {ship_name} to owned_status={ship.owned_status}")
             
             # Also update objects in discovered_modules to match config on initial load
             # This ensures the UI elements (like radio buttons) show the correct state
@@ -1223,14 +1181,8 @@ class BlueprintManager:
                         if initial_load and hasattr(module, 'ownership_var'):
                             ownership_value = "owned" if is_owned else "unowned"
                             if module.ownership_var.get() != ownership_value:
-                                print(f"DEBUG: Updating UI element for {module_name}, setting ownership_var from {module.ownership_var.get()} to {ownership_value}")
+                                debug_print(f"Updating UI element for {module_name}, setting ownership_var from {module.ownership_var.get()} to {ownership_value}")
                                 module.ownership_var.set(ownership_value)
-
-    def initialize_capital_component_vars(self):
-        """Initialize variables for capital components."""
-        # Placeholder implementation
-        print("DEBUG: Initializing capital component variables")
-        # Initialize any necessary variables here
 
     def get_combined_ships_dict(self):
         """Get a combined dictionary of ships and capital ships"""
