@@ -448,14 +448,6 @@ class BlueprintManager:
             if grid_info and int(grid_info['row']) > 1:  # Skip headers and separator
                 widget.destroy()
         
-        # Debug information
-        print(f"Populating grid for {modules_type} with {len(modules_dict)} modules")
-        print(f"Filters: ship_type={ship_type_filter}, faction={faction_filter}")
-        if len(modules_dict) > 0:
-            print(f"First few module keys: {list(modules_dict.keys())[:3]}")
-            first_module = list(modules_dict.values())[0]
-            print(f"Example module attrs: {vars(first_module)}")
-
         # For clarity on UI - show message if empty
         if len(modules_dict) == 0:
             empty_label = ttk.Label(grid_frame, text=f"No {modules_type} found. Module dictionary is empty.")
@@ -723,13 +715,6 @@ class BlueprintManager:
         # Configure the window size (800x600)
         blueprint_window.geometry("800x600")
         
-        # Print module information for debugging
-        print("Discovered modules keys:", self.discovered_modules.keys())
-        for key, value in self.discovered_modules.items():
-            print(f"Module '{key}' has {len(value)} items")
-            if len(value) > 0:
-                print(f"First few items: {list(value.keys())[:3]}")
-        
         # Create notebook for tabs
         notebook = ttk.Notebook(blueprint_window)
         notebook.pack(fill="both", expand=True, padx=10, pady=10)
@@ -831,15 +816,12 @@ class BlueprintManager:
                 # Apply updated ownership to the module registry
                 apply_blueprint_ownership(self.blueprint_config, self.module_registry)
                 
-                print(f"Blueprint settings saved and applied successfully")
             else:
                 self.status_var.set("Error: Failed to save blueprint settings")
-                print(f"Failed to save blueprint settings")
                 
         except Exception as e:
             error_msg = f"Error saving blueprint configuration: {str(e)}"
             self.status_var.set(error_msg)
-            print(error_msg)
     
     def show_blueprint_grid(self):
         """Show blueprint management in a popup window"""
@@ -851,7 +833,6 @@ class BlueprintManager:
         
     def update_all_ownership_values(self):
         """Update all ownership values in the blueprint config"""
-        print("Updating all ownership values in blueprint config...")
         # Update ownership status for all modules
         for category_name, modules in self.discovered_modules.items():
             category = self.get_category_from_module_type(category_name)
@@ -859,8 +840,6 @@ class BlueprintManager:
             # Skip empty categories
             if not category or not modules:
                 continue
-            
-            print(f"Processing category: {category_name} (maps to config section: {category})")
             
             for module_name, module in modules.items():
                 # Special handling for capital components
@@ -886,7 +865,7 @@ class BlueprintManager:
                                 # Update existing entry
                                 self.blueprint_config['component_blueprints'][module_name]['owned'] = is_owned
                         except Exception as e:
-                            print(f"Error updating capital component {module_name}: {e}")
+                            pass
                 
                 # Ships, Capital Ships, and Components
                 elif hasattr(module, 'ownership_var'):
@@ -916,7 +895,6 @@ class BlueprintManager:
                                 'me': me_value,
                                 'te': te_value
                             }
-                            print(f"Created new config entry for {category}/{module_name}: owned={is_owned}")
                         else:
                             # Update existing entry
                             current_value = self.blueprint_config[category][module_name].get('owned', False)
@@ -925,12 +903,84 @@ class BlueprintManager:
                             self.blueprint_config[category][module_name]['me'] = me_value
                             self.blueprint_config[category][module_name]['te'] = te_value
                             if current_value != is_owned:
-                                print(f"Updated ownership for {category}/{module_name}: {current_value} -> {is_owned}")
+                                pass
                     except Exception as e:
-                        print(f"Error updating {category}/{module_name}: {e}")
+                        pass
         
-        print("Ownership values updated in blueprint config")
-    
+        # Save ME% values for all modules including capital components
+        for category_name, modules in self.discovered_modules.items():
+            category = self.get_category_from_module_type(category_name)
+            for module_name, module in modules.items():
+                if hasattr(module, 'me_var'):
+                    try:
+                        me_value = int(module.me_var.get())
+                        # Ensure ME is not negative
+                        if me_value < 0:
+                            me_value = 0
+                            module.me_var.set("0")
+                        
+                        # Special handling for capital components
+                        if category_name == 'capital_components':
+                            if 'component_blueprints' not in self.blueprint_config:
+                                self.blueprint_config['component_blueprints'] = {}
+                            if module_name not in self.blueprint_config['component_blueprints']:
+                                self.blueprint_config['component_blueprints'][module_name] = {
+                                    'owned': False,
+                                    'invented': False,
+                                    'me': me_value,
+                                    'te': 0
+                                }
+                            else:
+                                self.blueprint_config['component_blueprints'][module_name]['me'] = me_value
+                        else:
+                            # Update the ME in config
+                            update_blueprint_me(self.blueprint_config, category, module_name, me_value)
+                    except ValueError:
+                        # Invalid ME value, set to 0
+                        module.me_var.set("0")
+                        if category_name == 'capital_components':
+                            if 'component_blueprints' in self.blueprint_config and module_name in self.blueprint_config['component_blueprints']:
+                                self.blueprint_config['component_blueprints'][module_name]['me'] = 0
+                        else:
+                            update_blueprint_me(self.blueprint_config, category, module_name, 0)
+            
+        # Save TE% values for all modules including capital components
+        for category_name, modules in self.discovered_modules.items():
+            category = self.get_category_from_module_type(category_name)
+            for module_name, module in modules.items():
+                if hasattr(module, 'te_var'):
+                    try:
+                        te_value = int(module.te_var.get())
+                        # Ensure TE is not negative
+                        if te_value < 0:
+                            te_value = 0
+                            module.te_var.set("0")
+                        
+                        # Special handling for capital components
+                        if category_name == 'capital_components':
+                            if 'component_blueprints' not in self.blueprint_config:
+                                self.blueprint_config['component_blueprints'] = {}
+                            if module_name not in self.blueprint_config['component_blueprints']:
+                                self.blueprint_config['component_blueprints'][module_name] = {
+                                    'owned': False,
+                                    'invented': False,
+                                    'me': 0,
+                                    'te': te_value
+                                }
+                            else:
+                                self.blueprint_config['component_blueprints'][module_name]['te'] = te_value
+                        else:
+                            # Update the TE in config
+                            update_blueprint_te(self.blueprint_config, category, module_name, te_value)
+                    except ValueError:
+                        # Invalid TE value, set to 0
+                        module.te_var.set("0")
+                        if category_name == 'capital_components':
+                            if 'component_blueprints' in self.blueprint_config and module_name in self.blueprint_config['component_blueprints']:
+                                self.blueprint_config['component_blueprints'][module_name]['te'] = 0
+                        else:
+                            update_blueprint_te(self.blueprint_config, category, module_name, 0)
+        
     def update_invented_status(self, module):
         """Update the 'Invented' status for a module (separate from owned status)"""
         # Get the invented checkbox status - handle both boolean and BooleanVar
@@ -1123,8 +1173,6 @@ class BlueprintManager:
     def save_blueprint_config(self):
         """Save the blueprint configuration"""
         try:
-            from config.blueprint_config import update_blueprint_ownership, update_blueprint_me, update_blueprint_te, save_blueprint_ownership, update_blueprint_invention
-            
             # Save ownership status for all modules
             for category_name, modules in self.discovered_modules.items():
                 category = self.get_category_from_module_type(category_name)
@@ -1164,7 +1212,8 @@ class BlueprintManager:
                                 from config.blueprint_config import save_blueprint_ownership
                                 save_blueprint_ownership(self.blueprint_config)
                             except Exception as e:
-                                print(f"Error saving capital component {module_name}: {e}")
+                                pass
+                    
                     # Regular modules (ships, components, etc.)
                     elif hasattr(module, 'ownership_var'):
                         try:
@@ -1314,16 +1363,14 @@ class BlueprintManager:
             
             if success:
                 self.status_var.set("All ship ownership has been reset")
-                print("Ship ownership reset successful")
+                return True
             else:
                 self.status_var.set("Error: Failed to save reset changes")
-                print("Failed to save reset changes")
+                return False
                 
-            return success
         except Exception as e:
             error_msg = f"Error resetting ship ownership: {str(e)}"
             self.status_var.set(error_msg)
-            print(error_msg)
             return False
             
     def set_atron_as_owned_test(self):
@@ -1394,8 +1441,6 @@ class BlueprintManager:
 
     def update_ownership(self, module_name, category, value):
         """Update the ownership status and save to config"""
-        print(f"Updating ownership: {module_name} in {category} to {value}")
-        
         # Convert "owned"/"unowned" string to proper format for config
         ownership_value = "Owned" if value == "owned" else "Unowned"
         

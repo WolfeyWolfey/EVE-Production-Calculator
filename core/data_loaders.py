@@ -90,8 +90,6 @@ def load_ships(registry: ModuleRegistry, base_path: str):
                                         registry.register_ship(ship)
                                         ship_count += 1
         
-        print(f"Loaded {ship_count} ships and {capital_ship_count} capital ships")
-        
         # Also try loading capital ships from separate file if it exists
         cap_ships_path = os.path.join(base_path, 'data', 'capital_ships.json')
         if os.path.exists(cap_ships_path):
@@ -117,8 +115,6 @@ def load_ships(registry: ModuleRegistry, base_path: str):
                         # Register the capital ship
                         registry.register_capital_ship(capital_ship)
                         capital_ship_count += 1
-                
-                print(f"Loaded additional {len(capital_ship_data)} capital ships from capital_ships.json")
             except Exception as e:
                 print(f"Error loading capital ships from separate file: {e}")
     except Exception as e:
@@ -221,9 +217,6 @@ def load_capital_components(registry: ModuleRegistry, base_path: str):
                 )
                 registry.register_capital_component(component)
                 
-            print(f"Loaded {len(capital_components)} capital components from JSON")
-        else:
-            print(f"Capital components file not found at: {components_path}")
     except Exception as e:
         print(f"Error loading capital components: {e}")
 
@@ -274,8 +267,6 @@ def load_components(registry: ModuleRegistry, base_path: str):
                 except Exception as e:
                     print(f"Error loading component module {module_path}: {e}")
         
-        print(f"Loaded {components_loaded} components from Python modules")
-
 def load_pi_data(registry: ModuleRegistry, base_path: str):
     """
     Load PI data from JSON file
@@ -447,12 +438,6 @@ def load_pi_data(registry: ModuleRegistry, base_path: str):
                 
                 # Register in registry
                 registry.register_pi_material(pi_material)
-        
-        print(f"Loaded PI materials: P0={len([m for m in registry.pi_materials.values() if m.pi_level == 'P0'])}, " + 
-              f"P1={len([m for m in registry.pi_materials.values() if m.pi_level == 'P1'])}, " +
-              f"P2={len([m for m in registry.pi_materials.values() if m.pi_level == 'P2'])}, " +
-              f"P3={len([m for m in registry.pi_materials.values() if m.pi_level == 'P3'])}, " +
-              f"P4={len([m for m in registry.pi_materials.values() if m.pi_level == 'P4'])}")
         
     except Exception as e:
         print(f"Error loading PI data: {e}")

@@ -389,13 +389,6 @@ class EveProductionCalculator(tk.Tk):
         faction = self.selected_faction.get()
         ship_type = self.selected_ship_type.get()
         
-        # Debug ownership status
-        owned_ships = [ship.name for ship in self.registry.get_all_ships() if ship.owned_status]
-        if owned_ships:
-            print(f"Before filtering - Found {len(owned_ships)} owned ships: {', '.join(owned_ships)}")
-        else:
-            print("No owned ships found in registry")
-        
         # Filter ships (passing True for owned_only to show only owned ships)
         filtered_ships = self.registry.get_ships_by_filter(
             faction if faction != "All" else None,
@@ -425,18 +418,11 @@ class EveProductionCalculator(tk.Tk):
             # Show a message if no ships are found with the current filter
             self.output_text.insert(tk.END, "No ships found with the current filter.\n\n"
                                           "Try selecting different filters or use the Blueprint Ownership Editor.")
-
+    
     def update_capital_ship_dropdown(self, event=None):
         """Update the capital ship dropdown based on selected type"""
         # Get the selected ship type
         ship_type = self.capital_ship_type_dropdown.get()
-        
-        # Debug ownership status
-        owned_ships = [ship.name for ship in self.registry.get_all_capital_ships() if ship.owned_status]
-        if owned_ships:
-            print(f"Before filtering - Found {len(owned_ships)} owned capital ships: {', '.join(owned_ships)}")
-        else:
-            print("No owned capital ships found in registry")
         
         # Filter capital ships (passing True for owned_only to show only owned ships)
         filtered_ships = self.registry.get_capital_ships_by_filter(
@@ -1047,14 +1033,12 @@ class EveProductionCalculator(tk.Tk):
                 # Force a refresh of the ship dropdowns to show the changes
                 self.update_ship_dropdown()
                 messagebox.showinfo("Test Successful", "Atron has been set as owned. Check blueprint_ownership.json to verify the changes were saved.")
-                print("Atron ownership test completed. Check if it appears in the ships dropdown.")
             else:
                 messagebox.showerror("Test Failed", "Failed to set Atron as owned. Check console for details.")
                 
         except Exception as e:
             error_msg = f"Error in test_set_atron_owned: {str(e)}"
             messagebox.showerror("Error", error_msg)
-            print(error_msg)
     
     def update_pi_material_dropdown(self, event=None):
         """Update the PI material dropdown based on selected PI level"""

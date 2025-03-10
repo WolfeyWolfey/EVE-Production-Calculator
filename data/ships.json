@@ -785,117 +785,546 @@
           "details": "Megathron Navy Issue\nType: Gallente Navy Battleship\nBase Build Time: ~5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8,000,000\n- Pyerite: 4,000,000\n- Mexallon: 600,000\n- Isogen: 400,000\n- Nocxium: 30,000\n- Zydrine: 8,000\n- Megacyte: 4,000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
         }
       }
-    }
-  },
-  "ore": {
-    "mining_barges": {
-      "retriever": {
-        "display_name": "Retriever",
-        "ship_type": "Mining Barge",
-        "faction": "ORE",
-        "owned_status": "Unowned",
-        "requirements": {
-          "Tritanium": 1200000,
-          "Pyerite": 450000,
-          "Mexallon": 135000,
-          "Isogen": 40000,
-          "Nocxium": 9000,
-          "Zydrine": 2500,
-          "Megacyte": 450
+    },
+    "industrial": {
+      "tech1": {
+        "epithal": {
+          "display_name": "Epithal",
+          "ship_type": "Industrial",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 40000,
+            "Pyerite": 9500,
+            "Mexallon": 2500,
+            "Isogen": 650,
+            "Nocxium": 150,
+            "Zydrine": 25
+          },
+          "details": "Epithal\nType: Gallente Tech I Industrial\nBase Build Time: ~25m\nRequired Skill: Industrial Construction I\n\nMaterials:\n- Tritanium: 40000\n- Pyerite: 9500\n- Mexallon: 2500\n- Isogen: 650\n- Nocxium: 150\n- Zydrine: 25"
         },
-        "details": "Retriever\nType: ORE Mining Barge\nBase Build Time: ~12h 00m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 1200000\n- Pyerite: 450000\n- Mexallon: 135000\n- Isogen: 40000\n- Nocxium: 9000\n- Zydrine: 2500\n- Megacyte: 450"
+        "iteron": {
+          "display_name": "Iteron",
+          "ship_type": "Industrial",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 35000,
+            "Pyerite": 8000,
+            "Mexallon": 2200,
+            "Isogen": 550,
+            "Nocxium": 130,
+            "Zydrine": 18
+          },
+          "details": "Iteron\nType: Gallente Tech I Industrial\nBase Build Time: ~25m\nRequired Skill: Industrial Construction I\n\nMaterials:\n- Tritanium: 35000\n- Pyerite: 8000\n- Mexallon: 2200\n- Isogen: 550\n- Nocxium: 130\n- Zydrine: 18"
+        },
+        "nereus": {
+          "display_name": "Nereus",
+          "ship_type": "Industrial",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 37000,
+            "Pyerite": 8500,
+            "Mexallon": 2300,
+            "Isogen": 600,
+            "Nocxium": 135,
+            "Zydrine": 20
+          },
+          "details": "Nereus\nType: Gallente Tech I Industrial\nBase Build Time: ~25m\nRequired Skill: Industrial Construction I\n\nMaterials:\n- Tritanium: 37000\n- Pyerite: 8500\n- Mexallon: 2300\n- Isogen: 600\n- Nocxium: 135\n- Zydrine: 20"
+        },
+        "kryos": {
+          "display_name": "Kryos",
+          "ship_type": "Industrial",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 38000,
+            "Pyerite": 9000,
+            "Mexallon": 2400,
+            "Isogen": 600,
+            "Nocxium": 140,
+            "Zydrine": 22
+          },
+          "details": "Kryos\nType: Gallente Tech I Industrial\nBase Build Time: ~25m\nRequired Skill: Industrial Construction I\n\nMaterials:\n- Tritanium: 38000\n- Pyerite: 9000\n- Mexallon: 2400\n- Isogen: 600\n- Nocxium: 140\n- Zydrine: 22"
+        },
+        "miasmos": {
+          "display_name": "Miasmos",
+          "ship_type": "Industrial",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 38500,
+            "Pyerite": 9200,
+            "Mexallon": 2450,
+            "Isogen": 610,
+            "Nocxium": 145,
+            "Zydrine": 22
+          },
+          "details": "Miasmos\nType: Gallente Tech I Industrial\nBase Build Time: ~25m\nRequired Skill: Industrial Construction I\n\nMaterials:\n- Tritanium: 38500\n- Pyerite: 9200\n- Mexallon: 2450\n- Isogen: 610\n- Nocxium: 145\n- Zydrine: 22"
+        }
+      },
+      "tech2": {
+        "occator": {
+          "display_name": "Occator",
+          "ship_type": "Deep Space Transport",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 65000,
+            "Pyerite": 18000,
+            "Mexallon": 5000,
+            "Isogen": 1200,
+            "Nocxium": 320,
+            "Zydrine": 80,
+            "Megacyte": 15,
+            "Construction Blocks": 120,
+            "Mechanical Parts": 80,
+            "Fernite Carbide Composite Armor Plate": 150,
+            "Deflection Shield Emitter": 80,
+            "Ladar Sensor Cluster": 30,
+            "Nuclear Reactor Unit": 25,
+            "Plasma Thruster": 60,
+            "Iteron": 1
+          },
+          "details": "Occator\nType: Gallente Tech II Deep Space Transport\nBase Build Time: ~90m\nRequired Skill: Industrial Construction IV\n\nMaterials:\n- Tritanium: 65000\n- Pyerite: 18000\n- Mexallon: 5000\n- Isogen: 1200\n- Nocxium: 320\n- Zydrine: 80\n- Megacyte: 15\n- Construction Blocks: 120\n- Mechanical Parts: 80\n- Fernite Carbide Composite Armor Plate: 150\n- Deflection Shield Emitter: 80\n- Ladar Sensor Cluster: 30\n- Nuclear Reactor Unit: 25\n- Plasma Thruster: 60\n- Iteron: 1"
+        },
+        "viator": {
+          "display_name": "Viator",
+          "ship_type": "Blockade Runner",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 55000,
+            "Pyerite": 15000,
+            "Mexallon": 4200,
+            "Isogen": 1000,
+            "Nocxium": 280,
+            "Zydrine": 70,
+            "Megacyte": 12,
+            "R.A.M.- Starship Tech": 10,
+            "Fernite Carbide Composite Armor Plate": 120,
+            "Deflection Shield Emitter": 60,
+            "Ladar Sensor Cluster": 50,
+            "Nuclear Reactor Unit": 15,
+            "Plasma Thruster": 100,
+            "Gravimetric Sensor Cluster": 30,
+            "Crystalline Carbonide Armor Plate": 25,
+            "Oscillator Capacitor Unit": 10,
+            "Iteron": 1
+          },
+          "details": "Viator\nType: Gallente Tech II Blockade Runner\nBase Build Time: ~90m\nRequired Skill: Industrial Construction IV\n\nMaterials:\n- Tritanium: 55000\n- Pyerite: 15000\n- Mexallon: 4200\n- Isogen: 1000\n- Nocxium: 280\n- Zydrine: 70\n- Megacyte: 12\n- R.A.M.- Starship Tech: 10\n- Fernite Carbide Composite Armor Plate: 120\n- Deflection Shield Emitter: 60\n- Ladar Sensor Cluster: 50\n- Nuclear Reactor Unit: 15\n- Plasma Thruster: 100\n- Gravimetric Sensor Cluster: 30\n- Crystalline Carbonide Armor Plate: 25\n- Oscillator Capacitor Unit: 10\n- Iteron: 1"
+        }
       }
-    }
-  },
-  "capital_ships": {
-    "freighters": {
-      "bowhead": {
-        "display_name": "Bowhead Freighter",
-        "ship_type": "Freighter",
-        "faction": "ORE",
-        "owned_status": "Unowned",
-        "requirements": {
-          "Capital Propulsion Engine": 10,
-          "Capital Armor Plates": 5,
-          "Capital Shield Emitter": 5,
-          "Capital Cargo Bay": 8, 
-          "Capital Construction Parts": 5,
-          "Capital Ship Maintenance Bay": 7
+    },
+    "specialized": {
+      "tech2": {
+        "eris": {
+          "display_name": "Eris",
+          "ship_type": "Interdictor",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 42000,
+            "Pyerite": 12500,
+            "Mexallon": 3600,
+            "Isogen": 950,
+            "Nocxium": 240,
+            "Zydrine": 65,
+            "Megacyte": 12,
+            "Fernite Carbide Composite Armor Plate": 180,
+            "Deflection Shield Emitter": 90,
+            "Ladar Sensor Cluster": 45,
+            "Nuclear Reactor Unit": 30,
+            "Plasma Thruster": 150,
+            "Graviton Pulse Generator": 60,
+            "Oscillator Capacitor Unit": 30,
+            "Catalyst": 1
+          },
+          "details": "Eris\nType: Gallente Tech II Interdictor\nBase Build Time: ~75m\nRequired Skill: Destroyer Construction V\n\nMaterials:\n- Tritanium: 42000\n- Pyerite: 12500\n- Mexallon: 3600\n- Isogen: 950\n- Nocxium: 240\n- Zydrine: 65\n- Megacyte: 12\n- Fernite Carbide Composite Armor Plate: 180\n- Deflection Shield Emitter: 90\n- Ladar Sensor Cluster: 45\n- Nuclear Reactor Unit: 30\n- Plasma Thruster: 150\n- Graviton Pulse Generator: 60\n- Oscillator Capacitor Unit: 30\n- Catalyst: 1"
         },
-        "specifications": {
-          "cargohold_capacity": 300000,
-          "ship_maintenance_bay": 1350000,
-          "hull_hp": 54000,
-          "armor_hp": 54000,
-          "shield_hp": 67500,
-          "sig_radius": 500,
-          "max_velocity": 139,
-          "mass": 890000000,
-          "volume": 950000,
-          "ship_class": "Freighter (Industrial)",
-          "manufacturer": "ORE"
+        "phobos": {
+          "display_name": "Phobos",
+          "ship_type": "Heavy Interdictor",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 80000,
+            "Pyerite": 22000,
+            "Mexallon": 6500,
+            "Isogen": 1800,
+            "Nocxium": 450,
+            "Zydrine": 120,
+            "Megacyte": 25,
+            "Construction Blocks": 180,
+            "Mechanical Parts": 120,
+            "Deflection Shield Emitter": 220,
+            "Ladar Sensor Cluster": 75,
+            "Nuclear Reactor Unit": 45,
+            "Plasma Thruster": 180,
+            "Fernite Carbide Composite Armor Plate": 450,
+            "Graviton Pulse Generator": 150,
+            "Nanomechanical Microprocessor": 60,
+            "Thorax": 1
+          },
+          "details": "Phobos\nType: Gallente Tech II Heavy Interdictor\nBase Build Time: ~120m\nRequired Skill: Cruiser Construction V\n\nMaterials:\n- Tritanium: 80000\n- Pyerite: 22000\n- Mexallon: 6500\n- Isogen: 1800\n- Nocxium: 450\n- Zydrine: 120\n- Megacyte: 25\n- Construction Blocks: 180\n- Mechanical Parts: 120\n- Deflection Shield Emitter: 220\n- Ladar Sensor Cluster: 75\n- Nuclear Reactor Unit: 45\n- Plasma Thruster: 180\n- Fernite Carbide Composite Armor Plate: 450\n- Graviton Pulse Generator: 150\n- Nanomechanical Microprocessor: 60\n- Thorax: 1"
         },
-        "details": "Bowhead Freighter\nType: ORE Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 10\n- Capital Armor Plates: 5\n- Capital Shield Emitter: 5\n- Capital Cargo Bay: 8\n- Capital Construction Parts: 5\n- Capital Ship Maintenance Bay: 7"
+        "ares": {
+          "display_name": "Ares",
+          "ship_type": "Interceptor",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 26000,
+            "Pyerite": 7500,
+            "Mexallon": 2200,
+            "Isogen": 580,
+            "Nocxium": 150,
+            "Zydrine": 38,
+            "Megacyte": 7,
+            "Construction Blocks": 40,
+            "Microprocessor": 30,
+            "Deflection Shield Emitter": 30,
+            "Ladar Sensor Cluster": 45,
+            "Nuclear Reactor Unit": 15,
+            "Plasma Thruster": 120,
+            "Fernite Carbide Composite Armor Plate": 90,
+            "Ion Thruster": 60,
+            "Oscillator Capacitor Unit": 15,
+            "Atron": 1
+          },
+          "details": "Ares\nType: Gallente Tech II Interceptor\nBase Build Time: ~45m\nRequired Skill: Frigate Construction V\n\nMaterials:\n- Tritanium: 26000\n- Pyerite: 7500\n- Mexallon: 2200\n- Isogen: 580\n- Nocxium: 150\n- Zydrine: 38\n- Megacyte: 7\n- Construction Blocks: 40\n- Microprocessor: 30\n- Deflection Shield Emitter: 30\n- Ladar Sensor Cluster: 45\n- Nuclear Reactor Unit: 15\n- Plasma Thruster: 120\n- Fernite Carbide Composite Armor Plate: 90\n- Ion Thruster: 60\n- Oscillator Capacitor Unit: 15\n- Atron: 1"
+        },
+        "astarte": {
+          "display_name": "Astarte",
+          "ship_type": "Command Ship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 120000,
+            "Pyerite": 30000,
+            "Mexallon": 8500,
+            "Isogen": 2400,
+            "Nocxium": 600,
+            "Zydrine": 180,
+            "Megacyte": 40,
+            "Construction Blocks": 250,
+            "Mechanical Parts": 180,
+            "Deflection Shield Emitter": 280,
+            "Ladar Sensor Cluster": 100,
+            "Nuclear Reactor Unit": 70,
+            "Plasma Thruster": 220,
+            "Fernite Carbide Composite Armor Plate": 580,
+            "Graviton Pulse Generator": 200,
+            "Crystalline Carbonide Armor Plate": 150,
+            "Nanomechanical Microprocessor": 85,
+            "Brutix": 1
+          },
+          "details": "Astarte\nType: Gallente Tech II Command Ship\nBase Build Time: ~180m\nRequired Skill: Battlecruiser Construction V\n\nMaterials:\n- Tritanium: 120000\n- Pyerite: 30000\n- Mexallon: 8500\n- Isogen: 2400\n- Nocxium: 600\n- Zydrine: 180\n- Megacyte: 40\n- Construction Blocks: 250\n- Mechanical Parts: 180\n- Deflection Shield Emitter: 280\n- Ladar Sensor Cluster: 100\n- Nuclear Reactor Unit: 70\n- Plasma Thruster: 220\n- Fernite Carbide Composite Armor Plate: 580\n- Graviton Pulse Generator: 200\n- Crystalline Carbonide Armor Plate: 150\n- Nanomechanical Microprocessor: 85\n- Brutix: 1"
+        },
+        "eos": {
+          "display_name": "Eos",
+          "ship_type": "Command Ship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 125000,
+            "Pyerite": 32000,
+            "Mexallon": 8800,
+            "Isogen": 2500,
+            "Nocxium": 620,
+            "Zydrine": 190,
+            "Megacyte": 42,
+            "Construction Blocks": 270,
+            "Mechanical Parts": 190,
+            "Deflection Shield Emitter": 300,
+            "Ladar Sensor Cluster": 110,
+            "Nuclear Reactor Unit": 75,
+            "Plasma Thruster": 240,
+            "Fernite Carbide Composite Armor Plate": 600,
+            "Graviton Pulse Generator": 210,
+            "Nanomechanical Microprocessor": 90,
+            "Myrmidon": 1
+          },
+          "details": "Eos\nType: Gallente Tech II Command Ship\nBase Build Time: ~180m\nRequired Skill: Battlecruiser Construction V\n\nMaterials:\n- Tritanium: 125000\n- Pyerite: 32000\n- Mexallon: 8800\n- Isogen: 2500\n- Nocxium: 620\n- Zydrine: 190\n- Megacyte: 42\n- Construction Blocks: 270\n- Mechanical Parts: 190\n- Deflection Shield Emitter: 300\n- Ladar Sensor Cluster: 110\n- Nuclear Reactor Unit: 75\n- Plasma Thruster: 240\n- Fernite Carbide Composite Armor Plate: 600\n- Graviton Pulse Generator: 210\n- Nanomechanical Microprocessor: 90\n- Myrmidon: 1"
+        }
+      }
+    },
+    "ore": {
+      "mining_barges": {
+        "retriever": {
+          "display_name": "Retriever",
+          "ship_type": "Mining Barge",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 1200000,
+            "Pyerite": 450000,
+            "Mexallon": 135000,
+            "Isogen": 40000,
+            "Nocxium": 9000,
+            "Zydrine": 2500,
+            "Megacyte": 450
+          },
+          "details": "Retriever\nType: ORE Mining Barge\nBase Build Time: ~12h 00m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 1200000\n- Pyerite: 450000\n- Mexallon: 135000\n- Isogen: 40000\n- Nocxium: 9000\n- Zydrine: 2500\n- Megacyte: 450"
+        }
+      }
+    },
+    "capital_ships": {
+      "freighters": {
+        "bowhead": {
+          "display_name": "Bowhead Freighter",
+          "ship_type": "Freighter",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Propulsion Engine": 10,
+            "Capital Armor Plates": 5,
+            "Capital Shield Emitter": 5,
+            "Capital Cargo Bay": 8, 
+            "Capital Construction Parts": 5,
+            "Capital Ship Maintenance Bay": 7
+          },
+          "specifications": {
+            "cargohold_capacity": 300000,
+            "ship_maintenance_bay": 1350000,
+            "hull_hp": 54000,
+            "armor_hp": 54000,
+            "shield_hp": 67500,
+            "sig_radius": 500,
+            "max_velocity": 139,
+            "mass": 890000000,
+            "volume": 950000,
+            "ship_class": "Freighter (Industrial)",
+            "manufacturer": "ORE"
+          },
+          "details": "Bowhead Freighter\nType: ORE Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 10\n- Capital Armor Plates: 5\n- Capital Shield Emitter: 5\n- Capital Cargo Bay: 8\n- Capital Construction Parts: 5\n- Capital Ship Maintenance Bay: 7"
+        },
+        "charon": {
+          "display_name": "Charon Freighter",
+          "ship_type": "Freighter",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Propulsion Engine": 8,
+            "Capital Armor Plates": 4,
+            "Capital Shield Emitter": 8, 
+            "Capital Cargo Bay": 10,
+            "Capital Construction Parts": 5,
+            "Capital Sensor Cluster": 5
+          },
+          "details": "Charon Freighter\nType: Caldari Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 8\n- Capital Armor Plates: 4\n- Capital Shield Emitter: 8\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+        },
+        "fenrir": {
+          "display_name": "Fenrir Freighter",
+          "ship_type": "Freighter", 
+          "faction": "Minmatar",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Propulsion Engine": 10,
+            "Capital Armor Plates": 6,
+            "Capital Shield Emitter": 4,
+            "Capital Cargo Bay": 10,
+            "Capital Construction Parts": 5,
+            "Capital Sensor Cluster": 5
+          },
+          "details": "Fenrir Freighter\nType: Minmatar Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 10\n- Capital Armor Plates: 6\n- Capital Shield Emitter: 4\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+        },
+        "obelisk": {
+          "display_name": "Obelisk Freighter",
+          "ship_type": "Freighter",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Propulsion Engine": 8,
+            "Capital Armor Plates": 8, 
+            "Capital Shield Emitter": 4,
+            "Capital Cargo Bay": 10,
+            "Capital Construction Parts": 5,
+            "Capital Sensor Cluster": 5
+          },
+          "details": "Obelisk Freighter\nType: Gallente Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 8\n- Capital Armor Plates: 8\n- Capital Shield Emitter: 4\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+        },
+        "providence": {
+          "display_name": "Providence Freighter",
+          "ship_type": "Freighter",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Propulsion Engine": 6,
+            "Capital Armor Plates": 10,
+            "Capital Shield Emitter": 4,
+            "Capital Cargo Bay": 10,
+            "Capital Construction Parts": 5,
+            "Capital Sensor Cluster": 5
+          },
+          "details": "Providence Freighter\nType: Amarr Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 6\n- Capital Armor Plates: 10\n- Capital Shield Emitter: 4\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+        }
       },
-      "charon": {
-        "display_name": "Charon Freighter",
-        "ship_type": "Freighter",
-        "faction": "Caldari",
-        "owned_status": "Unowned",
-        "requirements": {
-          "Capital Propulsion Engine": 8,
-          "Capital Armor Plates": 4,
-          "Capital Shield Emitter": 8, 
-          "Capital Cargo Bay": 10,
-          "Capital Construction Parts": 5,
-          "Capital Sensor Cluster": 5
-        },
-        "details": "Charon Freighter\nType: Caldari Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 8\n- Capital Armor Plates: 4\n- Capital Shield Emitter: 8\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+      "carriers": {
+        "thanatos": {
+          "display_name": "Thanatos Carrier",
+          "ship_type": "Carrier",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "capital_component_data": {
+            "Capital Propulsion Engine": 5,
+            "Capital Sensor Cluster": 7,
+            "Capital Armor Plates": 10,
+            "Capital Capacitor Battery": 3,
+            "Capital Power Generator": 3,
+            "Capital Shield Emitter": 4,
+            "Capital Jump Drive": 4,
+            "Capital Drone Bay": 30,
+            "Capital Computer System": 5,
+            "Capital Construction Parts": 5,
+            "Capital Ship Maintenance Bay": 10,
+            "Capital Corporate Hangar Bay": 4
+          },
+          "requirements": {
+            "Tritanium": 900000,
+            "Pyerite": 225000,
+            "Mexallon": 81000,
+            "Isogen": 22500,
+            "Nocxium": 5400,
+            "Zydrine": 3600,
+            "Megacyte": 1200
+          },
+          "details": "Thanatos Carrier\nType: Gallente Carrier\nBase Build Time: ~23 days\nRequired Skill: Capital Ship Construction III\n\nMaterials:\n- Capital Propulsion Engine: 5\n- Capital Sensor Cluster: 7\n- Capital Armor Plates: 10\n- Capital Capacitor Battery: 3\n- Capital Power Generator: 3\n- Capital Shield Emitter: 4\n- Capital Jump Drive: 4\n- Capital Drone Bay: 30\n- Capital Computer System: 5\n- Capital Construction Parts: 5\n- Capital Ship Maintenance Bay: 10\n- Capital Corporate Hangar Bay: 4"
+        }
       },
-      "fenrir": {
-        "display_name": "Fenrir Freighter",
-        "ship_type": "Freighter", 
-        "faction": "Minmatar",
-        "owned_status": "Unowned",
-        "requirements": {
-          "Capital Propulsion Engine": 10,
-          "Capital Armor Plates": 6,
-          "Capital Shield Emitter": 4,
-          "Capital Cargo Bay": 10,
-          "Capital Construction Parts": 5,
-          "Capital Sensor Cluster": 5
-        },
-        "details": "Fenrir Freighter\nType: Minmatar Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 10\n- Capital Armor Plates: 6\n- Capital Shield Emitter: 4\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+      "supercarriers": {
+        "nyx": {
+          "display_name": "Nyx Supercarrier",
+          "ship_type": "Supercarrier",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "capital_component_data": {
+            "Capital Propulsion Engine": 50,
+            "Capital Sensor Cluster": 10,
+            "Capital Armor Plates": 50,
+            "Capital Capacitor Battery": 100,
+            "Capital Power Generator": 100,
+            "Capital Shield Emitter": 83,
+            "Capital Jump Drive": 100,
+            "Capital Drone Bay": 250,
+            "Capital Computer System": 40,
+            "Capital Construction Parts": 50,
+            "Capital Ship Maintenance Bay": 100,
+            "Capital Corporate Hangar Bay": 50
+          },
+          "requirements": {
+            "Tritanium": 1500000,
+            "Pyerite": 337500,
+            "Mexallon": 125000,
+            "Isogen": 35000,
+            "Nocxium": 8000,
+            "Zydrine": 5400,
+            "Megacyte": 1800
+          },
+          "details": "Nyx Supercarrier\nType: Gallente Supercarrier\nBase Build Time: ~32 days\nRequired Skill: Capital Ship Construction IV\n\nMaterials:\n- Capital Propulsion Engine: 50\n- Capital Sensor Cluster: 10\n- Capital Armor Plates: 50\n- Capital Capacitor Battery: 100\n- Capital Power Generator: 100\n- Capital Shield Emitter: 83\n- Capital Jump Drive: 100\n- Capital Drone Bay: 250\n- Capital Computer System: 40\n- Capital Construction Parts: 50\n- Capital Ship Maintenance Bay: 100\n- Capital Corporate Hangar Bay: 50"
+        }
       },
-      "obelisk": {
-        "display_name": "Obelisk Freighter",
-        "ship_type": "Freighter",
-        "faction": "Gallente",
-        "owned_status": "Unowned",
-        "requirements": {
-          "Capital Propulsion Engine": 8,
-          "Capital Armor Plates": 8, 
-          "Capital Shield Emitter": 4,
-          "Capital Cargo Bay": 10,
-          "Capital Construction Parts": 5,
-          "Capital Sensor Cluster": 5
-        },
-        "details": "Obelisk Freighter\nType: Gallente Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 8\n- Capital Armor Plates: 8\n- Capital Shield Emitter: 4\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+      "dreadnoughts": {
+        "moros": {
+          "display_name": "Moros Dreadnought",
+          "ship_type": "Dreadnought",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "capital_component_data": {
+            "Capital Propulsion Engine": 5,
+            "Capital Turret Hardpoint": 20,
+            "Capital Sensor Cluster": 4,
+            "Capital Armor Plates": 4,
+            "Capital Capacitor Battery": 2,
+            "Capital Power Generator": 2,
+            "Capital Shield Emitter": 3,
+            "Capital Jump Drive": 2,
+            "Capital Computer System": 2,
+            "Capital Construction Parts": 2,
+            "Capital Siege Array": 20,
+            "Capital Ship Maintenance Bay": 5,
+            "Capital Corporate Hangar Bay": 2
+          },
+          "requirements": {
+            "Tritanium": 750000,
+            "Pyerite": 187500,
+            "Mexallon": 68000,
+            "Isogen": 18500,
+            "Nocxium": 4400,
+            "Zydrine": 3000,
+            "Megacyte": 1000
+          },
+          "details": "Moros Dreadnought\nType: Gallente Dreadnought\nBase Build Time: ~11 days\nRequired Skill: Capital Ship Construction III\n\nMaterials:\n- Capital Propulsion Engine: 5\n- Capital Turret Hardpoint: 20\n- Capital Sensor Cluster: 4\n- Capital Armor Plates: 4\n- Capital Capacitor Battery: 2\n- Capital Power Generator: 2\n- Capital Shield Emitter: 3\n- Capital Jump Drive: 2\n- Capital Computer System: 2\n- Capital Construction Parts: 2\n- Capital Siege Array: 20\n- Capital Ship Maintenance Bay: 5\n- Capital Corporate Hangar Bay: 2"
+        }
       },
-      "providence": {
-        "display_name": "Providence Freighter",
-        "ship_type": "Freighter",
-        "faction": "Amarr",
-        "owned_status": "Unowned",
-        "requirements": {
-          "Capital Propulsion Engine": 6,
-          "Capital Armor Plates": 10,
-          "Capital Shield Emitter": 4,
-          "Capital Cargo Bay": 10,
-          "Capital Construction Parts": 5,
-          "Capital Sensor Cluster": 5
-        },
-        "details": "Providence Freighter\nType: Amarr Freighter\nBase Build Time: ~14 days\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Propulsion Engine: 6\n- Capital Armor Plates: 10\n- Capital Shield Emitter: 4\n- Capital Cargo Bay: 10\n- Capital Construction Parts: 5\n- Capital Sensor Cluster: 5"
+      "force_auxiliaries": {
+        "ninazu": {
+          "display_name": "Ninazu Force Auxiliary",
+          "ship_type": "Force Auxiliary",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "capital_component_data": {
+            "Capital Propulsion Engine": 10,
+            "Capital Sensor Cluster": 15,
+            "Capital Armor Plates": 20,
+            "Capital Capacitor Battery": 15,
+            "Capital Power Generator": 10,
+            "Capital Shield Emitter": 10,
+            "Capital Jump Drive": 5,
+            "Capital Drone Bay": 5,
+            "Capital Computer System": 10,
+            "Capital Construction Parts": 10,
+            "Capital Siege Array": 25,
+            "Capital Ship Maintenance Bay": 15,
+            "Capital Corporate Hangar Bay": 8
+          },
+          "requirements": {
+            "Tritanium": 780000,
+            "Pyerite": 195000,
+            "Mexallon": 70000,
+            "Isogen": 19500,
+            "Nocxium": 4700,
+            "Zydrine": 3200,
+            "Megacyte": 1100
+          },
+          "details": "Ninazu Force Auxiliary\nType: Gallente Force Auxiliary\nBase Build Time: ~11 days\nRequired Skill: Capital Ship Construction IV\n\nMaterials:\n- Capital Propulsion Engine: 10\n- Capital Sensor Cluster: 15\n- Capital Armor Plates: 20\n- Capital Capacitor Battery: 15\n- Capital Power Generator: 10\n- Capital Shield Emitter: 10\n- Capital Jump Drive: 5\n- Capital Drone Bay: 5\n- Capital Computer System: 10\n- Capital Construction Parts: 10\n- Capital Siege Array: 25\n- Capital Ship Maintenance Bay: 15\n- Capital Corporate Hangar Bay: 8"
+        }
+      },
+      "titans": {
+        "erebus": {
+          "display_name": "Erebus Titan",
+          "ship_type": "Titan",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "capital_component_data": {
+            "Capital Propulsion Engine": 80,
+            "Capital Turret Hardpoint": 400,
+            "Capital Sensor Cluster": 200,
+            "Capital Armor Plates": 300,
+            "Capital Capacitor Battery": 400,
+            "Capital Power Generator": 222,
+            "Capital Shield Emitter": 150,
+            "Capital Jump Drive": 300,
+            "Capital Computer System": 100,
+            "Capital Construction Parts": 200,
+            "Capital Jump Bridge Array": 500,
+            "Capital Clone Vat Bay": 500,
+            "Capital Doomsday Weapon Mount": 500,
+            "Capital Ship Maintenance Bay": 500,
+            "Capital Corporate Hangar Bay": 500
+          },
+          "requirements": {
+            "Tritanium": 3000000,
+            "Pyerite": 750000,
+            "Mexallon": 270000,
+            "Isogen": 75000,
+            "Nocxium": 18000,
+            "Zydrine": 12000,
+            "Megacyte": 4000
+          },
+          "details": "Erebus Titan\nType: Gallente Titan\nBase Build Time: ~56 days\nRequired Skill: Capital Ship Construction V\n\nMaterials:\n- Capital Propulsion Engine: 80\n- Capital Turret Hardpoint: 400\n- Capital Sensor Cluster: 200\n- Capital Armor Plates: 300\n- Capital Capacitor Battery: 400\n- Capital Power Generator: 222\n- Capital Shield Emitter: 150\n- Capital Jump Drive: 300\n- Capital Computer System: 100\n- Capital Construction Parts: 200\n- Capital Jump Bridge Array: 500\n- Capital Clone Vat Bay: 500\n- Capital Doomsday Weapon Mount: 500\n- Capital Ship Maintenance Bay: 500\n- Capital Corporate Hangar Bay: 500"
+        }
       }
     }
   }
