@@ -79,6 +79,11 @@ class BlueprintManager:
         save_frame = ttk.Frame(parent_tab)
         save_frame.pack(fill="x", padx=10, pady=10)
         
+        # Add reset button
+        reset_button = ttk.Button(save_frame, text="Reset All Ship Ownership", 
+                               command=self.reset_all_ship_ownership)
+        reset_button.pack(side="left", padx=5)
+        
         # Add save button
         save_button = ttk.Button(save_frame, text="Save Configuration", 
                                 command=self.save_blueprint_config)
@@ -443,86 +448,113 @@ class BlueprintManager:
             if grid_info and int(grid_info['row']) > 1:  # Skip headers and separator
                 widget.destroy()
         
+        # Debug information
+        print(f"Populating grid for {modules_type} with {len(modules_dict)} modules")
+        print(f"Filters: ship_type={ship_type_filter}, faction={faction_filter}")
+        if len(modules_dict) > 0:
+            print(f"First few module keys: {list(modules_dict.keys())[:3]}")
+            first_module = list(modules_dict.values())[0]
+            print(f"Example module attrs: {vars(first_module)}")
+
+        # For clarity on UI - show message if empty
+        if len(modules_dict) == 0:
+            empty_label = ttk.Label(grid_frame, text=f"No {modules_type} found. Module dictionary is empty.")
+            empty_label.grid(row=2, column=0, columnspan=7, padx=5, pady=5, sticky="w")
+            return
+        
         row = 2
-        for module_name, module in modules_dict.items():
-            display_name = getattr(module, 'display_name', module_name)
-            ship_type = getattr(module, 'ship_type', '')
-            faction = getattr(module, 'faction', '')
-            
-            # Apply filters
-            if (ship_type_filter != "All" and ship_type != ship_type_filter) or \
-               (faction_filter != "All" and faction != faction_filter):
+        module_count = 0
+        
+        # Get category for config lookup
+        config_category = 'ship_blueprints' if modules_type == 'Ships' else 'capital_ship_blueprints' if modules_type == 'Capital Ships' else 'component_blueprints'
+        
+        # Iterate through modules and add to grid if they match filter criteria
+        for module_name, module in sorted(modules_dict.items(), key=lambda x: x[1].display_name):
+            # Apply ship type filter
+            if ship_type_filter != "All" and hasattr(module, 'ship_type') and module.ship_type != ship_type_filter:
+                continue
+                
+            # Apply faction filter
+            if faction_filter != "All" and hasattr(module, 'faction') and module.faction != faction_filter:
                 continue
             
-            # Get current ownership status, properly handling boolean values
-            if hasattr(module, 'ownership_var'):
-                current_status = module.ownership_var.get() if hasattr(module.ownership_var, 'get') else module.ownership_var
+            # Display module name
+            ttk.Label(grid_frame, text=module.display_name).grid(row=row, column=0, padx=5, pady=2, sticky="w")
+            
+            # Display ship type if available
+            if hasattr(module, 'ship_type'):
+                ttk.Label(grid_frame, text=module.ship_type).grid(row=row, column=1, padx=5, pady=2)
             else:
-                # Get current ownership status from module attributes
-                if hasattr(module, 'owned_status'):
-                    # Convert boolean to string representation if needed
-                    if isinstance(module.owned_status, bool):
-                        current_status = "Owned" if module.owned_status else "Unowned"
-                    else:
-                        current_status = module.owned_status
-                elif hasattr(module, 'blueprint_owned'):
-                    # Convert boolean to string representation if needed
-                    if isinstance(module.blueprint_owned, bool):
-                        current_status = "Owned" if module.blueprint_owned else "Unowned" 
-                    else:
-                        current_status = module.blueprint_owned
-                else:
-                    current_status = "Unowned"
+                ttk.Label(grid_frame, text="N/A").grid(row=row, column=1, padx=5, pady=2)
+                
+            # Display faction if available
+            if hasattr(module, 'faction'):
+                ttk.Label(grid_frame, text=module.faction).grid(row=row, column=2, padx=5, pady=2)
+            else:
+                ttk.Label(grid_frame, text="N/A").grid(row=row, column=2, padx=5, pady=2)
+                
+            # Create ownership variable if it doesn't exist
+            if not hasattr(module, 'ownership_var'):
+                module.ownership_var = tk.StringVar()
+                
+            # Get ownership status and set radio button
+            ownership = get_blueprint_ownership(self.blueprint_config, config_category, module_name)
             
-            # Create variable to track ownership status
-            ownership_var = tk.StringVar()
-            ownership_var.set(current_status)
+            # Convert ownership to lowercase for radio button
+            if ownership == "Owned":
+                module.ownership_var.set("owned")
+            else:
+                module.ownership_var.set("unowned")
+                
+            # Unowned radio button
+            ttk.Radiobutton(
+                grid_frame, 
+                value="unowned", 
+                variable=module.ownership_var,
+                command=lambda n=module_name, c=config_category, v="unowned": self.update_ownership(n, c, v)
+            ).grid(row=row, column=3, padx=5, pady=2)
             
-            # Create variable to track ME%
-            me_var = tk.StringVar()
+            # Owned radio button
+            ttk.Radiobutton(
+                grid_frame, 
+                value="owned", 
+                variable=module.ownership_var,
+                command=lambda n=module_name, c=config_category, v="owned": self.update_ownership(n, c, v)
+            ).grid(row=row, column=4, padx=5, pady=2)
             
-            # Get ME% from config
-            category = self.get_category_from_module_type(modules_type)
-            me_value = get_blueprint_me(self.blueprint_config, category, module_name)
-            me_var.set(str(me_value))
+            # ME% input field
+            if not hasattr(module, 'me_var'):
+                module.me_var = tk.StringVar()
+                
+            me_value = get_blueprint_me(self.blueprint_config, config_category, module_name)
+            module.me_var.set(str(me_value))
             
-            # Create variable to track TE%
-            te_var = tk.StringVar()
-            
-            # Get TE% from config
-            te_value = get_blueprint_te(self.blueprint_config, category, module_name)
-            te_var.set(str(te_value))
-            
-            # Store these variables in the module for later reference
-            module.ownership_var = ownership_var
-            module.me_var = me_var  # Store ME% variable
-            module.te_var = te_var  # Store TE% variable
-            
-            # Add blueprint name
-            ttk.Label(grid_frame, text=display_name).grid(row=row, column=0, padx=5, pady=2, sticky="w")
-            
-            # Add ship type and faction if available
-            ttk.Label(grid_frame, text=ship_type).grid(row=row, column=1, padx=5, pady=2)
-            ttk.Label(grid_frame, text=faction).grid(row=row, column=2, padx=5, pady=2)
-            
-            # Radio buttons for Unowned/Owned
-            ttk.Radiobutton(grid_frame, variable=ownership_var, value="Unowned",
-                           command=lambda m=module: self.update_module_ownership(m, "Unowned")).grid(row=row, column=3, padx=5, pady=2)
-            ttk.Radiobutton(grid_frame, variable=ownership_var, value="Owned",
-                           command=lambda m=module: self.update_module_ownership(m, "Owned")).grid(row=row, column=4, padx=5, pady=2)
-            
-            # Entry for ME%
-            me_entry = ttk.Entry(grid_frame, width=4, textvariable=me_var)
+            me_entry = ttk.Entry(grid_frame, width=4, textvariable=module.me_var)
             me_entry.grid(row=row, column=5, padx=5, pady=2)
-            me_entry.bind("<FocusOut>", lambda event, m=module: self.validate_me_entry(m))
+            me_entry.bind("<FocusOut>", lambda event, n=module_name, c=config_category: self.validate_me(event, c, n))
             
-            # Entry for TE%
-            te_entry = ttk.Entry(grid_frame, width=4, textvariable=te_var)
+            # TE% input field
+            if not hasattr(module, 'te_var'):
+                module.te_var = tk.StringVar()
+                
+            te_value = get_blueprint_te(self.blueprint_config, config_category, module_name)
+            module.te_var.set(str(te_value))
+            
+            te_entry = ttk.Entry(grid_frame, width=4, textvariable=module.te_var)
             te_entry.grid(row=row, column=6, padx=5, pady=2)
-            te_entry.bind("<FocusOut>", lambda event, m=module: self.validate_te_entry(m))
+            te_entry.bind("<FocusOut>", lambda event, n=module_name, c=config_category: self.validate_te(event, c, n))
             
             row += 1
+            module_count += 1
+        
+        if module_count == 0:
+            # No modules match the filter criteria
+            empty_label = ttk.Label(grid_frame, text=f"No {modules_type} match the selected filters.")
+            empty_label.grid(row=2, column=0, columnspan=7, padx=5, pady=5, sticky="w")
             
+        # Update grid frame to recalculate size
+        grid_frame.update_idletasks()
+    
     def apply_filter(self, grid_frame, modules_dict, ship_type_filter, faction_filter):
         """Apply filter to the blueprint grid"""
         # Get the modules_type from grid_frame's master window title
@@ -688,155 +720,216 @@ class BlueprintManager:
     
     def create_blueprint_window(self, blueprint_window):
         """Create the blueprint management window interface"""
-        # Configure the window to use the full screen (maximize)
-        width = self.parent.winfo_screenwidth() - 100
-        height = self.parent.winfo_screenheight() - 100
-        blueprint_window.geometry(f"{width}x{height}+50+50")
+        # Configure the window size (800x600)
+        blueprint_window.geometry("800x600")
+        
+        # Print module information for debugging
+        print("Discovered modules keys:", self.discovered_modules.keys())
+        for key, value in self.discovered_modules.items():
+            print(f"Module '{key}' has {len(value)} items")
+            if len(value) > 0:
+                print(f"First few items: {list(value.keys())[:3]}")
         
         # Create notebook for tabs
-        blueprint_notebook = ttk.Notebook(blueprint_window)
-        blueprint_notebook.pack(fill="both", expand=True, padx=10, pady=10)
+        notebook = ttk.Notebook(blueprint_window)
+        notebook.pack(fill="both", expand=True, padx=10, pady=10)
         
-        # Create tabs for each type of blueprint
-        ships_tab = ttk.Frame(blueprint_notebook)
-        capital_ships_tab = ttk.Frame(blueprint_notebook)
-        components_tab = ttk.Frame(blueprint_notebook)
+        # Create tab for Ships
+        if 'ships' in self.discovered_modules:
+            ships_tab = ttk.Frame(notebook)
+            notebook.add(ships_tab, text="Ships")
+            
+            self.create_blueprint_grid(
+                ships_tab, 
+                "Ships",
+                self.discovered_modules['ships']
+            )
+            
+        # Create tab for Capital Ships
+        if 'capital_ships' in self.discovered_modules:
+            capital_ships_tab = ttk.Frame(notebook)
+            notebook.add(capital_ships_tab, text="Capital Ships")
+            
+            self.create_blueprint_grid(
+                capital_ships_tab, 
+                "Capital Ships",
+                self.discovered_modules['capital_ships']
+            )
+            
+        # Create tab for Components
+        if 'components' in self.discovered_modules:
+            components_tab = ttk.Frame(notebook)
+            notebook.add(components_tab, text="Components")
+            
+            self.create_blueprint_grid(
+                components_tab, 
+                "Components",
+                self.discovered_modules['components']
+            )
+            
+        # Create tab for Capital Components (from registry)
+        capital_components_tab = ttk.Frame(notebook)
+        notebook.add(capital_components_tab, text="Capital Components")
         
-        # Add tabs to notebook
-        blueprint_notebook.add(ships_tab, text="Ships")
-        blueprint_notebook.add(capital_ships_tab, text="Capital Ships")
-        blueprint_notebook.add(components_tab, text="Components")
+        # Get capital components from the module registry
+        if hasattr(self.module_registry, 'capital_components'):
+            capital_components = self.module_registry.capital_components
+            self.discovered_modules['capital_components'] = capital_components
+            
+            # Create grid for capital components
+            self.create_capital_component_blueprint_grid(capital_components_tab)
+            
+        # Create status display
+        status_frame = ttk.Frame(blueprint_window)
+        status_frame.pack(fill=tk.X, padx=10, pady=5)
         
-        # Create content for each tab
-        self.create_ship_blueprint_grid(ships_tab)
-        self.create_capital_ship_blueprint_grid(capital_ships_tab)
-        self.create_component_blueprint_grid(components_tab)
+        # Status label
+        status_label = ttk.Label(status_frame, textvariable=self.status_var)
+        status_label.pack(side=tk.LEFT, padx=5)
         
-        # Add Save All button at the bottom
+        # Create button frame at the bottom
         button_frame = ttk.Frame(blueprint_window)
-        button_frame.pack(fill="x", pady=10)
+        button_frame.pack(fill=tk.X, side=tk.BOTTOM, padx=10, pady=10)
         
-        save_button = ttk.Button(button_frame, text="Save All", command=self.save_all_blueprint_ownership)
-        save_button.pack(side="right", padx=20)
+        # Save button
+        save_button = ttk.Button(
+            button_frame, 
+            text="Save Changes", 
+            command=self.save_blueprint_changes
+        )
+        save_button.pack(side=tk.RIGHT, padx=5)
         
+        # Also save when the window is closed
+        blueprint_window.protocol("WM_DELETE_WINDOW", lambda: self.on_close(blueprint_window))
+        
+    def on_close(self, window):
+        """Handle window closing - ensure changes are saved"""
+        # Save changes before closing
+        self.save_blueprint_changes()
+        
+        # Destroy the window
+        window.destroy()
+        
+    def save_blueprint_changes(self):
+        """Save all blueprint changes to the config file"""
+        try:
+            # First, update the configuration with all changes
+            self.update_all_ownership_values()
+            
+            # Import the function directly here to avoid any import issues
+            from config.blueprint_config import save_blueprint_ownership
+            
+            # Save the configuration directly
+            result = save_blueprint_ownership(self.blueprint_config)
+            
+            if result:
+                self.status_var.set("Blueprint ownership settings saved successfully")
+                
+                # Apply ownership settings to the registry to ensure they take effect immediately
+                from config.blueprint_config import apply_blueprint_ownership
+                
+                # Apply updated ownership to the module registry
+                apply_blueprint_ownership(self.blueprint_config, self.module_registry)
+                
+                print(f"Blueprint settings saved and applied successfully")
+            else:
+                self.status_var.set("Error: Failed to save blueprint settings")
+                print(f"Failed to save blueprint settings")
+                
+        except Exception as e:
+            error_msg = f"Error saving blueprint configuration: {str(e)}"
+            self.status_var.set(error_msg)
+            print(error_msg)
+    
     def show_blueprint_grid(self):
         """Show blueprint management in a popup window"""
         blueprint_window = tk.Toplevel(self.parent)
         blueprint_window.title("Blueprint Management")
-        blueprint_window.geometry("800x600")
         
         # Create the blueprint window interface
         self.create_blueprint_window(blueprint_window)
-    
-    def save_all_blueprint_ownership(self):
-        """Save all blueprint ownership data to configuration"""
-        try:
-            # Save ships
-            if 'ships' in self.discovered_modules:
-                for ship_name, ship_module in self.discovered_modules['ships'].items():
-                    if hasattr(ship_module, 'ownership_var'):
-                        if isinstance(ship_module.ownership_var, tk.StringVar):
-                            ownership_status = ship_module.ownership_var.get()
-                        else:
-                            ownership_status = ship_module.ownership_var
-                            
-                        # Update the module's ownership status
-                        if hasattr(ship_module, 'blueprint_owned'):
-                            ship_module.blueprint_owned = ownership_status
-                        elif hasattr(ship_module, 'owned_status'):
-                            ship_module.owned_status = ownership_status
-                            
-                        # Save to config
-                        update_blueprint_ownership(self.blueprint_config, 'ships', ship_name, ownership_status)
-            
-            # Save capital ships
-            if 'capital_ships' in self.discovered_modules:
-                for ship_name, ship_module in self.discovered_modules['capital_ships'].items():
-                    if hasattr(ship_module, 'ownership_var'):
-                        if isinstance(ship_module.ownership_var, tk.StringVar):
-                            ownership_status = ship_module.ownership_var.get()
-                        else:
-                            ownership_status = ship_module.ownership_var
-                            
-                        # Update the module's ownership status
-                        if hasattr(ship_module, 'blueprint_owned'):
-                            ship_module.blueprint_owned = ownership_status
-                        elif hasattr(ship_module, 'owned_status'):
-                            ship_module.owned_status = ownership_status
-                            
-                        # Save to config
-                        update_blueprint_ownership(self.blueprint_config, 'capital_ships', ship_name, ownership_status)
-            
-            # Save components
-            if 'components' in self.discovered_modules:
-                for comp_name, comp_module in self.discovered_modules['components'].items():
-                    if hasattr(comp_module, 'ownership_var'):
-                        if isinstance(comp_module.ownership_var, tk.StringVar):
-                            ownership_status = comp_module.ownership_var.get()
-                        else:
-                            ownership_status = comp_module.ownership_var
-                            
-                        # Update the module's ownership status
-                        if hasattr(comp_module, 'blueprint_owned'):
-                            comp_module.blueprint_owned = ownership_status
-                        elif hasattr(comp_module, 'owned_status'):
-                            comp_module.owned_status = ownership_status
-                            
-                        # Save to config
-                        update_blueprint_ownership(self.blueprint_config, 'components', comp_name, ownership_status)
-            
-            # Save capital components
-            if 'capital_components' in self.discovered_modules:
-                for comp_name, comp_data in self.discovered_modules['capital_components'].items():
-                    if 'ownership_var' in comp_data:
-                        if isinstance(comp_data['ownership_var'], tk.StringVar):
-                            ownership_status = comp_data['ownership_var'].get()
-                        else:
-                            ownership_status = comp_data['ownership_var']
-                            
-                        # Update the data
-                        comp_data['blueprint_owned'] = ownership_status
-                        
-                        # Save to config using correct category
-                        update_blueprint_ownership(self.blueprint_config, 'component_blueprints', comp_name, ownership_status)
-            
-            # Save ME%
-            for category, modules in self.discovered_modules.items():
-                for module_name, module in modules.items():
-                    if hasattr(module, 'me_var'):
-                        try:
-                            me_value = int(module.me_var.get())
-                            # Ensure ME is not negative
-                            if me_value < 0:
-                                me_value = 0
-                                module.me_var.set("0")
-                            # Update the ME in config
-                            update_blueprint_me(self.blueprint_config, category, module_name, me_value)
-                        except ValueError:
-                            # Invalid ME value, set to 0
-                            module.me_var.set("0")
-                            update_blueprint_me(self.blueprint_config, category, module_name, 0)
-            
-            # Save TE%
-            for category, modules in self.discovered_modules.items():
-                for module_name, module in modules.items():
-                    if hasattr(module, 'te_var'):
-                        try:
-                            te_value = int(module.te_var.get())
-                            # Ensure TE is not negative
-                            if te_value < 0:
-                                te_value = 0
-                                module.te_var.set("0")
-                            # Update the TE in config
-                            update_blueprint_te(self.blueprint_config, category, module_name, te_value)
-                        except ValueError:
-                            # Invalid TE value, set to 0
-                            module.te_var.set("0")
-                            update_blueprint_te(self.blueprint_config, category, module_name, 0)
         
-            self.status_var.set("All blueprint ownership settings saved successfully")
-        except Exception as e:
-            self.status_var.set(f"Error saving blueprint ownership: {str(e)}")
+    def update_all_ownership_values(self):
+        """Update all ownership values in the blueprint config"""
+        print("Updating all ownership values in blueprint config...")
+        # Update ownership status for all modules
+        for category_name, modules in self.discovered_modules.items():
+            category = self.get_category_from_module_type(category_name)
+            
+            # Skip empty categories
+            if not category or not modules:
+                continue
+            
+            print(f"Processing category: {category_name} (maps to config section: {category})")
+            
+            for module_name, module in modules.items():
+                # Special handling for capital components
+                if category_name == 'capital_components':
+                    if hasattr(module, 'ownership_var'):
+                        try:
+                            ownership_status = module.ownership_var.get()
+                            is_owned = (ownership_status == "owned")
+                            
+                            # Make sure the category exists
+                            if 'component_blueprints' not in self.blueprint_config:
+                                self.blueprint_config['component_blueprints'] = {}
+                            
+                            # Create or update entry
+                            if module_name not in self.blueprint_config['component_blueprints']:
+                                self.blueprint_config['component_blueprints'][module_name] = {
+                                    'owned': is_owned,
+                                    'invented': False,  # Components cannot be invented
+                                    'me': 0,
+                                    'te': 0
+                                }
+                            else:
+                                # Update existing entry
+                                self.blueprint_config['component_blueprints'][module_name]['owned'] = is_owned
+                        except Exception as e:
+                            print(f"Error updating capital component {module_name}: {e}")
+                
+                # Ships, Capital Ships, and Components
+                elif hasattr(module, 'ownership_var'):
+                    try:
+                        # Get the ownership status from the UI variable
+                        var_value = module.ownership_var.get()
+                        is_owned = (var_value == "owned")
+                        
+                        invented_var = getattr(module, 'invented_var', None)
+                        is_invented = invented_var.get() if invented_var else False
+                        
+                        me_var = getattr(module, 'me_var', None)
+                        me_value = int(me_var.get()) if me_var and me_var.get().isdigit() else 0
+                        
+                        te_var = getattr(module, 'te_var', None)
+                        te_value = int(te_var.get()) if te_var and te_var.get().isdigit() else 0
+                        
+                        # Make sure the category exists
+                        if category not in self.blueprint_config:
+                            self.blueprint_config[category] = {}
+                        
+                        # Create or update entry
+                        if module_name not in self.blueprint_config[category]:
+                            self.blueprint_config[category][module_name] = {
+                                'owned': is_owned,
+                                'invented': is_invented,
+                                'me': me_value,
+                                'te': te_value
+                            }
+                            print(f"Created new config entry for {category}/{module_name}: owned={is_owned}")
+                        else:
+                            # Update existing entry
+                            current_value = self.blueprint_config[category][module_name].get('owned', False)
+                            self.blueprint_config[category][module_name]['owned'] = is_owned
+                            self.blueprint_config[category][module_name]['invented'] = is_invented
+                            self.blueprint_config[category][module_name]['me'] = me_value
+                            self.blueprint_config[category][module_name]['te'] = te_value
+                            if current_value != is_owned:
+                                print(f"Updated ownership for {category}/{module_name}: {current_value} -> {is_owned}")
+                    except Exception as e:
+                        print(f"Error updating {category}/{module_name}: {e}")
+        
+        print("Ownership values updated in blueprint config")
     
     def update_invented_status(self, module):
         """Update the 'Invented' status for a module (separate from owned status)"""
@@ -1191,3 +1284,187 @@ class BlueprintManager:
         except Exception as e:
             self.status_var.set(f"Error saving blueprint configuration: {e}")
             return False
+
+    def reset_all_ship_ownership(self):
+        """Reset ownership status for all ships and capital ships"""
+        try:
+            # Reset ships
+            if hasattr(self.module_registry, 'ships'):
+                for ship_name, ship in self.module_registry.ships.items():
+                    if hasattr(ship, 'owned_status'):
+                        ship.owned_status = False
+                        
+                    # Also update the blueprint config
+                    if 'ships' in self.blueprint_config and ship_name in self.blueprint_config['ships']:
+                        self.blueprint_config['ships'][ship_name]['owned'] = False
+            
+            # Reset capital ships
+            if hasattr(self.module_registry, 'capital_ships'):
+                for ship_name, ship in self.module_registry.capital_ships.items():
+                    if hasattr(ship, 'owned_status'):
+                        ship.owned_status = False
+                        
+                    # Also update the blueprint config
+                    if 'capital_ships' in self.blueprint_config and ship_name in self.blueprint_config['capital_ships']:
+                        self.blueprint_config['capital_ships'][ship_name]['owned'] = False
+            
+            # Save the updated configuration
+            from config.blueprint_config import save_blueprint_ownership
+            success = save_blueprint_ownership(self.blueprint_config)
+            
+            if success:
+                self.status_var.set("All ship ownership has been reset")
+                print("Ship ownership reset successful")
+            else:
+                self.status_var.set("Error: Failed to save reset changes")
+                print("Failed to save reset changes")
+                
+            return success
+        except Exception as e:
+            error_msg = f"Error resetting ship ownership: {str(e)}"
+            self.status_var.set(error_msg)
+            print(error_msg)
+            return False
+            
+    def set_atron_as_owned_test(self):
+        """Test function to set Atron as owned"""
+        try:
+            # Find the Atron in the ships registry
+            if hasattr(self.module_registry, 'ships'):
+                # Try to find the Atron by key
+                atron_keys = [key for key in self.module_registry.ships.keys() if 'atron' in key.lower()]
+                
+                if atron_keys:
+                    atron_key = atron_keys[0]
+                    
+                    # Set Atron as owned in the registry
+                    self.module_registry.ships[atron_key].owned_status = True
+                    print(f"Setting Atron ({atron_key}) as owned in registry")
+                    
+                    # Update the blueprint_config
+                    if 'ships' not in self.blueprint_config:
+                        self.blueprint_config['ships'] = {}
+                        
+                    if atron_key not in self.blueprint_config['ships']:
+                        self.blueprint_config['ships'][atron_key] = {
+                            'owned': True,
+                            'invented': False,
+                            'me': 0,
+                            'te': 0
+                        }
+                    else:
+                        self.blueprint_config['ships'][atron_key]['owned'] = True
+                    
+                    print(f"Updated blueprint config for Atron: {self.blueprint_config['ships'][atron_key]}")
+                    
+                    # Save the configuration to file
+                    from config.blueprint_config import save_blueprint_ownership, apply_blueprint_ownership
+                    success = save_blueprint_ownership(self.blueprint_config)
+                    
+                    # Apply the config again to ensure registry is consistent
+                    apply_blueprint_ownership(self.blueprint_config, self.module_registry)
+                    
+                    # Verify the ownership state
+                    if self.module_registry.ships[atron_key].owned_status is True:
+                        print(f"Verified: Atron ({atron_key}) is now set as owned in registry")
+                    else:
+                        print(f"ERROR: Atron ({atron_key}) is still not owned in registry!")
+                    
+                    if success:
+                        self.status_var.set(f"Atron ({atron_key}) set as owned successfully")
+                        print(f"Atron ownership saved to blueprint configuration file")
+                    else:
+                        self.status_var.set("Error: Failed to save Atron ownership")
+                        print("Failed to save Atron ownership to file")
+                        
+                    return success
+                else:
+                    self.status_var.set("Error: Atron not found in ships registry")
+                    print("Atron not found in ships registry")
+                    return False
+            else:
+                self.status_var.set("Error: Ships registry not found")
+                print("Ships registry not found")
+                return False
+        except Exception as e:
+            error_msg = f"Error setting Atron as owned: {str(e)}"
+            self.status_var.set(error_msg)
+            print(error_msg)
+            return False
+
+    def update_ownership(self, module_name, category, value):
+        """Update the ownership status and save to config"""
+        print(f"Updating ownership: {module_name} in {category} to {value}")
+        
+        # Convert "owned"/"unowned" string to proper format for config
+        ownership_value = "Owned" if value == "owned" else "Unowned"
+        
+        # Update the blueprint configuration
+        update_blueprint_ownership(self.blueprint_config, category, module_name, ownership_value)
+        
+        # Refresh the module registry if required
+        self.refresh_registry_if_needed()
+        
+    def validate_me(self, event, category, module_name):
+        """Validate and update ME% value"""
+        entry_widget = event.widget
+        value = entry_widget.get()
+        
+        try:
+            # Validate as a number between 0 and 10
+            me_value = int(value)
+            if me_value < 0:
+                me_value = 0
+            elif me_value > 10:
+                me_value = 10
+                
+            # Update the entry with validated value
+            entry_widget.delete(0, tk.END)
+            entry_widget.insert(0, str(me_value))
+            
+            # Update the config
+            update_blueprint_me(self.blueprint_config, category, module_name, me_value)
+            
+        except ValueError:
+            # Reset to 0 if not a valid number
+            entry_widget.delete(0, tk.END)
+            entry_widget.insert(0, "0")
+            update_blueprint_me(self.blueprint_config, category, module_name, 0)
+            
+        # Update GUI if needed
+        self.refresh_registry_if_needed()
+            
+    def validate_te(self, event, category, module_name):
+        """Validate and update TE% value"""
+        entry_widget = event.widget
+        value = entry_widget.get()
+        
+        try:
+            # Validate as a number between 0 and 20
+            te_value = int(value)
+            if te_value < 0:
+                te_value = 0
+            elif te_value > 20:
+                te_value = 20
+                
+            # Update the entry with validated value
+            entry_widget.delete(0, tk.END)
+            entry_widget.insert(0, str(te_value))
+            
+            # Update the config
+            update_blueprint_te(self.blueprint_config, category, module_name, te_value)
+            
+        except ValueError:
+            # Reset to 0 if not a valid number
+            entry_widget.delete(0, tk.END)
+            entry_widget.insert(0, "0")
+            update_blueprint_te(self.blueprint_config, category, module_name, 0)
+            
+        # Update GUI if needed
+        self.refresh_registry_if_needed()
+        
+    def refresh_registry_if_needed(self):
+        """Refresh the module registry if it's available"""
+        if hasattr(self, 'module_registry') and self.module_registry:
+            # Optionally refresh the registry if needed
+            pass

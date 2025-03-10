@@ -13,90 +13,186 @@ from core.models import ShipModule, CapitalShipModule, ComponentModule, PiMateri
 
 def load_ships(registry: ModuleRegistry, base_path: str):
     """
-    Load all ship data from JSON file and register in the ModuleRegistry
+    Load ships from JSON file and register in the registry
     
     Args:
-        registry: The module registry to populate
+        registry: The module registry
         base_path: Base path of the application
     """
-    ships_path = os.path.join(base_path, 'data', 'ships.json')
+    # Load ship data from JSON
+    ship_data_path = os.path.join(base_path, 'data', 'ships.json')
+    
+    if not os.path.exists(ship_data_path):
+        print(f"Ships data file not found at: {ship_data_path}")
+        return
     
     try:
-        with open(ships_path, 'r') as f:
-            ships_data = json.load(f)
+        # Store existing ownership status before loading
+        existing_ownership = {}
+        for ship in registry.get_all_ships():
+            existing_ownership[ship.name] = ship.owned_status
+            
+        with open(ship_data_path, 'r') as f:
+            all_ship_data = json.load(f)
         
-        # Track loaded ships count
+        # Process regular ships (hierarchical structure)
         ship_count = 0
         capital_ship_count = 0
         
-        # Load regular ships
-        for faction, faction_data in ships_data.items():
-            if faction == "capital_ships":
-                # Handle capital ships separately
-                process_capital_ships(registry, faction_data)
-                capital_ship_count = len(registry.get_all_capital_ships())
-            else:
-                process_ship_category(registry, faction, faction_data)
-                ship_count = len(registry.get_all_ships())
-        
-        print(f"Loaded {ship_count} ships and {capital_ship_count} capital ships")
-            
-    except Exception as e:
-        print(f"Error loading ships from JSON: {e}")
-
-def process_ship_category(registry: ModuleRegistry, parent_key: str, category_data: Dict):
-    """
-    Process a category of ships (e.g., faction or ship class)
-    
-    Args:
-        registry: The module registry to populate
-        parent_key: Key of the parent category (e.g., faction name)
-        category_data: Data for the category
-    """
-    if isinstance(category_data, dict):
-        # Check if this entry has display_name and requirements (direct ship entry)
-        if "display_name" in category_data and "requirements" in category_data:
-            # This is a direct ship entry
-            ship = ShipModule(
-                name=parent_key,
-                display_name=category_data.get("display_name", parent_key),
-                requirements=category_data.get("requirements", {}),
-                details=category_data.get("details", ""),
-                faction=category_data.get("faction", ""),
-                ship_type=category_data.get("ship_type", ""),
-                owned_status=False
-            )
-            registry.register_ship(ship)
-        else:
-            # This is a category, process its children
-            for key, value in category_data.items():
-                process_ship_category(registry, key, value)
-
-def process_capital_ships(registry: ModuleRegistry, capital_ships_data: Dict):
-    """
-    Process capital ships specifically
-    
-    Args:
-        registry: The module registry to populate
-        capital_ships_data: Data for capital ships
-    """
-    if isinstance(capital_ships_data, dict):
-        for category, ships in capital_ships_data.items():
-            if isinstance(ships, dict):
-                for ship_key, ship_data in ships.items():
-                    if "display_name" in ship_data and "requirements" in ship_data:
-                        # Create and register the capital ship
+        # Extract capital ships if they exist as a top-level key
+        if 'capital_ships' in all_ship_data:
+            capital_ships_data = all_ship_data.pop('capital_ships')
+            # Process capital ships
+            for ship_type, ships in capital_ships_data.items():
+                for ship_name, ship_data in ships.items():
+                    if 'display_name' in ship_data:
+                        # Create capital ship module
                         capital_ship = CapitalShipModule(
-                            name=ship_key,
-                            display_name=ship_data.get('display_name', ship_key),
+                            name=ship_name,
+                            display_name=ship_data.get('display_name', ship_name.title()),
                             requirements=ship_data.get('requirements', {}),
                             details=ship_data.get('details', ''),
-                            faction=ship_data.get('faction', ''),
-                            ship_type=ship_data.get('ship_type', ''),
-                            capital_component_data=ship_data.get('capital_components', {}),
-                            owned_status=False
+                            faction=ship_data.get('faction', 'unknown'),
+                            ship_type=ship_data.get('ship_type', ship_type),
+                            # Use existing ownership status if available, otherwise default to False
+                            owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
                         )
+                        
+                        # Register the capital ship
                         registry.register_capital_ship(capital_ship)
+                        capital_ship_count += 1
+        
+        # Process regular ships (hierarchical structure by faction)
+        for faction, faction_data in all_ship_data.items():
+            if isinstance(faction_data, dict):
+                # Process each ship class (frigates, destroyers, etc.)
+                for ship_class, class_data in faction_data.items():
+                    if isinstance(class_data, dict):
+                        # Process tech levels (tech1, tech2, etc.)
+                        for tech_level, tech_data in class_data.items():
+                            if isinstance(tech_data, dict):
+                                # Process individual ships
+                                for ship_name, ship_data in tech_data.items():
+                                    if isinstance(ship_data, dict) and 'display_name' in ship_data:
+                                        # Create ship module
+                                        ship = ShipModule(
+                                            name=ship_name,
+                                            display_name=ship_data.get('display_name', ship_name.title()),
+                                            requirements=ship_data.get('requirements', {}),
+                                            details=ship_data.get('details', ''),
+                                            faction=ship_data.get('faction', faction),
+                                            ship_type=ship_data.get('ship_type', ship_class),
+                                            # Use existing ownership status if available, otherwise use from data or default to False
+                                            owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
+                                        )
+                                        
+                                        # Register the ship
+                                        registry.register_ship(ship)
+                                        ship_count += 1
+        
+        print(f"Loaded {ship_count} ships and {capital_ship_count} capital ships")
+        
+        # Also try loading capital ships from separate file if it exists
+        cap_ships_path = os.path.join(base_path, 'data', 'capital_ships.json')
+        if os.path.exists(cap_ships_path):
+            try:
+                with open(cap_ships_path, 'r') as f:
+                    capital_ship_data = json.load(f)
+                    
+                # Process capital ships
+                for ship_name, ship_data in capital_ship_data.items():
+                    if 'display_name' in ship_data:
+                        # Create capital ship module
+                        capital_ship = CapitalShipModule(
+                            name=ship_name,
+                            display_name=ship_data.get('display_name', ship_name.title()),
+                            requirements=ship_data.get('requirements', {}),
+                            details=ship_data.get('details', ''),
+                            faction=ship_data.get('faction', 'unknown'),
+                            ship_type=ship_data.get('type', 'unknown'),
+                            # Use existing ownership status if available, otherwise default to False
+                            owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
+                        )
+                        
+                        # Register the capital ship
+                        registry.register_capital_ship(capital_ship)
+                        capital_ship_count += 1
+                
+                print(f"Loaded additional {len(capital_ship_data)} capital ships from capital_ships.json")
+            except Exception as e:
+                print(f"Error loading capital ships from separate file: {e}")
+    except Exception as e:
+        print(f"Error loading ships: {e}")
+
+def process_ship_category(registry: ModuleRegistry, parent_key: str, category_data: Dict, existing_ownership: Dict = None):
+    """
+    Process a ship category and add to registry
+    
+    Args:
+        registry: The module registry
+        parent_key: Parent key for the ships (e.g. faction)
+        category_data: Data for this category
+        existing_ownership: Dictionary of existing ownership values
+    """
+    # Check if this is a ship or a nested category
+    if is_ship_data(category_data):
+        # This is a ship, extract tier if available
+        tier = category_data.get('tier', 1)
+        
+        # Create a ship module
+        ship_module = ShipModule(
+            name=parent_key.lower(),
+            display_name=category_data.get('display_name', parent_key.title()),
+            faction=category_data.get('faction', 'unknown'),
+            ship_type=category_data.get('type', 'unknown'),
+            tier=tier,
+            # Use existing ownership status if available, otherwise default to False
+            owned_status=existing_ownership.get(parent_key.lower(), False) if existing_ownership else False
+        )
+        
+        # Register the ship
+        registry.register_ship(ship_module)
+    else:
+        # This is a nested category, process each child
+        for key, value in category_data.items():
+            # Process child category
+            process_ship_category(registry, key, value, existing_ownership)
+
+def process_capital_ships(registry: ModuleRegistry, capital_ships_data: Dict, existing_ownership: Dict = None):
+    """
+    Process capital ships and add to registry
+    
+    Args:
+        registry: The module registry
+        capital_ships_data: Data for capital ships
+        existing_ownership: Dictionary of existing ownership values
+    """
+    # Process each capital ship
+    for ship_key, ship_data in capital_ships_data.items():
+        # Create a capital ship module
+        capital_ship = CapitalShipModule(
+            name=ship_key.lower(),
+            display_name=ship_data.get('display_name', ship_key.title()),
+            ship_type=ship_data.get('type', 'unknown'),
+            # Use existing ownership status if available, otherwise default to False
+            owned_status=existing_ownership.get(ship_key.lower(), False) if existing_ownership else False
+        )
+        
+        # Register the capital ship
+        registry.register_capital_ship(capital_ship)
+
+def is_ship_data(data: Dict) -> bool:
+    """
+    Check if a dictionary represents ship data
+    
+    Args:
+        data: Dictionary to check
+        
+    Returns:
+        True if this is ship data, False otherwise
+    """
+    # Ship data has display_name and requirements keys
+    return isinstance(data, dict) and 'display_name' in data and 'requirements' in data
 
 def load_capital_components(registry: ModuleRegistry, base_path: str):
     """
@@ -121,7 +217,7 @@ def load_capital_components(registry: ModuleRegistry, base_path: str):
                     display_name=component_data.get("display_name", component_name),
                     requirements=component_data.get("requirements", {}),
                     details=component_data.get("details", ""),
-                    owned_status=False
+                    owned_status=component_data.get("owned_status", "Unowned") == "Owned"
                 )
                 registry.register_capital_component(component)
                 
@@ -169,7 +265,7 @@ def load_components(registry: ModuleRegistry, base_path: str):
                             display_name=getattr(module, 'display_name', module_name),
                             requirements=getattr(module, module_name + '_requirements', {}),
                             details=getattr(module, 'details', ''),
-                            owned_status=False
+                            owned_status=getattr(module, 'owned_status', False)
                         )
                         
                         # Register component

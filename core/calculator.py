@@ -43,7 +43,7 @@ class RequirementsCalculator:
         Returns:
             Material Efficiency level (default: 0)
         """
-        from blueprint_config import get_blueprint_me
+        from config.blueprint_config import get_blueprint_me
         
         if self.blueprint_config:
             return get_blueprint_me(self.blueprint_config, category, blueprint_name)
@@ -60,7 +60,7 @@ class RequirementsCalculator:
         Returns:
             TE level percentage (0-20)
         """
-        from blueprint_config import get_blueprint_te
+        from config.blueprint_config import get_blueprint_te
         
         if self.blueprint_config:
             return get_blueprint_te(self.blueprint_config, category, blueprint_name)

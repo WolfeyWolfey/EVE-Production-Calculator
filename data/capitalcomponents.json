@@ -3,7 +3,7 @@
     "capital_absorption_thruster_array": {
       "display_name": "Capital Absorption Thruster Array",
       "build_time": "3h 12m",
-      "owned_status": "Unowned",
+      "owned_status": "Owned",
       "requirements": {
         "Capital Zero-Point Field Manipulator": 1,
         "Capital Trinary State Processor": 1,

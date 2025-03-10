@@ -7,7 +7,8 @@ import os
 import json
 
 # Constants
-CONFIG_FILE = os.path.join(os.path.dirname(__file__), "blueprint_ownership.json")
+CONFIG_FILENAME = "blueprint_ownership.json"
+CONFIG_FILE = os.path.join(os.path.dirname(__file__), CONFIG_FILENAME)
 
 def create_default_blueprint_config():
     """
@@ -24,18 +25,31 @@ def load_blueprint_ownership():
     """
     Load blueprint ownership configuration from file
     """
-    config_path = os.path.join(os.path.dirname(__file__), CONFIG_FILE)
-    
-    if os.path.exists(config_path):
+    print("Loading blueprint ownership from file...")
+    if os.path.exists(CONFIG_FILE):
         try:
-            with open(config_path, 'r') as f:
+            with open(CONFIG_FILE, 'r') as f:
                 config = json.load(f)
+                print(f"Loaded configuration from {CONFIG_FILE}")
+                
+                # Verify if any ships are set to owned
+                owned_ships = []
+                for ship_name, ship_data in config.get('ships', {}).items():
+                    if ship_data.get('owned', False):
+                        owned_ships.append(ship_name)
+                
+                if owned_ships:
+                    print(f"Found {len(owned_ships)} owned ships in configuration: {', '.join(owned_ships)}")
+                else:
+                    print("No owned ships found in loaded configuration")
+                
                 return migrate_blueprint_config(config)
         except (json.JSONDecodeError, IOError) as e:
             print(f"Error loading blueprint configuration: {e}")
             return create_default_blueprint_config()
     else:
         # Create default configuration
+        print(f"Configuration file not found at {CONFIG_FILE}, creating default config")
         config = create_default_blueprint_config()
         save_blueprint_ownership(config)
         return config
@@ -50,13 +64,43 @@ def save_blueprint_ownership(config):
     Returns:
         True if successful, False otherwise
     """
-    config_path = os.path.join(os.path.dirname(__file__), CONFIG_FILE)
-    
     try:
-        with open(config_path, 'w') as f:
-            json.dump(config, f, indent=4)
+        # Ensure the configuration directory exists
+        os.makedirs(os.path.dirname(CONFIG_FILE), exist_ok=True)
+        
+        # First, try to read the existing config to merge with new changes
+        existing_config = {}
+        if os.path.exists(CONFIG_FILE):
+            try:
+                with open(CONFIG_FILE, 'r') as existing_file:
+                    existing_config = json.load(existing_file)
+            except Exception as e:
+                print(f"Could not read existing config file (will create new): {e}")
+                
+        # Carefully merge configs to preserve ownership settings
+        # For each category in the new config
+        for category, category_data in config.items():
+            if category not in existing_config:
+                existing_config[category] = {}
+                
+            # For each item in this category
+            for item_name, item_data in category_data.items():
+                # Only update this item if it doesn't exist or has changed
+                if item_name not in existing_config[category]:
+                    existing_config[category][item_name] = item_data
+                else:
+                    # Update only if different, preserving existing values
+                    # especially ownership status
+                    for key, value in item_data.items():
+                        existing_config[category][item_name][key] = value
+        
+        # Save the merged configuration
+        print(f"Attempting to save blueprint configuration...")
+        with open(CONFIG_FILE, 'w') as f:
+            json.dump(existing_config, f, indent=4)
+        print(f"Blueprint configuration saved successfully to: {CONFIG_FILE}")
         return True
-    except IOError as e:
+    except Exception as e:
         print(f"Error saving blueprint configuration: {e}")
         return False
 
@@ -87,7 +131,11 @@ def update_blueprint_ownership(config, category, blueprint_name, ownership_statu
         config[category][blueprint_name]['owned'] = ownership_status == 'Owned'
     
     # Save the updated config
-    save_blueprint_ownership(config)
+    success = save_blueprint_ownership(config)
+    if success:
+        print("Configuration saved successfully.")
+    else:
+        print("Failed to save configuration.")
     
     return config
 
@@ -118,7 +166,11 @@ def update_blueprint_invention(config, category, blueprint_name, is_invented):
         config[category][blueprint_name]['invented'] = is_invented
     
     # Save the updated config
-    save_blueprint_ownership(config)
+    success = save_blueprint_ownership(config)
+    if success:
+        print("Configuration saved successfully.")
+    else:
+        print("Failed to save configuration.")
     
     return config
 
@@ -149,7 +201,11 @@ def update_blueprint_me(config, category, blueprint_name, me_value):
         config[category][blueprint_name]['me'] = me_value
     
     # Save the updated config
-    save_blueprint_ownership(config)
+    success = save_blueprint_ownership(config)
+    if success:
+        print("Configuration saved successfully.")
+    else:
+        print("Failed to save configuration.")
     
     return config
 
@@ -180,7 +236,11 @@ def update_blueprint_te(config, category, blueprint_name, te_value):
         config[category][blueprint_name]['te'] = te_value
     
     # Save the updated config
-    save_blueprint_ownership(config)
+    success = save_blueprint_ownership(config)
+    if success:
+        print("Configuration saved successfully.")
+    else:
+        print("Failed to save configuration.")
     
     return config
 
@@ -254,154 +314,68 @@ def get_blueprint_te(config, category, blueprint_name):
         print(f"Error getting TE% for {blueprint_name}: {e}")
         return 0
 
-def apply_blueprint_ownership(config, module_registry):
+def apply_blueprint_ownership(config, registry):
     """
-    Apply blueprint ownership information to modules in the registry
+    Apply blueprint ownership settings from configuration to the registry
     
     Args:
-        config: Blueprint configuration dictionary
-        module_registry: Module registry containing ships, components, etc.
+        config: The blueprint configuration dictionary
+        registry: The ModuleRegistry instance
     """
+    print("Applying blueprint ownership settings to registry...")
+    
     if not config:
+        print("No blueprint configuration provided, skipping ownership application")
         return
     
-    # Apply to ships
-    if 'ships' in config and hasattr(module_registry, 'ships'):
+    owned_ship_count = 0
+    
+    # Apply ship ownership
+    if 'ships' in config:
+        print(f"Processing {len(config['ships'])} ships in configuration")
         for ship_name, ship_data in config['ships'].items():
-            if ship_name in module_registry.ships:
-                # Get the owned status from the config - handle both string and boolean formats
-                if 'owned' in ship_data:
-                    # Convert string to boolean if needed
-                    ownership = ship_data['owned']
-                    if isinstance(ownership, str):
-                        ownership = (ownership.lower() == 'owned' or ownership.lower() == 'true')
-                    module_registry.ships[ship_name].owned_status = ownership
+            # Find the ship in the registry
+            if hasattr(registry, 'ships') and ship_name in registry.ships:
+                owned_value = ship_data.get('owned', False)
+                registry.ships[ship_name].owned_status = owned_value
                 
-                # Set the invention status
-                if 'invented' in ship_data:
-                    module_registry.ships[ship_name].invention_status = ship_data['invented']
-                
-                # Set ME and TE if present
-                if 'me' in ship_data:
-                    module_registry.ships[ship_name].me = ship_data['me']
-                
-                if 'te' in ship_data:
-                    module_registry.ships[ship_name].te = ship_data['te']
-            else:
-                # Try looking for the ship by display name
-                for reg_ship_name, ship in module_registry.ships.items():
-                    if hasattr(ship, 'display_name') and ship.display_name == ship_name:
-                        # Get the owned status from the config - handle both string and boolean formats
-                        if 'owned' in ship_data:
-                            # Convert string to boolean if needed
-                            ownership = ship_data['owned']
-                            if isinstance(ownership, str):
-                                ownership = (ownership.lower() == 'owned' or ownership.lower() == 'true')
-                            ship.owned_status = ownership
-                        
-                        # Set the invention status
-                        if 'invented' in ship_data:
-                            ship.invention_status = ship_data['invented']
-                        
-                        # Set ME and TE if present
-                        if 'me' in ship_data:
-                            ship.me = ship_data['me']
-                        
-                        if 'te' in ship_data:
-                            ship.te = ship_data['te']
-                        break
+                if owned_value:
+                    owned_ship_count += 1
+                    print(f"Setting ship {ship_name} ownership to: True")
+                # Only print unowned ships in debug mode to reduce console output
+                else:
+                    print(f"Ship {ship_name} remains unowned")
     
-    # Apply to capital ships
-    if 'capital_ships' in config and hasattr(module_registry, 'capital_ships'):
+    # Apply capital ship ownership
+    owned_capital_count = 0
+    if 'capital_ships' in config:
+        print(f"Processing {len(config['capital_ships'])} capital ships in configuration")
         for ship_name, ship_data in config['capital_ships'].items():
-            if ship_name in module_registry.capital_ships:
-                # Get the owned status from the config - handle both string and boolean formats
-                if 'owned' in ship_data:
-                    # Convert string to boolean if needed
-                    ownership = ship_data['owned']
-                    if isinstance(ownership, str):
-                        ownership = (ownership.lower() == 'owned' or ownership.lower() == 'true')
-                    module_registry.capital_ships[ship_name].owned_status = ownership
+            # Find the ship in the registry
+            if hasattr(registry, 'capital_ships') and ship_name in registry.capital_ships:
+                owned_value = ship_data.get('owned', False)
+                registry.capital_ships[ship_name].owned_status = owned_value
                 
-                # Set the invention status
-                if 'invented' in ship_data:
-                    module_registry.capital_ships[ship_name].invention_status = ship_data['invented']
-                
-                # Set ME and TE if present
-                if 'me' in ship_data:
-                    module_registry.capital_ships[ship_name].me = ship_data['me']
-                
-                if 'te' in ship_data:
-                    module_registry.capital_ships[ship_name].te = ship_data['te']
-            else:
-                # Try looking for the ship by display name
-                for reg_ship_name, ship in module_registry.capital_ships.items():
-                    if hasattr(ship, 'display_name') and ship.display_name == ship_name:
-                        # Get the owned status from the config - handle both string and boolean formats
-                        if 'owned' in ship_data:
-                            # Convert string to boolean if needed
-                            ownership = ship_data['owned']
-                            if isinstance(ownership, str):
-                                ownership = (ownership.lower() == 'owned' or ownership.lower() == 'true')
-                            ship.owned_status = ownership
-                        
-                        # Set the invention status
-                        if 'invented' in ship_data:
-                            ship.invention_status = ship_data['invented']
-                        
-                        # Set ME and TE if present
-                        if 'me' in ship_data:
-                            ship.me = ship_data['me']
-                        
-                        if 'te' in ship_data:
-                            ship.te = ship_data['te']
-                        break
+                if owned_value:
+                    owned_capital_count += 1
+                    print(f"Setting capital ship {ship_name} ownership to: True")
+                # Only print unowned ships in debug mode
+                else:
+                    print(f"Capital ship {ship_name} remains unowned")
     
-    # Apply to components
-    if 'components' in config and hasattr(module_registry, 'components'):
+    # Apply component ownership
+    if 'components' in config and hasattr(registry, 'components'):
         for comp_name, comp_data in config['components'].items():
-            if comp_name in module_registry.components:
-                # Get the owned status from the config - handle both string and boolean formats
-                if 'owned' in comp_data:
-                    # Convert string to boolean if needed
-                    ownership = comp_data['owned']
-                    if isinstance(ownership, str):
-                        ownership = (ownership.lower() == 'owned' or ownership.lower() == 'true')
-                    module_registry.components[comp_name].owned_status = ownership
-                
-                # Set the invention status
-                if 'invented' in comp_data:
-                    module_registry.components[comp_name].invention_status = comp_data['invented']
-                
-                # Set ME and TE if present
-                if 'me' in comp_data:
-                    module_registry.components[comp_name].me = comp_data['me']
-                
-                if 'te' in comp_data:
-                    module_registry.components[comp_name].te = comp_data['te']
-            else:
-                # Try looking for the component by display name
-                for reg_comp_name, comp in module_registry.components.items():
-                    if hasattr(comp, 'display_name') and comp.display_name == comp_name:
-                        # Get the owned status from the config - handle both string and boolean formats
-                        if 'owned' in comp_data:
-                            # Convert string to boolean if needed
-                            ownership = comp_data['owned']
-                            if isinstance(ownership, str):
-                                ownership = (ownership.lower() == 'owned' or ownership.lower() == 'true')
-                            comp.owned_status = ownership
-                        
-                        # Set the invention status
-                        if 'invented' in comp_data:
-                            comp.invention_status = comp_data['invented']
-                        
-                        # Set ME and TE if present
-                        if 'me' in comp_data:
-                            comp.me = comp_data['me']
-                        
-                        if 'te' in comp_data:
-                            comp.te = comp_data['te']
-                        break
+            if comp_name in registry.components:
+                registry.components[comp_name].owned_status = comp_data.get('owned', False)
+    
+    # Apply capital component ownership
+    if 'component_blueprints' in config and hasattr(registry, 'capital_components'):
+        for comp_name, comp_data in config['component_blueprints'].items():
+            if comp_name in registry.capital_components:
+                registry.capital_components[comp_name].blueprint_owned = comp_data.get('owned', False)
+    
+    print(f"Blueprint ownership application complete: {owned_ship_count} owned ships, {owned_capital_count} owned capital ships")
 
 def migrate_blueprint_config(config):
     """
@@ -594,6 +568,10 @@ def migrate_blueprint_config(config):
         new_config['component_blueprints'] = clean_component_blueprints
     
     # Save the migrated configuration to ensure it's cleaned up
-    save_blueprint_ownership(new_config)
+    success = save_blueprint_ownership(new_config)
+    if success:
+        print("Configuration saved successfully.")
+    else:
+        print("Failed to save configuration.")
     
     return new_config

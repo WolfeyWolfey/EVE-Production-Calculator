@@ -393,9 +393,16 @@ class ModuleRegistry:
         Returns:
             ComponentModule if found, None otherwise
         """
+        # First check regular components
         for component in self.components.values():
             if component.display_name == display_name:
                 return component
+                
+        # If not found, check capital components
+        for component in self.capital_components.values():
+            if component.display_name == display_name:
+                return component
+                
         return None
     
     def get_capital_component_by_display_name(self, display_name: str):
@@ -433,3 +440,43 @@ class ModuleRegistry:
             List of OreModule objects
         """
         return list(self.ores.values())
+    
+    def get_components_by_filter(self, owned_only: bool = False):
+        """
+        Get components filtered by ownership
+        
+        Args:
+            owned_only: If True, only return components that are owned
+            
+        Returns:
+            List of ComponentModule objects matching the filter criteria
+        """
+        filtered_components = []
+        
+        # Process regular components
+        for component in self.components.values():
+            # Apply ownership filter if requested
+            if owned_only:
+                # Handle both boolean and string ownership values
+                if isinstance(component.owned_status, bool) and not component.owned_status:
+                    continue
+                elif isinstance(component.owned_status, str) and component.owned_status.lower() != "owned":
+                    continue
+            
+            # Component passed all filters, add it to filtered_components
+            filtered_components.append(component)
+        
+        # Process capital components
+        for component in self.capital_components.values():
+            # Apply ownership filter if requested
+            if owned_only:
+                # Handle both boolean and string ownership values
+                if isinstance(component.owned_status, bool) and not component.owned_status:
+                    continue
+                elif isinstance(component.owned_status, str) and component.owned_status.lower() != "owned":
+                    continue
+            
+            # Component passed all filters, add it to filtered_components
+            filtered_components.append(component)
+            
+        return filtered_components

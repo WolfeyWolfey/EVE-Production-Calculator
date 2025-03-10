@@ -286,8 +286,20 @@
         }
     },
     "components": {
-        "capital_components": {
-            "owned": false,
+        "capital_absorption_thruster_array": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "capital_thruster_array": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "thruster_array": {
+            "owned": true,
             "invented": false,
             "me": 0,
             "te": 0
@@ -374,6 +386,14 @@
         },
         "neurolink_protection_cell": {
             "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        }
+    },
+    "ship_blueprints": {
+        "algos": {
+            "owned": true,
             "invented": false,
             "me": 0,
             "te": 0
