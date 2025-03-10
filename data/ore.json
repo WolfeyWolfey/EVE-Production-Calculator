@@ -1,0 +1,144 @@
+{
+  "ores": {
+    "high_sec": {
+      "veldspar": {
+        "display_name": "Veldspar",
+        "security_level": "High-sec",
+        "yields": {
+          "Tritanium": 400
+        }
+      },
+      "scordite": {
+        "display_name": "Scordite",
+        "security_level": "High-sec", 
+        "yields": {
+          "Tritanium": 150,
+          "Pyerite": 90
+        }
+      },
+      "pyroxeres": {
+        "display_name": "Pyroxeres",
+        "security_level": "High-sec",
+        "yields": {
+          "Pyerite": 90,
+          "Mexallon": 30
+        }
+      },
+      "plagioclase": {
+        "display_name": "Plagioclase",
+        "security_level": "High-sec",
+        "yields": {
+          "Tritanium": 175,
+          "Mexallon": 70
+        }
+      }
+    },
+    "low_sec": {
+      "omber": {
+        "display_name": "Omber",
+        "security_level": "Low-sec",
+        "yields": {
+          "Pyerite": 90,
+          "Isogen": 75
+        }
+      },
+      "kernite": {
+        "display_name": "Kernite",
+        "security_level": "Low-sec",
+        "yields": {
+          "Mexallon": 60,
+          "Isogen": 120
+        }
+      },
+      "jaspet": {
+        "display_name": "Jaspet",
+        "security_level": "Low-sec",
+        "yields": {
+          "Mexallon": 150,
+          "Nocxium": 50
+        }
+      },
+      "hemorphite": {
+        "display_name": "Hemorphite",
+        "security_level": "Low-sec",
+        "yields": {
+          "Isogen": 90,
+          "Nocxium": 240
+        }
+      },
+      "hedbergite": {
+        "display_name": "Hedbergite",
+        "security_level": "Low-sec",
+        "yields": {
+          "Pyerite": 450,
+          "Nocxium": 120
+        }
+      }
+    },
+    "null_sec": {
+      "gneiss": {
+        "display_name": "Gneiss",
+        "security_level": "Null-sec",
+        "yields": {
+          "Pyerite": 2000,
+          "Mexallon": 1500,
+          "Isogen": 800
+        }
+      },
+      "dark_ochre": {
+        "display_name": "Dark Ochre",
+        "security_level": "Null-sec",
+        "yields": {
+          "Mexallon": 1360,
+          "Isogen": 1200,
+          "Nocxium": 320
+        }
+      },
+      "crokite": {
+        "display_name": "Crokite",
+        "security_level": "Null-sec",
+        "yields": {
+          "Pyerite": 800,
+          "Mexallon": 2000,
+          "Nocxium": 800
+        }
+      },
+      "bistot": {
+        "display_name": "Bistot",
+        "security_level": "Null-sec",
+        "yields": {
+          "Pyerite": 3200,
+          "Mexallon": 1200,
+          "Zydrine": 160
+        }
+      },
+      "arkonor": {
+        "display_name": "Arkonor",
+        "security_level": "Null-sec",
+        "yields": {
+          "Pyerite": 3200,
+          "Mexallon": 1200,
+          "Megacyte": 120
+        }
+      },
+      "spodumain": {
+        "display_name": "Spodumain",
+        "security_level": "Null-sec",
+        "yields": {
+          "Tritanium": 48000,
+          "Pyerite": 1000,
+          "Mexallon": 160,
+          "Isogen": 80,
+          "Nocxium": 40
+        }
+      },
+      "mercoxit": {
+        "display_name": "Mercoxit",
+        "security_level": "Null-sec",
+        "yields": {
+          "Morphite": 140
+        }
+      }
+    }
+  }
+}

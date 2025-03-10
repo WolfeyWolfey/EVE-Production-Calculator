@@ -15,26 +15,41 @@ from gui import EveProductionCalculator
 
 def load_ore_data():
     """
-    Load ore data from ore_data.py
+    Load ore data from ore.json
     
     Returns:
         dict: Dictionary of ore data
     """
-    import importlib.util
+    import json
     
-    ore_data_path = os.path.join(os.path.dirname(__file__), 'ore_data.py')
+    ore_data_path = os.path.join(os.path.dirname(__file__), 'data', 'ore.json')
     
-    # Create a module spec
-    spec = importlib.util.spec_from_file_location('ore_data', ore_data_path)
-    
-    # Create a module from the spec
-    module = importlib.util.module_from_spec(spec)
-    
-    # Execute the module
-    spec.loader.exec_module(module)
-    
-    # Return the ore_data dictionary
-    return module.ore_data
+    try:
+        with open(ore_data_path, 'r') as f:
+            ore_json = json.load(f)
+            
+        # Convert the structured JSON into a flat dictionary for compatibility with existing code
+        flat_ore_data = {}
+        for sec_level, ores in ore_json['ores'].items():
+            for ore_key, ore_info in ores.items():
+                flat_ore_data[ore_info['display_name']] = ore_info['yields']
+                
+        return flat_ore_data
+        
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Error loading ore data: {e}")
+        # Fallback to the original ore_data if JSON loading fails
+        try:
+            import importlib.util
+            old_ore_data_path = os.path.join(os.path.dirname(__file__), 'ore_data.py')
+            spec = importlib.util.spec_from_file_location('ore_data', old_ore_data_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            print("Falling back to original ore_data.py")
+            return module.ore_data
+        except Exception as e2:
+            print(f"Fatal error, could not load ore data: {e2}")
+            return {}
 
 def main():
     """

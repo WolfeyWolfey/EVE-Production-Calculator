@@ -221,7 +221,17 @@ class ModuleRegistry:
         for name, ship in self.ships.items():
             faction_match = faction is None or ship.faction == faction
             type_match = ship_type is None or ship.ship_type == ship_type
-            ownership_match = not owned_only or ship.owned_status == "Owned"
+            
+            # Check for ownership - handle both boolean and string formats
+            if owned_only:
+                # For boolean values (True/False)
+                if isinstance(ship.owned_status, bool):
+                    ownership_match = ship.owned_status is True
+                # For string values ("Owned"/"Unowned")
+                else:
+                    ownership_match = ship.owned_status == "Owned"
+            else:
+                ownership_match = True
             
             if faction_match and type_match and ownership_match:
                 filtered_ships.append(ship)
@@ -244,7 +254,17 @@ class ModuleRegistry:
         for name, ship in self.capital_ships.items():
             faction_match = faction is None or ship.faction == faction
             type_match = ship_type is None or ship.ship_type == ship_type
-            ownership_match = not owned_only or ship.owned_status == "Owned"
+            
+            # Check for ownership - handle both boolean and string formats
+            if owned_only:
+                # For boolean values (True/False)
+                if isinstance(ship.owned_status, bool):
+                    ownership_match = ship.owned_status is True
+                # For string values ("Owned"/"Unowned")
+                else:
+                    ownership_match = ship.owned_status == "Owned"
+            else:
+                ownership_match = True
             
             if faction_match and type_match and ownership_match:
                 filtered_ships.append(ship)

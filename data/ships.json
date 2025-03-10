@@ -327,6 +327,343 @@
           "details": "Magus Command Destroyer\nType: Gallente Tech II Command Destroyer\nBase Build Time: 2d 2h\nRequired Skills: Industry V, Advanced Small Ship Construction I\n\nMaterials:\n- Algos (Tech I hull): 1\n- Construction Blocks: 25\n- Morphite: 16\n- R.A.M.- Starship Tech: 10\n- Ion Thruster: 62\n- Magnetometric Sensor Cluster: 75\n- Photon Microprocessor: 360\n- Crystalline Carbonide Armor Plate: 1,640\n- Fusion Reactor Unit: 17\n- Oscillator Capacitor Unit: 160\n- Pulse Shield Emitter: 43"
         }
       }
+    },
+    "cruisers": {
+      "tech1": {
+        "celestis": {
+          "display_name": "Celestis",
+          "ship_type": "Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 405000,
+            "Pyerite": 135000,
+            "Mexallon": 27000,
+            "Isogen": 7500,
+            "Nocxium": 1125,
+            "Zydrine": 263,
+            "Megacyte": 105
+          },
+          "details": "Celestis\nType: Gallente Tech I Cruiser (EWAR)\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 405000\n- Pyerite: 135000\n- Mexallon: 27000\n- Isogen: 7500\n- Nocxium: 1125\n- Zydrine: 263\n- Megacyte: 105"
+        },
+        "exequror": {
+          "display_name": "Exequror",
+          "ship_type": "Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 405000,
+            "Pyerite": 135000,
+            "Mexallon": 27000,
+            "Isogen": 7500,
+            "Nocxium": 1125,
+            "Zydrine": 263,
+            "Megacyte": 105
+          },
+          "details": "Exequror\nType: Gallente Tech I Cruiser (Logistics)\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 405000\n- Pyerite: 135000\n- Mexallon: 27000\n- Isogen: 7500\n- Nocxium: 1125\n- Zydrine: 263\n- Megacyte: 105"
+        },
+        "thorax": {
+          "display_name": "Thorax",
+          "ship_type": "Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 540000,
+            "Pyerite": 180000,
+            "Mexallon": 36000,
+            "Isogen": 10000,
+            "Nocxium": 1500,
+            "Zydrine": 350,
+            "Megacyte": 140
+          },
+          "details": "Thorax\nType: Gallente Tech I Cruiser (Combat)\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 540000\n- Pyerite: 180000\n- Mexallon: 36000\n- Isogen: 10000\n- Nocxium: 1500\n- Zydrine: 350\n- Megacyte: 140"
+        },
+        "vexor": {
+          "display_name": "Vexor",
+          "ship_type": "Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 540000,
+            "Pyerite": 180000,
+            "Mexallon": 36000,
+            "Isogen": 10000,
+            "Nocxium": 1500,
+            "Zydrine": 350,
+            "Megacyte": 140
+          },
+          "details": "Vexor\nType: Gallente Tech I Cruiser (Drone)\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 540000\n- Pyerite: 180000\n- Mexallon: 36000\n- Isogen: 10000\n- Nocxium: 1500\n- Zydrine: 350\n- Megacyte: 140"
+        }
+      },
+      "tech2": {
+        "arazu": {
+          "display_name": "Arazu",
+          "ship_type": "Force Recon Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Celestis": 1,
+            "Construction Blocks": 75,
+            "Morphite": 150,
+            "R.A.M.- Starship Tech": 18,
+            "Ion Thruster": 57,
+            "Magnetometric Sensor Cluster": 495,
+            "Photon Microprocessor": 1800,
+            "Crystalline Carbonide Armor Plate": 3750,
+            "Fusion Reactor Unit": 30,
+            "Oscillator Capacitor Unit": 375,
+            "Pulse Shield Emitter": 300
+          },
+          "details": "Arazu\nType: Gallente Tech II Force Recon Cruiser\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction IV, Gallente Starship Engineering I, Mechanical Engineering I\n\nMaterials:\n- Celestis: 1\n- Construction Blocks: 75\n- Morphite: 150\n- R.A.M.- Starship Tech: 18\n- Ion Thruster: 57\n- Magnetometric Sensor Cluster: 495\n- Photon Microprocessor: 1800\n- Crystalline Carbonide Armor Plate: 3750\n- Fusion Reactor Unit: 30\n- Oscillator Capacitor Unit: 375\n- Pulse Shield Emitter: 300"
+        },
+        "lachesis": {
+          "display_name": "Lachesis",
+          "ship_type": "Combat Recon Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Celestis": 1,
+            "Construction Blocks": 75,
+            "Morphite": 150,
+            "R.A.M.- Starship Tech": 18,
+            "Ion Thruster": 60,
+            "Magnetometric Sensor Cluster": 495,
+            "Photon Microprocessor": 1800,
+            "Crystalline Carbonide Armor Plate": 3750,
+            "Fusion Reactor Unit": 30,
+            "Oscillator Capacitor Unit": 375,
+            "Pulse Shield Emitter": 300
+          },
+          "details": "Lachesis\nType: Gallente Tech II Combat Recon Cruiser\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction IV, Gallente Starship Engineering I, Mechanical Engineering I\n\nMaterials:\n- Celestis: 1\n- Construction Blocks: 75\n- Morphite: 150\n- R.A.M.- Starship Tech: 18\n- Ion Thruster: 60\n- Magnetometric Sensor Cluster: 495\n- Photon Microprocessor: 1800\n- Crystalline Carbonide Armor Plate: 3750\n- Fusion Reactor Unit: 30\n- Oscillator Capacitor Unit: 375\n- Pulse Shield Emitter: 300"
+        },
+        "oneiros": {
+          "display_name": "Oneiros",
+          "ship_type": "Logistics Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Exequror": 1,
+            "Construction Blocks": 75,
+            "Morphite": 90,
+            "R.A.M.- Starship Tech": 12,
+            "Ion Thruster": 75,
+            "Magnetometric Sensor Cluster": 263,
+            "Photon Microprocessor": 1800,
+            "Crystalline Carbonide Armor Plate": 2250,
+            "Fusion Reactor Unit": 23,
+            "Oscillator Capacitor Unit": 750,
+            "Pulse Shield Emitter": 150
+          },
+          "details": "Oneiros\nType: Gallente Tech II Logistics Cruiser\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction I, Gallente Starship Engineering I, Mechanical Engineering I\n\nMaterials:\n- Exequror: 1\n- Construction Blocks: 75\n- Morphite: 90\n- R.A.M.- Starship Tech: 12\n- Ion Thruster: 75\n- Magnetometric Sensor Cluster: 263\n- Photon Microprocessor: 1800\n- Crystalline Carbonide Armor Plate: 2250\n- Fusion Reactor Unit: 23\n- Oscillator Capacitor Unit: 750\n- Pulse Shield Emitter: 150"
+        },
+        "deimos": {
+          "display_name": "Deimos",
+          "ship_type": "Heavy Assault Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Thorax": 1,
+            "Construction Blocks": 188,
+            "Morphite": 150,
+            "R.A.M.- Starship Tech": 18,
+            "Ion Thruster": 75,
+            "Magnetometric Sensor Cluster": 165,
+            "Photon Microprocessor": 1350,
+            "Crystalline Carbonide Armor Plate": 5625,
+            "Fusion Reactor Unit": 45,
+            "Oscillator Capacitor Unit": 600,
+            "Pulse Shield Emitter": 450
+          },
+          "details": "Deimos\nType: Gallente Tech II Heavy Assault Cruiser\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction IV, Gallente Starship Engineering I, Mechanical Engineering I\n\nMaterials:\n- Thorax: 1\n- Construction Blocks: 188\n- Morphite: 150\n- R.A.M.- Starship Tech: 18\n- Ion Thruster: 75\n- Magnetometric Sensor Cluster: 165\n- Photon Microprocessor: 1350\n- Crystalline Carbonide Armor Plate: 5625\n- Fusion Reactor Unit: 45\n- Oscillator Capacitor Unit: 600\n- Pulse Shield Emitter: 450"
+        },
+        "ishtar": {
+          "display_name": "Ishtar",
+          "ship_type": "Heavy Assault Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Vexor": 1,
+            "Construction Blocks": 150,
+            "Morphite": 150,
+            "R.A.M.- Starship Tech": 18,
+            "Ion Thruster": 75,
+            "Magnetometric Sensor Cluster": 398,
+            "Photon Microprocessor": 1350,
+            "Crystalline Carbonide Armor Plate": 5625,
+            "Fusion Reactor Unit": 38,
+            "Oscillator Capacitor Unit": 450,
+            "Pulse Shield Emitter": 450
+          },
+          "details": "Ishtar\nType: Gallente Tech II Heavy Assault Cruiser\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction IV, Gallente Starship Engineering I, Mechanical Engineering I\n\nMaterials:\n- Vexor: 1\n- Construction Blocks: 150\n- Morphite: 150\n- R.A.M.- Starship Tech: 18\n- Ion Thruster: 75\n- Magnetometric Sensor Cluster: 398\n- Photon Microprocessor: 1350\n- Crystalline Carbonide Armor Plate: 5625\n- Fusion Reactor Unit: 38\n- Oscillator Capacitor Unit: 450\n- Pulse Shield Emitter: 450"
+        },
+        "phobos": {
+          "display_name": "Phobos",
+          "ship_type": "Heavy Interdiction Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Thorax": 1,
+            "Construction Blocks": 188,
+            "Morphite": 150,
+            "R.A.M.- Starship Tech": 21,
+            "Ion Thruster": 105,
+            "Magnetometric Sensor Cluster": 180,
+            "Photon Microprocessor": 2970,
+            "Crystalline Carbonide Armor Plate": 6750,
+            "Fusion Reactor Unit": 53,
+            "Oscillator Capacitor Unit": 660,
+            "Pulse Shield Emitter": 413
+          },
+          "details": "Phobos\nType: Gallente Tech II Heavy Interdiction Cruiser\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction V, Gallente Starship Engineering I, Mechanical Engineering I\n\nMaterials:\n- Thorax: 1\n- Construction Blocks: 188\n- Morphite: 150\n- R.A.M.- Starship Tech: 21\n- Ion Thruster: 105\n- Magnetometric Sensor Cluster: 180\n- Photon Microprocessor: 2970\n- Crystalline Carbonide Armor Plate: 6750\n- Fusion Reactor Unit: 53\n- Oscillator Capacitor Unit: 660\n- Pulse Shield Emitter: 413"
+        }
+      }
+    },
+    "battlecruisers": {
+      "tech1": {
+        "brutix": {
+          "display_name": "Brutix",
+          "ship_type": "Battlecruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 1800000,
+            "Pyerite": 450000,
+            "Mexallon": 135000,
+            "Isogen": 40000,
+            "Nocxium": 9000,
+            "Zydrine": 2700,
+            "Megacyte": 500
+          },
+          "details": "Brutix\nType: Gallente Tech I Battlecruiser\nBase Build Time: ~4h 00m\nRequired Skill: Battlecruiser Construction I\n\nMaterials:\n- Tritanium: 1800000\n- Pyerite: 450000\n- Mexallon: 135000\n- Isogen: 40000\n- Nocxium: 9000\n- Zydrine: 2700\n- Megacyte: 500"
+        },
+        "myrmidon": {
+          "display_name": "Myrmidon",
+          "ship_type": "Battlecruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 1750000,
+            "Pyerite": 420000,
+            "Mexallon": 145000,
+            "Isogen": 38000,
+            "Nocxium": 8500,
+            "Zydrine": 2500,
+            "Megacyte": 470
+          },
+          "details": "Myrmidon\nType: Gallente Tech I Battlecruiser\nBase Build Time: ~4h 00m\nRequired Skill: Battlecruiser Construction I\n\nMaterials:\n- Tritanium: 1750000\n- Pyerite: 420000\n- Mexallon: 145000\n- Isogen: 38000\n- Nocxium: 8500\n- Zydrine: 2500\n- Megacyte: 470"
+        },
+        "talos": {
+          "display_name": "Talos",
+          "ship_type": "Attack Battlecruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 2000000,
+            "Pyerite": 500000,
+            "Mexallon": 150000,
+            "Isogen": 45000,
+            "Nocxium": 10000,
+            "Zydrine": 3000,
+            "Megacyte": 600
+          },
+          "details": "Talos\nType: Gallente Tech I Attack Battlecruiser\nBase Build Time: ~4h 30m\nRequired Skill: Battlecruiser Construction I\n\nMaterials:\n- Tritanium: 2000000\n- Pyerite: 500000\n- Mexallon: 150000\n- Isogen: 45000\n- Nocxium: 10000\n- Zydrine: 3000\n- Megacyte: 600"
+        },
+        "brutix_navy_issue": {
+          "display_name": "Brutix Navy Issue",
+          "ship_type": "Navy Battlecruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 2100000,
+            "Pyerite": 520000,
+            "Mexallon": 165000,
+            "Isogen": 48000,
+            "Nocxium": 11000,
+            "Zydrine": 3200,
+            "Megacyte": 650,
+            "Auto-Integrity Preservation Seal": 45,
+            "Life Support Backup Unit": 23
+          },
+          "details": "Brutix Navy Issue\nType: Gallente Navy Battlecruiser\nBase Build Time: ~5h 00m\nRequired Skill: Battlecruiser Construction III\n\nMaterials:\n- Tritanium: 2100000\n- Pyerite: 520000\n- Mexallon: 165000\n- Isogen: 48000\n- Nocxium: 11000\n- Zydrine: 3200\n- Megacyte: 650\n- Auto-Integrity Preservation Seal: 45\n- Life Support Backup Unit: 23"
+        }
+      },
+      "tech2": {
+        "astarte": {
+          "display_name": "Astarte Command Ship",
+          "ship_type": "Command Ship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Brutix": 1,
+            "R.A.M.- Starship Tech": 15,
+            "Tritanium": 3000000,
+            "Pyerite": 750000,
+            "Mexallon": 250000,
+            "Nocxium": 15000,
+            "Zydrine": 5600,
+            "Megacyte": 2700,
+            "Construction Blocks": 300,
+            "Morphite": 300,
+            "Ion Thruster": 480,
+            "Magnetometric Sensor Cluster": 60,
+            "Photon Microprocessor": 8000,
+            "Crystalline Carbonide Armor Plate": 11000,
+            "Fusion Reactor Unit": 900,
+            "Oscillator Capacitor Unit": 570,
+            "Pulse Shield Emitter": 500
+          },
+          "details": "Astarte Command Ship\nType: Gallente Tech II Command Ship\nBase Build Time: ~10h 30m\nRequired Skills: Industry V, Advanced Medium Ship Construction V, Gallente Starship Engineering IV, Mechanical Engineering IV\n\nMaterials:\n- Brutix: 1\n- R.A.M.- Starship Tech: 15\n- Tritanium: 3000000\n- Pyerite: 750000\n- Mexallon: 250000\n- Nocxium: 15000\n- Zydrine: 5600\n- Megacyte: 2700\n- Construction Blocks: 300\n- Morphite: 300\n- Ion Thruster: 480\n- Magnetometric Sensor Cluster: 60\n- Photon Microprocessor: 8000\n- Crystalline Carbonide Armor Plate: 11000\n- Fusion Reactor Unit: 900\n- Oscillator Capacitor Unit: 570\n- Pulse Shield Emitter: 500"
+        },
+        "eos": {
+          "display_name": "Eos Command Ship",
+          "ship_type": "Command Ship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Myrmidon": 1,
+            "R.A.M.- Starship Tech": 15,
+            "Tritanium": 3166667,
+            "Pyerite": 711111,
+            "Mexallon": 233333,
+            "Nocxium": 14444,
+            "Zydrine": 5556,
+            "Megacyte": 2666,
+            "Construction Blocks": 300,
+            "Morphite": 300,
+            "Ion Thruster": 495,
+            "Magnetometric Sensor Cluster": 2100,
+            "Photon Microprocessor": 10500,
+            "Crystalline Carbonide Armor Plate": 53,
+            "Fusion Reactor Unit": 900,
+            "Oscillator Capacitor Unit": 600,
+            "Pulse Shield Emitter": 500
+          },
+          "details": "Eos Command Ship\nType: Gallente Tech II Command Ship\nBase Build Time: ~10h 30m\nRequired Skills: Industry V, Advanced Medium Ship Construction V, Gallente Starship Engineering IV, Mechanical Engineering IV\n\nMaterials:\n- Myrmidon: 1\n- R.A.M.- Starship Tech: 15\n- Tritanium: 3166667\n- Pyerite: 711111\n- Mexallon: 233333\n- Nocxium: 14444\n- Zydrine: 5556\n- Megacyte: 2666\n- Construction Blocks: 300\n- Morphite: 300\n- Ion Thruster: 495\n- Magnetometric Sensor Cluster: 2100\n- Photon Microprocessor: 10500\n- Crystalline Carbonide Armor Plate: 53\n- Fusion Reactor Unit: 900\n- Oscillator Capacitor Unit: 600\n- Pulse Shield Emitter: 500"
+        },
+        "proteus": {
+          "display_name": "Proteus Strategic Cruiser",
+          "ship_type": "Strategic Cruiser",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Construction Blocks": 450,
+            "Morphite": 900,
+            "R.A.M.- Starship Tech": 24,
+            "Tungsten Carbide Armor Plate": 9000,
+            "Fernite Carbide Composite Armor Plate": 7500,
+            "Crystalline Carbonide Armor Plate": 6000,
+            "Titanium Diborite Armor Plate": 4500,
+            "Fusion Reactor Unit": 1800,
+            "Oscillator Capacitor Unit": 1200,
+            "Pulse Shield Emitter": 900,
+            "Ion Thruster": 750,
+            "Magnetometric Sensor Cluster": 600,
+            "Photon Microprocessor": 450,
+            "Fulleride Hybrid Nanofiber": 300
+          },
+          "details": "Proteus Strategic Cruiser\nType: Gallente Tech III Strategic Cruiser\nBase Build Time: ~12h 00m\nRequired Skills: Industry V, Reverse Engineering IV, Gallente Starship Engineering IV, Mechanical Engineering IV\n\nMaterials:\n- Construction Blocks: 450\n- Morphite: 900\n- R.A.M.- Starship Tech: 24\n- Tungsten Carbide Armor Plate: 9000\n- Fernite Carbide Composite Armor Plate: 7500\n- Crystalline Carbonide Armor Plate: 6000\n- Titanium Diborite Armor Plate: 4500\n- Fusion Reactor Unit: 1800\n- Oscillator Capacitor Unit: 1200\n- Pulse Shield Emitter: 900\n- Ion Thruster: 750\n- Magnetometric Sensor Cluster: 600\n- Photon Microprocessor: 450\n- Fulleride Hybrid Nanofiber: 300"
+        }
+      }
     }
   },
   "ore": {
