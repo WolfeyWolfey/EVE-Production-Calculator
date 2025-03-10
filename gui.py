@@ -25,13 +25,17 @@ class EveProductionCalculator(tk.Tk):
         self.cap_component_var = tk.StringVar()
         self.cap_component_ownership_var = tk.StringVar()
         
+        # Ship calculator variables
+        self.me_var = tk.StringVar(value="0")  
+        self.capital_me_var = tk.StringVar(value="0")  
+        self.faction_var = tk.StringVar(value="All")
+        self.ship_type_var = tk.StringVar(value="All")
+
         # Initialize variables for calculations
         self.ore_var = tk.StringVar()
         self.quantity_var = tk.StringVar(value="1000")
         self.refining_efficiency_var = tk.StringVar(value="70")
-        self.me_var = tk.StringVar(value="0")  
-        self.capital_me_var = tk.StringVar(value="0")  
-
+        
         # Initialize variables for PI calculator
         self.pi_type_var = tk.StringVar()
         self.pi_component_var = tk.StringVar()
@@ -161,27 +165,58 @@ class EveProductionCalculator(tk.Tk):
         # Frame for ship selection
         ship_selection_frame = ttk.LabelFrame(self.ship_calculator_tab, text="Select Ship")
         ship_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
+        
+        # Faction filter
+        faction_label = ttk.Label(ship_selection_frame, text="Faction:")
+        faction_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        
+        # Get unique factions from ships
+        factions = ["All"]
+        for ship in self.discovered_modules['ships'].values():
+            if hasattr(ship, 'faction') and ship.faction not in factions:
+                factions.append(ship.faction)
+        
+        faction_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.faction_var, values=factions, state="readonly", width=15)
+        faction_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        faction_dropdown.bind("<<ComboboxSelected>>", self.filter_ships)
+        
+        # Ship type filter
+        type_label = ttk.Label(ship_selection_frame, text="Ship Type:")
+        type_label.grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
+        
+        # Get unique ship types
+        ship_types = ["All"]
+        for ship in self.discovered_modules['ships'].values():
+            if hasattr(ship, 'ship_type') and ship.ship_type not in ship_types:
+                ship_types.append(ship.ship_type)
+        
+        type_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.ship_type_var, values=ship_types, state="readonly", width=15)
+        type_dropdown.grid(row=0, column=3, sticky=tk.W, padx=5, pady=5)
+        type_dropdown.bind("<<ComboboxSelected>>", self.filter_ships)
 
         # Ship selection
         ship_label = ttk.Label(ship_selection_frame, text="Select Ship:")
-        ship_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        ship_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
 
-        ship_list = [module.display_name for module in self.discovered_modules['ships'].values()]
-        self.ship_var.set(ship_list[0] if ship_list else "")
-        ship_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.ship_var, values=ship_list, state="readonly")
-        ship_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
-        ship_dropdown.bind("<<ComboboxSelected>>", self.on_ship_selected)
+        # Get filtered ship list (initially all ships)
+        self.filtered_ships = [module.display_name for module in self.discovered_modules['ships'].values()]
+        
+        self.ship_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.ship_var, values=self.filtered_ships, state="readonly", width=30)
+        self.ship_dropdown.grid(row=1, column=1, columnspan=3, sticky=tk.W+tk.E, padx=5, pady=5)
+        self.ship_dropdown.bind("<<ComboboxSelected>>", self.on_ship_selected)
+        if self.filtered_ships:
+            self.ship_var.set(self.filtered_ships[0])
 
         # Material Efficiency selection
         me_label = ttk.Label(ship_selection_frame, text="Material Efficiency (ME):")
-        me_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        me_label.grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
 
         me_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.me_var, values=list(range(11)), state="readonly")
-        me_dropdown.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        me_dropdown.grid(row=2, column=1, sticky=tk.W, padx=5, pady=5)
 
         # Calculate button
         calculate_button = ttk.Button(ship_selection_frame, text="Calculate Requirements", command=self.calculate_ship_requirements)
-        calculate_button.grid(row=2, column=0, columnspan=2, pady=10)
+        calculate_button.grid(row=3, column=0, columnspan=4, pady=10)
 
         # Frame for results
         results_frame = ttk.LabelFrame(self.ship_calculator_tab, text="Ship Requirements")
@@ -800,3 +835,36 @@ class EveProductionCalculator(tk.Tk):
             self.display_pi_details(details)
         else:
             self.display_pi_details(f"No data available for {selected_component}")
+
+    def filter_ships(self, event=None):
+        """Filter ships based on faction and ship type"""
+        selected_faction = self.faction_var.get()
+        selected_ship_type = self.ship_type_var.get()
+        
+        # Filter ships based on selected faction and type
+        self.filtered_ships = []
+        for ship in self.discovered_modules['ships'].values():
+            faction_match = selected_faction == "All" or (hasattr(ship, 'faction') and ship.faction == selected_faction)
+            type_match = selected_ship_type == "All" or (hasattr(ship, 'ship_type') and ship.ship_type == selected_ship_type)
+            
+            if faction_match and type_match:
+                self.filtered_ships.append(ship.display_name)
+        
+        # Update the ship dropdown with filtered ships
+        self.ship_dropdown['values'] = self.filtered_ships
+        
+        # Select the first ship in the filtered list if available
+        if self.filtered_ships:
+            self.ship_var.set(self.filtered_ships[0])
+            self.on_ship_selected()
+        else:
+            self.ship_var.set("")
+            # Clear the requirements display if no ships match the filter
+            self.clear_ship_requirements()
+    
+    def clear_ship_requirements(self):
+        """Clear the ship requirements display"""
+        self.ship_results_text.config(state=tk.NORMAL)
+        self.ship_results_text.delete(1.0, tk.END)
+        self.ship_results_text.insert(tk.END, "No ships match the selected filters.")
+        self.ship_results_text.config(state=tk.DISABLED)
