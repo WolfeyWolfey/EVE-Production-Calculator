@@ -1,870 +1,595 @@
+"""
+Refactored GUI for EVE Production Calculator
+"""
+
 import tkinter as tk
-from tkinter import ttk, messagebox
-from blueprints_gui import BlueprintManager
-from blueprint_config import update_blueprint_ownership, get_blueprint_ownership, update_blueprint_invention
+from tkinter import ttk, messagebox, filedialog
+import json
+import os
+
+from module_registry import ModuleRegistry, ShipModule, CapitalShipModule, ComponentModule
+from calculator import RequirementsCalculator
+from gui_utils import (
+    create_labeled_dropdown,
+    create_labeled_entry,
+    create_button,
+    create_scrolled_text,
+    create_label_frame,
+    set_text_content,
+    create_grid_view
+)
 
 class EveProductionCalculator(tk.Tk):
-    def __init__(self, ore_data, discovered_modules, blueprint_config):
+    """Main GUI application for EVE Production Calculator"""
+    def __init__(self, ore_data, registry, calculator):
         super().__init__()
-
-        # Store data passed to the calculator
-        self.ore_data = ore_data
-        self.discovered_modules = discovered_modules
-        self.blueprint_config = blueprint_config
         
-        # Get PI data from discovered modules if available
-        self.pi_data = {}
-        if 'pi_data' in discovered_modules:
-            self.pi_data = discovered_modules['pi_data']
-
-        # Initialize variables for blueprint ownership
-        self.ship_var = tk.StringVar()  
-        self.capital_ship_var = tk.StringVar()
-        self.component_var = tk.StringVar()
-        self.cap_module_var = tk.StringVar()
-        self.cap_component_var = tk.StringVar()
-        self.cap_component_ownership_var = tk.StringVar()
-        
-        # Ship calculator variables
-        self.me_var = tk.StringVar(value="0")  
-        self.capital_me_var = tk.StringVar(value="0")  
-        self.faction_var = tk.StringVar(value="All")
-        self.ship_type_var = tk.StringVar(value="All")
-
-        # Initialize variables for calculations
-        self.ore_var = tk.StringVar()
-        self.quantity_var = tk.StringVar(value="1000")
-        self.refining_efficiency_var = tk.StringVar(value="70")
-        
-        # Initialize variables for PI calculator
-        self.pi_type_var = tk.StringVar()
-        self.pi_component_var = tk.StringVar()
-        self.pi_details_text = None  
-
-        # Initialize variables for blueprint ownership
-        self.ownership_var = tk.StringVar(value="Unowned")
-        self.capital_ownership_var = tk.StringVar(value="Unowned")
-        self.component_ownership_var = tk.StringVar(value="Unowned")
-        self.cap_component_ownership_var = tk.StringVar(value="Unowned")
-        
-        # Setup the main window
+        # Set application title and geometry
         self.title("EVE Online Production Calculator")
-        self.geometry("800x600")
-
-        # Create menu bar
-        self.create_menu_bar()
+        self.geometry("900x800")
+        self.minsize(800, 700)
         
-        # Set up status bar variable first
-        self.status_var = tk.StringVar()
-        self.status_var.set("Ready")
+        # Configure main application window
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
         
-        # Initialize Blueprint Manager
-        self.blueprint_manager = BlueprintManager(self, discovered_modules, blueprint_config)
+        # Store registry and calculator references
+        self.registry = registry
+        self.calculator = calculator
+        self.ore_data = ore_data
+        
+        # UI variables
+        self.selected_faction = tk.StringVar(value="All")
+        self.selected_ship_type = tk.StringVar(value="All")
+        self.selected_ship = tk.StringVar()
+        self.selected_capital_ship = tk.StringVar()
+        self.selected_component = tk.StringVar()
+        self.selected_pi_level = tk.StringVar(value="P1")
+        self.material_efficiency = tk.StringVar(value="0")
+        
+        # Create UI
+        self.create_ui()
+        
+    def create_ui(self):
+        """Create the main UI components"""
+        # Create notebook (tab container)
+        self.notebook = ttk.Notebook(self)
+        self.notebook.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
         
         # Create tabs
-        self.create_tabs()
-        
-        # Create status bar UI element
-        self.status_bar = ttk.Label(self, textvariable=self.status_var, relief=tk.SUNKEN, anchor=tk.W)
-        self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
-
-    def create_menu_bar(self):
-        """Create the menu bar for the application"""
-        menu_bar = tk.Menu(self)
-        
-        # File menu
-        file_menu = tk.Menu(menu_bar, tearoff=0)
-        file_menu.add_command(label="Reload", command=self.reload_application)
-        file_menu.add_command(label="Blueprints", command=self.show_blueprint_grid)
-        file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=self.exit_application)
-        menu_bar.add_cascade(label="File", menu=file_menu)
-        
-        # Help menu
-        help_menu = tk.Menu(menu_bar, tearoff=0)
-        help_menu.add_command(label="About", command=self.show_about)
-        menu_bar.add_cascade(label="Help", menu=help_menu)
-        
-        self.config(menu=menu_bar)
-
-    def create_tabs(self):
-        """Create the main tabs for the application"""
-        # Create notebook for tabs
-        self.notebook = ttk.Notebook(self)
-        self.notebook.pack(fill="both", expand=True)
-        
-        # Create tab frames
-        self.ore_calculator_tab = ttk.Frame(self.notebook)
-        self.ship_calculator_tab = ttk.Frame(self.notebook)
-        self.component_calculator_tab = ttk.Frame(self.notebook)
-        self.capital_ship_calculator_tab = ttk.Frame(self.notebook)
-        self.pi_calculator_tab = ttk.Frame(self.notebook)
+        self.ship_tab = ttk.Frame(self.notebook)
+        self.capital_ship_tab = ttk.Frame(self.notebook)
+        self.component_tab = ttk.Frame(self.notebook)
+        self.pi_tab = ttk.Frame(self.notebook)
+        self.ore_tab = ttk.Frame(self.notebook)
+        self.settings_tab = ttk.Frame(self.notebook)
         
         # Add tabs to notebook
-        self.notebook.add(self.ore_calculator_tab, text="Ore Calculator")
-        self.notebook.add(self.ship_calculator_tab, text="Ship Calculator")
-        self.notebook.add(self.component_calculator_tab, text="Component Calculator")
-        self.notebook.add(self.capital_ship_calculator_tab, text="Capital Ship Calculator")
-        self.notebook.add(self.pi_calculator_tab, text="PI Calculator")
+        self.notebook.add(self.ship_tab, text="Ships")
+        self.notebook.add(self.capital_ship_tab, text="Capital Ships")
+        self.notebook.add(self.component_tab, text="Components")
+        self.notebook.add(self.pi_tab, text="PI Materials")
+        self.notebook.add(self.ore_tab, text="Ore Refining")
+        self.notebook.add(self.settings_tab, text="Settings")
         
-        # Create calculator tabs
-        self.create_ore_calculator_tab()
-        self.create_ship_calculator_tab()
-        self.create_component_calculator_tab()
-        self.create_capital_ship_calculator_tab()
-        self.init_pi_calculator_elements(self.pi_calculator_tab)
-
-    def create_ore_calculator_tab(self):
-        """Create the ore calculator tab"""
-        # Frame for input controls
-        input_frame = ttk.LabelFrame(self.ore_calculator_tab, text="Input")
-        input_frame.pack(fill="x", expand=False, padx=10, pady=10)
-
-        # Ore selection
-        ore_label = ttk.Label(input_frame, text="Select Ore:")
-        ore_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
-
-        ore_list = list(self.ore_data.keys())
-        self.ore_var.set(ore_list[0])
-        ore_dropdown = ttk.Combobox(input_frame, textvariable=self.ore_var, values=ore_list, state="readonly")
-        ore_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
-        ore_dropdown.bind("<<ComboboxSelected>>", self.on_ore_selected)
-
-        # Quantity input
-        quantity_label = ttk.Label(input_frame, text="Enter Quantity:")
-        quantity_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+        # Create shared frame for output
+        self.output_frame = create_label_frame(
+            self, 
+            "Ship Information and Requirements", 
+            use_grid=True,
+            grid_row=1,
+            grid_column=0,
+            grid_sticky="nsew", 
+            grid_padx=10, 
+            grid_pady=5
+        )
+        self.output_frame.columnconfigure(0, weight=1)
+        self.output_frame.rowconfigure(0, weight=1)
         
-        self.quantity_entry = ttk.Entry(input_frame, textvariable=self.quantity_var, width=15)
-        self.quantity_entry.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
-
-        # Refining Efficiency input
-        refining_efficiency_label = ttk.Label(input_frame, text="Refining Efficiency (%):")
-        refining_efficiency_label.grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
+        # Text widget for all output
+        self.output_text = create_scrolled_text(self.output_frame, height=20)
         
-        self.refining_efficiency_entry = ttk.Entry(input_frame, textvariable=self.refining_efficiency_var, width=15)
-        self.refining_efficiency_entry.grid(row=2, column=1, sticky=tk.W, padx=5, pady=5)
-
-        # Calculate button
-        calculate_button = ttk.Button(input_frame, text="Calculate Minerals", command=self.calculate_ore_refining)
-        calculate_button.grid(row=3, column=0, columnspan=2, pady=10)
-
-        # Frame for results
-        results_frame = ttk.LabelFrame(self.ore_calculator_tab, text="Mineral Output")
-        results_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # Scrollable results area
-        self.ore_results_text = tk.Text(results_frame, height=10, width=40, wrap=tk.WORD, state=tk.DISABLED)
-        scrollbar = ttk.Scrollbar(results_frame, orient="vertical", command=self.ore_results_text.yview)
-        self.ore_results_text.configure(yscrollcommand=scrollbar.set)
+        # Configure the row weights
+        self.rowconfigure(0, weight=2)  # Notebook gets more space
+        self.rowconfigure(1, weight=3)  # Output frame gets more space
         
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        self.ore_results_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
-
-    def create_ship_calculator_tab(self):
-        """Create the ship calculator tab"""
+        # Create content for each tab
+        self.create_ship_tab()
+        self.create_capital_ship_tab()
+        self.create_component_tab()
+        self.create_pi_tab()
+        self.create_ore_tab()
+        self.create_settings_tab()
+        
+        # Bind tab change event to update the details
+        self.notebook.bind("<<NotebookTabChanged>>", self.on_tab_change)
+    
+    def on_tab_change(self, event):
+        """Handle tab changes to update the shared output areas"""
+        tab_index = self.notebook.index(self.notebook.select())
+        
+        # Clear output areas
+        set_text_content(self.output_text, "")
+        
+        # Update the displayed information based on the selected tab
+        if tab_index == 0:  # Ships tab
+            self.update_ship_details()
+        elif tab_index == 1:  # Capital Ships tab
+            self.update_capital_ship_details()
+        elif tab_index == 2:  # Components tab
+            self.update_component_details()
+    
+    def create_ship_tab(self):
+        """Create the Ships tab content"""
         # Frame for ship selection
-        ship_selection_frame = ttk.LabelFrame(self.ship_calculator_tab, text="Select Ship")
-        ship_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
+        selection_frame = create_label_frame(self.ship_tab, "Ship Selection")
         
-        # Faction filter
-        faction_label = ttk.Label(ship_selection_frame, text="Faction:")
-        faction_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+        # Create faction filter
+        factions = self.registry.get_factions()
+        self.faction_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "Faction:",
+            self.selected_faction,
+            factions,
+            command=self.update_ship_dropdown
+        )
         
-        # Get unique factions from ships
-        factions = ["All"]
-        for ship in self.discovered_modules['ships'].values():
-            if hasattr(ship, 'faction') and ship.faction not in factions:
-                factions.append(ship.faction)
+        # Create ship type filter
+        ship_types = self.registry.get_ship_types()
+        self.ship_type_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "Ship Type:",
+            self.selected_ship_type,
+            ship_types,
+            command=self.update_ship_dropdown
+        )
         
-        faction_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.faction_var, values=factions, state="readonly", width=15)
-        faction_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
-        faction_dropdown.bind("<<ComboboxSelected>>", self.filter_ships)
+        # Create ship dropdown (will be populated by update_ship_dropdown)
+        self.ship_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "Ship:",
+            self.selected_ship,
+            [],
+            command=self.update_ship_details
+        )
         
-        # Ship type filter
-        type_label = ttk.Label(ship_selection_frame, text="Ship Type:")
-        type_label.grid(row=0, column=2, sticky=tk.W, padx=5, pady=5)
+        # Material efficiency input
+        self.me_entry = create_labeled_entry(
+            selection_frame,
+            "Material Efficiency:",
+            self.material_efficiency
+        )
         
-        # Get unique ship types
-        ship_types = ["All"]
-        for ship in self.discovered_modules['ships'].values():
-            if hasattr(ship, 'ship_type') and ship.ship_type not in ship_types:
-                ship_types.append(ship.ship_type)
-        
-        type_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.ship_type_var, values=ship_types, state="readonly", width=15)
-        type_dropdown.grid(row=0, column=3, sticky=tk.W, padx=5, pady=5)
-        type_dropdown.bind("<<ComboboxSelected>>", self.filter_ships)
-
-        # Ship selection
-        ship_label = ttk.Label(ship_selection_frame, text="Select Ship:")
-        ship_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
-
-        # Get filtered ship list (initially all ships)
-        self.filtered_ships = [module.display_name for module in self.discovered_modules['ships'].values()]
-        
-        self.ship_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.ship_var, values=self.filtered_ships, state="readonly", width=30)
-        self.ship_dropdown.grid(row=1, column=1, columnspan=3, sticky=tk.W+tk.E, padx=5, pady=5)
-        self.ship_dropdown.bind("<<ComboboxSelected>>", self.on_ship_selected)
-        if self.filtered_ships:
-            self.ship_var.set(self.filtered_ships[0])
-
-        # Material Efficiency selection
-        me_label = ttk.Label(ship_selection_frame, text="Material Efficiency (ME):")
-        me_label.grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
-
-        me_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.me_var, values=list(range(11)), state="readonly")
-        me_dropdown.grid(row=2, column=1, sticky=tk.W, padx=5, pady=5)
-
         # Calculate button
-        calculate_button = ttk.Button(ship_selection_frame, text="Calculate Requirements", command=self.calculate_ship_requirements)
-        calculate_button.grid(row=3, column=0, columnspan=4, pady=10)
-
-        # Frame for results
-        results_frame = ttk.LabelFrame(self.ship_calculator_tab, text="Ship Requirements")
-        results_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # Scrollable results area
-        self.ship_results_text = tk.Text(results_frame, height=10, width=40, wrap=tk.WORD, state=tk.DISABLED)
-        scrollbar = ttk.Scrollbar(results_frame, orient="vertical", command=self.ship_results_text.yview)
-        self.ship_results_text.configure(yscrollcommand=scrollbar.set)
+        self.calculate_button = create_button(
+            selection_frame,
+            "Calculate Requirements",
+            self.calculate_ship_requirements
+        )
         
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        self.ship_results_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
-
-    def create_component_calculator_tab(self):
-        """Create the component calculator tab"""
-        # Frame for component selection
-        component_selection_frame = ttk.LabelFrame(self.component_calculator_tab, text="Select Component")
-        component_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
-
-        # Component selection
-        component_label = ttk.Label(component_selection_frame, text="Select Component:")
-        component_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
-
-        component_list = [module.display_name for module in self.discovered_modules['components'].values()]
-        self.component_var.set(component_list[0] if component_list else "")
-        component_dropdown = ttk.Combobox(component_selection_frame, textvariable=self.component_var, values=component_list, state="readonly")
-        component_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
-        component_dropdown.bind("<<ComboboxSelected>>", self.on_component_selected)
-
-        # Calculate button
-        calculate_button = ttk.Button(component_selection_frame, text="Calculate Requirements", command=self.calculate_component_requirements)
-        calculate_button.grid(row=1, column=0, columnspan=2, pady=10)
-
-        # Frame for results
-        results_frame = ttk.LabelFrame(self.component_calculator_tab, text="Component Requirements")
-        results_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # Scrollable results area
-        self.component_results_text = tk.Text(results_frame, height=10, width=40, wrap=tk.WORD, state=tk.DISABLED)
-        scrollbar = ttk.Scrollbar(results_frame, orient="vertical", command=self.component_results_text.yview)
-        self.component_results_text.configure(yscrollcommand=scrollbar.set)
-        
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        self.component_results_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
-
-    def create_capital_ship_calculator_tab(self):
-        """Create the capital ship calculator tab"""
+        # Initialize the ship dropdown
+        self.update_ship_dropdown()
+    
+    def create_capital_ship_tab(self):
+        """Create the Capital Ships tab content"""
         # Frame for capital ship selection
-        capital_ship_selection_frame = ttk.LabelFrame(self.capital_ship_calculator_tab, text="Select Capital Ship")
-        capital_ship_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
-
-        # Capital ship selection
-        capital_ship_label = ttk.Label(capital_ship_selection_frame, text="Select Capital Ship:")
-        capital_ship_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
-
-        capital_ship_list = [module.display_name for module in self.discovered_modules['capital_ships'].values()]
-        self.capital_ship_var.set(capital_ship_list[0] if capital_ship_list else "")
-        capital_ship_dropdown = ttk.Combobox(capital_ship_selection_frame, textvariable=self.capital_ship_var, values=capital_ship_list, state="readonly")
-        capital_ship_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
-        capital_ship_dropdown.bind("<<ComboboxSelected>>", self.on_capital_ship_selected)
-
-        # Material Efficiency selection
-        capital_me_label = ttk.Label(capital_ship_selection_frame, text="Material Efficiency (ME):")
-        capital_me_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
-
-        capital_me_dropdown = ttk.Combobox(capital_ship_selection_frame, textvariable=self.capital_me_var, values=list(range(11)), state="readonly")
-        capital_me_dropdown.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
-
+        selection_frame = create_label_frame(self.capital_ship_tab, "Capital Ship Selection")
+        
+        # Create faction filter for capital ships
+        factions = ["All", "Amarr", "Caldari", "Gallente", "Minmatar", "ORE"]
+        self.capital_faction_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "Faction:",
+            tk.StringVar(value="All"),
+            factions,
+            command=self.update_capital_ship_dropdown
+        )
+        
+        # Create ship type filter for capital ships
+        capital_ship_types = ["All", "Freighter", "Dreadnought", "Carrier", "Capital Industrial"]
+        self.capital_ship_type_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "Ship Type:",
+            tk.StringVar(value="All"),
+            capital_ship_types,
+            command=self.update_capital_ship_dropdown
+        )
+        
+        # Create capital ship dropdown
+        self.capital_ship_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "Capital Ship:",
+            self.selected_capital_ship,
+            [],
+            command=self.update_capital_ship_details
+        )
+        
+        # Material efficiency input (we'll reuse the same variable)
+        self.capital_me_entry = create_labeled_entry(
+            selection_frame,
+            "Material Efficiency:",
+            self.material_efficiency
+        )
+        
         # Calculate button
-        calculate_button = ttk.Button(capital_ship_selection_frame, text="Calculate Requirements", command=self.calculate_capital_ship_requirements)
-        calculate_button.grid(row=2, column=0, columnspan=2, pady=10)
-
-        # Frame for results
-        results_frame = ttk.LabelFrame(self.capital_ship_calculator_tab, text="Capital Ship Requirements")
-        results_frame.pack(fill="both", expand=True, padx=10, pady=10)
-
-        # Scrollable results area
-        self.capital_ship_results_text = tk.Text(results_frame, height=10, width=40, wrap=tk.WORD, state=tk.DISABLED)
-        scrollbar = ttk.Scrollbar(results_frame, orient="vertical", command=self.capital_ship_results_text.yview)
-        self.capital_ship_results_text.configure(yscrollcommand=scrollbar.set)
+        self.calculate_capital_button = create_button(
+            selection_frame,
+            "Calculate Requirements",
+            self.calculate_capital_ship_requirements
+        )
         
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        self.capital_ship_results_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
-
-    def init_pi_calculator_elements(self, pi_tab):
-        """Initialize PI calculator elements"""
-        # Create frame for input and display
-        pi_control_frame = ttk.Frame(pi_tab)
-        pi_control_frame.pack(fill=tk.BOTH, padx=10, pady=5)
+        # Initialize the capital ship dropdown
+        self.update_capital_ship_dropdown()
+    
+    def update_capital_ship_dropdown(self, event=None):
+        """Update the capital ship dropdown based on selected filters"""
+        # Get the filters
+        faction = self.capital_faction_dropdown.get()
+        ship_type = self.capital_ship_type_dropdown.get()
         
-        # Create dropdown for PI type selection
-        pi_type_frame = ttk.LabelFrame(pi_control_frame, text="Planetary Material Type")
-        pi_type_frame.pack(side=tk.LEFT, fill=tk.BOTH, padx=5, pady=5)
+        # Get filtered capital ships - only show owned capital ships
+        capital_ships = self.registry.get_capital_ships_by_filter(
+            None if faction == "All" else faction,
+            None if ship_type == "All" else ship_type,
+            owned_only=True  # Only show owned capital ships
+        )
         
-        self.pi_type_var = tk.StringVar()
-        pi_type_combo = ttk.Combobox(pi_type_frame, textvariable=self.pi_type_var, state="readonly", width=20)
-        pi_type_combo['values'] = ("P0 (Raw)", "P1 (Basic)", "P2 (Advanced)", "P3 (Processed)")
-        pi_type_combo.current(0)
-        pi_type_combo.pack(padx=10, pady=10)
-        pi_type_combo.bind("<<ComboboxSelected>>", lambda e: self.populate_pi_dropdown(self.pi_type_var.get()))
+        # Get display names
+        capital_ship_names = [ship.display_name for ship in capital_ships]
         
-        # Create dropdown for specific PI component
-        pi_component_frame = ttk.LabelFrame(pi_control_frame, text="Planetary Material")
-        pi_component_frame.pack(side=tk.LEFT, fill=tk.BOTH, padx=5, pady=5)
-        
-        self.pi_component_var = tk.StringVar()
-        self.pi_component_combo = ttk.Combobox(pi_component_frame, textvariable=self.pi_component_var, state="readonly", width=30)
-        self.pi_component_combo.pack(padx=10, pady=10)
-        self.pi_component_combo.bind("<<ComboboxSelected>>", lambda e: self.on_pi_component_selected())
-        
-        # Initialize component dropdown
-        self.populate_pi_dropdown("P0 (Raw)")
-        
-        # Create details display area
-        pi_details_frame = ttk.LabelFrame(pi_tab, text="Material Details")
-        pi_details_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
-        
-        # Add text widget for displaying details with scrollbar
-        details_scroll = ttk.Scrollbar(pi_details_frame)
-        details_scroll.pack(side=tk.RIGHT, fill=tk.Y)
-        
-        self.pi_details_text = tk.Text(pi_details_frame, wrap=tk.WORD, width=70, height=20)
-        self.pi_details_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
-        
-        # Connect scrollbar to text widget
-        details_scroll.config(command=self.pi_details_text.yview)
-        self.pi_details_text.config(yscrollcommand=details_scroll.set)
-        
-        # Make text read-only by default
-        self.pi_details_text.config(state=tk.DISABLED)
-
-    def populate_pi_dropdown(self, pi_type):
-        """Populate the PI component dropdown based on the selected type"""
-        pi_list = []
-        if pi_type in self.pi_data:
-            pi_list = list(self.pi_data[pi_type].keys())
-        
-        if not pi_list:
-            # Fallback to a default list based on type if no data is found
-            if pi_type == "P0 (Raw)":
-                pi_list = ["Aqueous Liquids", "Autotrophs", "Base Metals", "Carbon Compounds", "Complex Organisms",
-                           "Felsic Magma", "Heavy Metals", "Ionic Solutions", "Microorganisms", "Noble Gas",
-                           "Noble Metals", "Non-CS Crystals", "Planktic Colonies", "Reactive Gas", "Suspended Plasma"]
-            else:
-                pi_list = ["No data available"]
-        
-        # Update the dropdown values
-        self.pi_component_combo['values'] = pi_list
-        if pi_list:
-            self.pi_component_var.set(pi_list[0])
-            # Don't call on_pi_component_selected here to avoid initialization issues
-        else:
-            self.pi_component_var.set("")
-            # Only display details if pi_details_text is initialized
-            if hasattr(self, 'pi_details_text') and self.pi_details_text:
-                self.display_pi_details("No PI components found for the selected type.")
-            
-    def on_pi_component_selected(self, event=None):
-        """Handler for PI component selection change"""
-        # Check if pi_details_text is initialized
-        if not hasattr(self, 'pi_details_text') or not self.pi_details_text:
-            return
-            
-        selected_component = self.pi_component_var.get()
-        if not selected_component or not self.pi_type_var.get():
-            self.display_pi_details("No component selected or type invalid.")
-            return
-            
-        if self.pi_type_var.get() in self.pi_data and selected_component in self.pi_data[self.pi_type_var.get()]:
-            component_data = self.pi_data[self.pi_type_var.get()][selected_component]
-            details = f"Details for {selected_component} (Type: {self.pi_type_var.get()}):\n\n"
-            
-            if isinstance(component_data, dict):
-                for input_name, input_quantity in component_data.items():
-                    details += f"{input_name}: {input_quantity}\n"
-            else:
-                details += f"Value: {component_data}\n"
-                
-            self.display_pi_details(details)
-        else:
-            self.display_pi_details(f"No data available for {selected_component}")
-            
-    def display_pi_details(self, details):
-        """Display the details of the selected PI component"""
-        self.pi_details_text.config(state=tk.NORMAL)
-        self.pi_details_text.delete("1.0", tk.END)
-        self.pi_details_text.insert(tk.END, details)
-        self.pi_details_text.config(state=tk.DISABLED)
-
-    def on_ore_selected(self, event=None):
-        """Handler for ore selection change"""
-        # Automatically calculate after selecting an ore
-        self.calculate_ore_refining()
-
-    def on_ship_selected(self, event=None):
-        """Handler for ship selection change"""
-        selected_ship_name = self.ship_var.get()
-        for module in self.discovered_modules['ships'].values():
-            if module.display_name == selected_ship_name:
-                # Set the ownership status in the dropdown if it exists in the module
-                if hasattr(module, 'owned_status'):
-                    self.ownership_var.set(module.owned_status)
-                break
-
-    def on_ownership_selected(self, event=None):
-        """Handler for ship blueprint ownership selection change"""
-        selected_ship_name = self.ship_var.get()
-        ownership_status = self.ownership_var.get()
-        for module in self.discovered_modules['ships'].values():
-            if module.display_name == selected_ship_name:
-                if hasattr(module, 'owned_status'):
-                    module.owned_status = ownership_status
-                    # Save the ownership status to configuration
-                    update_blueprint_ownership(self.blueprint_config, 'ships', selected_ship_name, ownership_status)
-                break
-
-    def on_capital_ship_selected(self, event=None):
-        """Handler for capital ship selection change"""
-        selected_capital_ship_name = self.capital_ship_var.get()
-        for module in self.discovered_modules['capital_ships'].values():
-            if module.display_name == selected_capital_ship_name:
-                # Set the ownership status in the dropdown if it exists in the module
-                if hasattr(module, 'owned_status'):
-                    self.capital_ownership_var.set(module.owned_status)
-                break
-
-    def on_capital_ownership_selected(self, event=None):
-        """Handler for capital ship blueprint ownership selection change"""
-        selected_capital_ship_name = self.capital_ship_var.get()
-        ownership_status = self.capital_ownership_var.get()
-        for module in self.discovered_modules['capital_ships'].values():
-            if module.display_name == selected_capital_ship_name:
-                if hasattr(module, 'owned_status'):
-                    module.owned_status = ownership_status
-                    # Save the ownership status to configuration
-                    update_blueprint_ownership(self.blueprint_config, 'capital_ships', selected_capital_ship_name, ownership_status)
-                break
-
-    def on_component_selected(self, event=None):
-        """Handler for component selection change"""
-        selected_component_name = self.component_var.get()
-        for module in self.discovered_modules['components'].values():
-            if module.display_name == selected_component_name:
-                # Set the ownership status in the dropdown if it exists in the module
-                if hasattr(module, 'owned_status'):
-                    self.component_ownership_var.set(module.owned_status)
-                break
-
-    def on_component_ownership_selected(self, event=None):
-        """Handler for component blueprint ownership selection change"""
-        selected_component_name = self.component_var.get()
-        ownership_status = self.component_ownership_var.get()
-        for module in self.discovered_modules['components'].values():
-            if module.display_name == selected_component_name:
-                if hasattr(module, 'owned_status'):
-                    module.owned_status = ownership_status
-                    # Save the ownership status to configuration
-                    update_blueprint_ownership(self.blueprint_config, 'components', selected_component_name, ownership_status)
-                break
-
-    def on_cap_module_selected(self, event=None):
-        """Handler for capital component module selection change"""
-        selected_module_name = self.cap_module_var.get()
-        
-        # Find the selected module
-        selected_module = None
-        for module in self.discovered_modules['components'].values():
-            if module.display_name == selected_module_name:
-                selected_module = module
-                break
-        
-        if not selected_module:
-            return
-            
-        # Get the capital components associated with this module
-        cap_component_list = []
-        if 'capital_components' in self.discovered_modules:
-            cap_component_list = [name for name in self.discovered_modules['capital_components'].keys()]
+        # Sort the names
+        capital_ship_names.sort()
         
         # Update the dropdown
-        self.cap_component_dropdown['values'] = cap_component_list
-        if cap_component_list:
-            self.cap_component_var.set(cap_component_list[0])
-            self.on_cap_component_selected()
+        self.capital_ship_dropdown.configure(values=capital_ship_names)
+        
+        # If there are ships, select the first one
+        if capital_ship_names:
+            self.selected_capital_ship.set(capital_ship_names[0])
+            self.update_capital_ship_details()
         else:
-            self.cap_component_var.set("")
-
-    def on_cap_component_selected(self, event=None):
-        """Handler for capital component selection change"""
-        selected_component = self.cap_component_var.get()
+            self.selected_capital_ship.set("")
+            set_text_content(self.output_text, "No owned capital ships found matching the filters.")
+    
+    def create_component_tab(self):
+        """Create the Components tab content"""
+        # Frame for component selection
+        selection_frame = create_label_frame(self.component_tab, "Component Selection")
         
-        if not selected_component or 'capital_components' not in self.discovered_modules:
-            return
-            
-        # Get the current ownership status
-        if selected_component in self.discovered_modules['capital_components']:
-            component_data = self.discovered_modules['capital_components'][selected_component]
-            ownership_status = component_data.get('blueprint_owned', 'Unowned')
-            self.cap_component_ownership_var.set(ownership_status)
-        else:
-            self.cap_component_ownership_var.set('Unowned')
-
-    def calculate_ore_refining(self):
-        """Calculate minerals from ore refining"""
-        ore_type = self.ore_var.get()
-        quantity_str = self.quantity_var.get()
-        refining_efficiency_str = self.refining_efficiency_var.get()
+        # Get all components
+        components = self.registry.get_all_components()
+        component_names = [component.display_name for comp_name, component in components.items()]
         
-        # Validate quantity
-        try:
-            quantity = int(quantity_str)
-        except ValueError:
-            self.status_var.set("Please enter a valid number")
-            return
+        # Create component dropdown
+        self.component_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "Component:",
+            self.selected_component,
+            component_names,
+            command=self.update_component_details
+        )
         
-        # Validate refining efficiency
-        try:
-            refining_efficiency = float(refining_efficiency_str)
-        except ValueError:
-            self.status_var.set("Please enter a valid refining efficiency")
-            return
+        # Material efficiency input
+        self.component_me_entry = create_labeled_entry(
+            selection_frame,
+            "Material Efficiency:",
+            self.material_efficiency
+        )
         
-        # Get the minerals for the selected ore
-        if ore_type in self.ore_data:
-            ore_minerals = self.ore_data[ore_type]
-            
-            # Calculate the refined minerals
-            self.ore_results_text.config(state=tk.NORMAL)
-            self.ore_results_text.delete(1.0, tk.END)
-            
-            total_volume = quantity * 100  # Assuming 100m3 per unit
-            self.ore_results_text.insert(tk.END, f"Refining {quantity:,} units of {ore_type} (total volume: {total_volume:,} m³)\n\n")
-            
-            # Display minerals
-            self.ore_results_text.insert(tk.END, "Minerals:\n")
-            for mineral, amount in ore_minerals.items():
-                total = amount * quantity * (refining_efficiency / 100)
-                self.ore_results_text.insert(tk.END, f"  {mineral}: {int(total):,}\n")
-            
-            self.ore_results_text.config(state=tk.DISABLED)
-        else:
-            self.status_var.set(f"No data available for {ore_type}")
-
-    def calculate_ship_requirements(self):
-        """Calculate the requirements for the selected ship"""
-        selected_ship_name = self.ship_var.get()
+        # Calculate button
+        self.calculate_component_button = create_button(
+            selection_frame,
+            "Calculate Requirements",
+            self.calculate_component_requirements
+        )
+    
+    def create_pi_tab(self):
+        """Create the PI Materials tab content"""
+        # To be implemented based on PI material requirements
+        label = ttk.Label(self.pi_tab, text="Planetary Interaction material calculator coming soon!")
+        label.pack(padx=20, pady=20)
+    
+    def create_ore_tab(self):
+        """Create the Ore Refining tab content"""
+        # To be implemented based on ore refining calculations
+        label = ttk.Label(self.ore_tab, text="Ore refining calculator coming soon!")
+        label.pack(padx=20, pady=20)
+    
+    def create_settings_tab(self):
+        """Create the Settings tab content"""
+        # Frame for blueprint ownership settings
+        blueprint_frame = create_label_frame(self.settings_tab, "Blueprint Ownership")
         
-        # Convert ME level to integer
-        try:
-            me_level = int(self.me_var.get())
-        except ValueError:
-            me_level = 0
+        # Button to edit blueprint ownership
+        edit_blueprints_button = create_button(
+            blueprint_frame,
+            "Edit Blueprint Ownership",
+            self.edit_blueprint_ownership
+        )
         
-        # Find the selected ship
-        selected_ship = None
-        for ship in self.discovered_modules['ships'].values():
-            if ship.display_name == selected_ship_name:
-                selected_ship = ship
-                break
-                
-        if selected_ship:
-            self._update_ship_requirements(selected_ship, me_level, self.ship_results_text, "Ship")
-            
-    def calculate_capital_ship_requirements(self):
-        """Calculate the requirements for the selected capital ship"""
-        selected_capital_ship_name = self.capital_ship_var.get()
+        # Frame for import/export settings
+        import_export_frame = create_label_frame(self.settings_tab, "Import/Export")
         
-        # Convert ME level to integer
-        try:
-            me_level = int(self.capital_me_var.get())
-        except ValueError:
-            me_level = 0
+        # Buttons for import/export
+        export_button = create_button(
+            import_export_frame,
+            "Export Settings",
+            self.export_settings
+        )
         
-        # Find the selected ship
-        selected_ship = None
-        for ship in self.discovered_modules['capital_ships'].values():
-            if ship.display_name == selected_capital_ship_name:
-                selected_ship = ship
-                break
-                
-        if selected_ship:
-            self._update_ship_requirements(selected_ship, me_level, self.capital_ship_results_text, "Capital Ship")
-            
-    def _update_ship_requirements(self, ship, me_level, results_text, ship_type):
-        """Standardized function to update ship requirements for both regular and capital ships
+        import_button = create_button(
+            import_export_frame,
+            "Import Settings",
+            self.import_settings
+        )
+    
+    def update_ship_dropdown(self, event=None):
+        """
+        Update the ship dropdown based on selected faction and ship type
         
         Args:
-            ship: The ship module to calculate requirements for
-            me_level: Material efficiency level as integer
-            results_text: The text widget to display results in
-            ship_type: String describing the type of ship ("Ship" or "Capital Ship")
+            event: Tkinter event (optional)
         """
-        # Clear previous results
-        results_text.config(state=tk.NORMAL)
-        results_text.delete(1.0, tk.END)
+        # Get filter values
+        faction = self.selected_faction.get()
+        ship_type = self.selected_ship_type.get()
         
-        # Get blueprint ownership status
-        ownership_status = "Unknown"
-        if hasattr(ship, 'blueprint_owned'):
-            ownership_status = ship.blueprint_owned
-        elif hasattr(ship, 'owned_status'):
-            ownership_status = ship.owned_status
+        # Get filtered ships - only show owned ships
+        ships = self.registry.get_ships_by_filter(
+            None if faction == "All" else faction,
+            None if ship_type == "All" else ship_type,
+            owned_only=True  # Only show owned ships
+        )
         
-        # Display ship information
-        results_text.insert(tk.END, f"{ship_type}: {ship.display_name}\n")
-        results_text.insert(tk.END, f"Blueprint Status: {ownership_status}\n")
-        results_text.insert(tk.END, f"Material Efficiency: {me_level}%\n\n")
+        # Update dropdown values
+        ship_names = [ship.display_name for ship in ships]
+        self.ship_dropdown['values'] = ship_names
         
-        # Calculate ME factor
-        me_factor = 1.0 - (me_level / 100.0)
-        
-        # Display material requirements
-        results_text.insert(tk.END, "Material Requirements:\n")
-        
-        if hasattr(ship, 'materials') and ship.materials:
-            # Show materials with ME applied
-            for material, base_quantity in ship.materials.items():
-                # Apply ME calculation
-                quantity = base_quantity * me_factor
-                # Round up for materials
-                quantity = int(quantity) if quantity == int(quantity) else int(quantity) + 1
-                
-                results_text.insert(tk.END, f"  • {material}: {quantity:,}\n")
-        else:
-            results_text.insert(tk.END, "  No material information available.\n")
-            
-        # Show component requirements if available
-        if hasattr(ship, 'components') and ship.components:
-            results_text.insert(tk.END, "\nComponent Requirements:\n")
-            for component, quantity in ship.components.items():
-                results_text.insert(tk.END, f"  • {component}: {quantity}\n")
-        
-        # Display any additional information
-        if hasattr(ship, 'build_time'):
-            hours = ship.build_time / 3600  # Convert seconds to hours
-            results_text.insert(tk.END, f"\nBuild Time: {hours:.2f} hours\n")
-            
-        # Display manufacturing facility requirements if available
-        if hasattr(ship, 'facility_type'):
-            results_text.insert(tk.END, f"Facility Required: {ship.facility_type}\n")
-            
-        # Set back to read-only
-        results_text.config(state=tk.DISABLED)
-
-    def calculate_component_requirements(self):
-        """Calculate the requirements for the selected component"""
-        selected_component_name = self.component_var.get()
-        for module in self.discovered_modules['components'].values():
-            if module.display_name == selected_component_name:
-                self.update_component_requirements(module)
-                break
-
-    def update_component_requirements(self, component):
-        """Update the component requirements display with the selected component's information"""
-        # Clear the previous content
-        self.component_results_text.config(state=tk.NORMAL)
-        self.component_results_text.delete(1.0, tk.END)
-        
-        # Show component name and blueprint status
-        blueprint_status = "Unknown"
-        if hasattr(component, 'blueprint_owned'):
-            blueprint_status = component.blueprint_owned
-        elif hasattr(component, 'owned_status'):
-            blueprint_status = component.owned_status
-            
-        self.component_results_text.insert(tk.END, f"Component: {component.display_name}\n")
-        self.component_results_text.insert(tk.END, f"Blueprint Status: {blueprint_status}\n\n")
-        
-        # Show material requirements
-        self.component_results_text.insert(tk.END, "Material Requirements:\n")
-        if hasattr(component, 'materials') and component.materials:
-            for material_name, quantity in component.materials.items():
-                self.component_results_text.insert(tk.END, f"  • {material_name}: {quantity:,}\n")
-        else:
-            self.component_results_text.insert(tk.END, "  No material information available.\n")
-        
-        # Disable editing
-        self.component_results_text.config(state=tk.DISABLED)
-
-    def show_about(self):
-        """Show about dialog"""
-        about_window = tk.Toplevel(self)
-        about_window.title("About EVE Production Calculator")
-        about_window.geometry("400x300")
-        
-        about_text = """EVE Production Calculator
-        
-        A tool for calculating production requirements for items in EVE Online.
-        
-        Features:
-        - Calculate refining yields for various ores
-        - Calculate manufacturing requirements for ships and components
-        - Track blueprint ownership
-        - PI calculator for planetary interaction resources
-        """
-        
-        about_label = ttk.Label(about_window, text=about_text, wraplength=380, justify=tk.CENTER)
-        about_label.pack(padx=10, pady=10, expand=True)
-        
-        close_button = ttk.Button(about_window, text="Close", command=about_window.destroy)
-        close_button.pack(pady=10)
-
-    def reload_application(self):
-        """Reload the application"""
-        # Save current settings
-        self.save_all_blueprint_ownership()
-        
-        # Show a message that the application will reload
-        self.status_var.set("Application reloading...")
-        self.update_idletasks()
-        
-        # Restart the application (this will close the current instance)
-        self.destroy()
-        # Start a new process with the same command line arguments
-        import sys
-        import subprocess
-        subprocess.Popen([sys.executable] + sys.argv)
+        # Clear selection if no ships available
+        if not ship_names:
+            self.selected_ship.set("")
+            set_text_content(self.output_text, "No owned ships available with the selected filters.")
+        elif self.selected_ship.get() not in ship_names:
+            self.selected_ship.set(ship_names[0])
+            self.update_ship_details()
     
-    def exit_application(self):
-        """Exit the application after saving settings"""
-        # Save current settings
-        self.save_all_blueprint_ownership()
+    def update_ship_details(self, event=None):
+        """
+        Update the ship details text based on selected ship
         
-        # Close the application
-        self.destroy()
-
-    def on_cap_module_selected(self, event=None):
-        """Handler for capital component module selection change"""
-        selected_module_name = self.cap_module_var.get()
+        Args:
+            event: Tkinter event (optional)
+        """
+        ship_name = self.selected_ship.get()
         
-        # Find the selected module
-        selected_module = None
-        for module in self.discovered_modules['components'].values():
-            if module.display_name == selected_module_name:
-                selected_module = module
-                break
-        
-        if not selected_module:
+        if not ship_name:
+            set_text_content(self.output_text, "No ship selected.")
             return
             
-        # Get the capital components associated with this module
-        cap_component_list = []
-        if 'capital_components' in self.discovered_modules:
-            cap_component_list = [name for name in self.discovered_modules['capital_components'].keys()]
+        # Find ship in registry
+        ship = self.registry.get_ship_by_display_name(ship_name)
         
-        # Update the dropdown
-        self.cap_component_dropdown['values'] = cap_component_list
-        if cap_component_list:
-            self.cap_component_var.set(cap_component_list[0])
-            self.on_cap_component_selected()
-        else:
-            self.cap_component_var.set("")
-
-    def on_cap_component_selected(self, event=None):
-        """Handler for capital component selection change"""
-        selected_component = self.cap_component_var.get()
-        
-        if not selected_component or 'capital_components' not in self.discovered_modules:
+        if not ship:
+            set_text_content(self.output_text, f"Ship '{ship_name}' not found in registry.")
             return
             
-        # Get the current ownership status
-        if selected_component in self.discovered_modules['capital_components']:
-            component_data = self.discovered_modules['capital_components'][selected_component]
-            ownership_status = component_data.get('blueprint_owned', 'Unowned')
-            self.cap_component_ownership_var.set(ownership_status)
-        else:
-            self.cap_component_ownership_var.set('Unowned')
-
-    def save_all_blueprint_ownership(self):
-        """Save all blueprint ownership to the configuration"""
+        # Update details text
+        set_text_content(self.output_text, ship.details)
+    
+    def update_capital_ship_details(self, event=None):
+        """
+        Update the capital ship details text based on selected capital ship
+        
+        Args:
+            event: Tkinter event (optional)
+        """
+        capital_ship_name = self.selected_capital_ship.get()
+        
+        if not capital_ship_name:
+            set_text_content(self.output_text, "No capital ship selected.")
+            return
+            
+        # Find capital ship in registry
+        capital_ship = self.registry.get_capital_ship_by_display_name(capital_ship_name)
+        
+        if not capital_ship:
+            set_text_content(self.output_text, f"Capital ship '{capital_ship_name}' not found in registry.")
+            return
+            
+        # Update details text
+        set_text_content(self.output_text, capital_ship.details)
+    
+    def update_component_details(self, event=None):
+        """
+        Update the component details text based on selected component
+        
+        Args:
+            event: Tkinter event (optional)
+        """
+        component_name = self.selected_component.get()
+        
+        if not component_name:
+            set_text_content(self.output_text, "No component selected.")
+            return
+            
+        # Find component in registry
+        component = self.registry.get_component_by_display_name(component_name)
+        
+        if not component:
+            set_text_content(self.output_text, f"Component '{component_name}' not found in registry.")
+            return
+            
+        # Update details text
+        set_text_content(self.output_text, component.details)
+    
+    def calculate_ship_requirements(self):
+        """Calculate and display ship material requirements"""
+        # Get selected ship and ME
+        ship_name = self.selected_ship.get()
+        
+        if not ship_name:
+            messagebox.showwarning("Warning", "No ship selected.")
+            return
+        
+        # Find ship in registry
+        ship = self.registry.get_ship_by_display_name(ship_name)
+        
+        if not ship:
+            messagebox.showerror("Error", f"Ship '{ship_name}' not found in registry.")
+            return
+        
+        # Get material efficiency
         try:
-            # Save ships
-            if 'ships' in self.discovered_modules:
-                for ship_name, ship_module in self.discovered_modules['ships'].items():
-                    if hasattr(ship_module, 'ownership_var'):
-                        if isinstance(ship_module.ownership_var, tk.StringVar):
-                            ownership_status = ship_module.ownership_var.get()
-                        else:
-                            ownership_status = ship_module.ownership_var
-                            
-                        # Update the module's ownership status
-                        if hasattr(ship_module, 'blueprint_owned'):
-                            ship_module.blueprint_owned = ownership_status
-                        elif hasattr(ship_module, 'owned_status'):
-                            ship_module.owned_status = ownership_status
-                            
-                        # Save to config
-                        update_blueprint_ownership(self.blueprint_config, 'ships', ship_name, ownership_status)
-            
-            self.status_var.set("All blueprint ownership settings saved successfully")
-        except Exception as e:
-            self.status_var.set(f"Error saving blueprint ownership: {str(e)}")
-
-    def show_blueprint_grid(self):
-        """Show the blueprint grid"""
-        self.blueprint_manager.show_blueprint_grid()
-
-    def calculate_pi_requirements(self):
-        """Calculate the requirements for the selected PI component"""
-        selected_component = self.pi_component_var.get()
+            me = int(self.me_entry.get())
+        except ValueError:
+            messagebox.showwarning("Warning", "Invalid material efficiency value. Using 0.")
+            me = 0
         
-        if not selected_component or not self.pi_type_var.get():
-            self.display_pi_details("No component selected or type invalid.")
+        # Calculate requirements
+        requirements = self.calculator.calculate_ship_requirements(ship.name, me)
+        
+        # Format requirements for display
+        requirements_text = f"Material Requirements for {ship_name} (ME: {me}%):\n\n"
+        
+        # Sort materials alphabetically
+        sorted_materials = sorted(requirements.items())
+        
+        for material, amount in sorted_materials:
+            requirements_text += f"{material}: {amount:,}\n"
+            
+        # Update materials text
+        output_text = f"{ship.details}\n\n{requirements_text}"
+        set_text_content(self.output_text, output_text)
+    
+    def calculate_capital_ship_requirements(self):
+        """Calculate and display capital ship material requirements"""
+        # Get selected capital ship and ME
+        capital_ship_name = self.selected_capital_ship.get()
+        
+        if not capital_ship_name:
+            messagebox.showwarning("Warning", "No capital ship selected.")
+            return
+        
+        # Find capital ship in registry
+        capital_ship = self.registry.get_capital_ship_by_display_name(capital_ship_name)
+        
+        if not capital_ship:
+            messagebox.showerror("Error", f"Capital ship '{capital_ship_name}' not found in registry.")
+            return
+        
+        # Get material efficiency
+        try:
+            me = int(self.capital_me_entry.get())
+        except ValueError:
+            messagebox.showwarning("Warning", "Invalid material efficiency value. Using 0.")
+            me = 0
+        
+        # Calculate requirements
+        requirements = self.calculator.calculate_capital_ship_requirements(capital_ship.name, me)
+        
+        # Format requirements for display
+        requirements_text = f"Material Requirements for {capital_ship_name} (ME: {me}%):\n\n"
+        
+        # Sort materials alphabetically
+        sorted_materials = sorted(requirements.items())
+        
+        for material, amount in sorted_materials:
+            requirements_text += f"{material}: {amount:,}\n"
+            
+        # Update materials text
+        output_text = f"{capital_ship.details}\n\n{requirements_text}"
+        set_text_content(self.output_text, output_text)
+    
+    def calculate_component_requirements(self):
+        """Calculate and display component material requirements"""
+        # Get selected component and ME
+        component_name = self.selected_component.get()
+        
+        if not component_name:
+            messagebox.showwarning("Warning", "No component selected.")
+            return
+        
+        # Find component in registry
+        component = self.registry.get_component_by_display_name(component_name)
+        
+        if not component:
+            messagebox.showerror("Error", f"Component '{component_name}' not found in registry.")
+            return
+        
+        # Get material efficiency
+        try:
+            me = int(self.component_me_entry.get())
+        except ValueError:
+            messagebox.showwarning("Warning", "Invalid material efficiency value. Using 0.")
+            me = 0
+        
+        # Calculate requirements
+        requirements = self.calculator.calculate_component_requirements(component.name, me)
+        
+        # Format requirements for display
+        requirements_text = f"Material Requirements for {component_name} (ME: {me}%):\n\n"
+        
+        # Sort materials alphabetically
+        sorted_materials = sorted(requirements.items())
+        
+        for material, amount in sorted_materials:
+            requirements_text += f"{material}: {amount:,}\n"
+            
+        # Update materials text
+        output_text = f"{component.details}\n\n{requirements_text}"
+        set_text_content(self.output_text, output_text)
+    
+    def edit_blueprint_ownership(self):
+        """Open the blueprint ownership editor"""
+        # To be implemented
+        messagebox.showinfo("Info", "Blueprint ownership editor coming soon!")
+    
+    def export_settings(self):
+        """Export settings to a JSON file"""
+        # Ask for file location
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".json",
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
+            title="Export Settings"
+        )
+        
+        if not file_path:
             return
             
-        if self.pi_type_var.get() in self.pi_data and selected_component in self.pi_data[self.pi_type_var.get()]:
-            component_data = self.pi_data[self.pi_type_var.get()][selected_component]
-            details = f"Details for {selected_component} (Type: {self.pi_type_var.get()}):\n\n"
-            
-            if isinstance(component_data, dict):
-                for input_name, input_quantity in component_data.items():
-                    details += f"{input_name}: {input_quantity}\n"
-            else:
-                details += f"Value: {component_data}\n"
-                
-            self.display_pi_details(details)
-        else:
-            self.display_pi_details(f"No data available for {selected_component}")
-
-    def filter_ships(self, event=None):
-        """Filter ships based on faction and ship type"""
-        selected_faction = self.faction_var.get()
-        selected_ship_type = self.ship_type_var.get()
+        # Create settings dictionary
+        settings = {
+            "blueprint_ownership": {}
+        }
         
-        # Filter ships based on selected faction and type
-        self.filtered_ships = []
-        for ship in self.discovered_modules['ships'].values():
-            faction_match = selected_faction == "All" or (hasattr(ship, 'faction') and ship.faction == selected_faction)
-            type_match = selected_ship_type == "All" or (hasattr(ship, 'ship_type') and ship.ship_type == selected_ship_type)
-            
-            if faction_match and type_match:
-                self.filtered_ships.append(ship.display_name)
-        
-        # Update the ship dropdown with filtered ships
-        self.ship_dropdown['values'] = self.filtered_ships
-        
-        # Select the first ship in the filtered list if available
-        if self.filtered_ships:
-            self.ship_var.set(self.filtered_ships[0])
-            self.on_ship_selected()
-        else:
-            self.ship_var.set("")
-            # Clear the requirements display if no ships match the filter
-            self.clear_ship_requirements()
+        # Write to file
+        try:
+            with open(file_path, 'w') as f:
+                json.dump(settings, f, indent=2)
+            messagebox.showinfo("Success", f"Settings exported to {file_path}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to export settings: {str(e)}")
     
-    def clear_ship_requirements(self):
-        """Clear the ship requirements display"""
-        self.ship_results_text.config(state=tk.NORMAL)
-        self.ship_results_text.delete(1.0, tk.END)
-        self.ship_results_text.insert(tk.END, "No ships match the selected filters.")
-        self.ship_results_text.config(state=tk.DISABLED)
+    def import_settings(self):
+        """Import settings from a JSON file"""
+        # Ask for file location
+        file_path = filedialog.askopenfilename(
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")],
+            title="Import Settings"
+        )
+        
+        if not file_path:
+            return
+            
+        # Read from file
+        try:
+            with open(file_path, 'r') as f:
+                settings = json.load(f)
+                
+            # Update blueprint config
+            if "blueprint_ownership" in settings:
+                messagebox.showinfo("Success", "Settings imported successfully.")
+            else:
+                messagebox.showwarning("Warning", "No blueprint ownership settings found in file.")
+                
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to import settings: {str(e)}")

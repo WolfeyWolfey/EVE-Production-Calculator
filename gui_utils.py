@@ -130,45 +130,56 @@ def create_scrolled_text(parent: ttk.Frame,
     
     return text_widget
 
-def create_label_frame(parent: ttk.Frame,
-                     title: str,
-                     pack_fill: str = "x",
-                     expand: bool = False) -> ttk.LabelFrame:
+def create_label_frame(
+    parent: tk.Widget, 
+    title: str, 
+    pack_fill: str = tk.BOTH, 
+    expand: bool = True,
+    use_grid: bool = False,
+    grid_row: int = 0,
+    grid_column: int = 0,
+    grid_sticky: str = "nsew",
+    grid_padx: int = 10,
+    grid_pady: int = 10,
+    grid_rowspan: int = 1,
+    grid_columnspan: int = 1
+) -> ttk.LabelFrame:
     """
-    Create a labeled frame with consistent styling
+    Create a LabelFrame with nice defaults
     
     Args:
         parent: Parent widget
         title: Title for the labeled frame
         pack_fill: Fill direction for pack manager
         expand: Whether to expand the frame
+        use_grid: Whether to use grid instead of pack
+        grid_row: Row for grid layout
+        grid_column: Column for grid layout
+        grid_sticky: Sticky parameter for grid layout
+        grid_padx: X padding for grid layout
+        grid_pady: Y padding for grid layout
+        grid_rowspan: Row span for grid layout
+        grid_columnspan: Column span for grid layout
         
     Returns:
         The created LabelFrame widget
     """
     frame = ttk.LabelFrame(parent, text=title)
-    frame.pack(fill=pack_fill, expand=expand, padx=10, pady=10)
+    
+    if use_grid:
+        frame.grid(
+            row=grid_row, 
+            column=grid_column, 
+            sticky=grid_sticky, 
+            padx=grid_padx, 
+            pady=grid_pady,
+            rowspan=grid_rowspan,
+            columnspan=grid_columnspan
+        )
+    else:
+        frame.pack(fill=pack_fill, expand=expand, padx=10, pady=10)
     
     return frame
-
-def set_text_content(text_widget: tk.Text, content: str) -> None:
-    """
-    Set content of a text widget, handling read-only state
-    
-    Args:
-        text_widget: The Text widget to update
-        content: Content to set
-    """
-    # Enable editing temporarily
-    current_state = text_widget.cget("state")
-    text_widget.config(state="normal")
-    
-    # Clear existing content and insert new content
-    text_widget.delete("1.0", tk.END)
-    text_widget.insert("1.0", content)
-    
-    # Restore original state
-    text_widget.config(state=current_state)
 
 def create_grid_view(parent: ttk.Frame, 
                     columns: List[Dict[str, Any]],
@@ -214,3 +225,22 @@ def create_grid_view(parent: ttk.Frame,
     frame.grid_rowconfigure(0, weight=1)
     
     return tree
+
+def set_text_content(text_widget: tk.Text, content: str) -> None:
+    """
+    Set content of a text widget, handling read-only state
+    
+    Args:
+        text_widget: The Text widget to update
+        content: Content to set
+    """
+    # Enable editing temporarily
+    current_state = text_widget.cget("state")
+    text_widget.config(state="normal")
+    
+    # Clear existing content and insert new content
+    text_widget.delete("1.0", tk.END)
+    text_widget.insert("1.0", content)
+    
+    # Restore original state
+    text_widget.config(state=current_state)

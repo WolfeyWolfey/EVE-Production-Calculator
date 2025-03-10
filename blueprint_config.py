@@ -114,40 +114,34 @@ def update_blueprint_invention(config, category, blueprint_name, is_invented):
     save_blueprint_ownership(config)
     return True
 
-def apply_blueprint_ownership(modules, config):
+def apply_blueprint_ownership(config, module_registry):
     """
-    Apply loaded blueprint ownership settings to modules
+    Apply loaded blueprint ownership settings to module registry
     
     Args:
-        modules: Dictionary of ship and component modules
         config: Blueprint configuration dictionary
+        module_registry: ModuleRegistry containing all modules
     """
     # Apply ownership for ships
-    if 'ships' in modules and 'ships' in config:
-        for ship_name, ship_module in modules['ships'].items():
-            if ship_module.display_name in config['ships']:
-                ship_module.owned_status = config['ships'][ship_module.display_name]
+    if 'ships' in config:
+        all_ships = module_registry.get_all_ships()
+        for ship_name, ship in all_ships.items():
+            if ship.display_name in config['ships']:
+                ship.owned_status = config['ships'][ship.display_name]
     
     # Apply ownership for capital ships
-    if 'capital_ships' in modules and 'capital_ships' in config:
-        for ship_name, ship_module in modules['capital_ships'].items():
-            if ship_module.display_name in config['capital_ships']:
-                ship_module.owned_status = config['capital_ships'][ship_module.display_name]
+    if 'capital_ships' in config:
+        all_capital_ships = module_registry.get_all_capital_ships()
+        for cap_ship_name, capital_ship in all_capital_ships.items():
+            if capital_ship.display_name in config['capital_ships']:
+                capital_ship.owned_status = config['capital_ships'][capital_ship.display_name]
     
     # Apply ownership for components
-    if 'components' in modules and 'components' in config:
-        for component_name, component_module in modules['components'].items():
-            if component_module.display_name in config['components']:
-                component_module.owned_status = config['components'][component_module.display_name]
-    
-    # Apply ownership for individual capital components
-    if 'components' in modules and 'component_blueprints' in config:
-        for module_name, components in config['component_blueprints'].items():
-            for component_name, component_module in modules['components'].items():
-                if component_module.display_name == module_name and hasattr(component_module, 'capital_component_data'):
-                    for cap_component_name, ownership_status in components.items():
-                        if cap_component_name in component_module.capital_component_data:
-                            component_module.capital_component_data[cap_component_name]["blueprint_owned"] = ownership_status
+    if 'components' in config:
+        all_components = module_registry.get_all_components()
+        for comp_name, component in all_components.items():
+            if component.display_name in config['components']:
+                component.owned_status = config['components'][component.display_name]
 
 def get_blueprint_ownership(config, category, blueprint_name):
     """Get ownership status for a specific blueprint"""
