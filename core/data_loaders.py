@@ -9,61 +9,91 @@ import importlib.util
 import sys
 from utils.debug import debug_print
 from typing import Dict, List, Any, Optional, Set, Tuple
+import glob
 
 from core.module_registry import ModuleRegistry
 from core.models import ShipModule, CapitalShipModule, ComponentModule, PiMaterialModule
 
 def load_ships(registry: ModuleRegistry, base_path: str):
     """
-    Load ships from JSON file and register in the registry
+    Load ship data from JSON files into the registry
     
     Args:
         registry: The module registry
         base_path: Base path of the application
     """
-    # Load ship data from JSON
-    ship_data_path = os.path.join(base_path, 'data', 'ships.json')
+    # Store existing ownership status before loading
+    existing_ownership = {}
+    for ship in registry.get_all_ships():
+        existing_ownership[ship.name] = ship.owned_status
+    
+    # Initialize counters
+    ship_count = 0
+    capital_ship_count = 0
+    
+    # Create ships directory if it doesn't exist
+    ships_dir = os.path.join(base_path, 'data', 'ships')
+    if not os.path.exists(ships_dir):
+        os.makedirs(ships_dir)
+    
+    # Get all JSON files in the ships directory
+    ship_files = glob.glob(os.path.join(ships_dir, '*.json'))
+    
+    # If no files in ships directory, check for legacy ships.json in data directory
+    if not ship_files:
+        legacy_ship_path = os.path.join(base_path, 'data', 'ships.json')
+        if os.path.exists(legacy_ship_path):
+            ship_files = [legacy_ship_path]
+    
+    if not ship_files:
+        debug_print("No ship data files found")
+        return
     
     try:
-        # Check if file exists
-        if not os.path.exists(ship_data_path):
-            debug_print(f"Ships data file not found at: {ship_data_path}")
-            return
+        # Combine all ship data from all files
+        all_ship_data = {}
         
-        # Store existing ownership status before loading
-        existing_ownership = {}
-        for ship in registry.get_all_ships():
-            existing_ownership[ship.name] = ship.owned_status
+        for ship_file in ship_files:
+            debug_print(f"Loading ship data from: {ship_file}")
+            try:
+                with open(ship_file, 'r') as f:
+                    file_data = json.load(f)
+                    
+                # Check if this file contains capital ships as a top-level key
+                if 'capital_ships' in file_data:
+                    # Process capital ships directly
+                    capital_ships_data = file_data.pop('capital_ships')
+                    for ship_type, ships in capital_ships_data.items():
+                        for ship_name, ship_data in ships.items():
+                            if 'display_name' in ship_data:
+                                # Create capital ship module
+                                capital_ship = CapitalShipModule(
+                                    name=ship_name,
+                                    display_name=ship_data.get('display_name', ship_name.title()),
+                                    requirements=ship_data.get('requirements', {}),
+                                    details=ship_data.get('details', ''),
+                                    faction=ship_data.get('faction', 'unknown'),
+                                    ship_type=ship_data.get('ship_type', ship_type),
+                                    # Use existing ownership status if available, otherwise default to "Unowned"
+                                    owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
+                                )
+                                
+                                # Register the capital ship
+                                registry.register_capital_ship(capital_ship)
+                                capital_ship_count += 1
+                
+                # Merge the remaining data (regular ships)
+                for key, value in file_data.items():
+                    if key in all_ship_data:
+                        # If the key already exists, merge the nested dictionaries
+                        if isinstance(value, dict) and isinstance(all_ship_data[key], dict):
+                            all_ship_data[key].update(value)
+                    else:
+                        # If the key doesn't exist, add it
+                        all_ship_data[key] = value
             
-        with open(ship_data_path, 'r') as f:
-            all_ship_data = json.load(f)
-        
-        # Process regular ships (hierarchical structure)
-        ship_count = 0
-        capital_ship_count = 0
-        
-        # Extract capital ships if they exist as a top-level key
-        if 'capital_ships' in all_ship_data:
-            capital_ships_data = all_ship_data.pop('capital_ships')
-            # Process capital ships
-            for ship_type, ships in capital_ships_data.items():
-                for ship_name, ship_data in ships.items():
-                    if 'display_name' in ship_data:
-                        # Create capital ship module
-                        capital_ship = CapitalShipModule(
-                            name=ship_name,
-                            display_name=ship_data.get('display_name', ship_name.title()),
-                            requirements=ship_data.get('requirements', {}),
-                            details=ship_data.get('details', ''),
-                            faction=ship_data.get('faction', 'unknown'),
-                            ship_type=ship_data.get('ship_type', ship_type),
-                            # Use existing ownership status if available, otherwise default to False
-                            owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
-                        )
-                        
-                        # Register the capital ship
-                        registry.register_capital_ship(capital_ship)
-                        capital_ship_count += 1
+            except Exception as e:
+                debug_print(f"Error loading ship data from {ship_file}: {e}")
         
         # Process regular ships (hierarchical structure by faction)
         for faction, faction_data in all_ship_data.items():
@@ -85,7 +115,7 @@ def load_ships(registry: ModuleRegistry, base_path: str):
                                             details=ship_data.get('details', ''),
                                             faction=ship_data.get('faction', faction),
                                             ship_type=ship_data.get('ship_type', ship_class),
-                                            # Use existing ownership status if available, otherwise use from data or default to False
+                                            # Use existing ownership status if available, otherwise use from data or default to "Unowned"
                                             owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
                                         )
                                         
@@ -93,33 +123,8 @@ def load_ships(registry: ModuleRegistry, base_path: str):
                                         registry.register_ship(ship)
                                         ship_count += 1
         
-        # Also try loading capital ships from separate file if it exists
-        cap_ships_path = os.path.join(base_path, 'data', 'capital_ships.json')
-        if os.path.exists(cap_ships_path):
-            try:
-                with open(cap_ships_path, 'r') as f:
-                    capital_ship_data = json.load(f)
-                    
-                # Process capital ships
-                for ship_name, ship_data in capital_ship_data.items():
-                    if 'display_name' in ship_data:
-                        # Create capital ship module
-                        capital_ship = CapitalShipModule(
-                            name=ship_name,
-                            display_name=ship_data.get('display_name', ship_name.title()),
-                            requirements=ship_data.get('requirements', {}),
-                            details=ship_data.get('details', ''),
-                            faction=ship_data.get('faction', 'unknown'),
-                            ship_type=ship_data.get('type', 'unknown'),
-                            # Use existing ownership status if available, otherwise default to False
-                            owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
-                        )
-                        
-                        # Register the capital ship
-                        registry.register_capital_ship(capital_ship)
-                        capital_ship_count += 1
-            except Exception as e:
-                debug_print(f"Error loading capital ships from separate file: {e}")
+        debug_print(f"Loaded {ship_count} ships and {capital_ship_count} capital ships from {len(ship_files)} files")
+    
     except Exception as e:
         debug_print(f"Error loading ships: {e}")
 

@@ -1,0 +1,1029 @@
+{
+  "amarr": {
+    "frigates": {
+      "tech1": {
+        "executioner": {
+          "display_name": "Executioner",
+          "ship_type": "Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 20000,
+            "Pyerite": 6500,
+            "Mexallon": 1500,
+            "Isogen": 300,
+            "Nocxium": 85,
+            "Zydrine": 5
+          },
+          "details": "Executioner\nType: Amarr Tech I Frigate\nBase Build Time: ~18m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 20000\n- Pyerite: 6500\n- Mexallon: 1500\n- Isogen: 300\n- Nocxium: 85\n- Zydrine: 5"
+        },
+        "tormentor": {
+          "display_name": "Tormentor",
+          "ship_type": "Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 22000,
+            "Pyerite": 5500,
+            "Mexallon": 1800,
+            "Isogen": 350,
+            "Nocxium": 90,
+            "Zydrine": 5
+          },
+          "details": "Tormentor\nType: Amarr Tech I Frigate\nBase Build Time: ~18m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 22000\n- Pyerite: 5500\n- Mexallon: 1800\n- Isogen: 350\n- Nocxium: 90\n- Zydrine: 5"
+        },
+        "punisher": {
+          "display_name": "Punisher",
+          "ship_type": "Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 22000,
+            "Pyerite": 7000,
+            "Mexallon": 1800,
+            "Isogen": 350,
+            "Nocxium": 100,
+            "Zydrine": 10
+          },
+          "details": "Punisher\nType: Amarr Tech I Frigate\nBase Build Time: ~18m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 22000\n- Pyerite: 7000\n- Mexallon: 1800\n- Isogen: 350\n- Nocxium: 100\n- Zydrine: 10"
+        },
+        "magnate": {
+          "display_name": "Magnate",
+          "ship_type": "Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 18000,
+            "Pyerite": 6000,
+            "Mexallon": 1600,
+            "Isogen": 400,
+            "Nocxium": 85,
+            "Zydrine": 5
+          },
+          "details": "Magnate\nType: Amarr Tech I Frigate\nBase Build Time: ~18m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 18000\n- Pyerite: 6000\n- Mexallon: 1600\n- Isogen: 400\n- Nocxium: 85\n- Zydrine: 5"
+        },
+        "inquisitor": {
+          "display_name": "Inquisitor",
+          "ship_type": "Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 17000,
+            "Pyerite": 5000,
+            "Mexallon": 1800,
+            "Isogen": 400,
+            "Nocxium": 85,
+            "Zydrine": 5
+          },
+          "details": "Inquisitor\nType: Amarr Tech I Frigate\nBase Build Time: ~18m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 17000\n- Pyerite: 5000\n- Mexallon: 1800\n- Isogen: 400\n- Nocxium: 85\n- Zydrine: 5"
+        },
+        "crucifier": {
+          "display_name": "Crucifier",
+          "ship_type": "Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 21000,
+            "Pyerite": 6000,
+            "Mexallon": 1700,
+            "Isogen": 350,
+            "Nocxium": 90,
+            "Zydrine": 8
+          },
+          "details": "Crucifier\nType: Amarr Tech I Frigate\nBase Build Time: ~18m\nRequired Skill: Frigate Construction I\n\nMaterials:\n- Tritanium: 21000\n- Pyerite: 6000\n- Mexallon: 1700\n- Isogen: 350\n- Nocxium: 90\n- Zydrine: 8"
+        }
+      },
+      "tech2": {
+        "crusader": {
+          "display_name": "Crusader Interceptor",
+          "ship_type": "Interceptor",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Executioner": 1,
+            "Morphite": 8,
+            "R.A.M.-Starship Tech": 1,
+            "Construction Blocks": 15,
+            "Oscillator Capacitor Unit": 75,
+            "Pulse Shield Emitter": 23,
+            "Radar Sensor Cluster": 30,
+            "Crystalline Microprocessor": 120,
+            "Plasma Thruster": 45,
+            "Fernite Carbide Composite Armor Plate": 450,
+            "Fusion Reactor Unit": 5
+          },
+          "details": "Crusader Interceptor\nType: Amarr Tech II Interceptor\nBase Build Time: ~2h 00m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Executioner: 1\n- Morphite: 8\n- R.A.M.-Starship Tech: 1\n- Construction Blocks: 15\n- Oscillator Capacitor Unit: 75\n- Pulse Shield Emitter: 23\n- Radar Sensor Cluster: 30\n- Crystalline Microprocessor: 120\n- Plasma Thruster: 45\n- Fernite Carbide Composite Armor Plate: 450\n- Fusion Reactor Unit: 5"
+        },
+        "malediction": {
+          "display_name": "Malediction Interceptor",
+          "ship_type": "Interceptor",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Executioner": 1,
+            "Morphite": 8,
+            "R.A.M.-Starship Tech": 1,
+            "Construction Blocks": 15,
+            "Oscillator Capacitor Unit": 75,
+            "Pulse Shield Emitter": 23,
+            "Radar Sensor Cluster": 30,
+            "Crystalline Microprocessor": 120,
+            "Plasma Thruster": 45,
+            "Fernite Carbide Composite Armor Plate": 450,
+            "Fusion Reactor Unit": 5
+          },
+          "details": "Malediction Interceptor\nType: Amarr Tech II Interceptor\nBase Build Time: ~2h 00m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Executioner: 1\n- Morphite: 8\n- R.A.M.-Starship Tech: 1\n- Construction Blocks: 15\n- Oscillator Capacitor Unit: 75\n- Pulse Shield Emitter: 23\n- Radar Sensor Cluster: 30\n- Crystalline Microprocessor: 120\n- Plasma Thruster: 45\n- Fernite Carbide Composite Armor Plate: 450\n- Fusion Reactor Unit: 5"
+        },
+        "vengeance": {
+          "display_name": "Vengeance Assault Frigate",
+          "ship_type": "Assault Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Punisher": 1,
+            "Morphite": 45,
+            "R.A.M.-Starship Tech": 6,
+            "Construction Blocks": 38,
+            "Oscillator Capacitor Unit": 90,
+            "Pulse Shield Emitter": 30,
+            "Radar Sensor Cluster": 30,
+            "Crystalline Microprocessor": 135,
+            "Plasma Thruster": 23,
+            "Fernite Carbide Composite Armor Plate": 750,
+            "Fusion Reactor Unit": 8
+          },
+          "details": "Vengeance Assault Frigate\nType: Amarr Tech II Assault Frigate\nBase Build Time: ~2h 30m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Punisher: 1\n- Morphite: 45\n- R.A.M.-Starship Tech: 6\n- Construction Blocks: 38\n- Oscillator Capacitor Unit: 90\n- Pulse Shield Emitter: 30\n- Radar Sensor Cluster: 30\n- Crystalline Microprocessor: 135\n- Plasma Thruster: 23\n- Fernite Carbide Composite Armor Plate: 750\n- Fusion Reactor Unit: 8"
+        },
+        "retribution": {
+          "display_name": "Retribution Assault Frigate",
+          "ship_type": "Assault Frigate",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Punisher": 1,
+            "Morphite": 45,
+            "R.A.M.-Starship Tech": 6,
+            "Construction Blocks": 38,
+            "Oscillator Capacitor Unit": 90,
+            "Pulse Shield Emitter": 30,
+            "Radar Sensor Cluster": 30,
+            "Crystalline Microprocessor": 135,
+            "Plasma Thruster": 30,
+            "Fernite Carbide Composite Armor Plate": 900,
+            "Fusion Reactor Unit": 8
+          },
+          "details": "Retribution Assault Frigate\nType: Amarr Tech II Assault Frigate\nBase Build Time: ~2h 30m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Punisher: 1\n- Morphite: 45\n- R.A.M.-Starship Tech: 6\n- Construction Blocks: 38\n- Oscillator Capacitor Unit: 90\n- Pulse Shield Emitter: 30\n- Radar Sensor Cluster: 30\n- Crystalline Microprocessor: 135\n- Plasma Thruster: 30\n- Fernite Carbide Composite Armor Plate: 900\n- Fusion Reactor Unit: 8"
+        },
+        "anathema": {
+          "display_name": "Anathema Covert Ops",
+          "ship_type": "Covert Ops",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Magnate": 1,
+            "Morphite": 15,
+            "R.A.M.-Starship Tech": 3,
+            "Construction Blocks": 23,
+            "Oscillator Capacitor Unit": 60,
+            "Pulse Shield Emitter": 15,
+            "Radar Sensor Cluster": 68,
+            "Crystalline Microprocessor": 165,
+            "Plasma Thruster": 30,
+            "Fernite Carbide Composite Armor Plate": 300,
+            "Fusion Reactor Unit": 3
+          },
+          "details": "Anathema Covert Ops\nType: Amarr Tech II Covert Ops\nBase Build Time: ~2h 15m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Magnate: 1\n- Morphite: 15\n- R.A.M.-Starship Tech: 3\n- Construction Blocks: 23\n- Oscillator Capacitor Unit: 60\n- Pulse Shield Emitter: 15\n- Radar Sensor Cluster: 68\n- Crystalline Microprocessor: 165\n- Plasma Thruster: 30\n- Fernite Carbide Composite Armor Plate: 300\n- Fusion Reactor Unit: 3"
+        },
+        "purifier": {
+          "display_name": "Purifier Stealth Bomber",
+          "ship_type": "Stealth Bomber",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Crucifier": 1,
+            "Morphite": 18,
+            "R.A.M.-Starship Tech": 3,
+            "Construction Blocks": 23,
+            "Oscillator Capacitor Unit": 60,
+            "Pulse Shield Emitter": 15,
+            "Radar Sensor Cluster": 45,
+            "Crystalline Microprocessor": 150,
+            "Plasma Thruster": 38,
+            "Fernite Carbide Composite Armor Plate": 375,
+            "Fusion Reactor Unit": 3
+          },
+          "details": "Purifier Stealth Bomber\nType: Amarr Tech II Stealth Bomber\nBase Build Time: ~2h 15m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Crucifier: 1\n- Morphite: 18\n- R.A.M.-Starship Tech: 3\n- Construction Blocks: 23\n- Oscillator Capacitor Unit: 60\n- Pulse Shield Emitter: 15\n- Radar Sensor Cluster: 45\n- Crystalline Microprocessor: 150\n- Plasma Thruster: 38\n- Fernite Carbide Composite Armor Plate: 375\n- Fusion Reactor Unit: 3"
+        }
+      }
+    },
+    "destroyers": {
+      "tech1": {
+        "coercer": {
+          "display_name": "Coercer",
+          "ship_type": "Destroyer",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 45000,
+            "Pyerite": 11250,
+            "Mexallon": 3700,
+            "Isogen": 450,
+            "Nocxium": 125,
+            "Zydrine": 65
+          },
+          "details": "Coercer\nType: Amarr Tech I Destroyer\nBase Build Time: ~30m\nRequired Skill: Destroyer Construction I\n\nMaterials:\n- Tritanium: 45000\n- Pyerite: 11250\n- Mexallon: 3700\n- Isogen: 450\n- Nocxium: 125\n- Zydrine: 65"
+        },
+        "dragoon": {
+          "display_name": "Dragoon",
+          "ship_type": "Destroyer",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 48000,
+            "Pyerite": 12000,
+            "Mexallon": 4000,
+            "Isogen": 500,
+            "Nocxium": 140,
+            "Zydrine": 70
+          },
+          "details": "Dragoon\nType: Amarr Tech I Destroyer\nBase Build Time: ~30m\nRequired Skill: Destroyer Construction I\n\nMaterials:\n- Tritanium: 48000\n- Pyerite: 12000\n- Mexallon: 4000\n- Isogen: 500\n- Nocxium: 140\n- Zydrine: 70"
+        }
+      },
+      "tech2": {
+        "heretic": {
+          "display_name": "Heretic Interdictor",
+          "ship_type": "Interdictor",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Coercer": 1,
+            "Morphite": 75,
+            "R.A.M.-Starship Tech": 8,
+            "Construction Blocks": 60,
+            "Oscillator Capacitor Unit": 135,
+            "Pulse Shield Emitter": 45,
+            "Radar Sensor Cluster": 45,
+            "Crystalline Microprocessor": 180,
+            "Plasma Thruster": 45,
+            "Fernite Carbide Composite Armor Plate": 1800,
+            "Fusion Reactor Unit": 15
+          },
+          "details": "Heretic Interdictor\nType: Amarr Tech II Interdictor\nBase Build Time: ~3h 15m\nRequired Skill: Advanced Small Ship Construction III\n\nMaterials:\n- Coercer: 1\n- Morphite: 75\n- R.A.M.-Starship Tech: 8\n- Construction Blocks: 60\n- Oscillator Capacitor Unit: 135\n- Pulse Shield Emitter: 45\n- Radar Sensor Cluster: 45\n- Crystalline Microprocessor: 180\n- Plasma Thruster: 45\n- Fernite Carbide Composite Armor Plate: 1800\n- Fusion Reactor Unit: 15"
+        },
+        "confessor": {
+          "display_name": "Confessor Tactical Destroyer",
+          "ship_type": "Tactical Destroyer",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Coercer": 1,
+            "Morphite": 120,
+            "R.A.M.-Starship Tech": 10,
+            "Construction Blocks": 75,
+            "Oscillator Capacitor Unit": 150,
+            "Pulse Shield Emitter": 60,
+            "Radar Sensor Cluster": 60,
+            "Crystalline Microprocessor": 225,
+            "Plasma Thruster": 60,
+            "Fernite Carbide Composite Armor Plate": 2250,
+            "Fusion Reactor Unit": 18
+          },
+          "details": "Confessor Tactical Destroyer\nType: Amarr Tech II Tactical Destroyer\nBase Build Time: ~3h 45m\nRequired Skill: Advanced Small Ship Construction IV\n\nMaterials:\n- Coercer: 1\n- Morphite: 120\n- R.A.M.-Starship Tech: 10\n- Construction Blocks: 75\n- Oscillator Capacitor Unit: 150\n- Pulse Shield Emitter: 60\n- Radar Sensor Cluster: 60\n- Crystalline Microprocessor: 225\n- Plasma Thruster: 60\n- Fernite Carbide Composite Armor Plate: 2250\n- Fusion Reactor Unit: 18"
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "maller": {
+          "display_name": "Maller",
+          "ship_type": "Cruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 110000,
+            "Pyerite": 27500,
+            "Mexallon": 7500,
+            "Isogen": 1850,
+            "Nocxium": 500,
+            "Zydrine": 100,
+            "Megacyte": 25
+          },
+          "details": "Maller\nType: Amarr Tech I Cruiser\nBase Build Time: ~1h 15m\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 110000\n- Pyerite: 27500\n- Mexallon: 7500\n- Isogen: 1850\n- Nocxium: 500\n- Zydrine: 100\n- Megacyte: 25"
+        },
+        "omen": {
+          "display_name": "Omen",
+          "ship_type": "Cruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 105000,
+            "Pyerite": 25000,
+            "Mexallon": 8000,
+            "Isogen": 2000,
+            "Nocxium": 520,
+            "Zydrine": 120,
+            "Megacyte": 20
+          },
+          "details": "Omen\nType: Amarr Tech I Cruiser\nBase Build Time: ~1h 15m\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 105000\n- Pyerite: 25000\n- Mexallon: 8000\n- Isogen: 2000\n- Nocxium: 520\n- Zydrine: 120\n- Megacyte: 20"
+        },
+        "augoror": {
+          "display_name": "Augoror",
+          "ship_type": "Cruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 100000,
+            "Pyerite": 25000,
+            "Mexallon": 6000,
+            "Isogen": 1800,
+            "Nocxium": 450,
+            "Zydrine": 100,
+            "Megacyte": 18
+          },
+          "details": "Augoror\nType: Amarr Tech I Cruiser\nBase Build Time: ~1h 15m\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 100000\n- Pyerite: 25000\n- Mexallon: 6000\n- Isogen: 1800\n- Nocxium: 450\n- Zydrine: 100\n- Megacyte: 18"
+        },
+        "arbitrator": {
+          "display_name": "Arbitrator",
+          "ship_type": "Cruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 98000,
+            "Pyerite": 27000,
+            "Mexallon": 7000,
+            "Isogen": 1700,
+            "Nocxium": 480,
+            "Zydrine": 95,
+            "Megacyte": 22
+          },
+          "details": "Arbitrator\nType: Amarr Tech I Cruiser\nBase Build Time: ~1h 15m\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 98000\n- Pyerite: 27000\n- Mexallon: 7000\n- Isogen: 1700\n- Nocxium: 480\n- Zydrine: 95\n- Megacyte: 22"
+        }
+      },
+      "tech2": {
+        "devoter": {
+          "display_name": "Devoter Heavy Interdictor",
+          "ship_type": "Heavy Interdictor",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Maller": 1,
+            "Morphite": 180,
+            "R.A.M.-Starship Tech": 18,
+            "Construction Blocks": 150,
+            "Oscillator Capacitor Unit": 338,
+            "Pulse Shield Emitter": 113,
+            "Radar Sensor Cluster": 113,
+            "Crystalline Microprocessor": 450,
+            "Plasma Thruster": 113,
+            "Fernite Carbide Composite Armor Plate": 4500,
+            "Fusion Reactor Unit": 38
+          },
+          "details": "Devoter Heavy Interdictor\nType: Amarr Tech II Heavy Interdictor\nBase Build Time: ~6h 45m\nRequired Skill: Advanced Medium Ship Construction III\n\nMaterials:\n- Maller: 1\n- Morphite: 180\n- R.A.M.-Starship Tech: 18\n- Construction Blocks: 150\n- Oscillator Capacitor Unit: 338\n- Pulse Shield Emitter: 113\n- Radar Sensor Cluster: 113\n- Crystalline Microprocessor: 450\n- Plasma Thruster: 113\n- Fernite Carbide Composite Armor Plate: 4500\n- Fusion Reactor Unit: 38"
+        },
+        "sacrilege": {
+          "display_name": "Sacrilege Heavy Assault Cruiser",
+          "ship_type": "Heavy Assault Cruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Maller": 1,
+            "Morphite": 150,
+            "R.A.M.-Starship Tech": 15,
+            "Construction Blocks": 120,
+            "Oscillator Capacitor Unit": 300,
+            "Pulse Shield Emitter": 90,
+            "Radar Sensor Cluster": 90,
+            "Crystalline Microprocessor": 375,
+            "Plasma Thruster": 75,
+            "Fernite Carbide Composite Armor Plate": 3750,
+            "Fusion Reactor Unit": 30
+          },
+          "details": "Sacrilege Heavy Assault Cruiser\nType: Amarr Tech II Heavy Assault Cruiser\nBase Build Time: ~6h 00m\nRequired Skill: Advanced Medium Ship Construction II\n\nMaterials:\n- Maller: 1\n- Morphite: 150\n- R.A.M.-Starship Tech: 15\n- Construction Blocks: 120\n- Oscillator Capacitor Unit: 300\n- Pulse Shield Emitter: 90\n- Radar Sensor Cluster: 90\n- Crystalline Microprocessor: 375\n- Plasma Thruster: 75\n- Fernite Carbide Composite Armor Plate: 3750\n- Fusion Reactor Unit: 30"
+        },
+        "zealot": {
+          "display_name": "Zealot Heavy Assault Cruiser",
+          "ship_type": "Heavy Assault Cruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Omen": 1,
+            "Morphite": 150,
+            "R.A.M.-Starship Tech": 15,
+            "Construction Blocks": 120,
+            "Oscillator Capacitor Unit": 300,
+            "Pulse Shield Emitter": 90,
+            "Radar Sensor Cluster": 90,
+            "Crystalline Microprocessor": 375,
+            "Plasma Thruster": 75,
+            "Fernite Carbide Composite Armor Plate": 3750,
+            "Fusion Reactor Unit": 30
+          },
+          "details": "Zealot Heavy Assault Cruiser\nType: Amarr Tech II Heavy Assault Cruiser\nBase Build Time: ~6h 00m\nRequired Skill: Advanced Medium Ship Construction II\n\nMaterials:\n- Omen: 1\n- Morphite: 150\n- R.A.M.-Starship Tech: 15\n- Construction Blocks: 120\n- Oscillator Capacitor Unit: 300\n- Pulse Shield Emitter: 90\n- Radar Sensor Cluster: 90\n- Crystalline Microprocessor: 375\n- Plasma Thruster: 75\n- Fernite Carbide Composite Armor Plate: 3750\n- Fusion Reactor Unit: 30"
+        },
+        "curse": {
+          "display_name": "Curse Force Recon",
+          "ship_type": "Force Recon",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Arbitrator": 1,
+            "Morphite": 150,
+            "R.A.M.-Starship Tech": 15,
+            "Construction Blocks": 120,
+            "Oscillator Capacitor Unit": 300,
+            "Pulse Shield Emitter": 90,
+            "Radar Sensor Cluster": 90,
+            "Crystalline Microprocessor": 375,
+            "Plasma Thruster": 75,
+            "Fernite Carbide Composite Armor Plate": 3750,
+            "Fusion Reactor Unit": 30
+          },
+          "details": "Curse Force Recon\nType: Amarr Tech II Force Recon Ship\nBase Build Time: ~6h 00m\nRequired Skill: Advanced Medium Ship Construction III\n\nMaterials:\n- Arbitrator: 1\n- Morphite: 150\n- R.A.M.-Starship Tech: 15\n- Construction Blocks: 120\n- Oscillator Capacitor Unit: 300\n- Pulse Shield Emitter: 90\n- Radar Sensor Cluster: 90\n- Crystalline Microprocessor: 375\n- Plasma Thruster: 75\n- Fernite Carbide Composite Armor Plate: 3750\n- Fusion Reactor Unit: 30"
+        },
+        "pilgrim": {
+          "display_name": "Pilgrim Combat Recon",
+          "ship_type": "Combat Recon",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Arbitrator": 1,
+            "Morphite": 150,
+            "R.A.M.-Starship Tech": 15,
+            "Construction Blocks": 120,
+            "Oscillator Capacitor Unit": 300,
+            "Pulse Shield Emitter": 90,
+            "Radar Sensor Cluster": 90,
+            "Crystalline Microprocessor": 375,
+            "Plasma Thruster": 75,
+            "Fernite Carbide Composite Armor Plate": 3750,
+            "Fusion Reactor Unit": 30
+          },
+          "details": "Pilgrim Combat Recon\nType: Amarr Tech II Combat Recon Ship\nBase Build Time: ~6h 00m\nRequired Skill: Advanced Medium Ship Construction III\n\nMaterials:\n- Arbitrator: 1\n- Morphite: 150\n- R.A.M.-Starship Tech: 15\n- Construction Blocks: 120\n- Oscillator Capacitor Unit: 300\n- Pulse Shield Emitter: 90\n- Radar Sensor Cluster: 90\n- Crystalline Microprocessor: 375\n- Plasma Thruster: 75\n- Fernite Carbide Composite Armor Plate: 3750\n- Fusion Reactor Unit: 30"
+        },
+        "absolution": {
+          "display_name": "Absolution Command Ship",
+          "ship_type": "Command Ship",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Harbinger": 1,
+            "Morphite": 240,
+            "R.A.M.-Starship Tech": 24,
+            "Construction Blocks": 225,
+            "Oscillator Capacitor Unit": 450,
+            "Pulse Shield Emitter": 150,
+            "Radar Sensor Cluster": 150,
+            "Crystalline Microprocessor": 600,
+            "Plasma Thruster": 150,
+            "Fernite Carbide Composite Armor Plate": 6000,
+            "Fusion Reactor Unit": 45
+          },
+          "details": "Absolution Command Ship\nType: Amarr Tech II Command Ship\nBase Build Time: ~8h 00m\nRequired Skill: Advanced Medium Ship Construction IV\n\nMaterials:\n- Harbinger: 1\n- Morphite: 240\n- R.A.M.-Starship Tech: 24\n- Construction Blocks: 225\n- Oscillator Capacitor Unit: 450\n- Pulse Shield Emitter: 150\n- Radar Sensor Cluster: 150\n- Crystalline Microprocessor: 600\n- Plasma Thruster: 150\n- Fernite Carbide Composite Armor Plate: 6000\n- Fusion Reactor Unit: 45"
+        },
+        "damnation": {
+          "display_name": "Damnation Command Ship",
+          "ship_type": "Command Ship",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Harbinger": 1,
+            "Morphite": 240,
+            "R.A.M.-Starship Tech": 24,
+            "Construction Blocks": 225,
+            "Oscillator Capacitor Unit": 450,
+            "Pulse Shield Emitter": 150,
+            "Radar Sensor Cluster": 150,
+            "Crystalline Microprocessor": 600,
+            "Plasma Thruster": 150,
+            "Fernite Carbide Composite Armor Plate": 6000,
+            "Fusion Reactor Unit": 45
+          },
+          "details": "Damnation Command Ship\nType: Amarr Tech II Command Ship\nBase Build Time: ~8h 00m\nRequired Skill: Advanced Medium Ship Construction IV\n\nMaterials:\n- Harbinger: 1\n- Morphite: 240\n- R.A.M.-Starship Tech: 24\n- Construction Blocks: 225\n- Oscillator Capacitor Unit: 450\n- Pulse Shield Emitter: 150\n- Radar Sensor Cluster: 150\n- Crystalline Microprocessor: 600\n- Plasma Thruster: 150\n- Fernite Carbide Composite Armor Plate: 6000\n- Fusion Reactor Unit: 45"
+        }
+      }
+    },
+    "battlecruisers": {
+      "tech1": {
+        "harbinger": {
+          "display_name": "Harbinger",
+          "ship_type": "Battlecruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 330000,
+            "Pyerite": 75000,
+            "Mexallon": 22500,
+            "Isogen": 7500,
+            "Nocxium": 2250,
+            "Zydrine": 750,
+            "Megacyte": 225
+          },
+          "details": "Harbinger\nType: Amarr Tech I Battlecruiser\nBase Build Time: ~2h 30m\nRequired Skill: Battlecruiser Construction I\n\nMaterials:\n- Tritanium: 330000\n- Pyerite: 75000\n- Mexallon: 22500\n- Isogen: 7500\n- Nocxium: 2250\n- Zydrine: 750\n- Megacyte: 225"
+        },
+        "oracle": {
+          "display_name": "Oracle",
+          "ship_type": "Attack Battlecruiser",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 350000,
+            "Pyerite": 85000,
+            "Mexallon": 25000,
+            "Isogen": 8000,
+            "Nocxium": 2500,
+            "Zydrine": 800,
+            "Megacyte": 250
+          },
+          "details": "Oracle\nType: Amarr Tech I Attack Battlecruiser\nBase Build Time: ~2h 30m\nRequired Skill: Battlecruiser Construction II\n\nMaterials:\n- Tritanium: 350000\n- Pyerite: 85000\n- Mexallon: 25000\n- Isogen: 8000\n- Nocxium: 2500\n- Zydrine: 800\n- Megacyte: 250"
+        }
+      },
+      "tech2": {
+        "absolution": {
+          "display_name": "Absolution Command Ship",
+          "ship_type": "Command Ship",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Harbinger": 1,
+            "Morphite": 240,
+            "R.A.M.-Starship Tech": 24,
+            "Construction Blocks": 225,
+            "Oscillator Capacitor Unit": 450,
+            "Pulse Shield Emitter": 150,
+            "Radar Sensor Cluster": 150,
+            "Crystalline Microprocessor": 600,
+            "Plasma Thruster": 150,
+            "Fernite Carbide Composite Armor Plate": 6000,
+            "Fusion Reactor Unit": 45
+          },
+          "details": "Absolution Command Ship\nType: Amarr Tech II Command Ship\nBase Build Time: ~8h 00m\nRequired Skill: Advanced Medium Ship Construction IV\n\nMaterials:\n- Harbinger: 1\n- Morphite: 240\n- R.A.M.-Starship Tech: 24\n- Construction Blocks: 225\n- Oscillator Capacitor Unit: 450\n- Pulse Shield Emitter: 150\n- Radar Sensor Cluster: 150\n- Crystalline Microprocessor: 600\n- Plasma Thruster: 150\n- Fernite Carbide Composite Armor Plate: 6000\n- Fusion Reactor Unit: 45"
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "apocalypse": {
+          "display_name": "Apocalypse",
+          "ship_type": "Battleship",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 4800000,
+            "Pyerite": 1200000,
+            "Mexallon": 420000,
+            "Isogen": 90000,
+            "Nocxium": 31500,
+            "Zydrine": 6600,
+            "Megacyte": 1500
+          },
+          "details": "Apocalypse\nType: Amarr Tech I Battleship\nBase Build Time: ~4h 00m\nRequired Skill: Battleship Construction I\n\nMaterials:\n- Tritanium: 4800000\n- Pyerite: 1200000\n- Mexallon: 420000\n- Isogen: 90000\n- Nocxium: 31500\n- Zydrine: 6600\n- Megacyte: 1500"
+        },
+        "armageddon": {
+          "display_name": "Armageddon",
+          "ship_type": "Battleship",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 4600000,
+            "Pyerite": 1100000,
+            "Mexallon": 380000,
+            "Isogen": 78000,
+            "Nocxium": 26000,
+            "Zydrine": 5500,
+            "Megacyte": 1200
+          },
+          "details": "Armageddon\nType: Amarr Tech I Battleship\nBase Build Time: ~4h 00m\nRequired Skill: Battleship Construction I\n\nMaterials:\n- Tritanium: 4600000\n- Pyerite: 1100000\n- Mexallon: 380000\n- Isogen: 78000\n- Nocxium: 26000\n- Zydrine: 5500\n- Megacyte: 1200"
+        },
+        "abaddon": {
+          "display_name": "Abaddon",
+          "ship_type": "Battleship",
+          "faction": "Amarr",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 5000000,
+            "Pyerite": 1300000,
+            "Mexallon": 450000,
+            "Isogen": 95000,
+            "Nocxium": 35000,
+            "Zydrine": 7500,
+            "Megacyte": 1800
+          },
+          "details": "Abaddon\nType: Amarr Tech I Battleship\nBase Build Time: ~4h 00m\nRequired Skill: Battleship Construction I\n\nMaterials:\n- Tritanium: 5000000\n- Pyerite: 1300000\n- Mexallon: 450000\n- Isogen: 95000\n- Nocxium: 35000\n- Zydrine: 7500\n- Megacyte: 1800"
+        }
+      }
+    },
+    "caldari": {
+    "frigates": {
+      "tech1": {
+        "bantam": {
+          "display_name": "Bantam",
+          "ship_type": "Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 24000,
+            "Pyerite": 4500,
+            "Mexallon": 1875,
+            "Isogen": 375
+          },
+          "details": "Bantam\nType: Caldari Tech I Frigate\nBase Build Time: ~1h 15m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 24000\n- Pyerite: 4500\n- Mexallon: 1875\n- Isogen: 375"
+        },
+        "condor": {
+          "display_name": "Condor",
+          "ship_type": "Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Condor\nType: Caldari Tech I Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "griffin": {
+          "display_name": "Griffin",
+          "ship_type": "Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Griffin\nType: Caldari Tech I Frigate\nBase Build Time: ~1h 15m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "heron": {
+          "display_name": "Heron",
+          "ship_type": "Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Heron\nType: Caldari Tech I Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "kestrel": {
+          "display_name": "Kestrel",
+          "ship_type": "Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Kestrel\nType: Caldari Tech I Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "merlin": {
+          "display_name": "Merlin",
+          "ship_type": "Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Merlin\nType: Caldari Tech I Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        }
+      },
+      "tech2": {
+        "crow": {
+          "display_name": "Crow Interceptor",
+          "ship_type": "Interceptor",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Condor": 1,
+            "Scalar Capacitor Unit": 75,
+            "Magpulse Thruster": 45,
+            "Gravimetric Sensor Cluster": 30,
+            "Construction Blocks": 15,
+            "R.A.M.- Starship Tech": 1,
+            "Titanium Diborite Armor Plate": 450,
+            "Quantum Microprocessor": 120,
+            "Sustained Shield Emitter": 23,
+            "Morphite": 8,
+            "Graviton Reactor Unit": 5
+          },
+          "details": "Crow Interceptor\nType: Caldari Tech II Interceptor\nBase Build Time: ~2h 00m\nRequired Skills: Industry V, Advanced Small Ship Construction II, Mechanical Engineering I, Caldari Starship Engineering I\n\nMaterials:\n- Condor: 1\n- Scalar Capacitor Unit: 75\n- Magpulse Thruster: 45\n- Gravimetric Sensor Cluster: 30\n- Construction Blocks: 15\n- R.A.M.- Starship Tech: 1\n- Titanium Diborite Armor Plate: 450\n- Quantum Microprocessor: 120\n- Sustained Shield Emitter: 23\n- Morphite: 8\n- Graviton Reactor Unit: 5"
+        },
+        "kitsune": {
+          "display_name": "Kitsune Electronic Attack Ship",
+          "ship_type": "Electronic Attack Ship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Griffin": 1,
+            "Scalar Capacitor Unit": 75,
+            "Morphite": 15,
+            "Magpulse Thruster": 30,
+            "Gravimetric Sensor Cluster": 75,
+            "Construction Blocks": 23,
+            "R.A.M.- Starship Tech": 6,
+            "Titanium Diborite Armor Plate": 375,
+            "Quantum Microprocessor": 150,
+            "Sustained Shield Emitter": 15,
+            "Graviton Reactor Unit": 3
+          },
+          "details": "Kitsune Electronic Attack Ship\nType: Caldari Tech II Electronic Attack Ship\nBase Build Time: ~2h 20m\nRequired Skills: Industry V, Advanced Small Ship Construction V, Mechanical Engineering I, Caldari Starship Engineering I\n\nMaterials:\n- Griffin: 1\n- Scalar Capacitor Unit: 75\n- Morphite: 15\n- Magpulse Thruster: 30\n- Gravimetric Sensor Cluster: 75\n- Construction Blocks: 23\n- R.A.M.- Starship Tech: 6\n- Titanium Diborite Armor Plate: 375\n- Quantum Microprocessor: 150\n- Sustained Shield Emitter: 15\n- Graviton Reactor Unit: 3"
+        },
+        "manticore": {
+          "display_name": "Manticore Stealth Bomber",
+          "ship_type": "Stealth Bomber",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Kestrel": 1,
+            "Oscillator Capacitor Unit": 60,
+            "Morphite": 38,
+            "Pulse Shield Emitter": 15,
+            "Magnetometric Sensor Cluster": 60,
+            "Construction Blocks": 30,
+            "R.A.M.- Starship Tech": 3,
+            "Ion Thruster": 30,
+            "Crystalline Carbonide Armor Plate": 300,
+            "Photon Microprocessor": 180
+          },
+          "details": "Manticore Stealth Bomber\nType: Caldari Tech II Stealth Bomber\nBase Build Time: ~2h 30m\nRequired Skills: Industry V, Advanced Small Ship Construction II, Rocket Science I, Caldari Starship Engineering I\n\nMaterials:\n- Kestrel: 1\n- Oscillator Capacitor Unit: 60\n- Morphite: 38\n- Pulse Shield Emitter: 15\n- Magnetometric Sensor Cluster: 60\n- Construction Blocks: 30\n- R.A.M.- Starship Tech: 3\n- Ion Thruster: 30\n- Crystalline Carbonide Armor Plate: 300\n- Photon Microprocessor: 180"
+        }
+      }
+    },
+    "destroyers": {
+      "tech1": {
+        "corax": {
+          "display_name": "Corax",
+          "ship_type": "Destroyer",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 80000,
+            "Pyerite": 15000,
+            "Mexallon": 5000,
+            "Isogen": 1000
+          },
+          "details": "Corax\nType: Caldari Tech I Destroyer\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 80000\n- Pyerite: 15000\n- Mexallon: 5000\n- Isogen: 1000"
+        },
+        "cormorant": {
+          "display_name": "Cormorant",
+          "ship_type": "Destroyer",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 80000,
+            "Pyerite": 15000,
+            "Mexallon": 5000,
+            "Isogen": 1000
+          },
+          "details": "Cormorant\nType: Caldari Tech I Destroyer\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 80000\n- Pyerite: 15000\n- Mexallon: 5000\n- Isogen: 1000"
+        }
+      },
+      "tech2": {
+        "flycatcher": {
+          "display_name": "Flycatcher Interdictor",
+          "ship_type": "Interdictor",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Cormorant": 1,
+            "Scalar Capacitor Unit": 150,
+            "Morphite": 45,
+            "Magpulse Thruster": 60,
+            "Gravimetric Sensor Cluster": 60,
+            "Construction Blocks": 30,
+            "R.A.M.- Starship Tech": 6,
+            "Titanium Diborite Armor Plate": 750,
+            "Quantum Microprocessor": 300,
+            "Sustained Shield Emitter": 23,
+            "Graviton Reactor Unit": 8
+          },
+          "details": "Flycatcher Interdictor\nType: Caldari Tech II Interdictor\nBase Build Time: ~8h 00m\nRequired Skills: Industry V, Advanced Small Ship Construction IV, Mechanical Engineering I, Caldari Starship Engineering I\n\nMaterials:\n- Cormorant: 1\n- Scalar Capacitor Unit: 150\n- Morphite: 45\n- Magpulse Thruster: 60\n- Gravimetric Sensor Cluster: 60\n- Construction Blocks: 30\n- R.A.M.- Starship Tech: 6\n- Titanium Diborite Armor Plate: 750\n- Quantum Microprocessor: 300\n- Sustained Shield Emitter: 23\n- Graviton Reactor Unit: 8"
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "blackbird": {
+          "display_name": "Blackbird",
+          "ship_type": "Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 405000,
+            "Pyerite": 135000,
+            "Mexallon": 27000,
+            "Isogen": 7500,
+            "Nocxium": 1125,
+            "Zydrine": 263,
+            "Megacyte": 105
+          },
+          "details": "Blackbird\nType: Caldari Tech I Cruiser\nBase Build Time: ~8h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 405000\n- Pyerite: 135000\n- Mexallon: 27000\n- Isogen: 7500\n- Nocxium: 1125\n- Zydrine: 263\n- Megacyte: 105"
+        },
+        "caracal": {
+          "display_name": "Caracal",
+          "ship_type": "Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 540000,
+            "Pyerite": 180000,
+            "Mexallon": 36000,
+            "Isogen": 10000,
+            "Nocxium": 1500,
+            "Zydrine": 350,
+            "Megacyte": 140
+          },
+          "details": "Caracal\nType: Caldari Tech I Cruiser\nBase Build Time: ~10h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 540000\n- Pyerite: 180000\n- Mexallon: 36000\n- Isogen: 10000\n- Nocxium: 1500\n- Zydrine: 350\n- Megacyte: 140"
+        },
+        "moa": {
+          "display_name": "Moa",
+          "ship_type": "Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 540000,
+            "Pyerite": 180000,
+            "Mexallon": 36000,
+            "Isogen": 10000,
+            "Nocxium": 1500,
+            "Zydrine": 350,
+            "Megacyte": 140
+          },
+          "details": "Moa\nType: Caldari Tech I Cruiser\nBase Build Time: ~10h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 540000\n- Pyerite: 180000\n- Mexallon: 36000\n- Isogen: 10000\n- Nocxium: 1500\n- Zydrine: 350\n- Megacyte: 140"
+        },
+        "osprey": {
+          "display_name": "Osprey",
+          "ship_type": "Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 405000,
+            "Pyerite": 135000,
+            "Mexallon": 27000,
+            "Isogen": 7500,
+            "Nocxium": 1125,
+            "Zydrine": 263,
+            "Megacyte": 105
+          },
+          "details": "Osprey\nType: Caldari Tech I Cruiser\nBase Build Time: ~8h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 405000\n- Pyerite: 135000\n- Mexallon: 27000\n- Isogen: 7500\n- Nocxium: 1125\n- Zydrine: 263\n- Megacyte: 105"
+        }
+      },
+      "navy_issue": {
+        "caracal_navy_issue": {
+          "display_name": "Caracal Navy Issue",
+          "ship_type": "Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Caracal": 1,
+            "Tritanium": 270000,
+            "Pyerite": 90000,
+            "Mexallon": 18000,
+            "Isogen": 5000,
+            "Nocxium": 750,
+            "Zydrine": 175,
+            "Megacyte": 70
+          },
+          "details": "Caracal Navy Issue\nType: Caldari Navy Cruiser\nBase Build Time: ~12h\nRequired Skills: Industry IV, Caldari Cruiser Construction II\n\nMaterials:\n- Caracal: 1\n- Tritanium: 270000\n- Pyerite: 90000\n- Mexallon: 18000\n- Isogen: 5000\n- Nocxium: 750\n- Zydrine: 175\n- Megacyte: 70"
+        },
+        "osprey_navy_issue": {
+          "display_name": "Osprey Navy Issue",
+          "ship_type": "Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Osprey": 1,
+            "Tritanium": 200000,
+            "Pyerite": 67500,
+            "Mexallon": 13500,
+            "Isogen": 3750,
+            "Nocxium": 560,
+            "Zydrine": 130,
+            "Megacyte": 52
+          },
+          "details": "Osprey Navy Issue\nType: Caldari Navy Cruiser\nBase Build Time: ~10h\nRequired Skills: Industry IV, Caldari Cruiser Construction II\n\nMaterials:\n- Osprey: 1\n- Tritanium: 200000\n- Pyerite: 67500\n- Mexallon: 13500\n- Isogen: 3750\n- Nocxium: 560\n- Zydrine: 130\n- Megacyte: 52"
+        }
+      }
+    },
+    "battlecruisers": {
+      "tech1": {
+        "drake": {
+          "display_name": "Drake",
+          "ship_type": "Battlecruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 2800000,
+            "Pyerite": 1000000,
+            "Mexallon": 180000,
+            "Isogen": 20000,
+            "Nocxium": 8000,
+            "Zydrine": 2000,
+            "Megacyte": 400
+          },
+          "details": "Drake\nType: Caldari Tech I Battlecruiser\nBase Build Time: ~1d 11h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 2800000\n- Pyerite: 1000000\n- Mexallon: 180000\n- Isogen: 20000\n- Nocxium: 8000\n- Zydrine: 2000\n- Megacyte: 400"
+        },
+        "ferox": {
+          "display_name": "Ferox",
+          "ship_type": "Battlecruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 2800000,
+            "Pyerite": 1000000,
+            "Mexallon": 180000,
+            "Isogen": 20000,
+            "Nocxium": 8000,
+            "Zydrine": 2000,
+            "Megacyte": 400
+          },
+          "details": "Ferox\nType: Caldari Tech I Battlecruiser\nBase Build Time: ~1d 11h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 2800000\n- Pyerite: 1000000\n- Mexallon: 180000\n- Isogen: 20000\n- Nocxium: 8000\n- Zydrine: 2000\n- Megacyte: 400"
+        },
+        "naga": {
+          "display_name": "Naga",
+          "ship_type": "Battlecruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 2800000,
+            "Pyerite": 1000000,
+            "Mexallon": 180000,
+            "Isogen": 20000,
+            "Nocxium": 8000,
+            "Zydrine": 2000,
+            "Megacyte": 400
+          },
+          "details": "Naga\nType: Caldari Tech I Attack Battlecruiser\nBase Build Time: ~1d 11h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 2800000\n- Pyerite: 1000000\n- Mexallon: 180000\n- Isogen: 20000\n- Nocxium: 8000\n- Zydrine: 2000\n- Megacyte: 400"
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "raven": {
+          "display_name": "Raven",
+          "ship_type": "Battleship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8000000,
+            "Pyerite": 4000000,
+            "Mexallon": 600000,
+            "Isogen": 400000,
+            "Nocxium": 12000,
+            "Zydrine": 6000,
+            "Megacyte": 3000,
+            "Auto-Integrity Preservation Seal": 200,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 100
+          },
+          "details": "Raven\nType: Caldari Tech I Battleship\nBase Build Time: ~4d 4h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8000000\n- Pyerite: 4000000\n- Mexallon: 600000\n- Isogen: 400000\n- Nocxium: 12000\n- Zydrine: 6000\n- Megacyte: 3000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
+        },
+        "scorpion": {
+          "display_name": "Scorpion",
+          "ship_type": "Battleship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 6000000,
+            "Pyerite": 3000000,
+            "Mexallon": 450000,
+            "Isogen": 300000,
+            "Nocxium": 9000,
+            "Zydrine": 4500,
+            "Megacyte": 2250,
+            "Auto-Integrity Preservation Seal": 150,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 75
+          },
+          "details": "Scorpion\nType: Caldari Tech I Battleship\nBase Build Time: ~3d 6h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 6000000\n- Pyerite: 3000000\n- Mexallon: 450000\n- Isogen: 300000\n- Nocxium: 9000\n- Zydrine: 4500\n- Megacyte: 2250\n- Auto-Integrity Preservation Seal: 150\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 75"
+        },
+        "rokh": {
+          "display_name": "Rokh",
+          "ship_type": "Battleship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8000000,
+            "Pyerite": 4000000,
+            "Mexallon": 600000,
+            "Isogen": 400000,
+            "Nocxium": 12000,
+            "Zydrine": 6000,
+            "Megacyte": 3000,
+            "Auto-Integrity Preservation Seal": 200,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 100
+          },
+          "details": "Rokh\nType: Caldari Tech I Battleship\nBase Build Time: ~4d 4h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8000000\n- Pyerite: 4000000\n- Mexallon: 600000\n- Isogen: 400000\n- Nocxium: 12000\n- Zydrine: 6000\n- Megacyte: 3000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
+        }
+      }
+    }
+  }
+}}

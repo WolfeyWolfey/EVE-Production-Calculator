@@ -1,13 +1,13 @@
 {
     "ship_blueprints": {
         "abaddon": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
         },
         "absolution": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
@@ -301,13 +301,13 @@
             "te": 0
         },
         "retriever": {
-            "owned": false,
+            "owned": true,
             "invented": false,
-            "me": 0,
-            "te": 0
+            "me": 7,
+            "te": 15
         },
         "bowhead": {
-            "owned": false,
+            "owned": true,
             "invented": false,
             "me": 0,
             "te": 0
@@ -545,9 +545,208 @@
             "invented": false,
             "me": 0,
             "te": 0
+        },
+        "condor": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "bantam": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "griffin": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "heron": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "kestrel": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "merlin": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crow": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "kitsune": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "manticore": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "corax": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "cormorant": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "flycatcher": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "blackbird": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "caracal": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "moa": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "osprey": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "drake": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "ferox": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "naga": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "raven": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "scorpion": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rokh": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "procurer": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
         }
     },
-    "capital_ship_blueprints": {},
+    "capital_ship_blueprints": {
+        "bowhead": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "charon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "fenrir": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "obelisk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "providence": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "thanatos": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "nyx": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "moros": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "ninazu": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "erebus": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        }
+    },
     "components": {
         "construction_blocks": {
             "owned": true,
@@ -974,10 +1173,10 @@
             "te": 0
         },
         "retriever": {
-            "owned": false,
+            "owned": true,
             "invented": false,
-            "me": 0,
-            "te": 0
+            "me": 7,
+            "te": 15
         },
         "bowhead": {
             "owned": false,
@@ -1190,7 +1389,7 @@
             "te": 0
         },
         "absolution": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
@@ -1226,7 +1425,273 @@
             "te": 0
         },
         "abaddon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "bantam": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "condor": {
             "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "griffin": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "heron": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "kestrel": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "merlin": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crow": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "kitsune": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "manticore": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "corax": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "cormorant": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "flycatcher": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "blackbird": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "caracal": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "moa": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "osprey": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "drake": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "ferox": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "naga": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "raven": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "scorpion": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rokh": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "venture": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "prospect": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "endurance": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "procurer": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "covetor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "skiff": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "mackinaw": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "hulk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "noctis": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "porpoise": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        }
+    },
+    "capital_ships": {
+        "bowhead": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "charon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "fenrir": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "obelisk": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "providence": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "thanatos": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "nyx": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "moros": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "ninazu": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "erebus": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "orca": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "rorqual": {
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0

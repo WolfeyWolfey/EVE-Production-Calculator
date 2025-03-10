@@ -1,0 +1,86 @@
+{
+  "caldari": {
+    "frigates": {
+      "tech1": {
+        "bantam": {
+          "display_name": "Bantam",
+          "ship_type": "Logistics Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 24000,
+            "Pyerite": 4500,
+            "Mexallon": 1875,
+            "Isogen": 375
+          },
+          "details": "Bantam\nType: Caldari Tech I Logistics Frigate\nBase Build Time: ~1h 15m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 24000\n- Pyerite: 4500\n- Mexallon: 1875\n- Isogen: 375"
+        },
+        "condor": {
+          "display_name": "Condor",
+          "ship_type": "Combat Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Condor\nType: Caldari Tech I Combat Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "griffin": {
+          "display_name": "Griffin",
+          "ship_type": "EWAR Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Griffin\nType: Caldari Tech I EWAR Frigate\nBase Build Time: ~1h 15m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "heron": {
+          "display_name": "Heron",
+          "ship_type": "Scanning Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Heron\nType: Caldari Tech I Scanning Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "kestrel": {
+          "display_name": "Kestrel",
+          "ship_type": "Combat Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Kestrel\nType: Caldari Tech I Combat Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "merlin": {
+          "display_name": "Merlin",
+          "ship_type": "Combat Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Merlin\nType: Caldari Tech I Combat Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        }
+      }
+    }
+  }
+}

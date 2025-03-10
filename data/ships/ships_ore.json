@@ -1,0 +1,281 @@
+{
+  "ore": {
+    "mining_frigates": {
+      "tech1": {
+        "venture": {
+          "display_name": "Venture",
+          "ship_type": "Mining Frigate",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 22400,
+            "Pyerite": 4200,
+            "Mexallon": 1750,
+            "Isogen": 350
+          },
+          "details": "Venture\nType: ORE Tech I Mining Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 22,400\n- Pyerite: 4,200\n- Mexallon: 1,750\n- Isogen: 350"
+        }
+      },
+      "tech2": {
+        "prospect": {
+          "display_name": "Prospect",
+          "ship_type": "Expedition Frigate",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Venture": 1,
+            "Morphite": 35,
+            "Construction Blocks": 20,
+            "R.A.M.- Starship Tech": 4,
+            "Ion Thruster": 18,
+            "Magnetometric Sensor Cluster": 15,
+            "Photon Microprocessor": 170,
+            "Crystalline Carbonide Armor Plate": 200,
+            "Fusion Reactor Unit": 3,
+            "Oscillator Capacitor Unit": 42,
+            "Pulse Shield Emitter": 22
+          },
+          "details": "Prospect\nType: ORE Tech II Expedition Frigate\nBase Build Time: ~1d 9h 20m\nRequired Skills: Industry V, Advanced Small Ship Construction I\n\nMaterials:\n- Venture hull: 1\n- Morphite: 35\n- Construction Blocks: 20\n- R.A.M.- Starship Tech: 4\n- Ion Thruster: 18\n- Magnetometric Sensor Cluster: 15\n- Photon Microprocessor: 170\n- Crystalline Carbonide Armor Plate: 200\n- Fusion Reactor Unit: 3\n- Oscillator Capacitor Unit: 42\n- Pulse Shield Emitter: 22"
+        },
+        "endurance": {
+          "display_name": "Endurance",
+          "ship_type": "Expedition Frigate",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Venture": 1,
+            "Morphite": 35,
+            "Construction Blocks": 20,
+            "R.A.M.- Starship Tech": 4,
+            "Ion Thruster": 18,
+            "Magnetometric Sensor Cluster": 15,
+            "Photon Microprocessor": 170,
+            "Crystalline Carbonide Armor Plate": 200,
+            "Fusion Reactor Unit": 3,
+            "Oscillator Capacitor Unit": 42,
+            "Pulse Shield Emitter": 22
+          },
+          "details": "Endurance\nType: ORE Tech II Expedition Frigate\nBase Build Time: ~1d 9h 20m\nRequired Skills: Industry V, Advanced Small Ship Construction I\n\nMaterials:\n- Venture hull: 1\n- Morphite: 35\n- Construction Blocks: 20\n- R.A.M.- Starship Tech: 4\n- Ion Thruster: 18\n- Magnetometric Sensor Cluster: 15\n- Photon Microprocessor: 170\n- Crystalline Carbonide Armor Plate: 200\n- Fusion Reactor Unit: 3\n- Oscillator Capacitor Unit: 42\n- Pulse Shield Emitter: 22"
+        }
+      }
+    },
+    "mining_barges": {
+      "tech1": {
+        "procurer": {
+          "display_name": "Procurer",
+          "ship_type": "Mining Barge",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 1600000,
+            "Pyerite": 300000,
+            "Mexallon": 75000,
+            "Isogen": 40000,
+            "Nocxium": 15000,
+            "Zydrine": 2500,
+            "Megacyte": 1400
+          },
+          "details": "Procurer\nType: ORE Tech I Mining Barge\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 1,600,000\n- Pyerite: 300,000\n- Mexallon: 75,000\n- Isogen: 40,000\n- Nocxium: 15,000\n- Zydrine: 2,500\n- Megacyte: 1,400"
+        },
+        "retriever": {
+          "display_name": "Retriever",
+          "ship_type": "Mining Barge",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 1600000,
+            "Pyerite": 300000,
+            "Mexallon": 75000,
+            "Isogen": 40000,
+            "Nocxium": 15000,
+            "Zydrine": 2500,
+            "Megacyte": 1400
+          },
+          "details": "Retriever\nType: ORE Tech I Mining Barge\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 1,600,000\n- Pyerite: 300,000\n- Mexallon: 75,000\n- Isogen: 40,000\n- Nocxium: 15,000\n- Zydrine: 2,500\n- Megacyte: 1,400"
+        },
+        "covetor": {
+          "display_name": "Covetor",
+          "ship_type": "Mining Barge",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 1600000,
+            "Pyerite": 300000,
+            "Mexallon": 75000,
+            "Isogen": 40000,
+            "Nocxium": 15000,
+            "Zydrine": 2500,
+            "Megacyte": 1400
+          },
+          "details": "Covetor\nType: ORE Tech I Mining Barge\nBase Build Time: ~3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 1,600,000\n- Pyerite: 300,000\n- Mexallon: 75,000\n- Isogen: 40,000\n- Nocxium: 15,000\n- Zydrine: 2,500\n- Megacyte: 1,400"
+        }
+      },
+      "tech2": {
+        "skiff": {
+          "display_name": "Skiff",
+          "ship_type": "Exhumer",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Procurer": 1,
+            "Morphite": 110,
+            "Construction Blocks": 150,
+            "R.A.M.- Starship Tech": 15,
+            "Ion Thruster": 60,
+            "Magnetometric Sensor Cluster": 225,
+            "Photon Microprocessor": 3000,
+            "Crystalline Carbonide Armor Plate": 3000,
+            "Fusion Reactor Unit": 45,
+            "Oscillator Capacitor Unit": 600,
+            "Pulse Shield Emitter": 225
+          },
+          "details": "Skiff\nType: ORE Tech II Exhumer\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction I\n\nMaterials:\n- Procurer hull: 1\n- Morphite: 110\n- Construction Blocks: 150\n- R.A.M.- Starship Tech: 15\n- Ion Thruster: 60\n- Magnetometric Sensor Cluster: 225\n- Photon Microprocessor: 3,000\n- Crystalline Carbonide Armor Plate: 3,000\n- Fusion Reactor Unit: 45\n- Oscillator Capacitor Unit: 600\n- Pulse Shield Emitter: 225"
+        },
+        "mackinaw": {
+          "display_name": "Mackinaw",
+          "ship_type": "Exhumer",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Retriever": 1,
+            "Morphite": 110,
+            "Construction Blocks": 150,
+            "R.A.M.- Starship Tech": 15,
+            "Ion Thruster": 60,
+            "Magnetometric Sensor Cluster": 225,
+            "Photon Microprocessor": 3000,
+            "Crystalline Carbonide Armor Plate": 3000,
+            "Fusion Reactor Unit": 45,
+            "Oscillator Capacitor Unit": 600,
+            "Pulse Shield Emitter": 225
+          },
+          "details": "Mackinaw\nType: ORE Tech II Exhumer\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction I\n\nMaterials:\n- Retriever hull: 1\n- Morphite: 110\n- Construction Blocks: 150\n- R.A.M.- Starship Tech: 15\n- Ion Thruster: 60\n- Magnetometric Sensor Cluster: 225\n- Photon Microprocessor: 3,000\n- Crystalline Carbonide Armor Plate: 3,000\n- Fusion Reactor Unit: 45\n- Oscillator Capacitor Unit: 600\n- Pulse Shield Emitter: 225"
+        },
+        "hulk": {
+          "display_name": "Hulk",
+          "ship_type": "Exhumer",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Covetor": 1,
+            "Morphite": 110,
+            "Construction Blocks": 150,
+            "R.A.M.- Starship Tech": 15,
+            "Ion Thruster": 60,
+            "Magnetometric Sensor Cluster": 225,
+            "Photon Microprocessor": 3000,
+            "Crystalline Carbonide Armor Plate": 3000,
+            "Fusion Reactor Unit": 45,
+            "Oscillator Capacitor Unit": 600,
+            "Pulse Shield Emitter": 225
+          },
+          "details": "Hulk\nType: ORE Tech II Exhumer\nBase Build Time: ~2d 18h 40m\nRequired Skills: Industry V, Advanced Medium Ship Construction I\n\nMaterials:\n- Covetor hull: 1\n- Morphite: 110\n- Construction Blocks: 150\n- R.A.M.- Starship Tech: 15\n- Ion Thruster: 60\n- Magnetometric Sensor Cluster: 225\n- Photon Microprocessor: 3,000\n- Crystalline Carbonide Armor Plate: 3,000\n- Fusion Reactor Unit: 45\n- Oscillator Capacitor Unit: 600\n- Pulse Shield Emitter: 225"
+        }
+      }
+    },
+    "industrial_ships": {
+      "tech1": {
+        "noctis": {
+          "display_name": "Noctis",
+          "ship_type": "Salvage Ship",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 3600000,
+            "Pyerite": 675000,
+            "Mexallon": 168750,
+            "Isogen": 90000,
+            "Nocxium": 33750,
+            "Zydrine": 5625,
+            "Megacyte": 3150
+          },
+          "details": "Noctis\nType: ORE Tech I Salvage Ship\nBase Build Time: ~3h 20m\nRequired Skill: Industry III\n\nMaterials:\n- Tritanium: 3,600,000\n- Pyerite: 675,000\n- Mexallon: 168,750\n- Isogen: 90,000\n- Nocxium: 33,750\n- Zydrine: 5,625\n- Megacyte: 3,150"
+        },
+        "porpoise": {
+          "display_name": "Porpoise",
+          "ship_type": "Industrial Command Ship",
+          "faction": "ORE",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 3600000,
+            "Pyerite": 675000,
+            "Mexallon": 168750,
+            "Isogen": 90000,
+            "Nocxium": 33750,
+            "Zydrine": 5625,
+            "Megacyte": 3150
+          },
+          "details": "Porpoise\nType: ORE Tech I Industrial Command Ship\nBase Build Time: ~4h 10m\nRequired Skill: Industry III\n\nMaterials:\n- Tritanium: 3,600,000\n- Pyerite: 675,000\n- Mexallon: 168,750\n- Isogen: 90,000\n- Nocxium: 33,750\n- Zydrine: 5,625\n- Megacyte: 3,150"
+        }
+      }
+    }
+  },
+  "capital_ships": {
+    "industrial_capital": {
+      "orca": {
+        "display_name": "Orca",
+        "ship_type": "Industrial Command Ship",
+        "faction": "ORE",
+        "owned_status": "Unowned",
+        "requirements": {
+          "Capital Cargo Bay": 38,
+          "Capital Sensor Cluster": 4,
+          "Capital Capacitor Battery": 9,
+          "Capital Computer System": 7,
+          "Capital Construction Parts": 16,
+          "Capital Ship Maintenance Bay": 7,
+          "Capital Corporate Hangar Bay": 4,
+          "Auto-Integrity Preservation Seal": 200,
+          "Core Temperature Regulator": 25,
+          "Life Support Backup Unit": 100
+        },
+        "details": "Orca\nType: ORE Industrial Command Ship\nBase Build Time: ~17d 8h 40m\nRequired Skills: Industry V, Capital Ship Construction\n\nMaterials:\n- Capital Cargo Bay: 38\n- Capital Sensor Cluster: 4\n- Capital Capacitor Battery: 9\n- Capital Computer System: 7\n- Capital Construction Parts: 16\n- Capital Ship Maintenance Bay: 7\n- Capital Corporate Hangar Bay: 4\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 25\n- Life Support Backup Unit: 100"
+      },
+      "rorqual": {
+        "display_name": "Rorqual",
+        "ship_type": "Capital Industrial Ship",
+        "faction": "ORE",
+        "owned_status": "Unowned",
+        "requirements": {
+          "Capital Construction Parts": 40,
+          "Capital Computer System": 30,
+          "Capital Cargo Bay": 20,
+          "Capital Capacitor Battery": 10,
+          "Capital Power Generator": 10,
+          "Capital Jump Drive": 10,
+          "Capital Propulsion Engine": 5,
+          "Capital Sensor Cluster": 5,
+          "Capital Armor Plates": 5,
+          "Capital Shield Emitter": 5,
+          "Capital Drone Bay": 5,
+          "Capital Jump Bridge Array": 5,
+          "Capital Ship Maintenance Bay": 15,
+          "Capital Corporate Hangar Bay": 15,
+          "Capital Clone Vat Bay": 30,
+          "Auto-Integrity Preservation Seal": 400,
+          "Life Support Backup Unit": 200,
+          "Capital Core Temperature Regulator": 1
+        },
+        "details": "Rorqual\nType: ORE Capital Industrial Ship\nBase Build Time: ~23d 3h 33m 20s\nRequired Skills: Industry V, Capital Ship Construction\n\nMaterials:\n- Capital Construction Parts: 40\n- Capital Computer System: 30\n- Capital Cargo Bay: 20\n- Capital Capacitor Battery: 10\n- Capital Power Generator: 10\n- Capital Jump Drive: 10\n- Capital Propulsion Engine: 5\n- Capital Sensor Cluster: 5\n- Capital Armor Plates: 5\n- Capital Shield Emitter: 5\n- Capital Drone Bay: 5\n- Capital Jump Bridge Array: 5\n- Capital Ship Maintenance Bay: 15\n- Capital Corporate Hangar Bay: 15\n- Capital Clone Vat Bay: 30\n- Auto-Integrity Preservation Seal: 400\n- Life Support Backup Unit: 200\n- Capital Core Temperature Regulator: 1"
+      },
+      "bowhead": {
+        "display_name": "Bowhead Freighter",
+        "ship_type": "Freighter",
+        "faction": "ORE",
+        "owned_status": "Unowned",
+        "requirements": {
+          "Capital Cargo Bay": 30,
+          "Capital Propulsion Engine": 15,
+          "Capital Ship Maintenance Bay": 7,
+          "Capital Construction Parts": 5,
+          "Capital Armor Plates": 5,
+          "Capital Shield Emitter": 5,
+          "Auto-Integrity Preservation Seal": 400,
+          "Life Support Backup Unit": 200,
+          "Capital Core Temperature Regulator": 1
+        },
+        "details": "Bowhead Freighter\nType: ORE Freighter\nBase Build Time: ~17d 8h 40m\nRequired Skills: Industry V, Capital Ship Construction\n\nMaterials:\n- Capital Cargo Bay: 30\n- Capital Propulsion Engine: 15\n- Capital Ship Maintenance Bay: 7\n- Capital Construction Parts: 5\n- Capital Armor Plates: 5\n- Capital Shield Emitter: 5\n- Auto-Integrity Preservation Seal: 400\n- Life Support Backup Unit: 200\n- Capital Core Temperature Regulator: 1"
+      }
+    }
+  }
+}

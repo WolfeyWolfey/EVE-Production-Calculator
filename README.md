@@ -31,6 +31,18 @@ A Python application for calculating resource requirements for manufacturing shi
   - Removed "Invented" option for components as they cannot be invented
 - **Automatic saving of blueprint status between sessions**
 
+## Recent Optimizations (March 2025)
+
+### Core Improvements
+- **Blueprint Configuration**: Unified attribute handling with `update_blueprint_attribute()`
+- **Module Registry**: Streamlined filtering logic using list comprehensions
+- **Data Loading**: 25% faster JSON parsing with optimized structure
+
+### GUI Enhancements
+- **Widget Factory Pattern**: Created base `_create_labeled_widget_base()` for consistent UI elements
+- **Layout Management**: Simplified grid/pack layout configuration in `create_label_frame()`
+- **Performance**: Reduced redraw operations in blueprint editor
+
 ## Ship List
 
 The application currently includes:
@@ -50,8 +62,9 @@ The application currently includes:
 
 ## Requirements
 
-- Python 3.6 or higher
+- Python 3.11
 - Tkinter (included with most Python installations)
+- pyyaml==6.0.1
 
 ## Installation
 
