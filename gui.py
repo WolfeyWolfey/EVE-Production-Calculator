@@ -12,6 +12,9 @@ class EveProductionCalculator(tk.Tk):
         # Setup the main window
         self.title("EVE Online Production Calculator")
         self.geometry("800x600")
+
+        # Create menu bar
+        self.create_menu_bar()
         
         # Create a notebook (tabbed interface)
         self.notebook = ttk.Notebook(self)
@@ -43,6 +46,94 @@ class EveProductionCalculator(tk.Tk):
         self.status_var.set("Ready")
         self.status_bar = ttk.Label(self, textvariable=self.status_var, relief=tk.SUNKEN, anchor=tk.W)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
+
+    def create_menu_bar(self):
+        """Create a menu bar with options to edit blueprint ownership"""
+        menu_bar = tk.Menu(self)
+        
+        # File menu
+        file_menu = tk.Menu(menu_bar, tearoff=0)
+        file_menu.add_command(label="Edit Blueprint Ownership", command=self.edit_blueprint_ownership)
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.quit)
+        menu_bar.add_cascade(label="File", menu=file_menu)
+
+        self.config(menu=menu_bar)
+
+    def edit_blueprint_ownership(self):
+        """Open a window to edit blueprint ownership status"""
+        ownership_window = tk.Toplevel(self)
+        ownership_window.title("Edit Blueprint Ownership")
+        ownership_window.geometry("400x600")
+
+        # Frame for ship selection
+        ship_selection_frame = ttk.LabelFrame(ownership_window, text="Select Ship")
+        ship_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
+
+        # Ship selection
+        ship_label = ttk.Label(ship_selection_frame, text="Select Ship:")
+        ship_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+
+        ship_list = [module.display_name for module in self.discovered_modules['ships'].values()]
+        self.ship_var = tk.StringVar(value=ship_list[0] if ship_list else "")
+        ship_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.ship_var, values=ship_list, state="readonly")
+        ship_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        ship_dropdown.bind("<<ComboboxSelected>>", self.on_ship_selected)
+
+        # Blueprint ownership selection
+        ownership_label = ttk.Label(ship_selection_frame, text="Blueprint Ownership:")
+        ownership_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+
+        self.ownership_var = tk.StringVar(value="Unowned")
+        ownership_dropdown = ttk.Combobox(ship_selection_frame, textvariable=self.ownership_var, values=["Owned", "Unowned"], state="readonly")
+        ownership_dropdown.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        ownership_dropdown.bind("<<ComboboxSelected>>", self.on_ownership_selected)
+
+        # Frame for capital ship selection
+        capital_ship_selection_frame = ttk.LabelFrame(ownership_window, text="Select Capital Ship")
+        capital_ship_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
+
+        # Capital Ship selection
+        capital_ship_label = ttk.Label(capital_ship_selection_frame, text="Select Capital Ship:")
+        capital_ship_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+
+        capital_ship_list = [module.display_name for module in self.discovered_modules['capital_ships'].values()]
+        self.capital_ship_var = tk.StringVar(value=capital_ship_list[0] if capital_ship_list else "")
+        capital_ship_dropdown = ttk.Combobox(capital_ship_selection_frame, textvariable=self.capital_ship_var, values=capital_ship_list, state="readonly")
+        capital_ship_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        capital_ship_dropdown.bind("<<ComboboxSelected>>", self.on_capital_ship_selected)
+
+        # Blueprint ownership selection
+        capital_ownership_label = ttk.Label(capital_ship_selection_frame, text="Blueprint Ownership:")
+        capital_ownership_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+
+        self.capital_ownership_var = tk.StringVar(value="Unowned")
+        capital_ownership_dropdown = ttk.Combobox(capital_ship_selection_frame, textvariable=self.capital_ownership_var, values=["Owned", "Unowned"], state="readonly")
+        capital_ownership_dropdown.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        capital_ownership_dropdown.bind("<<ComboboxSelected>>", self.on_capital_ownership_selected)
+
+        # Frame for component selection
+        component_selection_frame = ttk.LabelFrame(ownership_window, text="Select Component")
+        component_selection_frame.pack(fill="x", expand=False, padx=10, pady=10)
+
+        # Component selection
+        component_label = ttk.Label(component_selection_frame, text="Select Component:")
+        component_label.grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
+
+        component_list = [module.display_name for module in self.discovered_modules['components'].values()]
+        self.component_var = tk.StringVar(value=component_list[0] if component_list else "")
+        component_dropdown = ttk.Combobox(component_selection_frame, textvariable=self.component_var, values=component_list, state="readonly")
+        component_dropdown.grid(row=0, column=1, sticky=tk.W, padx=5, pady=5)
+        component_dropdown.bind("<<ComboboxSelected>>", self.on_component_selected)
+
+        # Blueprint ownership selection
+        component_ownership_label = ttk.Label(component_selection_frame, text="Blueprint Ownership:")
+        component_ownership_label.grid(row=1, column=0, sticky=tk.W, padx=5, pady=5)
+
+        self.component_ownership_var = tk.StringVar(value="Unowned")
+        component_ownership_dropdown = ttk.Combobox(component_selection_frame, textvariable=self.component_ownership_var, values=["Owned", "Unowned"], state="readonly")
+        component_ownership_dropdown.grid(row=1, column=1, sticky=tk.W, padx=5, pady=5)
+        component_ownership_dropdown.bind("<<ComboboxSelected>>", self.on_component_ownership_selected)
 
     def create_ore_refining_tab(self):
         """Create the ore refining calculator tab"""
@@ -228,6 +319,15 @@ class EveProductionCalculator(tk.Tk):
                 self.update_component_requirements(module)
                 break
 
+    def on_component_ownership_selected(self, event=None):
+        """Handler for component blueprint ownership selection change"""
+        selected_component_name = self.component_var.get()
+        ownership_status = self.component_ownership_var.get()
+        for module in self.discovered_modules['components'].values():
+            if module.display_name == selected_component_name:
+                module.owned_status = ownership_status
+                break
+
     def calculate_ore_refining(self):
         """Calculate minerals from ore refining"""
         ore_type = self.ore_var.get()
@@ -278,18 +378,26 @@ class EveProductionCalculator(tk.Tk):
         self.ship_results_text.config(state=tk.DISABLED)
 
     def update_capital_ship_requirements(self, capital_ship_module, me_level):
-        """Update the capital ship requirements display considering material efficiency"""
+        """Update the requirements for the selected capital ship based on ME level"""
+        # Determine the correct attribute name for the requirements
+        for attr_name in dir(capital_ship_module):
+            if attr_name.endswith("_requirements"):
+                requirements_attr = attr_name
+                break
+        else:
+            raise AttributeError(f"Module '{capital_ship_module}' does not have a requirements attribute")
+
+        # Access the requirements dynamically
+        requirements = getattr(capital_ship_module, requirements_attr)
+
+        # Calculate and display the updated requirements
         self.capital_ship_results_text.config(state=tk.NORMAL)
         self.capital_ship_results_text.delete(1.0, tk.END)
-        
-        # Add header
-        self.capital_ship_results_text.insert(tk.END, f"Requirements for {capital_ship_module.display_name} (ME{me_level}):\n\n")
-        
-        # Calculate and add each requirement
-        for component, quantity in capital_ship_module.bowhead_requirements.items():
-            adjusted_quantity = quantity * (1 - me_level / 100)  # ME level reduces by 1% per level
-            self.capital_ship_results_text.insert(tk.END, f"{component}: {int(adjusted_quantity)}\n")
-        
+
+        for component, quantity in requirements.items():
+            adjusted_quantity = quantity * (1 - 0.01 * me_level)
+            self.capital_ship_results_text.insert(tk.END, f"{component}: {adjusted_quantity}\n")
+
         self.capital_ship_results_text.config(state=tk.DISABLED)
 
     def update_component_requirements(self, component_module):
