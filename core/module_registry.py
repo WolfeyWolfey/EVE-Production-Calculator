@@ -284,29 +284,12 @@ class ModuleRegistry:
         Returns:
             List of ShipModule objects matching the filter criteria
         """
-        filtered_ships = []
-        
-        for ship in self.ships.values():
-            # Apply faction filter if provided
-            if faction and faction != "All" and ship.faction != faction:
-                continue
-                
-            # Apply ship type filter if provided
-            if ship_type and ship_type != "All" and ship.ship_type != ship_type:
-                continue
-                
-            # Apply ownership filter if requested
-            if owned_only:
-                # Handle both boolean and string ownership values
-                if isinstance(ship.owned_status, bool) and not ship.owned_status:
-                    continue
-                elif isinstance(ship.owned_status, str) and ship.owned_status.lower() != "owned":
-                    continue
-            
-            # Ship passed all filters, add it to filtered_ships
-            filtered_ships.append(ship)
-            
-        return filtered_ships
+        return [ship for ship in self.ships.values() 
+                if (not faction or faction == "All" or ship.faction == faction) and
+                   (not ship_type or ship_type == "All" or ship.ship_type == ship_type) and
+                   (not owned_only or 
+                    (isinstance(ship.owned_status, bool) and ship.owned_status) or
+                    (isinstance(ship.owned_status, str) and ship.owned_status.lower() == "owned"))]
     
     def get_capital_ships_by_filter(self, faction: Optional[str] = None, ship_type: Optional[str] = None, owned_only: bool = False):
         """
@@ -320,29 +303,12 @@ class ModuleRegistry:
         Returns:
             List of CapitalShipModule objects matching the filter criteria
         """
-        filtered_capital_ships = []
-        
-        for capital_ship in self.capital_ships.values():
-            # Apply faction filter if provided
-            if faction and faction != "All" and capital_ship.faction != faction:
-                continue
-                
-            # Apply ship type filter if provided
-            if ship_type and ship_type != "All" and capital_ship.ship_type != ship_type:
-                continue
-                
-            # Apply ownership filter if requested
-            if owned_only:
-                # Handle both boolean and string ownership values
-                if isinstance(capital_ship.owned_status, bool) and not capital_ship.owned_status:
-                    continue
-                elif isinstance(capital_ship.owned_status, str) and capital_ship.owned_status.lower() != "owned":
-                    continue
-            
-            # Capital ship passed all filters, add it to filtered_capital_ships
-            filtered_capital_ships.append(capital_ship)
-            
-        return filtered_capital_ships
+        return [ship for ship in self.capital_ships.values() 
+                if (not faction or faction == "All" or ship.faction == faction) and
+                   (not ship_type or ship_type == "All" or ship.ship_type == ship_type) and
+                   (not owned_only or 
+                    (isinstance(ship.owned_status, bool) and ship.owned_status) or
+                    (isinstance(ship.owned_status, str) and ship.owned_status.lower() == "owned"))]
     
     def get_ships_combined_by_filter(self, faction: Optional[str] = None, ship_type: Optional[str] = None, owned_only: bool = False):
         """
@@ -393,10 +359,7 @@ class ModuleRegistry:
         Returns:
             ShipModule if found, None otherwise
         """
-        for ship in self.ships.values():
-            if ship.display_name == display_name:
-                return ship
-        return None
+        return next((ship for ship in self.ships.values() if ship.display_name == display_name), None)
     
     def get_capital_ship_by_display_name(self, display_name: str):
         """
@@ -408,10 +371,7 @@ class ModuleRegistry:
         Returns:
             CapitalShipModule if found, None otherwise
         """
-        for capital_ship in self.capital_ships.values():
-            if capital_ship.display_name == display_name:
-                return capital_ship
-        return None
+        return next((ship for ship in self.capital_ships.values() if ship.display_name == display_name), None)
     
     def get_ship_by_display_name_combined(self, display_name: str):
         """
@@ -441,17 +401,7 @@ class ModuleRegistry:
         Returns:
             ComponentModule if found, None otherwise
         """
-        # First check regular components
-        for component in self.components.values():
-            if component.display_name == display_name:
-                return component
-                
-        # If not found, check capital components
-        for component in self.capital_components.values():
-            if component.display_name == display_name:
-                return component
-                
-        return None
+        return next((comp for comp in self.components.values() if comp.display_name == display_name), None)
     
     def get_capital_component_by_display_name(self, display_name: str):
         """
@@ -463,10 +413,7 @@ class ModuleRegistry:
         Returns:
             ComponentModule if found, None otherwise
         """
-        for component in self.capital_components.values():
-            if component.display_name == display_name:
-                return component
-        return None
+        return next((comp for comp in self.capital_components.values() if comp.display_name == display_name), None)
     
     def get_ore_by_display_name(self, display_name: str):
         """
@@ -478,7 +425,7 @@ class ModuleRegistry:
         Returns:
             OreModule if found, None otherwise
         """
-        return self.ores.get(display_name)
+        return next((ore for ore in self.ores.values() if getattr(ore, 'display_name', None) == display_name), None)
     
     def get_all_ores(self):
         """
@@ -499,32 +446,7 @@ class ModuleRegistry:
         Returns:
             List of ComponentModule objects matching the filter criteria
         """
-        filtered_components = []
-        
-        # Process regular components
-        for component in self.components.values():
-            # Apply ownership filter if requested
-            if owned_only:
-                # Handle both boolean and string ownership values
-                if isinstance(component.owned_status, bool) and not component.owned_status:
-                    continue
-                elif isinstance(component.owned_status, str) and component.owned_status.lower() != "owned":
-                    continue
-            
-            # Component passed all filters, add it to filtered_components
-            filtered_components.append(component)
-        
-        # Process capital components
-        for component in self.capital_components.values():
-            # Apply ownership filter if requested
-            if owned_only:
-                # Handle both boolean and string ownership values
-                if isinstance(component.owned_status, bool) and not component.owned_status:
-                    continue
-                elif isinstance(component.owned_status, str) and component.owned_status.lower() != "owned":
-                    continue
-            
-            # Component passed all filters, add it to filtered_components
-            filtered_components.append(component)
-            
-        return filtered_components
+        return [comp for comp in self.components.values() 
+                if (not owned_only or 
+                   (isinstance(comp.owned_status, bool) and comp.owned_status) or
+                   (isinstance(comp.owned_status, str) and comp.owned_status.lower() == "owned"))]

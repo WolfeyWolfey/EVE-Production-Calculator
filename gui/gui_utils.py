@@ -7,6 +7,38 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Callable, List, Optional, Any, Dict, Union
 
+def _create_labeled_widget_base(parent: ttk.Frame, label_text: str, 
+                             widget_class: Callable, widget_args: Dict[str, Any],
+                             width: int = 30, label_width: int = 15) -> Any:
+    """
+    Base function for creating a labeled widget with consistent styling
+    
+    Args:
+        parent: Parent widget
+        label_text: Text for the label
+        widget_class: Class/constructor for the widget to create
+        widget_args: Arguments for the widget constructor
+        width: Width of the widget
+        label_width: Width of the label
+        
+    Returns:
+        The created widget
+    """
+    frame = ttk.Frame(parent)
+    frame.pack(fill="x", padx=5, pady=2)
+    
+    label = ttk.Label(frame, text=label_text, width=label_width)
+    label.pack(side="left", padx=5, pady=2)
+    
+    # Update with provided width if not already in widget_args
+    if 'width' not in widget_args:
+        widget_args['width'] = width
+    
+    widget = widget_class(frame, **widget_args)
+    widget.pack(side="left", padx=5, pady=2, fill="x", expand=True)
+    
+    return widget
+
 def create_labeled_dropdown(parent: ttk.Frame,
                           label_text: str,
                           variable: tk.StringVar,
@@ -29,14 +61,11 @@ def create_labeled_dropdown(parent: ttk.Frame,
     Returns:
         The created Combobox widget
     """
-    frame = ttk.Frame(parent)
-    frame.pack(fill="x", padx=5, pady=2)
-    
-    label = ttk.Label(frame, text=label_text, width=label_width)
-    label.pack(side="left", padx=5, pady=2)
-    
-    dropdown = ttk.Combobox(frame, textvariable=variable, values=values, width=width)
-    dropdown.pack(side="left", padx=5, pady=2, fill="x", expand=True)
+    dropdown = _create_labeled_widget_base(
+        parent, label_text, ttk.Combobox, 
+        {'textvariable': variable, 'values': values}, 
+        width, label_width
+    )
     
     if command:
         dropdown.bind("<<ComboboxSelected>>", command)
@@ -61,16 +90,11 @@ def create_labeled_entry(parent: ttk.Frame,
     Returns:
         The created Entry widget
     """
-    frame = ttk.Frame(parent)
-    frame.pack(fill="x", padx=5, pady=2)
-    
-    label = ttk.Label(frame, text=label_text, width=label_width)
-    label.pack(side="left", padx=5, pady=2)
-    
-    entry = ttk.Entry(frame, textvariable=variable, width=width)
-    entry.pack(side="left", padx=5, pady=2, fill="x", expand=True)
-    
-    return entry
+    return _create_labeled_widget_base(
+        parent, label_text, ttk.Entry, 
+        {'textvariable': variable}, 
+        width, label_width
+    )
 
 def create_button(parent: ttk.Frame,
                 text: str,
@@ -90,7 +114,6 @@ def create_button(parent: ttk.Frame,
     """
     button = ttk.Button(parent, text=text, command=command, width=width)
     button.pack(padx=5, pady=5)
-    
     return button
 
 def create_scrolled_text(parent: ttk.Frame,
@@ -109,81 +132,69 @@ def create_scrolled_text(parent: ttk.Frame,
     Returns:
         The created Text widget
     """
-    # Create a frame to hold the Text and Scrollbar
     frame = ttk.Frame(parent)
     frame.pack(fill="both", expand=True, padx=10, pady=10)
     
-    # Create a Text widget
     text_widget = tk.Text(frame, height=height, width=width, wrap="word")
     text_widget.pack(side="left", fill="both", expand=True)
     
-    # Create a Scrollbar
     scrollbar = ttk.Scrollbar(frame, orient="vertical", command=text_widget.yview)
     scrollbar.pack(side="right", fill="y")
     
-    # Connect the scrollbar to the text widget
-    text_widget.config(yscrollcommand=scrollbar.set)
-    
-    # Make read-only if specified
-    if readonly:
-        text_widget.config(state="disabled")
+    text_widget.config(yscrollcommand=scrollbar.set, state="disabled" if readonly else "normal")
     
     return text_widget
 
-def create_label_frame(
-    parent: tk.Widget, 
-    title: str, 
-    pack_fill: str = tk.BOTH, 
-    expand: bool = True,
-    use_grid: bool = False,
-    grid_row: int = 0,
-    grid_column: int = 0,
-    grid_sticky: str = "nsew",
-    grid_padx: int = 10,
-    grid_pady: int = 10,
-    grid_rowspan: int = 1,
-    grid_columnspan: int = 1
-) -> ttk.LabelFrame:
+def create_label_frame(parent: tk.Widget, title: str, **kwargs) -> ttk.LabelFrame:
     """
     Create a LabelFrame with nice defaults
     
     Args:
         parent: Parent widget
         title: Title for the labeled frame
-        pack_fill: Fill direction for pack manager
-        expand: Whether to expand the frame
-        use_grid: Whether to use grid instead of pack
-        grid_row: Row for grid layout
-        grid_column: Column for grid layout
-        grid_sticky: Sticky parameter for grid layout
-        grid_padx: X padding for grid layout
-        grid_pady: Y padding for grid layout
-        grid_rowspan: Row span for grid layout
-        grid_columnspan: Column span for grid layout
+        **kwargs: Additional keyword arguments, including:
+            pack_fill: Fill direction for pack manager (default=tk.BOTH)
+            expand: Whether to expand the frame (default=True)
+            use_grid: Whether to use grid instead of pack (default=False)
+            grid_row: Row for grid layout (default=0)
+            grid_column: Column for grid layout (default=0)
+            grid_sticky: Sticky parameter for grid layout (default="nsew")
+            grid_padx: X padding for grid layout (default=10)
+            grid_pady: Y padding for grid layout (default=10)
+            grid_rowspan: Row span for grid layout (default=1)
+            grid_columnspan: Column span for grid layout (default=1)
         
     Returns:
         The created LabelFrame widget
     """
+    # Extract parameters with defaults from kwargs
+    use_grid = kwargs.get('use_grid', False)
+    
     frame = ttk.LabelFrame(parent, text=title)
     
     if use_grid:
-        frame.grid(
-            row=grid_row, 
-            column=grid_column, 
-            sticky=grid_sticky, 
-            padx=grid_padx, 
-            pady=grid_pady,
-            rowspan=grid_rowspan,
-            columnspan=grid_columnspan
-        )
+        grid_params = {
+            'row': kwargs.get('grid_row', 0),
+            'column': kwargs.get('grid_column', 0),
+            'sticky': kwargs.get('grid_sticky', "nsew"),
+            'padx': kwargs.get('grid_padx', 10),
+            'pady': kwargs.get('grid_pady', 10),
+            'rowspan': kwargs.get('grid_rowspan', 1),
+            'columnspan': kwargs.get('grid_columnspan', 1)
+        }
+        frame.grid(**grid_params)
     else:
-        frame.pack(fill=pack_fill, expand=expand, padx=10, pady=10)
+        pack_params = {
+            'fill': kwargs.get('pack_fill', tk.BOTH),
+            'expand': kwargs.get('expand', True),
+            'padx': 10, 
+            'pady': 10
+        }
+        frame.pack(**pack_params)
     
     return frame
 
-def create_grid_view(parent: ttk.Frame, 
-                    columns: List[Dict[str, Any]],
-                    height: int = 10) -> ttk.Treeview:
+def create_grid_view(parent: ttk.Frame, columns: List[Dict[str, Any]], height: int = 10) -> ttk.Treeview:
     """
     Create a grid view (Treeview) with specified columns
     
@@ -195,10 +206,8 @@ def create_grid_view(parent: ttk.Frame,
     Returns:
         The created Treeview widget
     """
-    # Extract column IDs and create format string
     column_ids = [col['id'] for col in columns]
     
-    # Create the treeview with scrollbars
     frame = ttk.Frame(parent)
     frame.pack(fill="both", expand=True, padx=10, pady=10)
     
@@ -209,10 +218,9 @@ def create_grid_view(parent: ttk.Frame,
         tree.column(col['id'], width=col.get('width', 100), anchor=col.get('anchor', 'w'))
         tree.heading(col['id'], text=col['text'])
     
-    # Add scrollbars
+    # Add vertical and horizontal scrollbars
     vsb = ttk.Scrollbar(frame, orient="vertical", command=tree.yview)
     hsb = ttk.Scrollbar(frame, orient="horizontal", command=tree.xview)
-    
     tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
     
     # Grid layout for tree and scrollbars

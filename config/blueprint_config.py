@@ -111,6 +111,42 @@ def save_blueprint_ownership(config):
         debug_print(f"Error saving blueprint configuration: {e}")
         return False
 
+def update_blueprint_attribute(config, category, blueprint_name, attribute, value):
+    """
+    Update an attribute for a specific blueprint
+    
+    Args:
+        config: The blueprint configuration dictionary
+        category: Category of the blueprint (ship_blueprints, capital_ship_blueprints, components)
+        blueprint_name: Name of the blueprint
+        attribute: The attribute to update ('owned', 'invented', 'me', or 'te')
+        value: New value for the attribute
+    """
+    # Make sure the category exists in config
+    if category not in config:
+        config[category] = {}
+    
+    # If blueprint doesn't exist in config, create it with defaults
+    if blueprint_name not in config[category]:
+        config[category][blueprint_name] = {
+            'owned': False,
+            'invented': False,
+            'me': 0,  # Default ME% is 0
+            'te': 0   # Default TE% is 0
+        }
+    
+    # Handle special case for 'owned' which takes a string but stores a boolean
+    if attribute == 'owned':
+        config[category][blueprint_name][attribute] = (value == 'Owned')
+    else:
+        config[category][blueprint_name][attribute] = value
+    
+    # Save the updated config
+    success = save_blueprint_ownership(config)
+    debug_print("Configuration " + ("saved successfully." if success else "failed to save."))
+    
+    return config
+
 def update_blueprint_ownership(config, category, blueprint_name, ownership_status):
     """
     Update ownership status for a specific blueprint
@@ -121,30 +157,7 @@ def update_blueprint_ownership(config, category, blueprint_name, ownership_statu
         blueprint_name: Name of the blueprint
         ownership_status: New ownership status (Owned or Unowned)
     """
-    # Make sure the category exists in config
-    if category not in config:
-        config[category] = {}
-    
-    # If blueprint doesn't exist in config, create it
-    if blueprint_name not in config[category]:
-        config[category][blueprint_name] = {
-            'owned': ownership_status == 'Owned',
-            'invented': False,
-            'me': 0,  # Default ME% is 0
-            'te': 0   # Default TE% is 0
-        }
-    else:
-        # Update the ownership status
-        config[category][blueprint_name]['owned'] = ownership_status == 'Owned'
-    
-    # Save the updated config
-    success = save_blueprint_ownership(config)
-    if success:
-        debug_print("Configuration saved successfully.")
-    else:
-        debug_print("Failed to save configuration.")
-    
-    return config
+    return update_blueprint_attribute(config, category, blueprint_name, 'owned', ownership_status)
 
 def update_blueprint_invention(config, category, blueprint_name, is_invented):
     """
@@ -156,30 +169,7 @@ def update_blueprint_invention(config, category, blueprint_name, is_invented):
         blueprint_name: Name of the blueprint
         is_invented: Boolean indicating whether the blueprint is invented
     """
-    # Make sure the category exists in config
-    if category not in config:
-        config[category] = {}
-    
-    # If blueprint doesn't exist in config, create it
-    if blueprint_name not in config[category]:
-        config[category][blueprint_name] = {
-            'owned': False,
-            'invented': is_invented,
-            'me': 0,  # Default ME% is 0
-            'te': 0   # Default TE% is 0
-        }
-    else:
-        # Update the invention status
-        config[category][blueprint_name]['invented'] = is_invented
-    
-    # Save the updated config
-    success = save_blueprint_ownership(config)
-    if success:
-        debug_print("Configuration saved successfully.")
-    else:
-        debug_print("Failed to save configuration.")
-    
-    return config
+    return update_blueprint_attribute(config, category, blueprint_name, 'invented', is_invented)
 
 def update_blueprint_me(config, category, blueprint_name, me_value):
     """
@@ -191,30 +181,9 @@ def update_blueprint_me(config, category, blueprint_name, me_value):
         blueprint_name: Name of the blueprint
         me_value: Material Efficiency percentage (0-10)
     """
-    # Make sure the category exists in config
-    if category not in config:
-        config[category] = {}
-    
-    # If blueprint doesn't exist in config, create it
-    if blueprint_name not in config[category]:
-        config[category][blueprint_name] = {
-            'owned': False,
-            'invented': False,
-            'me': me_value,
-            'te': 0  # Default TE value
-        }
-    else:
-        # Update the ME value
-        config[category][blueprint_name]['me'] = me_value
-    
-    # Save the updated config
-    success = save_blueprint_ownership(config)
-    if success:
-        debug_print("Configuration saved successfully.")
-    else:
-        debug_print("Failed to save configuration.")
-    
-    return config
+    # Validate ME value
+    me_value = max(0, min(10, int(me_value)))
+    return update_blueprint_attribute(config, category, blueprint_name, 'me', me_value)
 
 def update_blueprint_te(config, category, blueprint_name, te_value):
     """
@@ -226,30 +195,36 @@ def update_blueprint_te(config, category, blueprint_name, te_value):
         blueprint_name: Name of the blueprint
         te_value: Time Efficiency percentage (0-20)
     """
-    # Make sure the category exists in config
-    if category not in config:
-        config[category] = {}
+    # Validate TE value
+    te_value = max(0, min(20, int(te_value)))
+    return update_blueprint_attribute(config, category, blueprint_name, 'te', te_value)
+
+def get_blueprint_attribute(config, category, blueprint_name, attribute, default_value=None):
+    """
+    Get a specific blueprint attribute from configuration
     
-    # If blueprint doesn't exist in config, create it
-    if blueprint_name not in config[category]:
-        config[category][blueprint_name] = {
-            'owned': False,
-            'invented': False,
-            'me': 0,  # Default ME value
-            'te': te_value
-        }
-    else:
-        # Update the TE value
-        config[category][blueprint_name]['te'] = te_value
-    
-    # Save the updated config
-    success = save_blueprint_ownership(config)
-    if success:
-        debug_print("Configuration saved successfully.")
-    else:
-        debug_print("Failed to save configuration.")
-    
-    return config
+    Args:
+        config: Blueprint configuration dictionary
+        category: Category of blueprint (ship_blueprints, capital_ship_blueprints, components)
+        blueprint_name: Name of the blueprint
+        attribute: Name of the attribute to retrieve
+        default_value: Default value if attribute not found
+        
+    Returns:
+        Attribute value or default value if not found
+    """
+    try:
+        if category not in config or blueprint_name not in config[category]:
+            return default_value
+            
+        bp_data = config[category][blueprint_name]
+        
+        if isinstance(bp_data, dict) and attribute in bp_data:
+            return bp_data[attribute]
+        return default_value
+    except Exception as e:
+        debug_print(f"Error getting {attribute} for {blueprint_name}: {e}")
+        return default_value
 
 def get_blueprint_ownership(config, category, blueprint_name):
     """
@@ -263,9 +238,8 @@ def get_blueprint_ownership(config, category, blueprint_name):
     Returns:
         String 'Owned' or 'Unowned'
     """
-    if category in config and blueprint_name in config[category]:
-        return 'Owned' if config[category][blueprint_name].get('owned', False) else 'Unowned'
-    return 'Unowned'
+    owned = get_blueprint_attribute(config, category, blueprint_name, 'owned', False)
+    return "Owned" if owned else "Unowned"
 
 def get_blueprint_me(config, category, blueprint_name):
     """
@@ -279,20 +253,7 @@ def get_blueprint_me(config, category, blueprint_name):
     Returns:
         Material Efficiency level (default: 0)
     """
-    try:
-        if category not in config or blueprint_name not in config[category]:
-            return 0
-            
-        # Get the blueprint data
-        bp_data = config[category][blueprint_name]
-        
-        # Handle different data formats
-        if isinstance(bp_data, dict) and 'me' in bp_data:
-            return bp_data['me']
-        return 0
-    except Exception as e:
-        debug_print(f"Error getting ME% for {blueprint_name}: {e}")
-        return 0
+    return get_blueprint_attribute(config, category, blueprint_name, 'me', 0)
 
 def get_blueprint_te(config, category, blueprint_name):
     """
@@ -306,20 +267,7 @@ def get_blueprint_te(config, category, blueprint_name):
     Returns:
         Time Efficiency level (default: 0)
     """
-    try:
-        if category not in config or blueprint_name not in config[category]:
-            return 0
-            
-        # Get the blueprint data
-        bp_data = config[category][blueprint_name]
-        
-        # Handle different data formats
-        if isinstance(bp_data, dict) and 'te' in bp_data:
-            return bp_data['te']
-        return 0
-    except Exception as e:
-        debug_print(f"Error getting TE% for {blueprint_name}: {e}")
-        return 0
+    return get_blueprint_attribute(config, category, blueprint_name, 'te', 0)
 
 def apply_blueprint_ownership(config, registry):
     """
@@ -335,54 +283,36 @@ def apply_blueprint_ownership(config, registry):
         debug_print("No blueprint configuration provided, skipping ownership application")
         return
     
-    owned_ship_count = 0
+    owned_counts = {'ships': 0, 'capital_ships': 0}
     
-    # Apply ship ownership
-    if 'ship_blueprints' in config:
-        debug_print(f"Processing {len(config['ship_blueprints'])} ships in configuration")
-        for ship_name, ship_data in config['ship_blueprints'].items():
-            # Find the ship in the registry
-            if hasattr(registry, 'ships') and ship_name in registry.ships:
-                owned_value = ship_data.get('owned', False)
-                registry.ships[ship_name].owned_status = owned_value
-                
-                if owned_value:
-                    owned_ship_count += 1
-                    debug_print(f"Setting ship {ship_name} ownership to: True")
-                # Only print unowned ships in debug mode to reduce console output
-                else:
-                    debug_print(f"Ship {ship_name} remains unowned")
+    # Map config categories to registry attributes and status attribute names
+    mappings = [
+        ('ship_blueprints', 'ships', 'owned_status'),
+        ('capital_ship_blueprints', 'capital_ships', 'owned_status'),
+        ('components', 'components', 'owned_status'),
+        ('component_blueprints', 'capital_components', 'blueprint_owned')
+    ]
     
-    # Apply capital ship ownership
-    owned_capital_count = 0
-    if 'capital_ship_blueprints' in config:
-        debug_print(f"Processing {len(config['capital_ship_blueprints'])} capital ships in configuration")
-        for ship_name, ship_data in config['capital_ship_blueprints'].items():
-            # Find the ship in the registry
-            if hasattr(registry, 'capital_ships') and ship_name in registry.capital_ships:
-                owned_value = ship_data.get('owned', False)
-                registry.capital_ships[ship_name].owned_status = owned_value
-                
-                if owned_value:
-                    owned_capital_count += 1
-                    debug_print(f"Setting capital ship {ship_name} ownership to: True")
-                # Only print unowned ships in debug mode
-                else:
-                    debug_print(f"Capital ship {ship_name} remains unowned")
+    # Apply ownership status for each category
+    for config_category, registry_attr, status_attr in mappings:
+        if config_category in config and hasattr(registry, registry_attr):
+            registry_dict = getattr(registry, registry_attr)
+            debug_print(f"Processing {len(config[config_category])} items in {config_category}")
+            
+            for item_name, item_data in config[config_category].items():
+                if item_name in registry_dict:
+                    owned_value = item_data.get('owned', False)
+                    setattr(registry_dict[item_name], status_attr, owned_value)
+                    
+                    # Count owned ships for reporting
+                    if owned_value and registry_attr in ['ships', 'capital_ships']:
+                        owned_counts[registry_attr] += 1
+                        debug_print(f"Setting {registry_attr[:-1]} {item_name} ownership to: True")
+                    elif registry_attr in ['ships', 'capital_ships']:
+                        debug_print(f"{registry_attr[:-1].capitalize()} {item_name} remains unowned")
     
-    # Apply component ownership
-    if 'components' in config and hasattr(registry, 'components'):
-        for comp_name, comp_data in config['components'].items():
-            if comp_name in registry.components:
-                registry.components[comp_name].owned_status = comp_data.get('owned', False)
-    
-    # Apply capital component ownership
-    if 'component_blueprints' in config and hasattr(registry, 'capital_components'):
-        for comp_name, comp_data in config['component_blueprints'].items():
-            if comp_name in registry.capital_components:
-                registry.capital_components[comp_name].blueprint_owned = comp_data.get('owned', False)
-    
-    debug_print(f"Blueprint ownership application complete: {owned_ship_count} owned ships, {owned_capital_count} owned capital ships")
+    debug_print(f"Blueprint ownership application complete: {owned_counts['ships']} owned ships, "
+                f"{owned_counts['capital_ships']} owned capital ships")
 
 def migrate_blueprint_config(config):
     """
