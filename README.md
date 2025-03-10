@@ -85,6 +85,17 @@ The project is organized into modules for better maintainability:
 - `calculator.py` - Production requirements calculator
 - `module_registry.py` - Registry for ships, components, and materials
 - `blueprint_config.py` - Blueprint ownership configuration management
+- `models.py` - Data model classes for ships, components, and PI materials
+- `data_loaders.py` - Functions for loading data from JSON files and other sources
+- `gui_utils.py` - Utility functions for GUI components
+
+### Architecture
+The application follows a modular design with clear separation of concerns:
+- **Data Models**: Defined in `models.py`, representing ships, components, and materials
+- **Data Loading**: Handled by dedicated functions in `data_loaders.py` to load and process JSON data
+- **Registry**: Central `ModuleRegistry` class that provides a unified interface for accessing all data
+- **UI Components**: Separated into dedicated files for better organization
+- **Blueprint Management**: Specialized UI for managing blueprints ownership and properties
 
 ### Directories
 - **data/** - Contains JSON data files

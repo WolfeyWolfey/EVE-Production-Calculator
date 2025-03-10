@@ -249,7 +249,7 @@ class EveProductionCalculator(tk.Tk):
         
         # Get all components
         components = self.registry.get_all_components()
-        component_names = [component.display_name for comp_name, component in components.items()]
+        component_names = [component.display_name for component in components]
         
         # Create component dropdown
         self.component_dropdown = create_labeled_dropdown(
@@ -565,8 +565,21 @@ class EveProductionCalculator(tk.Tk):
         # Get ME level from calculator for this specific ship
         me_level = self.calculator.get_me_level('ships', ship.name)
         
+        # Get TE level from calculator for this specific ship
+        te_level = self.calculator.get_te_level('ships', ship.name)
+        
+        # Calculate production time (use default base time if not available)
+        base_time = getattr(ship, 'production_time', 3600)  # Default to 1 hour if not specified
+        production_time = self.calculator.calculate_production_time(base_time, te_level)
+        
+        # Format time for display
+        hours, remainder = divmod(production_time, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        time_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+        
         # Format requirements for display
-        requirements_text = f"Material Requirements for {ship_name} (ME: {me_level}%):\n\n"
+        requirements_text = f"Material Requirements for {ship_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
+        requirements_text += f"Production Time: {time_str}\n\n"
         
         # Sort materials alphabetically
         sorted_materials = sorted(requirements.items())
@@ -595,11 +608,24 @@ class EveProductionCalculator(tk.Tk):
         # Calculate requirements
         requirements = self.calculator.calculate_capital_ship_requirements(capital_ship.name)
         
-        # Get ME level from calculator for this specific capital ship
+        # Get ME level for capital ship
         me_level = self.calculator.get_me_level('capital_ships', capital_ship.name)
         
+        # Get TE level for capital ship
+        te_level = self.calculator.get_te_level('capital_ships', capital_ship.name)
+        
+        # Calculate production time (use default base time if not available)
+        base_time = getattr(capital_ship, 'production_time', 7200)  # Default to 2 hours if not specified
+        production_time = self.calculator.calculate_production_time(base_time, te_level)
+        
+        # Format time for display
+        hours, remainder = divmod(production_time, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        time_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+        
         # Format requirements for display
-        requirements_text = f"Material Requirements for {capital_ship_name} (ME: {me_level}%):\n\n"
+        requirements_text = f"Material Requirements for {capital_ship_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
+        requirements_text += f"Production Time: {time_str}\n\n"
         
         # Sort materials alphabetically
         sorted_materials = sorted(requirements.items())
@@ -628,11 +654,24 @@ class EveProductionCalculator(tk.Tk):
         # Calculate requirements
         requirements = self.calculator.calculate_component_requirements(component.name)
         
-        # Get ME level from calculator for this specific component
+        # Get ME level for component
         me_level = self.calculator.get_me_level('components', component.name)
         
+        # Get TE level for component
+        te_level = self.calculator.get_te_level('components', component.name)
+        
+        # Calculate production time (use default base time if not available)
+        base_time = getattr(component, 'production_time', 1800)  # Default to 30 minutes if not specified
+        production_time = self.calculator.calculate_production_time(base_time, te_level)
+        
+        # Format time for display
+        hours, remainder = divmod(production_time, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        time_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+        
         # Format requirements for display
-        requirements_text = f"Material Requirements for {component_name} (ME: {me_level}%):\n\n"
+        requirements_text = f"Material Requirements for {component_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
+        requirements_text += f"Production Time: {time_str}\n\n"
         
         # Sort materials alphabetically
         sorted_materials = sorted(requirements.items())
@@ -723,9 +762,9 @@ class EveProductionCalculator(tk.Tk):
         
         # Create manager with registry data
         modules = {
-            'ships': self.registry.get_all_ships(),
-            'capital_ships': self.registry.get_all_capital_ships(),
-            'components': self.registry.get_all_components(),
+            'ships': {ship.name: ship for ship in self.registry.get_all_ships()},
+            'capital_ships': {ship.name: ship for ship in self.registry.get_all_capital_ships()},
+            'components': {component.name: component for component in self.registry.get_all_components()},
             'capital_components': self.load_capital_components()  
         }
         
