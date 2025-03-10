@@ -103,6 +103,9 @@ class EveProductionCalculator(tk.Tk):
         
         # Bind tab change event to update the details
         self.notebook.bind("<<NotebookTabChanged>>", self.on_tab_change)
+        
+        # Create menus
+        self._create_menus()
     
     def on_tab_change(self, event):
         """Handle tab changes to update the shared output areas"""
@@ -541,8 +544,34 @@ class EveProductionCalculator(tk.Tk):
     
     def edit_blueprint_ownership(self):
         """Open the blueprint ownership editor"""
-        # To be implemented
-        messagebox.showinfo("Info", "Blueprint ownership editor coming soon!")
+        from blueprints_gui import BlueprintManager
+        from blueprint_config import load_blueprint_ownership
+        
+        # Load current blueprint configuration
+        blueprint_config = load_blueprint_ownership()
+        
+        # Create a top-level window for the blueprint editor
+        editor_window = tk.Toplevel(self)
+        editor_window.title("Blueprint Ownership Editor")
+        editor_window.geometry("800x600")
+        editor_window.minsize(800, 600)
+        
+        # Create manager with registry data
+        modules = {
+            'ships': self.registry.get_all_ships(),
+            'capital_ships': self.registry.get_all_capital_ships(),
+            'components': self.registry.get_all_components()
+        }
+        
+        # Initialize blueprint manager
+        blueprint_manager = BlueprintManager(editor_window, modules, blueprint_config)
+        
+        # Create tab frame that fills the window
+        tab_frame = ttk.Frame(editor_window)
+        tab_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Create and setup blueprint management tab
+        blueprint_manager.create_blueprint_management_tab(tab_frame)
     
     def export_settings(self):
         """Export settings to a JSON file"""
@@ -593,3 +622,21 @@ class EveProductionCalculator(tk.Tk):
                 
         except Exception as e:
             messagebox.showerror("Error", f"Failed to import settings: {str(e)}")
+    
+    def _create_menus(self):
+        """Create application menus"""
+        # Create main menu
+        menu_bar = tk.Menu(self)
+        self.config(menu=menu_bar)
+        
+        # Create File menu
+        file_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label="Exit", command=self.destroy)
+        
+        # Create Settings menu
+        settings_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Settings", menu=settings_menu)
+        settings_menu.add_command(label="Blueprint Ownership Editor", command=self.edit_blueprint_ownership)
+        settings_menu.add_command(label="Export Settings", command=self.export_settings)
+        settings_menu.add_command(label="Import Settings", command=self.import_settings)
