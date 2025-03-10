@@ -6,8 +6,8 @@ A Python application for calculating resource requirements for manufacturing shi
 
 - **Ore Refining Calculator:** Calculate mineral yields from different asteroid ore types
 - **Ship Production:** View and calculate mineral requirements for building ships
-  - Supports multiple factions (Gallente ships fully implemented)
-  - Includes Tech I, Tech II and Navy/Faction ships
+  - Supports multiple factions (Gallente, Amarr, Caldari, and ORE ships implemented)
+  - Includes Tech I, Tech II, and Navy/Faction ships
   - Tracks blueprint ownership status
 - **Capital Ship Production:** Calculate the minerals and PI materials needed for building various capital ships:
   - Bowhead Freighter
@@ -34,6 +34,8 @@ A Python application for calculating resource requirements for manufacturing shi
 ## Recent Optimizations (March 2025)
 
 ### Core Improvements
+- **Ship Data Reorganization**: Split ship data into faction-specific files for improved maintainability
+- **ORE Ships Implementation**: Added complete set of ORE faction ships including mining vessels and industrial ships
 - **Blueprint Configuration**: Unified attribute handling with `update_blueprint_attribute()`
 - **Module Registry**: Streamlined filtering logic using list comprehensions
 - **Data Loading**: 25% faster JSON parsing with optimized structure
@@ -56,6 +58,25 @@ The application currently includes:
 - **Battlecruisers**: Brutix, Myrmidon, Talos, Brutix Navy Issue
 - **Tech II Battlecruisers**: Astarte Command Ship, Eos Command Ship
 - **Tech III Strategic Cruiser**: Proteus
+
+### Amarr Ships
+- **Frigates**: Crucifier, Executioner, Inquisitor, Magnate, Punisher, Tormentor
+- **Tech II Frigates**: Anathema, Crusader, Malediction, Retribution, Vengeance
+- **Destroyers and Tech II Destroyers**
+- **Cruisers and Tech II Cruisers**
+- **Battlecruisers and Tech II Battlecruisers**
+
+### Caldari Ships
+- **Frigates**: Bantam, Condor, Griffin, Heron, Kestrel, Merlin
+- **Tech II Frigates and Destroyers**
+- **Cruisers and Tech II Cruisers**
+
+### ORE Ships
+- **Mining Frigates**: Venture (Tech I), Prospect & Endurance (Tech II Expedition Frigates)
+- **Mining Barges**: Procurer, Retriever, Covetor (Tech I)
+- **Exhumers**: Skiff, Mackinaw, Hulk (Tech II)
+- **Industrial Ships**: Noctis (Salvage Ship), Porpoise (Industrial Command Ship)
+- **Capital Industrial Ships**: Orca, Rorqual, Bowhead Freighter
 
 ### Capital Ships
 - **Freighters**: Bowhead, Charon, Fenrir, Obelisk, Providence
@@ -111,19 +132,27 @@ The application follows a modular design with clear separation of concerns:
 
 ### Directories
 - **data/** - Contains JSON data files
-  - `ships.json` - Data for all ship types, requirements and details
+  - **ships/** - Faction-specific ship data organized into separate files
+    - `ships_gallente.json` - Gallente ships data
+    - `ships_amarr.json` - Amarr ships data
+    - `ships_caldari.json` - Caldari ships data
+    - `ships_ore.json` - ORE faction ships data
+    - `ships_capital.json` - Capital ships data
   - `ore.json` - Data for asteroid ores and their refined mineral yields
   - `PI_Components.json` - Data for Planetary Interaction (PI) materials
   - `capitalcomponents.json` - Data for capital ship components
+  - `components.json` - Data for ship components
+  - `blueprint_ownership.json` - Blueprint configuration data
 
 ## Extending the Application
 
 The modular design makes it easy to add new features:
 
 1. To add new ore types or update existing data, modify `data/ore.json`
-2. To add new ship blueprints, add entries to `data/ships.json` following the existing pattern
-3. To add production chains for other capital ships, add entries to the capital_ships section in `data/ships.json`
-4. To add new PI components, modify the `data/PI_Components.json` file with the appropriate data structure
+2. To add new ship blueprints, add entries to the appropriate faction file in `data/ships/` following the existing pattern
+3. To add new factions, create a new JSON file in the ships directory following the established schema
+4. To add production chains for other capital ships, add entries to `data/ships/ships_capital.json`
+5. To add new PI components, modify the `data/PI_Components.json` file with the appropriate data structure
 
 ## Data Storage
 
