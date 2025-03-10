@@ -353,6 +353,198 @@
             "invented": false,
             "me": 0,
             "te": 0
+        },
+        "executioner": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "tormentor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "punisher": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "magnate": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "inquisitor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crucifier": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crusader": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "malediction": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "vengeance": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "retribution": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "anathema": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "purifier": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "coercer": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "dragoon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "heretic": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "confessor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "maller": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "omen": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "augoror": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "arbitrator": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "devoter": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "sacrilege": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "zealot": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "curse": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "pilgrim": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "harbinger": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "absolution": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "oracle": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "damnation": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "apocalypse": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "armageddon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "abaddon": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
         }
     },
     "capital_ships": {
@@ -402,6 +594,54 @@
         },
         "thruster_array": {
             "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "construction_blocks": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crystalline_microprocessor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "fernite_carbide_composite_armor_plate": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "fusion_reactor_unit": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "oscillator_capacitor_unit": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "plasma_thruster": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "pulse_shield_emitter": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "radar_sensor_cluster": {
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
@@ -843,6 +1083,230 @@
             "te": 0
         },
         "viator": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "absolution": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "abaddon": {
+            "owned": true,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "executioner": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "tormentor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "punisher": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "magnate": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "inquisitor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crucifier": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "crusader": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "malediction": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "vengeance": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "retribution": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "anathema": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "purifier": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "coercer": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "dragoon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "heretic": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "confessor": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "maller": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "omen": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "augoror": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "arbitrator": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "devoter": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "sacrilege": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "zealot": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "curse": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "pilgrim": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "harbinger": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "oracle": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "damnation": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "apocalypse": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "armageddon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        }
+    },
+    "capital_ship_blueprints": {
+        "bowhead": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "charon": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "providence": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "fenrir": {
+            "owned": false,
+            "invented": false,
+            "me": 0,
+            "te": 0
+        },
+        "obelisk": {
             "owned": false,
             "invented": false,
             "me": 0,

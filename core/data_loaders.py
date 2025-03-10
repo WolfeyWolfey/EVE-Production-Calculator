@@ -213,7 +213,7 @@ def load_capital_components(registry: ModuleRegistry, base_path: str):
                     display_name=component_data.get("display_name", component_name),
                     requirements=component_data.get("requirements", {}),
                     details=component_data.get("details", ""),
-                    owned_status=component_data.get("owned_status", "Unowned") == "Owned"
+                    owned_status=component_data.get("owned_status", False)
                 )
                 registry.register_capital_component(component)
                 
@@ -230,6 +230,28 @@ def load_components(registry: ModuleRegistry, base_path: str):
     """
     # First load capital components
     load_capital_components(registry, base_path)
+    
+    # Load regular components from JSON file
+    components_path = os.path.join(base_path, 'data', 'components.json')
+    
+    try:
+        if os.path.exists(components_path):
+            with open(components_path, 'r') as f:
+                components_data = json.load(f)
+            
+            components = components_data.get("components", {})
+            for component_name, component_data in components.items():
+                component = ComponentModule(
+                    name=component_name,
+                    display_name=component_data.get("display_name", component_name),
+                    requirements=component_data.get("requirements", {}),
+                    details=component_data.get("details", ""),
+                    owned_status=component_data.get("owned_status", False)
+                )
+                registry.register_component(component)
+                
+    except Exception as e:
+        print(f"Error loading components from JSON: {e}")
     
     # Also try loading from Python modules in Components directory
     components_dir = os.path.join(base_path, 'Components')
@@ -266,7 +288,7 @@ def load_components(registry: ModuleRegistry, base_path: str):
                         components_loaded += 1
                 except Exception as e:
                     print(f"Error loading component module {module_path}: {e}")
-        
+
 def load_pi_data(registry: ModuleRegistry, base_path: str):
     """
     Load PI data from JSON file

@@ -212,17 +212,11 @@ class BlueprintManager:
                 
                 # Create ownership variable if it doesn't exist
                 if not hasattr(comp_data, 'ownership_var'):
-                    comp_data.ownership_var = tk.StringVar()
-                
-                # Get current ownership status and set the radio button variable
-                ownership = get_blueprint_ownership(self.blueprint_config, 'component_blueprints', comp_name)
-                # Convert to lowercase to match radio button values
-                if ownership == "Owned":
-                    comp_data.ownership_var.set("owned")
-                elif ownership == "Unowned":
-                    comp_data.ownership_var.set("unowned")
-                else:
-                    comp_data.ownership_var.set("unowned")  # Default to unowned
+                    # Get ownership value from blueprint config
+                    ownership_status = get_blueprint_ownership(self.blueprint_config, 'component_blueprints', comp_name)
+                    # Convert to lowercase to match the values expected by our radio buttons
+                    ownership_value = "owned" if ownership_status == "Owned" else "unowned"
+                    comp_data.ownership_var = tk.StringVar(value=ownership_value)
                 
                 # Unowned radiobutton
                 ttk.Radiobutton(
@@ -398,7 +392,11 @@ class BlueprintManager:
             # Ownership RadioButtons
             # Check if the comp_data already has an ownership_var attribute, if not create one
             if not hasattr(comp_data, 'ownership_var'):
-                comp_data.ownership_var = tk.StringVar(value=get_blueprint_ownership(self.blueprint_config, 'components', comp_name))
+                # Get ownership value from blueprint config
+                ownership_status = get_blueprint_ownership(self.blueprint_config, 'components', comp_name)
+                # Convert to lowercase to match the values expected by our radio buttons
+                ownership_value = "owned" if ownership_status == "Owned" else "unowned"
+                comp_data.ownership_var = tk.StringVar(value=ownership_value)
             
             # Unowned radiobutton
             ttk.Radiobutton(
@@ -458,7 +456,7 @@ class BlueprintManager:
         module_count = 0
         
         # Get category for config lookup
-        config_category = 'ship_blueprints' if modules_type == 'Ships' else 'capital_ship_blueprints' if modules_type == 'Capital Ships' else 'component_blueprints'
+        config_category = self.get_category_from_module_type(modules_type)
         
         print(f"DEBUG: Populating grid for {modules_type}, config category: {config_category}")
         
@@ -496,16 +494,13 @@ class BlueprintManager:
             
             print(f"DEBUG: Module {module_name} - Config ownership status: {ownership}")
             
-            # Convert ownership to lowercase for radio button
+            # Set the correct radio button based on ownership
             if ownership == "Owned":
                 module.ownership_var.set("owned")
                 print(f"DEBUG: Setting {module_name} radio to 'owned'")
             else:
                 module.ownership_var.set("unowned")
                 print(f"DEBUG: Setting {module_name} radio to 'unowned'")
-                
-            # Debug: Check the StringVar value after setting
-            print(f"DEBUG: StringVar value after setting: {module.ownership_var.get()}")
             
             # Unowned radio button
             ttk.Radiobutton(
@@ -586,8 +581,8 @@ class BlueprintManager:
             Category key for the blueprint config (e.g., 'ships', 'capital_ships')
         """
         module_map = {
-            'Ships': 'ships',
-            'Capital Ships': 'capital_ships',
+            'Ships': 'ship_blueprints',
+            'Capital Ships': 'capital_ship_blueprints',
             'Components': 'components',
             'Capital Components': 'component_blueprints'
         }
@@ -1020,8 +1015,8 @@ class BlueprintManager:
                         ship.owned_status = False
                         
                     # Also update the blueprint config
-                    if 'ships' in self.blueprint_config and ship_name in self.blueprint_config['ships']:
-                        self.blueprint_config['ships'][ship_name]['owned'] = False
+                    if 'ship_blueprints' in self.blueprint_config and ship_name in self.blueprint_config['ship_blueprints']:
+                        self.blueprint_config['ship_blueprints'][ship_name]['owned'] = False
             
             # Reset capital ships
             if hasattr(self.module_registry, 'capital_ships'):
@@ -1030,8 +1025,8 @@ class BlueprintManager:
                         ship.owned_status = False
                         
                     # Also update the blueprint config
-                    if 'capital_ships' in self.blueprint_config and ship_name in self.blueprint_config['capital_ships']:
-                        self.blueprint_config['capital_ships'][ship_name]['owned'] = False
+                    if 'capital_ship_blueprints' in self.blueprint_config and ship_name in self.blueprint_config['capital_ship_blueprints']:
+                        self.blueprint_config['capital_ship_blueprints'][ship_name]['owned'] = False
             
             # Save the updated configuration
             from config.blueprint_config import save_blueprint_ownership
@@ -1065,20 +1060,20 @@ class BlueprintManager:
                     print(f"Setting Atron ({atron_key}) as owned in registry")
                     
                     # Update the blueprint_config
-                    if 'ships' not in self.blueprint_config:
-                        self.blueprint_config['ships'] = {}
+                    if 'ship_blueprints' not in self.blueprint_config:
+                        self.blueprint_config['ship_blueprints'] = {}
                         
-                    if atron_key not in self.blueprint_config['ships']:
-                        self.blueprint_config['ships'][atron_key] = {
+                    if atron_key not in self.blueprint_config['ship_blueprints']:
+                        self.blueprint_config['ship_blueprints'][atron_key] = {
                             'owned': True,
                             'invented': False,
                             'me': 0,
                             'te': 0
                         }
                     else:
-                        self.blueprint_config['ships'][atron_key]['owned'] = True
+                        self.blueprint_config['ship_blueprints'][atron_key]['owned'] = True
                     
-                    print(f"Updated blueprint config for Atron: {self.blueprint_config['ships'][atron_key]}")
+                    print(f"Updated blueprint config for Atron: {self.blueprint_config['ship_blueprints'][atron_key]}")
                     
                     # Save the configuration to file
                     from config.blueprint_config import save_blueprint_ownership, apply_blueprint_ownership

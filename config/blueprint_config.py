@@ -15,8 +15,8 @@ def create_default_blueprint_config():
     Create default blueprint configuration structure
     """
     return {
-        'ships': {},
-        'capital_ships': {},
+        'ship_blueprints': {},
+        'capital_ship_blueprints': {},
         'components': {},
         'component_blueprints': {}  # For individual capital component blueprints
     }
@@ -34,7 +34,7 @@ def load_blueprint_ownership():
                 
                 # Verify if any ships are set to owned
                 owned_ships = []
-                for ship_name, ship_data in config.get('ships', {}).items():
+                for ship_name, ship_data in config.get('ship_blueprints', {}).items():
                     if ship_data.get('owned', False):
                         owned_ships.append(ship_name)
                 
@@ -110,7 +110,7 @@ def update_blueprint_ownership(config, category, blueprint_name, ownership_statu
     
     Args:
         config: The blueprint configuration dictionary
-        category: Category of the blueprint (ships, capital_ships, components)
+        category: Category of the blueprint (ship_blueprints, capital_ship_blueprints, components)
         blueprint_name: Name of the blueprint
         ownership_status: New ownership status (Owned or Unowned)
     """
@@ -145,7 +145,7 @@ def update_blueprint_invention(config, category, blueprint_name, is_invented):
     
     Args:
         config: The blueprint configuration dictionary
-        category: Category of the blueprint (ships, capital_ships, components)
+        category: Category of the blueprint (ship_blueprints, capital_ship_blueprints, components)
         blueprint_name: Name of the blueprint
         is_invented: Boolean indicating whether the blueprint is invented
     """
@@ -180,7 +180,7 @@ def update_blueprint_me(config, category, blueprint_name, me_value):
     
     Args:
         config: The blueprint configuration dictionary
-        category: Category of the blueprint (ships, capital_ships, components)
+        category: Category of the blueprint (ship_blueprints, capital_ship_blueprints, components)
         blueprint_name: Name of the blueprint
         me_value: Material Efficiency percentage (0-10)
     """
@@ -215,7 +215,7 @@ def update_blueprint_te(config, category, blueprint_name, te_value):
     
     Args:
         config: The blueprint configuration dictionary
-        category: Category of the blueprint (ships, capital_ships, components)
+        category: Category of the blueprint (ship_blueprints, capital_ship_blueprints, components)
         blueprint_name: Name of the blueprint
         te_value: Time Efficiency percentage (0-20)
     """
@@ -250,7 +250,7 @@ def get_blueprint_ownership(config, category, blueprint_name):
     
     Args:
         config: The blueprint configuration dictionary
-        category: Category of the blueprint (ships, capital_ships, components)
+        category: Category of the blueprint (ship_blueprints, capital_ship_blueprints, components)
         blueprint_name: Name of the blueprint
         
     Returns:
@@ -266,7 +266,7 @@ def get_blueprint_me(config, category, blueprint_name):
     
     Args:
         config: Blueprint configuration dictionary
-        category: Category of blueprint (ships, capital_ships, components)
+        category: Category of blueprint (ship_blueprints, capital_ship_blueprints, components)
         blueprint_name: Name of the blueprint
         
     Returns:
@@ -293,7 +293,7 @@ def get_blueprint_te(config, category, blueprint_name):
     
     Args:
         config: Blueprint configuration dictionary
-        category: Category of blueprint (ships, capital_ships, components)
+        category: Category of blueprint (ship_blueprints, capital_ship_blueprints, components)
         blueprint_name: Name of the blueprint
         
     Returns:
@@ -331,9 +331,9 @@ def apply_blueprint_ownership(config, registry):
     owned_ship_count = 0
     
     # Apply ship ownership
-    if 'ships' in config:
-        print(f"Processing {len(config['ships'])} ships in configuration")
-        for ship_name, ship_data in config['ships'].items():
+    if 'ship_blueprints' in config:
+        print(f"Processing {len(config['ship_blueprints'])} ships in configuration")
+        for ship_name, ship_data in config['ship_blueprints'].items():
             # Find the ship in the registry
             if hasattr(registry, 'ships') and ship_name in registry.ships:
                 owned_value = ship_data.get('owned', False)
@@ -348,9 +348,9 @@ def apply_blueprint_ownership(config, registry):
     
     # Apply capital ship ownership
     owned_capital_count = 0
-    if 'capital_ships' in config:
-        print(f"Processing {len(config['capital_ships'])} capital ships in configuration")
-        for ship_name, ship_data in config['capital_ships'].items():
+    if 'capital_ship_blueprints' in config:
+        print(f"Processing {len(config['capital_ship_blueprints'])} capital ships in configuration")
+        for ship_name, ship_data in config['capital_ship_blueprints'].items():
             # Find the ship in the registry
             if hasattr(registry, 'capital_ships') and ship_name in registry.capital_ships:
                 owned_value = ship_data.get('owned', False)
@@ -436,7 +436,7 @@ def migrate_blueprint_config(config):
             clean_ships[clean_name] = new_data
             
         # Replace ships in new_config with cleaned dictionary
-        new_config['ships'] = clean_ships
+        new_config['ship_blueprints'] = clean_ships
     
     # Migrate capital ships
     if 'capital_ships' in config:
@@ -479,7 +479,7 @@ def migrate_blueprint_config(config):
             clean_cap_ships[clean_name] = new_data
             
         # Replace capital_ships in new_config with cleaned dictionary
-        new_config['capital_ships'] = clean_cap_ships
+        new_config['capital_ship_blueprints'] = clean_cap_ships
     
     # Migrate components
     if 'components' in config:
