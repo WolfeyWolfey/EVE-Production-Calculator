@@ -1,0 +1,488 @@
+
+{
+  "P0_Raw_Materials": [
+    {
+      "name": "Aqueous Liquids",
+      "harvestable_planet_types": ["Barren", "Gas", "Ice", "Oceanic", "Storm", "Temperate"],
+      "refines_to_P1": "Water"
+    },
+    {
+      "name": "Autotrophs",
+      "harvestable_planet_types": ["Temperate"],
+      "refines_to_P1": "Industrial Fibers"
+    },
+    {
+      "name": "Base Metals",
+      "harvestable_planet_types": ["Barren", "Gas", "Lava", "Plasma", "Storm"],
+      "refines_to_P1": "Reactive Metals"
+    },
+    {
+      "name": "Carbon Compounds",
+      "harvestable_planet_types": ["Barren", "Oceanic", "Temperate"],
+      "refines_to_P1": "Biofuels"
+    },
+    {
+      "name": "Complex Organisms",
+      "harvestable_planet_types": ["Oceanic", "Temperate"],
+      "refines_to_P1": "Proteins"
+    },
+    {
+      "name": "Felsic Magma",
+      "harvestable_planet_types": ["Lava"],
+      "refines_to_P1": "Silicon"
+    },
+    {
+      "name": "Heavy Metals",
+      "harvestable_planet_types": ["Ice", "Lava", "Plasma"],
+      "refines_to_P1": "Toxic Metals"
+    },
+    {
+      "name": "Ionic Solutions",
+      "harvestable_planet_types": ["Gas", "Storm"],
+      "refines_to_P1": "Electrolytes"
+    },
+    {
+      "name": "Microorganisms",
+      "harvestable_planet_types": ["Barren", "Ice", "Oceanic", "Temperate"],
+      "refines_to_P1": "Bacteria"
+    },
+    {
+      "name": "Noble Gas",
+      "harvestable_planet_types": ["Gas", "Ice", "Storm"],
+      "refines_to_P1": "Oxygen"
+    },
+    {
+      "name": "Noble Metals",
+      "harvestable_planet_types": ["Barren", "Plasma"],
+      "refines_to_P1": "Precious Metals"
+    },
+    {
+      "name": "Non-CS Crystals",
+      "harvestable_planet_types": ["Lava", "Plasma"],
+      "refines_to_P1": "Chiral Structures"
+    },
+    {
+      "name": "Planktic Colonies",
+      "harvestable_planet_types": ["Ice", "Oceanic"],
+      "refines_to_P1": "Biomass"
+    },
+    {
+      "name": "Reactive Gas",
+      "harvestable_planet_types": ["Gas"],
+      "refines_to_P1": "Oxidizing Compound"
+    },
+    {
+      "name": "Suspended Plasma",
+      "harvestable_planet_types": ["Lava", "Plasma", "Storm"],
+      "refines_to_P1": "Plasmoids"
+    }
+  ],
+  "P1_Processed_Materials": [
+    {
+      "name": "Water",
+      "produced_from_P0": "Aqueous Liquids",
+      "example_uses": "Used in standard booster reactions",
+      "inputs_for_P2": ["Coolant", "Superconductors", "Test Cultures"]
+    },
+    {
+      "name": "Industrial Fibers",
+      "produced_from_P0": "Autotrophs",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Microfiber Shielding", "Polyaramids", "Polytextiles"]
+    },
+    {
+      "name": "Reactive Metals",
+      "produced_from_P0": "Base Metals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Construction Blocks", "Mechanical Parts", "Nanites", "Water-Cooled CPU"]
+    },
+    {
+      "name": "Biofuels",
+      "produced_from_P0": "Carbon Compounds",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Biocells", "Livestock", "Polytextiles"]
+    },
+    {
+      "name": "Proteins",
+      "produced_from_P0": "Complex Organisms",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Fertilizer", "Genetically Enhanced Livestock", "Livestock"]
+    },
+    {
+      "name": "Silicon",
+      "produced_from_P0": "Felsic Magma",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Microfiber Shielding", "Miniature Electronics", "Silicate Glass"]
+    },
+    {
+      "name": "Toxic Metals",
+      "produced_from_P0": "Heavy Metals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Construction Blocks", "Consumer Electronics", "Enriched Uranium"]
+    },
+    {
+      "name": "Electrolytes",
+      "produced_from_P0": "Ionic Solutions",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Coolant", "Rocket Fuel", "Synthetic Oil"]
+    },
+    {
+      "name": "Bacteria",
+      "produced_from_P0": "Microorganisms",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Fertilizer", "Nanites", "Test Cultures", "Viral Agent"]
+    },
+    {
+      "name": "Oxygen",
+      "produced_from_P0": "Noble Gas",
+      "example_uses": "Used in improved booster reactions and structure fuel blocks",
+      "inputs_for_P2": ["Oxides", "Supertensile Plastics", "Synthetic Oil"]
+    },
+    {
+      "name": "Precious Metals",
+      "produced_from_P0": "Noble Metals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Biocells", "Enriched Uranium", "Mechanical Parts"]
+    },
+    {
+      "name": "Chiral Structures",
+      "produced_from_P0": "Non-CS Crystals",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Consumer Electronics", "Miniature Electronics", "Transmitter"]
+    },
+    {
+      "name": "Biomass",
+      "produced_from_P0": "Planktic Colonies",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Genetically Enhanced Livestock", "Supertensile Plastics", "Viral Agent"]
+    },
+    {
+      "name": "Oxidizing Compound",
+      "produced_from_P0": "Reactive Gas",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Oxides", "Polyaramids", "Silicate Glass"]
+    },
+    {
+      "name": "Plasmoids",
+      "produced_from_P0": "Suspended Plasma",
+      "example_uses": "None known",
+      "inputs_for_P2": ["Rocket Fuel", "Superconductors", "Transmitter"]
+    }
+  ],
+  "P2_Refined_Commodities": [
+    {
+      "name": "Biocells",
+      "inputs": ["Precious Metals", "Biofuels"],
+      "example_uses": "Used in capital ship components; component for Transcranial Microcontrollers (P3)",
+      "inputs_for_P3": ["Gel-Matrix Biopaste", "Neocoms", "Transcranial Microcontrollers"]
+    },
+    {
+      "name": "Construction Blocks",
+      "inputs": ["Toxic Metals", "Reactive Metals"],
+      "example_uses": "Used in Tech II component construction; input for Robotics, Smartfab Units (P3)",
+      "inputs_for_P3": ["Biotech Research Reports", "Smartfab Units"]
+    },
+    {
+      "name": "Consumer Electronics",
+      "inputs": ["Chiral Structures", "Toxic Metals"],
+      "example_uses": "Used in Tech II and research components; input for Robotics, Supercomputers (P3)",
+      "inputs_for_P3": ["Robotics", "Supercomputers"]
+    },
+    {
+      "name": "Coolant",
+      "inputs": ["Water", "Electrolytes"],
+      "example_uses": "Used in structure fuel (fuel blocks); input for Condensates, Supercomputers (P3)",
+      "inputs_for_P3": ["Condensates", "Supercomputers"]
+    },
+    {
+      "name": "Enriched Uranium",
+      "inputs": ["Toxic Metals", "Precious Metals"],
+      "example_uses": "Used in structure fuel (fuel blocks); input for Nuclear Reactors (P3)",
+      "inputs_for_P3": ["Nuclear Reactors"]
+    },
+    {
+      "name": "Fertilizer",
+      "inputs": ["Proteins", "Bacteria"],
+      "example_uses": "(No direct use) Used to make Industrial Explosives, Cryoprotectant Solution (P3)",
+      "inputs_for_P3": ["Cryoprotectant Solution", "Industrial Explosives"]
+    },
+    {
+      "name": "Genetically Enhanced Livestock",
+      "inputs": ["Biomass", "Proteins"],
+      "example_uses": "(No direct use) Used to make Hermetic Membranes (P3)",
+      "inputs_for_P3": ["Hermetic Membranes"]
+    },
+    {
+      "name": "Livestock",
+      "inputs": ["Biofuels", "Proteins"],
+      "example_uses": "(No direct use) Used to make Biotech Research Reports, Vaccines (P3)",
+      "inputs_for_P3": ["Biotech Research Reports", "Vaccines"]
+    },
+    {
+      "name": "Mechanical Parts",
+      "inputs": ["Precious Metals", "Reactive Metals"],
+      "example_uses": "Used in structure fuel, Tech II components; input for Planetary Vehicles, Robotics (P3)",
+      "inputs_for_P3": ["Planetary Vehicles", "Robotics"]
+    },
+    {
+      "name": "Microfiber Shielding",
+      "inputs": ["Silicon", "Industrial Fibers"],
+      "example_uses": "(No direct use) Used to make Data Chips, Nuclear Reactors (P3)",
+      "inputs_for_P3": ["Data Chips", "Nuclear Reactors"]
+    },
+    {
+      "name": "Miniature Electronics",
+      "inputs": ["Silicon", "Chiral Structures"],
+      "example_uses": "Used in Tech II components; input for Planetary Vehicles, Smartfab Units (P3)",
+      "inputs_for_P3": ["Planetary Vehicles", "Smartfab Units"]
+    },
+    {
+      "name": "Nanites",
+      "inputs": ["Reactive Metals", "Bacteria"],
+      "example_uses": "Used in Nanite Repair Paste (consumable); input for Biotech Reports, Transcranial Microcontrollers (P3)",
+      "inputs_for_P3": ["Biotech Research Reports", "Transcranial Microcontrollers"]
+    },
+    {
+      "name": "Oxides",
+      "inputs": ["Oxygen", "Oxidizing Compound"],
+      "example_uses": "(No direct use) Used to make Condensates, Gel-Matrix Biopaste (P3)",
+      "inputs_for_P3": ["Condensates", "Gel-Matrix Biopaste"]
+    },
+    {
+      "name": "Polyaramids",
+      "inputs": ["Industrial Fibers", "Oxidizing Compound"],
+      "example_uses": "(No direct use) Used to make Hermetic Membranes, High-Tech Transmitters (P3)",
+      "inputs_for_P3": ["Hermetic Membranes", "High-Tech Transmitters"]
+    },
+    {
+      "name": "Polytextiles",
+      "inputs": ["Industrial Fibers", "Biofuels"],
+      "example_uses": "(No direct use) Used to make Hazmat Detection Systems, Industrial Explosives (P3)",
+      "inputs_for_P3": ["Hazmat Detection Systems", "Industrial Explosives"]
+    },
+    {
+      "name": "Rocket Fuel",
+      "inputs": ["Electrolytes", "Plasmoids"],
+      "example_uses": "Used in Tech II missiles/ammunition; input for Camera Drones (P3)",
+      "inputs_for_P3": ["Camera Drones"]
+    },
+    {
+      "name": "Silicate Glass",
+      "inputs": ["Silicon", "Oxidizing Compound"],
+      "example_uses": "(No direct use) Used to make Camera Drones, Neocoms (P3)",
+      "inputs_for_P3": ["Camera Drones", "Neocoms"]
+    },
+    {
+      "name": "Superconductors",
+      "inputs": ["Water", "Plasmoids"],
+      "example_uses": "Used in some Tech II components; input for Gel-Matrix Biopaste, Ukomi Superconductors (P3)",
+      "inputs_for_P3": ["Gel-Matrix Biopaste", "Ukomi Superconductors"]
+    },
+    {
+      "name": "Supertensile Plastics",
+      "inputs": ["Biomass", "Oxygen"],
+      "example_uses": "(No direct use) Used to make Data Chips, Planetary Vehicles, Synthetic Synapses (P3)",
+      "inputs_for_P3": ["Data Chips", "Planetary Vehicles", "Synthetic Synapses"]
+    },
+    {
+      "name": "Synthetic Oil",
+      "inputs": ["Oxygen", "Electrolytes"],
+      "example_uses": "(No direct use) Used to make Cryoprotectant Solution, Ukomi Superconductors (P3)",
+      "inputs_for_P3": ["Cryoprotectant Solution", "Ukomi Superconductors"]
+    },
+    {
+      "name": "Test Cultures",
+      "inputs": ["Water", "Bacteria"],
+      "example_uses": "Used in capital ship components; input for Cryoprotectant Solution, Synthetic Synapses (P3)",
+      "inputs_for_P3": ["Cryoprotectant Solution", "Synthetic Synapses"]
+    },
+    {
+      "name": "Transmitter",
+      "inputs": ["Chiral Structures", "Plasmoids"],
+      "example_uses": "Used in Tech II components (e.g. sensors); input for Guidance Systems, Hazmat Detection Systems, High-Tech Transmitters (P3)",
+      "inputs_for_P3": ["Guidance Systems", "Hazmat Detection Systems", "High-Tech Transmitters"]
+    },
+    {
+      "name": "Viral Agent",
+      "inputs": ["Biomass", "Bacteria"],
+      "example_uses": "(No direct use) Used to make Hazmat Detection Systems, Vaccines (P3)",
+      "inputs_for_P3": ["Hazmat Detection Systems", "Vaccines"]
+    },
+    {
+      "name": "Water-Cooled CPU",
+      "inputs": ["Water", "Reactive Metals"],
+      "example_uses": "Used in Tech II industrial cores; input for Guidance Systems (P3)",
+      "inputs_for_P3": ["Guidance Systems"]
+    }
+  ],
+  "P3_Specialized_Commodities": [
+    {
+      "name": "Biotech Research Reports",
+      "inputs": ["Nanites", "Livestock", "Construction Blocks"],
+      "example_uses": "(No direct use by itself) Component for Wetware Mainframe (P4)",
+      "inputs_for_P4": ["Wetware Mainframe"]
+    },
+    {
+      "name": "Camera Drones",
+      "inputs": ["Silicate Glass", "Rocket Fuel"],
+      "example_uses": "Used in Tactical Capsuleer Recloner module; component for Self-Harmonizing Power Core (P4)",
+      "inputs_for_P4": ["Self-Harmonizing Power Core"]
+    },
+    {
+      "name": "Condensates",
+      "inputs": ["Oxides", "Coolant"],
+      "example_uses": "(No direct use) Component for Organic Mortar Applicators (P4)",
+      "inputs_for_P4": ["Organic Mortar Applicators"]
+    },
+    {
+      "name": "Cryoprotectant Solution",
+      "inputs": ["Test Cultures", "Synthetic Oil", "Fertilizer"],
+      "example_uses": "Used in manufacturing advanced implants and boosters (e.g. Ascendancy, Hydra); component for Wetware Mainframe (P4)",
+      "inputs_for_P4": ["Wetware Mainframe"]
+    },
+    {
+      "name": "Data Chips",
+      "inputs": ["Supertensile Plastics", "Microfiber Shielding"],
+      "example_uses": "Used in Nanite Repair Paste; component for Broadcast Node (P4)",
+      "inputs_for_P4": ["Broadcast Node"]
+    },
+    {
+      "name": "Gel-Matrix Biopaste",
+      "inputs": ["Oxides", "Biocells", "Superconductors"],
+      "example_uses": "Used in Nanite Repair Paste and implant manufacturing; component for Integrity Response Drones (P4)",
+      "inputs_for_P4": ["Integrity Response Drones"]
+    },
+    {
+      "name": "Guidance Systems",
+      "inputs": ["Water-Cooled CPU", "Transmitter"],
+      "example_uses": "Used in Tech II fighters and deployable structures; component for Recursive Computing Module (P4)",
+      "inputs_for_P4": ["Recursive Computing Module"]
+    },
+    {
+      "name": "Hazmat Detection Systems",
+      "inputs": ["Polytextiles", "Viral Agent", "Transmitter"],
+      "example_uses": "(No direct use) Component for Integrity Response Drones (P4)",
+      "inputs_for_P4": ["Integrity Response Drones"]
+    },
+    {
+      "name": "Hermetic Membranes",
+      "inputs": ["Polyaramids", "Genetically Enhanced Livestock"],
+      "example_uses": "Used in Prototype Cloaking Device I (tech module); component for Self-Harmonizing Power Core (P4)",
+      "inputs_for_P4": ["Self-Harmonizing Power Core"]
+    },
+    {
+      "name": "High-Tech Transmitters",
+      "inputs": ["Polyaramids", "Transmitter"],
+      "example_uses": "Used in mobile structures (depots, jump units) and Entosis Link II; component for Broadcast Node (P4)",
+      "inputs_for_P4": ["Broadcast Node"]
+    },
+    {
+      "name": "Industrial Explosives",
+      "inputs": ["Fertilizer", "Polytextiles"],
+      "example_uses": "(No direct use) Component for Nano-Factory (P4)",
+      "inputs_for_P4": ["Nano-Factory"]
+    },
+    {
+      "name": "Neocoms",
+      "inputs": ["Biocells", "Silicate Glass"],
+      "example_uses": "Used in Tactical Capsuleer Recloner; component for Broadcast Node (P4)",
+      "inputs_for_P4": ["Broadcast Node"]
+    },
+    {
+      "name": "Nuclear Reactors",
+      "inputs": ["Microfiber Shielding", "Enriched Uranium"],
+      "example_uses": "Used in mobile structures (e.g. Depot); component for Self-Harmonizing Power Core (P4)",
+      "inputs_for_P4": ["Self-Harmonizing Power Core"]
+    },
+    {
+      "name": "Planetary Vehicles",
+      "inputs": ["Supertensile Plastics", "Mechanical Parts", "Miniature Electronics"],
+      "example_uses": "(No direct use) Component for Integrity Response Drones (P4)",
+      "inputs_for_P4": ["Integrity Response Drones"]
+    },
+    {
+      "name": "Robotics",
+      "inputs": ["Mechanical Parts", "Consumer Electronics"],
+      "example_uses": "Used as structure fuel (fuel block ingredient) and in Tech II manufacturing; component for Organic Mortar Applicators (P4)",
+      "inputs_for_P4": ["Organic Mortar Applicators"]
+    },
+    {
+      "name": "Smartfab Units",
+      "inputs": ["Construction Blocks", "Miniature Electronics"],
+      "example_uses": "Used in deployable structures; component for Sterile Conduits (P4)",
+      "inputs_for_P4": ["Sterile Conduits"]
+    },
+    {
+      "name": "Supercomputers",
+      "inputs": ["Water-Cooled CPU", "Coolant", "Consumer Electronics"],
+      "example_uses": "Used in Prototype Cloaking Device I; component for Wetware Mainframe (P4)",
+      "inputs_for_P4": ["Wetware Mainframe"]
+    },
+    {
+      "name": "Synthetic Synapses",
+      "inputs": ["Supertensile Plastics", "Test Cultures"],
+      "example_uses": "Used in command burst modules and capital components; component for Recursive Computing Module (P4)",
+      "inputs_for_P4": ["Recursive Computing Module"]
+    },
+    {
+      "name": "Transcranial Microcontrollers",
+      "inputs": ["Biocells", "Nanites"],
+      "example_uses": "Used in advanced implants (Ascendancy, etc.); component for Recursive Computing Module (P4)",
+      "inputs_for_P4": ["Recursive Computing Module"]
+    },
+    {
+      "name": "Ukomi Superconductors",
+      "inputs": ["Synthetic Oil", "Superconductors"],
+      "example_uses": "Used in mobile tractor units and implant manufacturing; component for Nano-Factory (P4)",
+      "inputs_for_P4": ["Nano-Factory"]
+    },
+    {
+      "name": "Vaccines",
+      "inputs": ["Livestock", "Viral Agent"],
+      "example_uses": "(No direct use) Component for Sterile Conduits (P4)",
+      "inputs_for_P4": ["Sterile Conduits"]
+    }
+  ],
+  "P4_Advanced_Commodities": [
+    {
+      "name": "Broadcast Node",
+      "inputs": ["Neocoms", "Data Chips", "High-Tech Transmitters"],
+      "ultimate_use": "Used for Upwell structure construction (e.g. Citadels) and sovereignty infrastructure upgrades; also in certain capital ship modules."
+    },
+    {
+      "name": "Integrity Response Drones",
+      "inputs": ["Gel-Matrix Biopaste", "Hazmat Detection Systems", "Planetary Vehicles"],
+      "ultimate_use": "Used for Upwell structures and Sov upgrades (e.g. Infrastructure Hubs); also in some capital ship modules."
+    },
+    {
+      "name": "Nano-Factory",
+      "inputs": ["Industrial Explosives", "Ukomi Superconductors", "Reactive Metals"],
+      "ultimate_use": "Used for structures/sov upgrades and in some advanced implant manufacturing (e.g. Nirvana, Hydra implant sets)."
+    },
+    {
+      "name": "Organic Mortar Applicators",
+      "inputs": ["Condensates", "Robotics", "Bacteria"],
+      "ultimate_use": "Used for structures and deployable structures (e.g. Mobile Backup Units)."
+    },
+    {
+      "name": "Recursive Computing Module",
+      "inputs": ["Synthetic Synapses", "Guidance Systems", "Transcranial Microcontrollers"],
+      "ultimate_use": "Used for structures/sov upgrades and high-end capital ship components."
+    },
+    {
+      "name": "Self-Harmonizing Power Core",
+      "inputs": ["Camera Drones", "Nuclear Reactors", "Hermetic Membranes"],
+      "ultimate_use": "Used for structures/sov upgrades and some capital modules (e.g. Doomsday devices)."
+    },
+    {
+      "name": "Sterile Conduits",
+      "inputs": ["Smartfab Units", "Vaccines", "Water"],
+      "ultimate_use": "Used for structures/sov upgrades and capital ship construction (structure components)."
+    },
+    {
+      "name": "Wetware Mainframe",
+      "inputs": ["Supercomputers", "Biotech Research Reports", "Cryoprotectant Solution"],
+      "ultimate_use": "Used for structures/sov upgrades, capital modules, and some mobile structures (e.g. Cyno Beacon)."
+    }
+  ]
+}

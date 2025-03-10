@@ -63,6 +63,25 @@ class ComponentModule:
         self.owned_status = owned_status
         self.module_type = 'component'  # Always 'component' for this class
 
+class PiMaterialModule:
+    """Representation of a PI material with all its attributes and requirements"""
+    def __init__(self, 
+                 name: str, 
+                 display_name: str, 
+                 requirements: Dict[str, int], 
+                 details: str,
+                 pi_level: str,
+                 planet_types: List[str] = None,
+                 outputs: Dict[str, int] = None):
+        self.name = name
+        self.display_name = display_name
+        self.requirements = requirements or {}
+        self.details = details
+        self.pi_level = pi_level  # P0, P1, P2, P3, P4
+        self.planet_types = planet_types or []  # Types of planets the material can be harvested from
+        self.outputs = outputs or {}  # What this material produces if processed
+        self.module_type = 'pi_material'  # Always 'pi_material' for this class
+
 class ModuleRegistry:
     """
     Central registry for all modules in the application.
@@ -74,6 +93,7 @@ class ModuleRegistry:
         self.ships: Dict[str, ShipModule] = {}
         self.capital_ships: Dict[str, CapitalShipModule] = {}
         self.components: Dict[str, ComponentModule] = {}
+        self.pi_materials: Dict[str, PiMaterialModule] = {}
         self.pi_data: Dict[str, Dict[str, Any]] = {
             'p0_materials': {},
             'p1_materials': {},
@@ -81,6 +101,7 @@ class ModuleRegistry:
             'p3_materials': {},
             'p4_materials': {}
         }
+        self.ores: Dict[str, Any] = {}  # Added this line
         
         # Track available factions and ship types for filtering
         self.factions: Set[str] = set(["All"])
@@ -109,6 +130,10 @@ class ModuleRegistry:
         if pi_level in self.pi_data:
             self.pi_data[pi_level] = materials
     
+    def register_pi_material(self, pi_material: PiMaterialModule) -> None:
+        """Register a PI material in the registry"""
+        self.pi_materials[pi_material.name] = pi_material
+
     def get_ship(self, name: str) -> Optional[ShipModule]:
         """Get a ship by name"""
         return self.ships.get(name)
@@ -121,6 +146,29 @@ class ModuleRegistry:
         """Get a component by name"""
         return self.components.get(name)
     
+    def get_pi_material(self, name: str) -> Optional[PiMaterialModule]:
+        """Get a PI material by name"""
+        return self.pi_materials.get(name)
+    
+    def get_pi_material_by_display_name(self, display_name: str) -> Optional[PiMaterialModule]:
+        """Get a PI material by display name"""
+        for pi_material in self.pi_materials.values():
+            if pi_material.display_name == display_name:
+                return pi_material
+        return None
+    
+    def get_pi_materials_by_level(self, pi_level: str) -> List[PiMaterialModule]:
+        """Get PI materials filtered by level (P0, P1, P2, P3, P4)"""
+        filtered_materials = []
+        for pi_material in self.pi_materials.values():
+            if pi_material.pi_level == pi_level:
+                filtered_materials.append(pi_material)
+        return filtered_materials
+    
+    def get_all_pi_materials(self) -> Dict[str, PiMaterialModule]:
+        """Get all registered PI materials"""
+        return self.pi_materials
+
     def get_all_ships(self) -> Dict[str, ShipModule]:
         """Get all registered ships"""
         return self.ships
@@ -256,6 +304,30 @@ class ModuleRegistry:
                 return component
         return None
 
+    def get_ore_by_display_name(self, display_name: str) -> Any:
+        """
+        Get an ore by its display name
+        
+        Args:
+            display_name: The display name of the ore to find
+            
+        Returns:
+            OreModule if found, None otherwise
+        """
+        for ore in self.ores.values():
+            if ore.display_name == display_name:
+                return ore
+        return None
+
+    def get_all_ores(self) -> List[Any]:
+        """
+        Get all registered ores
+        
+        Returns:
+            List of OreModule objects
+        """
+        return list(self.ores.values())
+
 class ModuleLoader:
     """
     Loads modules from various data sources into the registry
@@ -267,8 +339,6 @@ class ModuleLoader:
     def load_all(self) -> ModuleRegistry:
         """Load all module types and return the populated registry"""
         self.load_ships_from_json()
-        # We're now loading capital ships from JSON, so this is no longer needed
-        # self.load_capital_ships()
         self.load_components()
         self.load_pi_data()
         return self.registry
@@ -365,14 +435,6 @@ class ModuleLoader:
                             )
                             self.registry.register_capital_ship(capital_ship)
     
-    def load_capital_ships(self) -> None:
-        """
-        [DEPRECATED] Load capital ships from Python modules
-        This method is kept for backward compatibility but is no longer used.
-        Capital ships are now loaded from the ships.json file.
-        """
-        pass
-    
     def load_components(self) -> None:
         """Load components from Python modules"""
         components_dir = os.path.join(self.base_path, 'Components')
@@ -414,22 +476,182 @@ class ModuleLoader:
                     print(f"Error loading component module {module_path}: {e}")
     
     def load_pi_data(self) -> None:
-        """Load PI data from Python module"""
-        pi_data_path = os.path.join(self.base_path, 'planetary_data.py')
+        """Load PI data from JSON file"""
+        # Look for PI Components in the data directory
+        pi_data_path = os.path.join(self.base_path, 'data', 'PI_Components.json')
         
         if not os.path.exists(pi_data_path):
             print(f"PI data file not found: {pi_data_path}")
             return
             
         try:
-            # Create a module spec and load the module
-            spec = importlib.util.spec_from_file_location('planetary_data', pi_data_path)
-            pi_module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(pi_module)
+            # Load the JSON file
+            with open(pi_data_path, 'r') as f:
+                pi_data = json.load(f)
             
-            # Register PI data by level
-            for level in ['p0_materials', 'p1_materials', 'p2_materials', 'p3_materials', 'p4_materials']:
-                if hasattr(pi_module, level):
-                    self.registry.register_pi_data(level, getattr(pi_module, level, {}))
+            # Process P0 materials (raw materials)
+            if 'P0_Raw_Materials' in pi_data:
+                for material in pi_data['P0_Raw_Materials']:
+                    name = material['name']
+                    
+                    # Create a standardized details string
+                    details = f"P0 Raw Material: {name}\n\n"
+                    details += f"Harvestable from: {', '.join(material.get('harvestable_planet_types', []))}\n\n"
+                    details += f"Refines to: {material.get('refines_to_P1', 'Unknown')}\n"
+                    
+                    # Create PiMaterialModule
+                    pi_material = PiMaterialModule(
+                        name=name.lower().replace(' ', '_'),
+                        display_name=name,
+                        requirements={},  # P0 materials have no requirements
+                        details=details,
+                        pi_level="P0",
+                        planet_types=material.get('harvestable_planet_types', []),
+                        outputs={material.get('refines_to_P1', ''): 1}
+                    )
+                    
+                    # Register in registry
+                    self.registry.register_pi_material(pi_material)
+            
+            # Process P1 materials (processed materials)
+            if 'P1_Processed_Materials' in pi_data:
+                for material in pi_data['P1_Processed_Materials']:
+                    name = material['name']
+                    
+                    # Create a standardized details string
+                    details = f"P1 Processed Material: {name}\n\n"
+                    details += f"Produced from: {material.get('produced_from_P0', 'Unknown')}\n\n"
+                    if 'example_uses' in material and material['example_uses'] != "None known":
+                        details += f"Uses: {material['example_uses']}\n\n"
+                    if 'inputs_for_P2' in material:
+                        details += "Used in P2 Materials:\n"
+                        for output in material['inputs_for_P2']:
+                            details += f"- {output}\n"
+                    
+                    # Create PiMaterialModule
+                    pi_material = PiMaterialModule(
+                        name=name.lower().replace(' ', '_'),
+                        display_name=name,
+                        requirements={material.get('produced_from_P0', ''): 3000},  # P1 standard requirement
+                        details=details,
+                        pi_level="P1"
+                    )
+                    
+                    # Register in registry
+                    self.registry.register_pi_material(pi_material)
+            
+            # Process P2 materials (refined commodities)
+            if 'P2_Refined_Commodities' in pi_data:
+                for material in pi_data['P2_Refined_Commodities']:
+                    name = material['name']
+                    
+                    # Create a standardized details string
+                    details = f"P2 Refined Commodity: {name}\n\n"
+                    if 'inputs' in material:
+                        details += "Input Requirements:\n"
+                        for input_mat in material['inputs']:
+                            details += f"- {input_mat}: 40\n"  # P2 standard requirement
+                    details += "\n"
+                    if 'example_uses' in material and material['example_uses'] != "(No direct use)":
+                        details += f"Uses: {material['example_uses']}\n\n"
+                    if 'inputs_for_P3' in material:
+                        details += "Used in P3 Materials:\n"
+                        for output in material['inputs_for_P3']:
+                            details += f"- {output}\n"
+                    
+                    # Create input requirements dictionary
+                    requirements = {}
+                    if 'inputs' in material:
+                        for input_mat in material['inputs']:
+                            requirements[input_mat] = 40  # P2 standard requirement
+                    
+                    # Create PiMaterialModule
+                    pi_material = PiMaterialModule(
+                        name=name.lower().replace(' ', '_'),
+                        display_name=name,
+                        requirements=requirements,
+                        details=details,
+                        pi_level="P2"
+                    )
+                    
+                    # Register in registry
+                    self.registry.register_pi_material(pi_material)
+            
+            # Process P3 materials (specialized commodities)
+            if 'P3_Specialized_Commodities' in pi_data:
+                for material in pi_data['P3_Specialized_Commodities']:
+                    name = material['name']
+                    
+                    # Create a standardized details string
+                    details = f"P3 Specialized Commodity: {name}\n\n"
+                    if 'inputs' in material:
+                        details += "Input Requirements:\n"
+                        for input_mat in material['inputs']:
+                            details += f"- {input_mat}: 10\n"  # P3 standard requirement
+                    details += "\n"
+                    if 'example_uses' in material and material['example_uses'] != "(No direct use)":
+                        details += f"Uses: {material['example_uses']}\n\n"
+                    if 'inputs_for_P4' in material:
+                        details += "Used in P4 Materials:\n"
+                        for output in material['inputs_for_P4']:
+                            details += f"- {output}\n"
+                    
+                    # Create input requirements dictionary
+                    requirements = {}
+                    if 'inputs' in material:
+                        for input_mat in material['inputs']:
+                            requirements[input_mat] = 10  # P3 standard requirement
+                    
+                    # Create PiMaterialModule
+                    pi_material = PiMaterialModule(
+                        name=name.lower().replace(' ', '_'),
+                        display_name=name,
+                        requirements=requirements,
+                        details=details,
+                        pi_level="P3"
+                    )
+                    
+                    # Register in registry
+                    self.registry.register_pi_material(pi_material)
+            
+            # Process P4 materials (advanced commodities)
+            if 'P4_Advanced_Commodities' in pi_data:
+                for material in pi_data['P4_Advanced_Commodities']:
+                    name = material['name']
+                    
+                    # Create a standardized details string
+                    details = f"P4 Advanced Commodity: {name}\n\n"
+                    if 'inputs' in material:
+                        details += "Input Requirements:\n"
+                        for input_mat in material['inputs']:
+                            details += f"- {input_mat}: 6\n"  # P4 standard requirement
+                    details += "\n"
+                    if 'ultimate_use' in material:
+                        details += f"Uses: {material['ultimate_use']}\n"
+                    
+                    # Create input requirements dictionary
+                    requirements = {}
+                    if 'inputs' in material:
+                        for input_mat in material['inputs']:
+                            requirements[input_mat] = 6  # P4 standard requirement
+                    
+                    # Create PiMaterialModule
+                    pi_material = PiMaterialModule(
+                        name=name.lower().replace(' ', '_'),
+                        display_name=name,
+                        requirements=requirements,
+                        details=details,
+                        pi_level="P4"
+                    )
+                    
+                    # Register in registry
+                    self.registry.register_pi_material(pi_material)
+            
+            print(f"Loaded PI materials: P0={len([m for m in self.registry.pi_materials.values() if m.pi_level == 'P0'])}, " + 
+                  f"P1={len([m for m in self.registry.pi_materials.values() if m.pi_level == 'P1'])}, " +
+                  f"P2={len([m for m in self.registry.pi_materials.values() if m.pi_level == 'P2'])}, " +
+                  f"P3={len([m for m in self.registry.pi_materials.values() if m.pi_level == 'P3'])}, " +
+                  f"P4={len([m for m in self.registry.pi_materials.values() if m.pi_level == 'P4'])}")
+            
         except Exception as e:
             print(f"Error loading PI data: {e}")

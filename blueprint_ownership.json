@@ -1,6 +1,8 @@
 {
     "ships": {
-        "retriever_data": "Unowned"
+        "retriever_data": "Unowned",
+        "atron": "Owned",
+        "imicus": "Owned"
     },
     "capital_ships": {
         "bowhead_data": "Owned",

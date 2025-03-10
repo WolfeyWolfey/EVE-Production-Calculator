@@ -1,0 +1,434 @@
+{
+  "p0_raw_materials": {
+    "aqueous_liquids": {
+      "display_name": "Aqueous Liquids",
+      "planet_types": ["Oceanic", "Ice", "Gas"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Water": 1
+      }
+    },
+    "autotrophs": {
+      "display_name": "Autotrophs",
+      "planet_types": ["Temperate", "Barren"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Biomass": 1
+      }
+    },
+    "base_metals": {
+      "display_name": "Base Metals",
+      "planet_types": ["Barren", "Lava", "Plasma", "Storm"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Reactive Metals": 1
+      }
+    },
+    "carbon_compounds": {
+      "display_name": "Carbon Compounds",
+      "planet_types": ["Temperate", "Barren", "Gas"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Biofuels": 1
+      }
+    },
+    "complex_organisms": {
+      "display_name": "Complex Organisms",
+      "planet_types": ["Temperate", "Oceanic"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Proteins": 1
+      }
+    },
+    "felsic_magma": {
+      "display_name": "Felsic Magma",
+      "planet_types": ["Lava", "Plasma"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Silicon": 1
+      }
+    },
+    "heavy_metals": {
+      "display_name": "Heavy Metals",
+      "planet_types": ["Lava", "Plasma", "Barren"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Noble Metals": 1
+      }
+    },
+    "ionic_solutions": {
+      "display_name": "Ionic Solutions",
+      "planet_types": ["Storm", "Oceanic", "Gas"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Electrolytes": 1
+      }
+    },
+    "microorganisms": {
+      "display_name": "Microorganisms",
+      "planet_types": ["Oceanic", "Temperate"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Bacteria": 1
+      }
+    },
+    "noble_gas": {
+      "display_name": "Noble Gas",
+      "planet_types": ["Gas", "Ice", "Storm"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Noble Gas": 1
+      }
+    },
+    "non_cs_crystals": {
+      "display_name": "Non-CS Crystals",
+      "planet_types": ["Barren", "Lava", "Plasma", "Storm"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Toxic Metals": 1
+      }
+    },
+    "planktic_colonies": {
+      "display_name": "Planktic Colonies",
+      "planet_types": ["Oceanic", "Temperate"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Planktic Colonies": 1
+      }
+    },
+    "reactive_gas": {
+      "display_name": "Reactive Gas",
+      "planet_types": ["Gas", "Storm", "Ice"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Oxygen": 1
+      }
+    },
+    "suspended_plasma": {
+      "display_name": "Suspended Plasma",
+      "planet_types": ["Plasma", "Storm", "Gas"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Plasmoids": 1
+      }
+    },
+    "volatile_liquids": {
+      "display_name": "Volatile Liquids",
+      "planet_types": ["Storm", "Gas", "Ice"],
+      "description": "Raw material harvested directly from planets.",
+      "refines_into": {
+        "Oxidizing Compound": 1
+      }
+    }
+  },
+  "p1_processed_materials": {
+    "bacteria": {
+      "display_name": "Bacteria",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Microorganisms": 3000
+      },
+      "used_in": ["Consumer Electronics", "Livestock", "Viral Agent"]
+    },
+    "biofuels": {
+      "display_name": "Biofuels",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Carbon Compounds": 3000
+      },
+      "used_in": ["Biocells", "Fertilizer", "Synthetic Oil"]
+    },
+    "biomass": {
+      "display_name": "Biomass",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Autotrophs": 3000
+      },
+      "used_in": ["Biocells", "Industrial Fibers", "Proteins"]
+    },
+    "chiral_structures": {
+      "display_name": "Chiral Structures",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Complex Organisms": 3000
+      },
+      "used_in": ["Biotech Research Reports", "Vaccines"]
+    },
+    "electrolytes": {
+      "display_name": "Electrolytes",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Ionic Solutions": 3000
+      },
+      "used_in": ["Coolant", "Fertilizer", "Water-Cooled CPU"]
+    },
+    "industrial_fibers": {
+      "display_name": "Industrial Fibers",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Autotrophs": 3000
+      },
+      "used_in": ["Consumer Electronics", "Smartfab Units", "Synthetic Oil"]
+    },
+    "noble_gas": {
+      "display_name": "Noble Gas",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Noble Gas": 3000
+      },
+      "used_in": ["Coolant", "Superconductors"]
+    },
+    "noble_metals": {
+      "display_name": "Noble Metals",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Heavy Metals": 3000
+      },
+      "used_in": ["Consumer Electronics", "Mechanical Parts", "Superconductors"]
+    },
+    "oxidizing_compound": {
+      "display_name": "Oxidizing Compound",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Volatile Liquids": 3000
+      },
+      "used_in": ["Fertilizer", "Miniature Electronics", "Nanites"]
+    },
+    "oxygen": {
+      "display_name": "Oxygen",
+      "description": "First-tier processed commodity derived from a raw material.",
+      "input_requirements": {
+        "Reactive Gas": 3000
+      },
+      "used_in": ["Fertilizer", "Livestock", "Vaccines"]
+    }
+  },
+  "p2_refined_commodities": {
+    "biocells": {
+      "display_name": "Biocells",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Biomass": 40,
+        "Biofuels": 40
+      },
+      "used_in": ["Biotech Research Reports", "Nanites", "Transcranial Microcontrollers"]
+    },
+    "construction_blocks": {
+      "display_name": "Construction Blocks",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Reactive Metals": 40,
+        "Toxic Metals": 40
+      },
+      "used_in": ["Hazmat Detection Systems", "Robotics", "Smartfab Units"]
+    },
+    "consumer_electronics": {
+      "display_name": "Consumer Electronics",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Bacteria": 40,
+        "Industrial Fibers": 40
+      },
+      "used_in": ["Self-Harmonizing Power Cores", "Transcranial Microcontrollers"]
+    },
+    "coolant": {
+      "display_name": "Coolant",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Electrolytes": 40,
+        "Noble Gas": 40
+      },
+      "used_in": ["Cryoprotectant Solution", "Water-Cooled CPU"]
+    },
+    "enriched_uranium": {
+      "display_name": "Enriched Uranium",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Toxic Metals": 40,
+        "Reactive Metals": 40
+      },
+      "used_in": ["Nuclear Reactors", "Ukomi Super Conductors"]
+    },
+    "fertilizer": {
+      "display_name": "Fertilizer",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Electrolytes": 40,
+        "Biofuels": 40
+      },
+      "used_in": ["Genetically Enhanced Livestock", "Synthetic Synapses"]
+    },
+    "genetically_enhanced_livestock": {
+      "display_name": "Genetically Enhanced Livestock",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Livestock": 40,
+        "Proteins": 40
+      },
+      "used_in": ["Cryoprotectant Solution", "Self-Harmonizing Power Cores"]
+    },
+    "livestock": {
+      "display_name": "Livestock",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Bacteria": 40,
+        "Oxygen": 40
+      },
+      "used_in": ["Genetically Enhanced Livestock", "Synthetic Synapses"]
+    },
+    "mechanical_parts": {
+      "display_name": "Mechanical Parts",
+      "description": "Second-tier processed commodity derived from P1 materials.",
+      "input_requirements": {
+        "Reactive Metals": 40,
+        "Noble Metals": 40
+      },
+      "used_in": ["Hazmat Detection Systems", "Planetary Vehicles", "Robotics"]
+    }
+  },
+  "p3_specialized_commodities": {
+    "biotech_research_reports": {
+      "display_name": "Biotech Research Reports",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Biocells": 10,
+        "Vaccines": 10
+      },
+      "used_in": ["Broadcast Node", "Integrity Response Drones"]
+    },
+    "cryoprotectant_solution": {
+      "display_name": "Cryoprotectant Solution",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Coolant": 10,
+        "Genetically Enhanced Livestock": 10
+      },
+      "used_in": ["Planetary Vehicles", "Sisters Core Scanner Probe"]
+    },
+    "hazmat_detection_systems": {
+      "display_name": "Hazmat Detection Systems",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Construction Blocks": 10,
+        "Mechanical Parts": 10
+      },
+      "used_in": ["Broadcast Node", "Sisters Core Scanner Probe"]
+    },
+    "nanites": {
+      "display_name": "Nanites",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Biocells": 10,
+        "Oxidizing Compound": 10
+      },
+      "used_in": ["Organic Mortar Applicators", "Recursive Computing Module"]
+    },
+    "nuclear_reactors": {
+      "display_name": "Nuclear Reactors",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Enriched Uranium": 10,
+        "Microfiber Shielding": 10
+      },
+      "used_in": ["Integrity Response Drones", "Wetware Mainframe"]
+    },
+    "planetary_vehicles": {
+      "display_name": "Planetary Vehicles",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Mechanical Parts": 10,
+        "Synthetic Oil": 10
+      },
+      "used_in": ["Recursive Computing Module", "Wetware Mainframe"]
+    },
+    "robotics": {
+      "display_name": "Robotics",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Construction Blocks": 10,
+        "Mechanical Parts": 10
+      },
+      "used_in": ["Broadcast Node", "Organic Mortar Applicators"]
+    },
+    "self_harmonizing_power_cores": {
+      "display_name": "Self-Harmonizing Power Cores",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Consumer Electronics": 10,
+        "Genetically Enhanced Livestock": 10
+      },
+      "used_in": ["Integrity Response Drones", "Sisters Core Scanner Probe"]
+    },
+    "synthetic_synapses": {
+      "display_name": "Synthetic Synapses",
+      "description": "Third-tier processed commodity derived from P2 materials.",
+      "input_requirements": {
+        "Fertilizer": 10,
+        "Livestock": 10
+      },
+      "used_in": ["Recursive Computing Module", "Wetware Mainframe"]
+    }
+  },
+  "p4_advanced_commodities": {
+    "broadcast_node": {
+      "display_name": "Broadcast Node",
+      "description": "Fourth-tier processed commodity derived from P3 materials.",
+      "input_requirements": {
+        "Biotech Research Reports": 6,
+        "Hazmat Detection Systems": 6,
+        "Robotics": 6
+      },
+      "used_in": ["Used in various high-end equipment and structures"]
+    },
+    "integrity_response_drones": {
+      "display_name": "Integrity Response Drones",
+      "description": "Fourth-tier processed commodity derived from P3 materials.",
+      "input_requirements": {
+        "Biotech Research Reports": 6,
+        "Nuclear Reactors": 6,
+        "Self-Harmonizing Power Cores": 6
+      },
+      "used_in": ["Used in various high-end equipment and structures"]
+    },
+    "organic_mortar_applicators": {
+      "display_name": "Organic Mortar Applicators",
+      "description": "Fourth-tier processed commodity derived from P3 materials.",
+      "input_requirements": {
+        "Nanites": 6,
+        "Robotics": 6,
+        "Ukomi Super Conductors": 6
+      },
+      "used_in": ["Used in various high-end equipment and structures"]
+    },
+    "recursive_computing_module": {
+      "display_name": "Recursive Computing Module",
+      "description": "Fourth-tier processed commodity derived from P3 materials.",
+      "input_requirements": {
+        "Nanites": 6,
+        "Planetary Vehicles": 6,
+        "Synthetic Synapses": 6
+      },
+      "used_in": ["Used in various high-end equipment and structures"]
+    },
+    "sisters_core_scanner_probe": {
+      "display_name": "Sisters Core Scanner Probe",
+      "description": "Fourth-tier processed commodity derived from P3 materials.",
+      "input_requirements": {
+        "Cryoprotectant Solution": 6,
+        "Hazmat Detection Systems": 6,
+        "Self-Harmonizing Power Cores": 6
+      },
+      "used_in": ["Used in exploration activities and scanning anomalies"]
+    },
+    "wetware_mainframe": {
+      "display_name": "Wetware Mainframe",
+      "description": "Fourth-tier processed commodity derived from P3 materials.",
+      "input_requirements": {
+        "Nuclear Reactors": 6,
+        "Planetary Vehicles": 6,
+        "Synthetic Synapses": 6
+      },
+      "used_in": ["Used in various high-end equipment and structures"]
+    }
+  }
+}

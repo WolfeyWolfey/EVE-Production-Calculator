@@ -59,11 +59,15 @@ def main():
     # Apply blueprint ownership to the appropriate modules
     apply_blueprint_ownership(blueprint_config, module_registry)
     
+    # Set blueprint config in calculator
+    calculator.set_blueprint_config(blueprint_config)
+    
     # Create and run GUI
     app = EveProductionCalculator(
         ore_data=ore_data,
         registry=module_registry,
-        calculator=calculator
+        calculator=calculator,
+        blueprint_config=blueprint_config
     )
     
     # Start the main event loop

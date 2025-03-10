@@ -5,7 +5,12 @@ This file contains the UI components and logic for blueprint management
 
 import tkinter as tk
 from tkinter import ttk
-from blueprint_config import update_blueprint_ownership, get_blueprint_ownership, update_blueprint_invention
+from blueprint_config import (
+    update_blueprint_ownership, get_blueprint_ownership, 
+    update_blueprint_invention, save_blueprint_ownership,
+    update_blueprint_me, get_blueprint_me
+)
+from tkinter import messagebox
 
 class BlueprintManager:
     """
@@ -59,6 +64,15 @@ class BlueprintManager:
         self.create_capital_ships_blueprint_tab(capital_ships_tab)
         self.create_components_blueprint_tab(components_tab)
         self.create_capital_components_blueprint_tab(capital_components_tab)
+        
+        # Create save frame at the bottom
+        save_frame = ttk.Frame(tab_frame)
+        save_frame.pack(fill="x", padx=10, pady=10)
+        
+        # Add save button
+        save_button = ttk.Button(save_frame, text="Save Configuration", 
+                                command=self.save_blueprint_config)
+        save_button.pack(side="right", padx=5)
     
     def create_ships_blueprint_tab(self, parent_tab):
         """Create the ships blueprint tab"""
@@ -151,10 +165,11 @@ class BlueprintManager:
         ttk.Label(grid_frame, text="Unowned", font=("Arial", 10, "bold")).grid(row=0, column=1, padx=5, pady=5)
         ttk.Label(grid_frame, text="Owned", font=("Arial", 10, "bold")).grid(row=0, column=2, padx=5, pady=5)
         ttk.Label(grid_frame, text="Invented", font=("Arial", 10, "bold")).grid(row=0, column=3, padx=5, pady=5)
+        ttk.Label(grid_frame, text="ME%", font=("Arial", 10, "bold")).grid(row=0, column=4, padx=5, pady=5)
         
         # Add separator
         separator = ttk.Separator(grid_frame, orient='horizontal')
-        separator.grid(row=1, column=0, columnspan=4, sticky="ew", pady=5)
+        separator.grid(row=1, column=0, columnspan=5, sticky="ew", pady=5)
         
         # Populate grid with capital component blueprints
         row = 2
@@ -180,6 +195,14 @@ class BlueprintManager:
                                command=lambda n=comp_name, d=comp_data: self.update_cap_component_ownership(n, d, "Owned")).grid(row=row, column=2, padx=5, pady=2)
                 ttk.Checkbutton(grid_frame, variable=comp_data['invented_var'], 
                                command=lambda n=comp_name, d=comp_data: self.update_cap_component_invention(n, d)).grid(row=row, column=3, padx=5, pady=2)
+                
+                # ME% input field
+                me_var = tk.StringVar()
+                me_value = get_blueprint_me(self.blueprint_config, 'capital_components', comp_name)
+                me_var.set(str(me_value))
+                me_entry = ttk.Entry(grid_frame, width=4, textvariable=me_var)
+                me_entry.grid(row=row, column=4, padx=5, pady=2)
+                me_entry.bind("<FocusOut>", lambda event, n=comp_name, d=comp_data: self.validate_capital_component_me(n, d))
                 
                 row += 1
         
@@ -209,10 +232,11 @@ class BlueprintManager:
         ttk.Label(grid_frame, text="Unowned", font=("Arial", 10, "bold")).grid(row=0, column=1, padx=5, pady=5)
         ttk.Label(grid_frame, text="Owned", font=("Arial", 10, "bold")).grid(row=0, column=2, padx=5, pady=5)
         ttk.Label(grid_frame, text="Invented", font=("Arial", 10, "bold")).grid(row=0, column=3, padx=5, pady=5)
+        ttk.Label(grid_frame, text="ME%", font=("Arial", 10, "bold")).grid(row=0, column=4, padx=5, pady=5)
         
         # Separator
         separator = ttk.Separator(grid_frame, orient='horizontal')
-        separator.grid(row=1, column=0, columnspan=4, sticky="ew", padx=5, pady=2)
+        separator.grid(row=1, column=0, columnspan=5, sticky="ew", padx=5, pady=2)
         
         row = 2
         for module_name, module in modules_dict.items():
@@ -234,10 +258,19 @@ class BlueprintManager:
             ownership_var = tk.StringVar()
             ownership_var.set(current_status)
             
+            # Create variable to track ME%
+            me_var = tk.StringVar()
+            
+            # Get ME% from config
+            category = self.get_category_from_module_type(modules_type)
+            me_value = get_blueprint_me(self.blueprint_config, category, module_name)
+            me_var.set(str(me_value))
+            
             # Store these variables in the module for later reference
             module.ownership_var = ownership_var
             module.invented_var = tk.BooleanVar()
             module.invented_var.set(current_status == "Invented")
+            module.me_var = me_var  # Store ME% variable
             
             # Radio buttons for Unowned/Owned
             ttk.Radiobutton(grid_frame, variable=ownership_var, value="Unowned",
@@ -248,6 +281,11 @@ class BlueprintManager:
             # Checkbox for Invented status
             ttk.Checkbutton(grid_frame, variable=module.invented_var, 
                            command=lambda m=module: self.update_invented_status(m)).grid(row=row, column=3, padx=5, pady=2)
+            
+            # ME% input field
+            me_entry = ttk.Entry(grid_frame, width=4, textvariable=module.me_var)
+            me_entry.grid(row=row, column=4, padx=5, pady=2)
+            me_entry.bind("<FocusOut>", lambda event, m=module: self.validate_me_entry(m))
             
             # Module name
             ttk.Label(grid_frame, text=display_name).grid(row=row, column=0, padx=5, pady=2, sticky="w")
@@ -262,6 +300,76 @@ class BlueprintManager:
         def _configure_canvas(event):
             canvas.configure(scrollregion=canvas.bbox("all"))
         canvas.bind('<Configure>', _configure_canvas)
+    
+    def get_category_from_module_type(self, module_type):
+        """
+        Convert module type string to config category key
+        
+        Args:
+            module_type: String name of module type (e.g., 'Ships', 'Capital Ships')
+            
+        Returns:
+            Category key for the blueprint config (e.g., 'ships', 'capital_ships')
+        """
+        module_map = {
+            'Ships': 'ships',
+            'Capital Ships': 'capital_ships',
+            'Components': 'components',
+            'Capital Components': 'capital_components'
+        }
+        return module_map.get(module_type, module_type.lower())
+        
+    def validate_me_entry(self, module):
+        """
+        Validate ME% entry to ensure it's a valid number
+        
+        Args:
+            module: Module with ME% entry to validate
+        """
+        try:
+            # Get ME% value
+            me_value = int(module.me_var.get())
+            
+            # Validate ME% (0-10 is typical range in EVE)
+            if me_value < 0:
+                me_value = 0
+            elif me_value > 10:
+                me_value = 10
+                
+            # Set validated value
+            module.me_var.set(str(me_value))
+            
+        except ValueError:
+            # Reset to 0 if invalid
+            module.me_var.set("0")
+    
+    def validate_capital_component_me(self, comp_name, comp_data):
+        """
+        Validate ME% entry for capital components
+        
+        Args:
+            comp_name: Name of the capital component
+            comp_data: Component data dictionary
+        """
+        try:
+            # Get ME% value
+            me_value = int(comp_data['me_var'].get())
+            
+            # Validate ME% (0-10 is typical range in EVE)
+            if me_value < 0:
+                me_value = 0
+            elif me_value > 10:
+                me_value = 10
+                
+            # Set validated value
+            comp_data['me_var'].set(str(me_value))
+            
+            # Update blueprint config
+            update_blueprint_me(self.blueprint_config, 'capital_components', comp_name, me_value)
+            
+        except ValueError:
+            # Reset to 0 if invalid
+            comp_data['me_var'].set("0")
     
     def create_blueprint_window(self, blueprint_window):
         """Create the blueprint management window interface"""
@@ -294,7 +402,7 @@ class BlueprintManager:
         # Add Close button
         close_button = ttk.Button(blueprint_window, text="Close", command=blueprint_window.destroy)
         close_button.pack(pady=5)
-    
+        
     def show_blueprint_grid(self):
         """Show blueprint management in a popup window"""
         blueprint_window = tk.Toplevel(self.parent)
@@ -375,6 +483,13 @@ class BlueprintManager:
                         
                         # Save to config
                         update_blueprint_ownership(self.blueprint_config, 'capital_components', comp_name, ownership_status)
+            
+            # Save ME%
+            for category, modules in self.discovered_modules.items():
+                for module_name, module in modules.items():
+                    if hasattr(module, 'me_var'):
+                        me_value = int(module.me_var.get())
+                        update_blueprint_me(self.blueprint_config, category, module_name, me_value)
             
             self.status_var.set("All blueprint ownership settings saved successfully")
         except Exception as e:
@@ -506,3 +621,40 @@ class BlueprintManager:
                 else:
                     comp_data['invented_var'].set(False)
                     comp_data['is_invented'] = False
+                
+                # Create ME% variable
+                comp_data['me_var'] = tk.StringVar()
+                me_value = get_blueprint_me(self.blueprint_config, 'capital_components', comp_name)
+                comp_data['me_var'].set(str(me_value))
+    
+    def save_blueprint_config(self):
+        """Save the blueprint configuration"""
+        from blueprint_config import save_blueprint_ownership
+        
+        # Save ME% values for all modules
+        for category_name, modules in self.discovered_modules.items():
+            category = self.get_category_from_module_type(category_name)
+            for module_name, module in modules.items():
+                if hasattr(module, 'me_var'):
+                    try:
+                        me_value = int(module.me_var.get())
+                        # Ensure ME is not negative
+                        if me_value < 0:
+                            me_value = 0
+                            module.me_var.set("0")
+                        # Update the ME in config
+                        update_blueprint_me(self.blueprint_config, category, module_name, me_value)
+                    except ValueError:
+                        # Invalid ME value, set to 0
+                        module.me_var.set("0")
+                        update_blueprint_me(self.blueprint_config, category, module_name, 0)
+        
+        # Save the configuration
+        success = save_blueprint_ownership(self.blueprint_config)
+        
+        if success:
+            self.status_var.set("Blueprint configuration saved successfully")
+        else:
+            self.status_var.set("Error saving blueprint configuration")
+            
+        return success

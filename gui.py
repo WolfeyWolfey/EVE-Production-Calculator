@@ -21,7 +21,7 @@ from gui_utils import (
 
 class EveProductionCalculator(tk.Tk):
     """Main GUI application for EVE Production Calculator"""
-    def __init__(self, ore_data, registry, calculator):
+    def __init__(self, ore_data, registry, calculator, blueprint_config):
         super().__init__()
         
         # Set application title and geometry
@@ -37,6 +37,7 @@ class EveProductionCalculator(tk.Tk):
         self.registry = registry
         self.calculator = calculator
         self.ore_data = ore_data
+        self.blueprint_config = blueprint_config
         
         # UI variables
         self.selected_faction = tk.StringVar(value="All")
@@ -45,7 +46,6 @@ class EveProductionCalculator(tk.Tk):
         self.selected_capital_ship = tk.StringVar()
         self.selected_component = tk.StringVar()
         self.selected_pi_level = tk.StringVar(value="P1")
-        self.material_efficiency = tk.StringVar(value="0")
         
         # Create UI
         self.create_ui()
@@ -61,7 +61,7 @@ class EveProductionCalculator(tk.Tk):
         self.capital_ship_tab = ttk.Frame(self.notebook)
         self.component_tab = ttk.Frame(self.notebook)
         self.pi_tab = ttk.Frame(self.notebook)
-        self.ore_tab = ttk.Frame(self.notebook)
+        # self.ore_tab = ttk.Frame(self.notebook)
         self.settings_tab = ttk.Frame(self.notebook)
         
         # Add tabs to notebook
@@ -69,7 +69,7 @@ class EveProductionCalculator(tk.Tk):
         self.notebook.add(self.capital_ship_tab, text="Capital Ships")
         self.notebook.add(self.component_tab, text="Components")
         self.notebook.add(self.pi_tab, text="PI Materials")
-        self.notebook.add(self.ore_tab, text="Ore Refining")
+        # self.notebook.add(self.ore_tab, text="Ore Refining")
         self.notebook.add(self.settings_tab, text="Settings")
         
         # Create shared frame for output
@@ -98,7 +98,7 @@ class EveProductionCalculator(tk.Tk):
         self.create_capital_ship_tab()
         self.create_component_tab()
         self.create_pi_tab()
-        self.create_ore_tab()
+        # self.create_ore_tab()
         self.create_settings_tab()
         
         # Bind tab change event to update the details
@@ -121,6 +121,8 @@ class EveProductionCalculator(tk.Tk):
             self.update_capital_ship_details()
         elif tab_index == 2:  # Components tab
             self.update_component_details()
+        elif tab_index == 3:  # PI Materials tab
+            self.update_pi_details()
     
     def create_ship_tab(self):
         """Create the Ships tab content"""
@@ -154,13 +156,6 @@ class EveProductionCalculator(tk.Tk):
             self.selected_ship,
             [],
             command=self.update_ship_details
-        )
-        
-        # Material efficiency input
-        self.me_entry = create_labeled_entry(
-            selection_frame,
-            "Material Efficiency:",
-            self.material_efficiency
         )
         
         # Calculate button
@@ -205,13 +200,6 @@ class EveProductionCalculator(tk.Tk):
             self.selected_capital_ship,
             [],
             command=self.update_capital_ship_details
-        )
-        
-        # Material efficiency input (we'll reuse the same variable)
-        self.capital_me_entry = create_labeled_entry(
-            selection_frame,
-            "Material Efficiency:",
-            self.material_efficiency
         )
         
         # Calculate button
@@ -272,13 +260,6 @@ class EveProductionCalculator(tk.Tk):
             command=self.update_component_details
         )
         
-        # Material efficiency input
-        self.component_me_entry = create_labeled_entry(
-            selection_frame,
-            "Material Efficiency:",
-            self.material_efficiency
-        )
-        
         # Calculate button
         self.calculate_component_button = create_button(
             selection_frame,
@@ -288,15 +269,106 @@ class EveProductionCalculator(tk.Tk):
     
     def create_pi_tab(self):
         """Create the PI Materials tab content"""
-        # To be implemented based on PI material requirements
-        label = ttk.Label(self.pi_tab, text="Planetary Interaction material calculator coming soon!")
-        label.pack(padx=20, pady=20)
+        # Frame for PI selection
+        selection_frame = create_label_frame(self.pi_tab, "PI Selection")
+        
+        # Create PI level filter
+        pi_levels = ["P1", "P2", "P3", "P4"]
+        self.pi_level_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "PI Level:",
+            self.selected_pi_level,
+            pi_levels,
+            command=self.update_pi_details
+        )
+        
+        # Create PI material dropdown
+        self.pi_material_dropdown = create_labeled_dropdown(
+            selection_frame,
+            "PI Material:",
+            tk.StringVar(),
+            [],
+            command=self.update_pi_details
+        )
+        
+        # Calculate button
+        self.calculate_pi_button = create_button(
+            selection_frame,
+            "Calculate Requirements",
+            self.calculate_pi_requirements
+        )
+        
+        # Initialize the PI material dropdown
+        self.update_pi_material_dropdown()
     
-    def create_ore_tab(self):
-        """Create the Ore Refining tab content"""
-        # To be implemented based on ore refining calculations
-        label = ttk.Label(self.ore_tab, text="Ore refining calculator coming soon!")
-        label.pack(padx=20, pady=20)
+    def update_pi_material_dropdown(self, event=None):
+        """Update the PI material dropdown based on selected PI level"""
+        # Get the PI level
+        pi_level = self.selected_pi_level.get()
+        
+        # Get filtered PI materials
+        pi_materials = self.registry.get_pi_materials_by_level(pi_level)
+        
+        # Get display names
+        pi_material_names = [material.display_name for material in pi_materials]
+        
+        # Sort the names
+        pi_material_names.sort()
+        
+        # Update the dropdown
+        self.pi_material_dropdown.configure(values=pi_material_names)
+        
+        # If there are materials, select the first one
+        if pi_material_names:
+            self.pi_material_dropdown.set(pi_material_names[0])
+            self.update_pi_details()
+        else:
+            self.pi_material_dropdown.set("")
+            set_text_content(self.output_text, "No PI materials found matching the filters.")
+    
+    # def create_ore_tab(self):
+    #     """Create the Ore Refining tab content"""
+    #     # Frame for ore selection
+    #     selection_frame = create_label_frame(self.ore_tab, "Ore Selection")
+        
+    #     # Create ore dropdown
+    #     self.ore_dropdown = create_labeled_dropdown(
+    #         selection_frame,
+    #         "Ore:",
+    #         tk.StringVar(),
+    #         [],
+    #         command=self.update_ore_details
+    #     )
+        
+    #     # Calculate button
+    #     self.calculate_ore_button = create_button(
+    #         selection_frame,
+    #         "Calculate Requirements",
+    #         self.calculate_ore_requirements
+    #     )
+        
+    #     # Initialize the ore dropdown
+    #     self.update_ore_dropdown()
+    
+    # def update_ore_dropdown(self, event=None):
+    #     """Update the ore dropdown"""
+    #     # Get all ores
+    #     ores = self.registry.get_all_ores()
+    #     ore_names = [ore.display_name for ore in ores]
+        
+    #     # Sort the names
+    #     ore_names.sort()
+        
+    #     # Update the dropdown
+    #     self.ore_dropdown.configure(values=ore_names)
+        
+    #     # If there are ores, select the first one
+    #     if ore_names:
+    #         self.ore_dropdown.set(ore_names[0])
+    #         self.update_ore_details()
+    #     else:
+    #         self.ore_dropdown.set("")
+    #         set_text_content(self.output_text, "No ores found.")
     
     def create_settings_tab(self):
         """Create the Settings tab content"""
@@ -425,9 +497,55 @@ class EveProductionCalculator(tk.Tk):
         # Update details text
         set_text_content(self.output_text, component.details)
     
+    def update_pi_details(self, event=None):
+        """
+        Update the PI details text based on selected PI material
+        
+        Args:
+            event: Tkinter event (optional)
+        """
+        pi_material_name = self.pi_material_dropdown.get()
+        
+        if not pi_material_name:
+            set_text_content(self.output_text, "No PI material selected.")
+            return
+            
+        # Find PI material in registry
+        pi_material = self.registry.get_pi_material_by_display_name(pi_material_name)
+        
+        if not pi_material:
+            set_text_content(self.output_text, f"PI material '{pi_material_name}' not found in registry.")
+            return
+            
+        # Update details text
+        set_text_content(self.output_text, pi_material.details)
+    
+    # def update_ore_details(self, event=None):
+    #     """
+    #     Update the ore details text based on selected ore
+        
+    #     Args:
+    #         event: Tkinter event (optional)
+    #     """
+    #     ore_name = self.ore_dropdown.get()
+        
+    #     if not ore_name:
+    #         set_text_content(self.output_text, "No ore selected.")
+    #         return
+            
+    #     # Find ore in registry
+    #     ore = self.registry.get_ore_by_display_name(ore_name)
+        
+    #     if not ore:
+    #         set_text_content(self.output_text, f"Ore '{ore_name}' not found in registry.")
+    #         return
+            
+    #     # Update details text
+    #     set_text_content(self.output_text, ore.details)
+    
     def calculate_ship_requirements(self):
         """Calculate and display ship material requirements"""
-        # Get selected ship and ME
+        # Get selected ship
         ship_name = self.selected_ship.get()
         
         if not ship_name:
@@ -441,32 +559,26 @@ class EveProductionCalculator(tk.Tk):
             messagebox.showerror("Error", f"Ship '{ship_name}' not found in registry.")
             return
         
-        # Get material efficiency
-        try:
-            me = int(self.me_entry.get())
-        except ValueError:
-            messagebox.showwarning("Warning", "Invalid material efficiency value. Using 0.")
-            me = 0
-        
         # Calculate requirements
-        requirements = self.calculator.calculate_ship_requirements(ship.name, me)
+        requirements = self.calculator.calculate_ship_requirements(ship.name)
+        
+        # Get ME level from calculator for this specific ship
+        me_level = self.calculator.get_me_level('ships', ship.name)
         
         # Format requirements for display
-        requirements_text = f"Material Requirements for {ship_name} (ME: {me}%):\n\n"
+        requirements_text = f"Material Requirements for {ship_name} (ME: {me_level}%):\n\n"
         
         # Sort materials alphabetically
         sorted_materials = sorted(requirements.items())
         
-        for material, amount in sorted_materials:
-            requirements_text += f"{material}: {amount:,}\n"
+        for material, quantity in sorted_materials:
+            requirements_text += f"{material}: {quantity:,.2f}\n"
             
-        # Update materials text
-        output_text = f"{ship.details}\n\n{requirements_text}"
-        set_text_content(self.output_text, output_text)
+        set_text_content(self.output_text, requirements_text)
     
     def calculate_capital_ship_requirements(self):
         """Calculate and display capital ship material requirements"""
-        # Get selected capital ship and ME
+        # Get selected capital ship
         capital_ship_name = self.selected_capital_ship.get()
         
         if not capital_ship_name:
@@ -480,32 +592,26 @@ class EveProductionCalculator(tk.Tk):
             messagebox.showerror("Error", f"Capital ship '{capital_ship_name}' not found in registry.")
             return
         
-        # Get material efficiency
-        try:
-            me = int(self.capital_me_entry.get())
-        except ValueError:
-            messagebox.showwarning("Warning", "Invalid material efficiency value. Using 0.")
-            me = 0
-        
         # Calculate requirements
-        requirements = self.calculator.calculate_capital_ship_requirements(capital_ship.name, me)
+        requirements = self.calculator.calculate_capital_ship_requirements(capital_ship.name)
+        
+        # Get ME level from calculator for this specific capital ship
+        me_level = self.calculator.get_me_level('capital_ships', capital_ship.name)
         
         # Format requirements for display
-        requirements_text = f"Material Requirements for {capital_ship_name} (ME: {me}%):\n\n"
+        requirements_text = f"Material Requirements for {capital_ship_name} (ME: {me_level}%):\n\n"
         
         # Sort materials alphabetically
         sorted_materials = sorted(requirements.items())
         
-        for material, amount in sorted_materials:
-            requirements_text += f"{material}: {amount:,}\n"
+        for material, quantity in sorted_materials:
+            requirements_text += f"{material}: {quantity:,.2f}\n"
             
-        # Update materials text
-        output_text = f"{capital_ship.details}\n\n{requirements_text}"
-        set_text_content(self.output_text, output_text)
+        set_text_content(self.output_text, requirements_text)
     
     def calculate_component_requirements(self):
         """Calculate and display component material requirements"""
-        # Get selected component and ME
+        # Get selected component
         component_name = self.selected_component.get()
         
         if not component_name:
@@ -519,28 +625,87 @@ class EveProductionCalculator(tk.Tk):
             messagebox.showerror("Error", f"Component '{component_name}' not found in registry.")
             return
         
-        # Get material efficiency
-        try:
-            me = int(self.component_me_entry.get())
-        except ValueError:
-            messagebox.showwarning("Warning", "Invalid material efficiency value. Using 0.")
-            me = 0
-        
         # Calculate requirements
-        requirements = self.calculator.calculate_component_requirements(component.name, me)
+        requirements = self.calculator.calculate_component_requirements(component.name)
+        
+        # Get ME level from calculator for this specific component
+        me_level = self.calculator.get_me_level('components', component.name)
         
         # Format requirements for display
-        requirements_text = f"Material Requirements for {component_name} (ME: {me}%):\n\n"
+        requirements_text = f"Material Requirements for {component_name} (ME: {me_level}%):\n\n"
         
         # Sort materials alphabetically
         sorted_materials = sorted(requirements.items())
         
-        for material, amount in sorted_materials:
-            requirements_text += f"{material}: {amount:,}\n"
+        for material, quantity in sorted_materials:
+            requirements_text += f"{material}: {quantity:,.2f}\n"
             
-        # Update materials text
-        output_text = f"{component.details}\n\n{requirements_text}"
-        set_text_content(self.output_text, output_text)
+        set_text_content(self.output_text, requirements_text)
+    
+    def calculate_pi_requirements(self):
+        """Calculate and display PI material requirements"""
+        # Get selected PI material
+        pi_material_name = self.pi_material_dropdown.get()
+        
+        if not pi_material_name:
+            messagebox.showwarning("Warning", "No PI material selected.")
+            return
+        
+        # Find PI material in registry
+        pi_material = self.registry.get_pi_material_by_display_name(pi_material_name)
+        
+        if not pi_material:
+            messagebox.showerror("Error", f"PI material '{pi_material_name}' not found in registry.")
+            return
+        
+        # Calculate requirements
+        requirements = self.calculator.calculate_pi_requirements(pi_material.name)
+        
+        # Get ME level from calculator for this specific PI material
+        me_level = self.calculator.get_me_level('pi', pi_material.name)
+        
+        # Format requirements for display
+        requirements_text = f"Material Requirements for {pi_material_name} (ME: {me_level}%):\n\n"
+        
+        # Sort materials alphabetically
+        sorted_materials = sorted(requirements.items())
+        
+        for material, quantity in sorted_materials:
+            requirements_text += f"{material}: {quantity:,.2f}\n"
+            
+        set_text_content(self.output_text, requirements_text)
+    
+    # def calculate_ore_requirements(self):
+    #     """Calculate and display ore material requirements"""
+    #     # Get selected ore
+    #     ore_name = self.ore_dropdown.get()
+        
+    #     if not ore_name:
+    #         messagebox.showwarning("Warning", "No ore selected.")
+    #         return
+        
+    #     # Find ore in registry
+    #     ore = self.registry.get_ore_by_display_name(ore_name)
+        
+    #     if not ore:
+    #         messagebox.showerror("Error", f"Ore '{ore_name}' not found in registry.")
+    #         return
+        
+    #     # Calculate requirements
+    #     requirements = self.calculator.calculate_ore_requirements(ore.name)
+        
+    #     # Format requirements for display
+    #     requirements_text = f"Material Requirements for {ore_name}:\n\n"
+        
+    #     # Sort materials alphabetically
+    #     sorted_materials = sorted(requirements.items())
+        
+    #     for material, amount in sorted_materials:
+    #         requirements_text += f"{material}: {amount:,}\n"
+            
+    #     # Update materials text
+    #     output_text = f"{ore.details}\n\n{requirements_text}"
+    #     set_text_content(self.output_text, output_text)
     
     def edit_blueprint_ownership(self):
         """Open the blueprint ownership editor"""
