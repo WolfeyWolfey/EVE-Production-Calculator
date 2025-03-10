@@ -425,7 +425,7 @@ class BlueprintManager:
         row = 2
         module_count = 0
         
-        # Get category for config lookup
+        # Get category for config lookup based on module type
         config_category = self.get_category_from_module_type(modules_type)
         
         print(f"DEBUG: Populating grid for {modules_type}, config category: {config_category}")
@@ -458,11 +458,16 @@ class BlueprintManager:
             # Create ownership variable if it doesn't exist
             if not hasattr(module, 'ownership_var'):
                 module.ownership_var = tk.StringVar()
-                
-            # Get ownership status and set radio button
-            ownership = get_blueprint_ownership(self.blueprint_config, config_category, module_name)
             
-            print(f"DEBUG: Module {module_name} - Config ownership status: {ownership}")
+            # For ships tab, need to determine correct category based on ship type
+            category_for_module = config_category
+            if modules_type == "Ships" and hasattr(module, 'is_capital_ship') and module.is_capital_ship:
+                category_for_module = "capital_ship_blueprints"
+            
+            # Get ownership status with the correct category
+            ownership = get_blueprint_ownership(self.blueprint_config, category_for_module, module_name)
+            
+            print(f"DEBUG: Module {module_name} - Config category: {category_for_module} - Status: {ownership}")
             
             # Set the correct radio button based on ownership
             if ownership == "Owned":
@@ -472,12 +477,15 @@ class BlueprintManager:
                 module.ownership_var.set("unowned")
                 print(f"DEBUG: Setting {module_name} radio to 'unowned'")
             
+            # Store the correct category with the module for later use
+            module.config_category = category_for_module
+            
             # Unowned radio button
             ttk.Radiobutton(
                 grid_frame, 
                 value="unowned", 
                 variable=module.ownership_var,
-                command=lambda n=module_name, m=module, v="unowned", t=modules_type: self.update_module_ownership(n, m, v, t)
+                command=lambda n=module_name, m=module, v="unowned": self.update_ownership(n, m.config_category, v)
             ).grid(row=row, column=3, padx=5, pady=2)
             
             # Owned radio button
@@ -485,30 +493,30 @@ class BlueprintManager:
                 grid_frame, 
                 value="owned", 
                 variable=module.ownership_var,
-                command=lambda n=module_name, m=module, v="owned", t=modules_type: self.update_module_ownership(n, m, v, t)
+                command=lambda n=module_name, m=module, v="owned": self.update_ownership(n, m.config_category, v)
             ).grid(row=row, column=4, padx=5, pady=2)
             
             # ME% input field
             if not hasattr(module, 'me_var'):
                 module.me_var = tk.StringVar()
                 
-            me_value = get_blueprint_me(self.blueprint_config, config_category, module_name)
+            me_value = get_blueprint_me(self.blueprint_config, category_for_module, module_name)
             module.me_var.set(str(me_value))
             
             me_entry = ttk.Entry(grid_frame, width=4, textvariable=module.me_var)
             me_entry.grid(row=row, column=5, padx=5, pady=2)
-            me_entry.bind("<FocusOut>", lambda event, n=module_name, c=config_category: self.validate_me(event, c, n))
+            me_entry.bind("<FocusOut>", lambda event, n=module_name, c=category_for_module: self.validate_me(event, c, n))
             
             # TE% input field
             if not hasattr(module, 'te_var'):
                 module.te_var = tk.StringVar()
                 
-            te_value = get_blueprint_te(self.blueprint_config, config_category, module_name)
+            te_value = get_blueprint_te(self.blueprint_config, category_for_module, module_name)
             module.te_var.set(str(te_value))
             
             te_entry = ttk.Entry(grid_frame, width=4, textvariable=module.te_var)
             te_entry.grid(row=row, column=6, padx=5, pady=2)
-            te_entry.bind("<FocusOut>", lambda event, n=module_name, c=config_category: self.validate_te(event, c, n))
+            te_entry.bind("<FocusOut>", lambda event, n=module_name, c=category_for_module: self.validate_te(event, c, n))
             
             row += 1
             module_count += 1
@@ -548,7 +556,7 @@ class BlueprintManager:
             module_type: String name of module type (e.g., 'Ships', 'Capital Ships')
             
         Returns:
-            Category key for the blueprint config (e.g., 'ships', 'capital_ships')
+            Category key for the blueprint config (e.g., 'ship_blueprints', 'capital_ship_blueprints')
         """
         category_mapping = {
             "Ships": "ship_blueprints",

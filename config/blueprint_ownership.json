@@ -97,7 +97,7 @@
             "te": 0
         },
         "algos": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
@@ -295,7 +295,7 @@
             "te": 0
         },
         "bowhead": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
@@ -735,7 +735,7 @@
     },
     "ship_blueprints": {
         "algos": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
@@ -765,7 +765,7 @@
             "te": 0
         },
         "bowhead": {
-            "owned": true,
+            "owned": false,
             "invented": false,
             "me": 0,
             "te": 0
