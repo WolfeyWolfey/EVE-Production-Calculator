@@ -3,7 +3,7 @@
 
 # Display name for the dropdown menu
 display_name = "Bowhead Freighter"
-
+ship_type = "Freighter"
 
 # Blueprint ownership status
 owned_status = "Unowned"
@@ -46,3 +46,7 @@ bowhead_production_details = {
     "invention": False,  # Not inventable (direct T1 production)
     "base_materials_efficiency": 0  # ME0
 }
+
+# Invention status tracking - default to False 
+# since freighters are typically not invented
+invented_var = False

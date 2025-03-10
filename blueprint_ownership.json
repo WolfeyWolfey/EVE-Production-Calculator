@@ -3,13 +3,19 @@
         "retriever_data": "Unowned"
     },
     "capital_ships": {
-        "bowhead_data": "Unowned",
-        "charon_data": "Invented",
-        "providence_data": "Owned",
+        "bowhead_data": "Owned",
+        "charon_data": "Unowned",
+        "providence_data": "Unowned",
         "fenrir_data": "Unowned",
         "obelisk_data": "Unowned"
     },
     "components": {
         "capital_components_data": "Unowned"
+    },
+    "invention_status": {
+        "capital_ships": {
+            "charon_data": false,
+            "bowhead_data": false
+        }
     }
 }

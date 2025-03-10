@@ -82,6 +82,38 @@ def update_blueprint_ownership(config, category, blueprint_name, ownership_statu
     save_blueprint_ownership(config)
     return True
 
+def update_blueprint_invention(config, category, blueprint_name, is_invented):
+    """
+    Update invention status for a specific blueprint
+    
+    Args:
+        config: The blueprint configuration dictionary
+        category: Category of the blueprint (ships, capital_ships, components)
+        blueprint_name: Name of the blueprint
+        is_invented: Boolean indicating whether the blueprint is invented
+    """
+    if 'invention_status' not in config:
+        config['invention_status'] = {}
+        
+    if category not in config['invention_status']:
+        config['invention_status'][category] = {}
+    
+    # Special handling for individual capital components
+    if ':' in blueprint_name and category == 'components':
+        module_name, component_name = blueprint_name.split(':', 1)
+        if 'component_blueprints' not in config['invention_status']:
+            config['invention_status']['component_blueprints'] = {}
+        
+        if module_name not in config['invention_status']['component_blueprints']:
+            config['invention_status']['component_blueprints'][module_name] = {}
+        
+        config['invention_status']['component_blueprints'][module_name][component_name] = is_invented
+    else:
+        config['invention_status'][category][blueprint_name] = is_invented
+    
+    save_blueprint_ownership(config)
+    return True
+
 def apply_blueprint_ownership(modules, config):
     """
     Apply loaded blueprint ownership settings to modules

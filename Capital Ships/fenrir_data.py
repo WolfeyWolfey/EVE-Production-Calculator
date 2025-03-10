@@ -2,7 +2,7 @@
 
 # Display name for the dropdown menu
 display_name = "Fenrir Freighter"
-
+ship_type = "Freighter"
 # Blueprint ownership status
 owned_status = "Unowned"
 

@@ -3,6 +3,7 @@
 
 # Display name for the dropdown menu
 display_name = "Retriever Mining Barge"
+ship_type = "Mining Barge"
 
 # Blueprint ownership status
 owned_status = "Unowned"
