@@ -1,0 +1,15 @@
+{
+    "ships": {
+        "retriever_data": "Unowned"
+    },
+    "capital_ships": {
+        "bowhead_data": "Unowned",
+        "charon_data": "Invented",
+        "providence_data": "Owned",
+        "fenrir_data": "Unowned",
+        "obelisk_data": "Unowned"
+    },
+    "components": {
+        "capital_components_data": "Unowned"
+    }
+}

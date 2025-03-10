@@ -19,6 +19,11 @@ A Python application for calculating resource requirements for manufacturing shi
   - P3 Processed Materials: Including Hazmat Detection Systems and Industrial Explosives
   - Planet compatibility information
   - Production chains and requirements
+- **Blueprint Management:** Easily manage your blueprint collection
+  - Excel-like grid view to manage all blueprints at once
+  - Track ownership status (Unowned/Owned/Invented) for each blueprint
+  - Organized by categories: Ships, Capital Ships, Components, and Capital Components
+  - Automatic saving of blueprint status
 
 ## Requirements
 
@@ -32,6 +37,20 @@ No installation is required beyond having Python with Tkinter.
 1. Clone or download this repository
 2. Run `python main.py` to start the application
 
+## Usage
+
+1. Launch the application by running `python main.py`
+2. Use the tabs to navigate between different calculators:
+   - Ore Calculator: Calculate mineral yields from refining ores
+   - Ship Production: View the material requirements for ships
+   - Capital Ship Production: View the material, component, and PI requirements for capital ships
+   - PI Calculator: View PI materials and their production chains
+3. Manage your blueprint collection:
+   - Go to File > Blueprints to open the blueprint management grid
+   - Select ownership status (Unowned/Owned/Invented) for each blueprint
+   - Click "Save All" to save your changes
+   - Blueprint ownership affects production cost calculations throughout the application
+
 ## Project Structure
 
 The project is organized into modules for better maintainability:
@@ -42,6 +61,7 @@ The project is organized into modules for better maintainability:
 - `eve_production_calculator.py` - Core logic for the application
 - `ore_data.py` - Data for asteroid ores and their refined mineral yields
 - `planetary_data.py` - Integration of Planetary Interaction (PI) materials data
+- `blueprint_config.py` - Blueprint ownership configuration management
 
 ### Directories
 - **Ships/** - Contains data for T1 and T2 ships
@@ -61,22 +81,6 @@ The project is organized into modules for better maintainability:
   - **P0 Raw Materials:** aqueous_liquids.py, autotrophs.py, base_metals.py, etc.
   - **P2 Advanced Materials:** biocells.py, construction_blocks.py, consumer_electronics.py, etc.
   - **P3 Processed Materials:** hazmat_detection_systems.py, industrial_explosives.py, etc.
-
-## Usage
-
-1. Launch the application using `python main.py`
-2. Navigate between tabs to access different calculators:
-   - **Ore Refining:** Select an ore type and input quantity to calculate mineral yields
-   - **Ships:** View mineral requirements for ship production, adjust for material efficiency
-   - **Capital Ships:** Select capital ship type, adjust ME level, and view component requirements
-   - **Components:** View detailed requirements for capital components
-   - **PI Calculator:** Browse planetary materials, view planet compatibility and processed outputs
-
-### Blueprint Ownership
-The application allows you to mark blueprints as owned or unowned, which affects cost calculations.
-
-### Material Efficiency (ME)
-For ship and component production, you can specify the Material Efficiency level of your blueprint to get accurate resource requirements.
 
 ## Extending the Application
 
