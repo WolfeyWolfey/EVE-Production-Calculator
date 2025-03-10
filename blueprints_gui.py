@@ -173,7 +173,7 @@ class BlueprintManager:
                     comp_data['invented_var'].set(False)
                 
                 # Add component name and radio buttons
-                ttk.Label(grid_frame, text=comp_name).grid(row=row, column=0, padx=5, pady=2, sticky="w")
+                ttk.Label(grid_frame, text=comp_data.get('display_name', comp_name)).grid(row=row, column=0, padx=5, pady=2, sticky="w")
                 ttk.Radiobutton(grid_frame, variable=comp_data['ownership_var'], value="Unowned", 
                                command=lambda n=comp_name, d=comp_data: self.update_cap_component_ownership(n, d, "Unowned")).grid(row=row, column=1, padx=5, pady=2)
                 ttk.Radiobutton(grid_frame, variable=comp_data['ownership_var'], value="Owned", 

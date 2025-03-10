@@ -1,0 +1,310 @@
+{
+  "capital_components": {
+    "capital_absorption_thruster_array": {
+      "display_name": "Capital Absorption Thruster Array",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Capital Zero-Point Field Manipulator": 1,
+        "Capital Trinary State Processor": 1,
+        "Capital Singularity Radiation Convertor": 10,
+        "Crystalline Isogen-10": 90,
+        "Zero-Point Condensate": 270,
+        "Megacyte": 302,
+        "Zydrine": 604,
+        "Nocxium": 2110,
+        "Isogen": 6938,
+        "Mexallon": 41994,
+        "Pyerite": 110416,
+        "Tritanium": 457050
+      },
+      "details": "Capital Absorption Thruster Array\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Capital Zero-Point Field Manipulator: 1\n- Capital Trinary State Processor: 1\n- Capital Singularity Radiation Convertor: 10\n- Crystalline Isogen-10: 90\n- Zero-Point Condensate: 270\n- Megacyte: 302\n- Zydrine: 604\n- Nocxium: 2,110\n- Isogen: 6,938\n- Mexallon: 41,994\n- Pyerite: 110,416\n- Tritanium: 457,050"
+    },
+    "capital_armor_plates": {
+      "display_name": "Capital Armor Plates",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Organic Mortar Applicators": 5,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 410,
+        "Zydrine": 820,
+        "Nocxium": 1600,
+        "Isogen": 16000,
+        "Mexallon": 60000,
+        "Pyerite": 210000,
+        "Tritanium": 60000
+      },
+      "details": "Capital Armor Plates\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Organic Mortar Applicators: 5\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Reinforced Carbon Fiber: 100\n- Megacyte: 410\n- Zydrine: 820\n- Nocxium: 1,600\n- Isogen: 16,000\n- Mexallon: 60,000\n- Pyerite: 210,000\n- Tritanium: 60,000"
+    },
+    "capital_capacitor_battery": {
+      "display_name": "Capital Capacitor Battery",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Self-Harmonizing Power Core": 1,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 370,
+        "Zydrine": 730,
+        "Nocxium": 1500,
+        "Isogen": 15000,
+        "Mexallon": 52000,
+        "Pyerite": 190000,
+        "Tritanium": 52000
+      },
+      "details": "Capital Capacitor Battery\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Self-Harmonizing Power Core: 1\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Reinforced Carbon Fiber: 100\n- Megacyte: 370\n- Zydrine: 730\n- Nocxium: 1,500\n- Isogen: 15,000\n- Mexallon: 52,000\n- Pyerite: 190,000\n- Tritanium: 52,000"
+    },
+    "capital_cargo_bay": {
+      "display_name": "Capital Cargo Bay",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Tritanium": 54000,
+        "Pyerite": 195000,
+        "Mexallon": 54000,
+        "Isogen": 15000,
+        "Nocxium": 1500,
+        "Zydrine": 760,
+        "Megacyte": 380,
+        "Fulleroferrocene": 25,
+        "PPD Fullerene Fibers": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Scandium Metallofullerene": 5,
+        "Reinforced Carbon Fiber": 100
+      },
+      "details": "Capital Cargo Bay\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Tritanium: 54,000\n- Pyerite: 195,000\n- Mexallon: 54,000\n- Isogen: 15,000\n- Nocxium: 1,500\n- Zydrine: 760\n- Megacyte: 380\n- Fulleroferrocene: 25\n- PPD Fullerene Fibers: 7\n- Fullerene Intercalated Graphite: 15\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Scandium Metallofullerene: 5\n- Reinforced Carbon Fiber: 100"
+    },
+    "capital_clone_vat_bay": {
+      "display_name": "Capital Clone Vat Bay",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Integrity Response Drones": 2,
+        "Sterile Conduits": 2,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Methanofullerene": 100,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 650,
+        "Zydrine": 1275,
+        "Nocxium": 2500,
+        "Isogen": 25000,
+        "Mexallon": 90000,
+        "Pyerite": 325000,
+        "Tritanium": 90000
+      },
+      "details": "Capital Clone Vat Bay\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Integrity Response Drones: 2\n- Sterile Conduits: 2\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Methanofullerene: 100\n- Reinforced Carbon Fiber: 100\n- Megacyte: 650\n- Zydrine: 1,275\n- Nocxium: 2,500\n- Isogen: 25,000\n- Mexallon: 90,000\n- Pyerite: 325,000\n- Tritanium: 90,000"
+    },
+    "capital_computer_system": {
+      "display_name": "Capital Computer System",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Recursive Computing Module": 1,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 380,
+        "Zydrine": 760,
+        "Nocxium": 1500,
+        "Isogen": 15000,
+        "Mexallon": 54000,
+        "Pyerite": 195000,
+        "Tritanium": 54000
+      },
+      "details": "Capital Computer System\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Recursive Computing Module: 1\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Reinforced Carbon Fiber: 100\n- Megacyte: 380\n- Zydrine: 760\n- Nocxium: 1,500\n- Isogen: 15,000\n- Mexallon: 54,000\n- Pyerite: 195,000\n- Tritanium: 54,000"
+    },
+    "capital_construction_parts": {
+      "display_name": "Capital Construction Parts",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Tritanium": 40000,
+        "Pyerite": 140000,
+        "Mexallon": 40000,
+        "Isogen": 12000,
+        "Nocxium": 1000,
+        "Zydrine": 550,
+        "Megacyte": 280,
+        "Fulleroferrocene": 25,
+        "PPD Fullerene Fibers": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Scandium Metallofullerene": 5,
+        "Reinforced Carbon Fiber": 100
+      },
+      "details": "Capital Construction Parts\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Tritanium: 40,000\n- Pyerite: 140,000\n- Mexallon: 40,000\n- Isogen: 12,000\n- Nocxium: 1,000\n- Zydrine: 550\n- Megacyte: 280\n- Fulleroferrocene: 25\n- PPD Fullerene Fibers: 7\n- Fullerene Intercalated Graphite: 15\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Scandium Metallofullerene: 5\n- Reinforced Carbon Fiber: 100"
+    },
+    "capital_core_temperature_regulator": {
+      "display_name": "Capital Core Temperature Regulator",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Integrity Response Drones": 25,
+        "Self-Harmonizing Power Core": 25,
+        "Core Temperature Regulator": 50
+      },
+      "details": "Capital Core Temperature Regulator\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Integrity Response Drones: 25\n- Self-Harmonizing Power Core: 25\n- Core Temperature Regulator: 50"
+    },
+    "capital_corporate_hangar_bay": {
+      "display_name": "Capital Corporate Hangar Bay",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Tritanium": 75000,
+        "Pyerite": 270000,
+        "Mexallon": 75000,
+        "Isogen": 22000,
+        "Nocxium": 2200,
+        "Zydrine": 1050,
+        "Megacyte": 530,
+        "Fulleroferrocene": 25,
+        "PPD Fullerene Fibers": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Scandium Metallofullerene": 5,
+        "Reinforced Carbon Fiber": 100
+      },
+      "details": "Capital Corporate Hangar Bay\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Tritanium: 75,000\n- Pyerite: 270,000\n- Mexallon: 75,000\n- Isogen: 22,000\n- Nocxium: 2,200\n- Zydrine: 1,050\n- Megacyte: 530\n- Fulleroferrocene: 25\n- PPD Fullerene Fibers: 7\n- Fullerene Intercalated Graphite: 15\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Scandium Metallofullerene: 5\n- Reinforced Carbon Fiber: 100"
+    },
+    "capital_doomsday_weapon_mount": {
+      "display_name": "Capital Doomsday Weapon Mount",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Wetware Mainframe": 1,
+        "Nano-Factory": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Fulleroferrocene": 100,
+        "Fullerene Intercalated Graphite": 100,
+        "Lanthanum Metallofullerene": 100,
+        "Scandium Metallofullerene": 100,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 1000,
+        "Zydrine": 2000,
+        "Nocxium": 4000,
+        "Isogen": 40000,
+        "Mexallon": 135000,
+        "Pyerite": 500000,
+        "Tritanium": 135000
+      },
+      "details": "Capital Doomsday Weapon Mount\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Wetware Mainframe: 1\n- Nano-Factory: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Fulleroferrocene: 100\n- Fullerene Intercalated Graphite: 100\n- Lanthanum Metallofullerene: 100\n- Scandium Metallofullerene: 100\n- Reinforced Carbon Fiber: 100\n- Megacyte: 1,000\n- Zydrine: 2,000\n- Nocxium: 4,000\n- Isogen: 40,000\n- Mexallon: 135,000\n- Pyerite: 500,000\n- Tritanium: 135,000"
+    },
+    "capital_turret_hardpoint": {
+      "display_name": "Capital Turret Hardpoint",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Wetware Mainframe": 1,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 250,
+        "Zydrine": 520,
+        "Nocxium": 1000,
+        "Isogen": 10000,
+        "Mexallon": 38000,
+        "Pyerite": 135000,
+        "Tritanium": 37000
+      },
+      "details": "Capital Turret Hardpoint\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Wetware Mainframe: 1\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Reinforced Carbon Fiber: 100\n- Megacyte: 250\n- Zydrine: 520\n- Nocxium: 1,000\n- Isogen: 10,000\n- Mexallon: 38,000\n- Pyerite: 135,000\n- Tritanium: 37,000"
+    },
+    "capital_ultratidal_entropic_mounting": {
+      "display_name": "Capital Ultratidal Entropic Mounting",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Wetware Mainframe": 1,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 250,
+        "Zydrine": 520,
+        "Nocxium": 1000,
+        "Isogen": 10000,
+        "Mexallon": 38000,
+        "Pyerite": 135000,
+        "Tritanium": 37000
+      },
+      "details": "Capital Ultratidal Entropic Mounting\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Wetware Mainframe: 1\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Reinforced Carbon Fiber: 100\n- Megacyte: 250\n- Zydrine: 520\n- Nocxium: 1,000\n- Isogen: 10,000\n- Mexallon: 38,000\n- Pyerite: 135,000\n- Tritanium: 37,000"
+    },
+    "enhanced_neurolink_protection_cell": {
+      "display_name": "Enhanced Neurolink Protection Cell",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Wetware Mainframe": 1,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 250,
+        "Zydrine": 520,
+        "Nocxium": 1000,
+        "Isogen": 10000,
+        "Mexallon": 38000,
+        "Pyerite": 135000,
+        "Tritanium": 37000
+      },
+      "details": "Enhanced Neurolink Protection Cell\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Wetware Mainframe: 1\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Reinforced Carbon Fiber: 100\n- Megacyte: 250\n- Zydrine: 520\n- Nocxium: 1,000\n- Isogen: 10,000\n- Mexallon: 38,000\n- Pyerite: 135,000\n- Tritanium: 37,000"
+    },
+    "neurolink_protection_cell": {
+      "display_name": "Neurolink Protection Cell",
+      "build_time": "3h 12m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Wetware Mainframe": 1,
+        "Scandium Metallofullerene": 5,
+        "PPD Fullerene Fibers": 7,
+        "Methanofullerene": 7,
+        "Lanthanum Metallofullerene": 7,
+        "Fullerene Intercalated Graphite": 15,
+        "Fulleroferrocene": 25,
+        "Reinforced Carbon Fiber": 100,
+        "Megacyte": 250,
+        "Zydrine": 520,
+        "Nocxium": 1000,
+        "Isogen": 10000,
+        "Mexallon": 38000,
+        "Pyerite": 135000,
+        "Tritanium": 37000
+      },
+      "details": "Neurolink Protection Cell\nType: Capital Ship Component\nBase Build Time: ~3h 12m\nManufacturing Skills: Capital Ship Construction I\n\nMaterials:\n- Wetware Mainframe: 1\n- Scandium Metallofullerene: 5\n- PPD Fullerene Fibers: 7\n- Methanofullerene: 7\n- Lanthanum Metallofullerene: 7\n- Fullerene Intercalated Graphite: 15\n- Fulleroferrocene: 25\n- Reinforced Carbon Fiber: 100\n- Megacyte: 250\n- Zydrine: 520\n- Nocxium: 1,000\n- Isogen: 10,000\n- Mexallon: 38,000\n- Pyerite: 135,000\n- Tritanium: 37,000"
+    }
+  }
+}

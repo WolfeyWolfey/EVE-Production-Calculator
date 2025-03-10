@@ -560,7 +560,8 @@ class EveProductionCalculator(tk.Tk):
         modules = {
             'ships': self.registry.get_all_ships(),
             'capital_ships': self.registry.get_all_capital_ships(),
-            'components': self.registry.get_all_components()
+            'components': self.registry.get_all_components(),
+            'capital_components': self.load_capital_components()  
         }
         
         # Initialize blueprint manager
@@ -572,6 +573,30 @@ class EveProductionCalculator(tk.Tk):
         
         # Create and setup blueprint management tab
         blueprint_manager.create_blueprint_management_tab(tab_frame)
+    
+    def load_capital_components(self):
+        """Load capital components from the JSON file for the blueprint editor"""
+        import os
+        import json
+        
+        capital_components = {}
+        components_path = os.path.join(os.path.dirname(__file__), "data", "capitalcomponents.json")
+        
+        try:
+            with open(components_path, 'r') as f:
+                data = json.load(f)
+                
+            if 'capital_components' in data:
+                for key, component in data['capital_components'].items():
+                    capital_components[key] = {
+                        'display_name': component.get('display_name', key),
+                        'blueprint_owned': component.get('owned_status', 'Unowned'),
+                        'details': component.get('details', '')
+                    }
+        except Exception as e:
+            print(f"Error loading capital components: {e}")
+            
+        return capital_components
     
     def export_settings(self):
         """Export settings to a JSON file"""
