@@ -4,7 +4,7 @@ import importlib
 import os
 import sys
 import re
-from blueprint_config import load_blueprint_config, save_blueprint_config, update_blueprint_ownership
+from config.blueprint_config import load_blueprint_config, save_blueprint_config, update_blueprint_ownership
 
 # Data from the provided text
 ore_data = {

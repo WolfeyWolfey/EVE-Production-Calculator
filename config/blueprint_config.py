@@ -7,7 +7,7 @@ import os
 import json
 
 # Constants
-CONFIG_FILE = "blueprint_ownership.json"
+CONFIG_FILE = os.path.join(os.path.dirname(__file__), "blueprint_ownership.json")
 
 def create_default_blueprint_config():
     """
@@ -549,6 +549,49 @@ def migrate_blueprint_config(config):
             
         # Replace components in new_config with cleaned dictionary
         new_config['components'] = clean_components
+    
+    # Migrate component blueprints
+    if 'component_blueprints' in config:
+        # Create a clean component blueprints dictionary without duplicates
+        clean_component_blueprints = {}
+        for blueprint_name, blueprint_data in config['component_blueprints'].items():
+            clean_name = clean_key(blueprint_name)
+            
+            # Convert legacy boolean format to dictionary
+            new_data = {}
+            if isinstance(blueprint_data, bool):
+                new_data = {
+                    'owned': blueprint_data,
+                    'invented': False,
+                    'me': 0,
+                    'te': 0
+                }
+            # Convert legacy string format to dictionary
+            elif isinstance(blueprint_data, str):
+                new_data = {
+                    'owned': blueprint_data == 'Owned',
+                    'invented': blueprint_data == 'Invented',
+                    'me': 0,
+                    'te': 0
+                }
+            # Modern format - copy the dictionary
+            elif isinstance(blueprint_data, dict):
+                new_data = blueprint_data.copy()
+                # Ensure all expected keys exist
+                if 'owned' not in new_data:
+                    new_data['owned'] = False
+                if 'invented' not in new_data:
+                    new_data['invented'] = False
+                if 'me' not in new_data:
+                    new_data['me'] = 0
+                if 'te' not in new_data:
+                    new_data['te'] = 0
+            
+            # Store with clean name, overwriting any duplicates with the same clean name
+            clean_component_blueprints[clean_name] = new_data
+            
+        # Replace component_blueprints in new_config with cleaned dictionary
+        new_config['component_blueprints'] = clean_component_blueprints
     
     # Save the migrated configuration to ensure it's cleaned up
     save_blueprint_ownership(new_config)

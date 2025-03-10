@@ -25,11 +25,11 @@ A Python application for calculating resource requirements for manufacturing shi
   - Planet compatibility information
   - Production chains and requirements
 - **Blueprint Management:** Easily manage your blueprint collection
-  - Excel-like grid view to manage all blueprints at once
-  - Track ownership status (owned/unowned) for each blueprint
-  - Track Material Efficiency (ME%) and Time Efficiency (TE%) for each blueprint
-  - Organized by categories: Ships, Capital Ships, Components, and Capital Components
-  - Automatic saving of blueprint status between sessions
+  - Excel-like grid view to manage all blueprints
+  - Track ownership status for ships, capital ships, and components
+  - Recently improved functionality to ensure ownership status persists through restarts
+  - Removed "Invented" option for components as they cannot be invented
+- **Automatic saving of blueprint status between sessions**
 
 ## Ship List
 
@@ -71,7 +71,6 @@ No installation is required beyond having Python with Tkinter.
 3. Manage your blueprint collection:
    - Go to File > Blueprints to open the blueprint management grid
    - Select ownership status for each blueprint (checkbox)
-   - Set Material Efficiency (ME%) and Time Efficiency (TE%) values for each blueprint
    - Blueprint ownership affects production cost calculations throughout the application
 
 ## Project Structure

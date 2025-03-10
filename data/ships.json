@@ -662,6 +662,127 @@
             "Fulleride Hybrid Nanofiber": 300
           },
           "details": "Proteus Strategic Cruiser\nType: Gallente Tech III Strategic Cruiser\nBase Build Time: ~12h 00m\nRequired Skills: Industry V, Reverse Engineering IV, Gallente Starship Engineering IV, Mechanical Engineering IV\n\nMaterials:\n- Construction Blocks: 450\n- Morphite: 900\n- R.A.M.- Starship Tech: 24\n- Tungsten Carbide Armor Plate: 9000\n- Fernite Carbide Composite Armor Plate: 7500\n- Crystalline Carbonide Armor Plate: 6000\n- Titanium Diborite Armor Plate: 4500\n- Fusion Reactor Unit: 1800\n- Oscillator Capacitor Unit: 1200\n- Pulse Shield Emitter: 900\n- Ion Thruster: 750\n- Magnetometric Sensor Cluster: 600\n- Photon Microprocessor: 450\n- Fulleride Hybrid Nanofiber: 300"
+        },
+        "kronos": {
+          "display_name": "Kronos Marauder",
+          "ship_type": "Marauder",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Megathron": 1,
+            "Construction Blocks": 450,
+            "Morphite": 975,
+            "R.A.M.- Starship Tech": 30,
+            "Ion Thrusters": 375,
+            "Magnetometric Sensor Clusters": 863,
+            "Photon Microprocessors": 6000,
+            "Crystalline Carbonide Armor Plates": 37500,
+            "Fusion Reactor Units": 675,
+            "Oscillator Capacitor Units": 3000,
+            "Pulse Shield Emitters": 3795
+          },
+          "details": "Kronos\nType: Gallente Tech II Marauder\nBase Build Time: ~4d 4h\nRequired Skills: Industry V, Advanced Large Ship Construction I\n\nMaterials:\n- Megathron (Tech I base hull): 1\n- Construction Blocks: 450\n- Morphite: 975\n- R.A.M.- Starship Tech (launcher): 30\n- Ion Thrusters: 375\n- Magnetometric Sensor Clusters: 863\n- Photon Microprocessors: 6,000\n- Crystalline Carbonide Armor Plates: 37,500\n- Fusion Reactor Units: 675\n- Oscillator Capacitor Units: 3,000\n- Pulse Shield Emitters: 3,795"
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "dominix": {
+          "display_name": "Dominix",
+          "ship_type": "Battleship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8000000,
+            "Pyerite": 4000000,
+            "Mexallon": 600000,
+            "Isogen": 400000,
+            "Nocxium": 12000,
+            "Zydrine": 6000,
+            "Megacyte": 3000,
+            "Auto-Integrity Preservation Seal": 200,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 100
+          },
+          "details": "Dominix\nType: Gallente Tech I Battleship\nBase Build Time: ~5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8,000,000\n- Pyerite: 4,000,000\n- Mexallon: 600,000\n- Isogen: 400,000\n- Nocxium: 12,000\n- Zydrine: 6,000\n- Megacyte: 3,000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
+        },
+        "megathron": {
+          "display_name": "Megathron",
+          "ship_type": "Battleship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8000000,
+            "Pyerite": 4000000,
+            "Mexallon": 600000,
+            "Isogen": 400000,
+            "Nocxium": 12000,
+            "Zydrine": 6000,
+            "Megacyte": 3000,
+            "Auto-Integrity Preservation Seal": 200,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 100
+          },
+          "details": "Megathron\nType: Gallente Tech I Battleship\nBase Build Time: ~5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8,000,000\n- Pyerite: 4,000,000\n- Mexallon: 600,000\n- Isogen: 400,000\n- Nocxium: 12,000\n- Zydrine: 6,000\n- Megacyte: 3,000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
+        },
+        "hyperion": {
+          "display_name": "Hyperion",
+          "ship_type": "Battleship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8000000,
+            "Pyerite": 4000000,
+            "Mexallon": 600000,
+            "Isogen": 400000,
+            "Nocxium": 12000,
+            "Zydrine": 6000,
+            "Megacyte": 3000,
+            "Auto-Integrity Preservation Seal": 200,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 100
+          },
+          "details": "Hyperion\nType: Gallente Tech I Battleship\nBase Build Time: ~5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8,000,000\n- Pyerite: 4,000,000\n- Mexallon: 600,000\n- Isogen: 400,000\n- Nocxium: 12,000\n- Zydrine: 6,000\n- Megacyte: 3,000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
+        }
+      },
+      "navy": {
+        "dominix_navy_issue": {
+          "display_name": "Dominix Navy Issue",
+          "ship_type": "Battleship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8000000,
+            "Pyerite": 4000000,
+            "Mexallon": 600000,
+            "Isogen": 400000,
+            "Nocxium": 30000,
+            "Zydrine": 8000,
+            "Megacyte": 4000,
+            "Auto-Integrity Preservation Seal": 200,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 100
+          },
+          "details": "Dominix Navy Issue\nType: Gallente Navy Battleship\nBase Build Time: ~5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8,000,000\n- Pyerite: 4,000,000\n- Mexallon: 600,000\n- Isogen: 400,000\n- Nocxium: 30,000\n- Zydrine: 8,000\n- Megacyte: 4,000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
+        },
+        "megathron_navy_issue": {
+          "display_name": "Megathron Navy Issue",
+          "ship_type": "Battleship",
+          "faction": "Gallente",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8000000,
+            "Pyerite": 4000000,
+            "Mexallon": 600000,
+            "Isogen": 400000,
+            "Nocxium": 30000,
+            "Zydrine": 8000,
+            "Megacyte": 4000,
+            "Auto-Integrity Preservation Seal": 200,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 100
+          },
+          "details": "Megathron Navy Issue\nType: Gallente Navy Battleship\nBase Build Time: ~5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8,000,000\n- Pyerite: 4,000,000\n- Mexallon: 600,000\n- Isogen: 400,000\n- Nocxium: 30,000\n- Zydrine: 8,000\n- Megacyte: 4,000\n- Auto-Integrity Preservation Seal: 200\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 100"
         }
       }
     }

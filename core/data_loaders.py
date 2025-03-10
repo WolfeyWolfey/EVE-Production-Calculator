@@ -8,8 +8,8 @@ import json
 import importlib.util
 from typing import Dict, List, Any, Optional, Set, Tuple
 
-from module_registry import ModuleRegistry
-from models import ShipModule, CapitalShipModule, ComponentModule, PiMaterialModule
+from core.module_registry import ModuleRegistry
+from core.models import ShipModule, CapitalShipModule, ComponentModule, PiMaterialModule
 
 def load_ships(registry: ModuleRegistry, base_path: str):
     """
@@ -98,6 +98,39 @@ def process_capital_ships(registry: ModuleRegistry, capital_ships_data: Dict):
                         )
                         registry.register_capital_ship(capital_ship)
 
+def load_capital_components(registry: ModuleRegistry, base_path: str):
+    """
+    Load capital components from JSON file
+    
+    Args:
+        registry: The module registry to populate
+        base_path: Base path of the application
+    """
+    # Load capital components from JSON file
+    components_path = os.path.join(base_path, 'data', 'capitalcomponents.json')
+    
+    try:
+        if os.path.exists(components_path):
+            with open(components_path, 'r') as f:
+                components_data = json.load(f)
+            
+            capital_components = components_data.get("capital_components", {})
+            for component_name, component_data in capital_components.items():
+                component = ComponentModule(
+                    name=component_name,
+                    display_name=component_data.get("display_name", component_name),
+                    requirements=component_data.get("requirements", {}),
+                    details=component_data.get("details", ""),
+                    owned_status=False
+                )
+                registry.register_capital_component(component)
+                
+            print(f"Loaded {len(capital_components)} capital components from JSON")
+        else:
+            print(f"Capital components file not found at: {components_path}")
+    except Exception as e:
+        print(f"Error loading capital components: {e}")
+
 def load_components(registry: ModuleRegistry, base_path: str):
     """
     Load components from JSON files and Python modules
@@ -106,27 +139,8 @@ def load_components(registry: ModuleRegistry, base_path: str):
         registry: The module registry to populate
         base_path: Base path of the application
     """
-    # First try to load from JSON file (for capital components)
-    components_path = os.path.join(base_path, 'data', 'capitalcomponents.json')
-    
-    try:
-        if os.path.exists(components_path):
-            with open(components_path, 'r') as f:
-                components_data = json.load(f)
-            
-            for component_name, component_data in components_data.items():
-                component = ComponentModule(
-                    name=component_name,
-                    display_name=component_data.get("display_name", component_name),
-                    requirements=component_data.get("requirements", {}),
-                    details=component_data.get("details", ""),
-                    owned_status=False
-                )
-                registry.register_component(component)
-                
-            print(f"Loaded {len(components_data)} capital components from JSON")
-    except Exception as e:
-        print(f"Error loading components from JSON: {e}")
+    # First load capital components
+    load_capital_components(registry, base_path)
     
     # Also try loading from Python modules in Components directory
     components_dir = os.path.join(base_path, 'Components')

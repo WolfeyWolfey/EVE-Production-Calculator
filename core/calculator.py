@@ -4,7 +4,7 @@ Resource Calculator for EVE Production Calculator
 This module provides centralized calculation logic for all EVE resource requirements
 """
 from typing import Dict, Any, List, Union, Optional
-from module_registry import ModuleRegistry, ShipModule, CapitalShipModule, ComponentModule
+from core.module_registry import ModuleRegistry, ShipModule, CapitalShipModule, ComponentModule
 
 class RequirementsCalculator:
     """
@@ -48,6 +48,38 @@ class RequirementsCalculator:
         if self.blueprint_config:
             return get_blueprint_me(self.blueprint_config, category, blueprint_name)
         return 0
+    
+    def get_te_level(self, category: str, blueprint_name: str) -> int:
+        """
+        Get time efficiency level for a specific blueprint
+        
+        Args:
+            category: Category of the blueprint (ships, capital_ships, components)
+            blueprint_name: Name of the blueprint
+            
+        Returns:
+            TE level percentage (0-20)
+        """
+        from blueprint_config import get_blueprint_te
+        
+        if self.blueprint_config:
+            return get_blueprint_te(self.blueprint_config, category, blueprint_name)
+        return 0
+    
+    def calculate_production_time(self, base_time: int, te_level: int) -> float:
+        """
+        Calculate the actual production time based on time efficiency
+        
+        Args:
+            base_time: Base production time in seconds
+            te_level: Time Efficiency level percentage
+            
+        Returns:
+            Adjusted production time in seconds
+        """
+        # In EVE Online, each level of TE reduces production time by 1%
+        time_multiplier = 1.0 - (te_level / 100)
+        return base_time * time_multiplier
     
     def calculate_ship_requirements(self, ship_name: str) -> Dict[str, Union[int, float]]:
         """

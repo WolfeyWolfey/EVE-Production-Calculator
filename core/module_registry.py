@@ -6,7 +6,7 @@ This system manages the registry of all data modules (ships, components, etc.) w
 import os
 from typing import Dict, List, Any, Optional, Set, Tuple
 
-from models import ShipModule, CapitalShipModule, ComponentModule, PiMaterialModule
+from core.models import ShipModule, CapitalShipModule, ComponentModule, PiMaterialModule
 
 class ModuleRegistry:
     """Central registry for all modules in the application.
@@ -18,6 +18,7 @@ class ModuleRegistry:
         self.ships: Dict[str, ShipModule] = {}
         self.capital_ships: Dict[str, CapitalShipModule] = {}
         self.components: Dict[str, ComponentModule] = {}
+        self.capital_components: Dict[str, ComponentModule] = {}  # Explicitly store capital components
         self.pi_materials: Dict[str, PiMaterialModule] = {}
         self.pi_data: Dict[str, Dict[str, Any]] = {
             'p0_materials': {},
@@ -75,6 +76,15 @@ class ModuleRegistry:
         """
         self.components[component.name] = component
     
+    def register_capital_component(self, component: ComponentModule):
+        """
+        Register a capital component in the registry
+        
+        Args:
+            component: The capital component to register
+        """
+        self.capital_components[component.name] = component
+    
     def register_pi_data(self, pi_level: str, materials: Dict[str, Any]):
         """
         Register PI materials by level
@@ -129,6 +139,18 @@ class ModuleRegistry:
             ComponentModule if found, None otherwise
         """
         return self.components.get(name)
+    
+    def get_capital_component(self, name: str):
+        """
+        Get a capital component by name
+        
+        Args:
+            name: The name of the capital component to find
+            
+        Returns:
+            ComponentModule if found, None otherwise
+        """
+        return self.capital_components.get(name)
     
     def get_pi_material(self, name: str):
         """
@@ -204,6 +226,15 @@ class ModuleRegistry:
             List of all ComponentModule objects
         """
         return list(self.components.values())
+    
+    def get_all_capital_components(self):
+        """
+        Get all registered capital components
+        
+        Returns:
+            List of all ComponentModule objects
+        """
+        return list(self.capital_components.values())
     
     def get_filtered_ships(self, faction: str = "All", ship_type: str = "All"):
         """
@@ -363,6 +394,21 @@ class ModuleRegistry:
             ComponentModule if found, None otherwise
         """
         for component in self.components.values():
+            if component.display_name == display_name:
+                return component
+        return None
+    
+    def get_capital_component_by_display_name(self, display_name: str):
+        """
+        Get a capital component by its display name
+        
+        Args:
+            display_name: The display name of the capital component to find
+            
+        Returns:
+            ComponentModule if found, None otherwise
+        """
+        for component in self.capital_components.values():
             if component.display_name == display_name:
                 return component
         return None

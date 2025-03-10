@@ -7,9 +7,9 @@ from tkinter import ttk, messagebox, filedialog
 import json
 import os
 
-from module_registry import ModuleRegistry, ShipModule, CapitalShipModule, ComponentModule
-from calculator import RequirementsCalculator
-from gui_utils import (
+from core.module_registry import ModuleRegistry, ShipModule, CapitalShipModule, ComponentModule
+from core.calculator import RequirementsCalculator
+from gui.gui_utils import (
     create_labeled_dropdown,
     create_labeled_entry,
     create_button,
@@ -748,8 +748,8 @@ class EveProductionCalculator(tk.Tk):
     
     def edit_blueprint_ownership(self):
         """Open the blueprint ownership editor"""
-        from blueprints_gui import BlueprintManager
-        from blueprint_config import load_blueprint_ownership
+        from gui.blueprints_gui import BlueprintManager
+        from config.blueprint_config import load_blueprint_ownership
         
         # Load current blueprint configuration
         blueprint_config = load_blueprint_ownership()
@@ -762,14 +762,14 @@ class EveProductionCalculator(tk.Tk):
         
         # Create manager with registry data
         modules = {
-            'ships': {ship.name: ship for ship in self.registry.get_all_ships()},
-            'capital_ships': {ship.name: ship for ship in self.registry.get_all_capital_ships()},
-            'components': {component.name: component for component in self.registry.get_all_components()},
-            'capital_components': self.load_capital_components()  
+            'ships': self.registry.ships,
+            'capital_ships': self.registry.capital_ships,
+            'components': self.registry.components,
+            # Capital components are now handled by the blueprint manager directly
         }
         
         # Initialize blueprint manager
-        blueprint_manager = BlueprintManager(editor_window, modules, blueprint_config)
+        blueprint_manager = BlueprintManager(editor_window, modules, blueprint_config, self.registry)
         
         # Create tab frame that fills the window
         tab_frame = ttk.Frame(editor_window)
@@ -778,29 +778,29 @@ class EveProductionCalculator(tk.Tk):
         # Create and setup blueprint management tab
         blueprint_manager.create_blueprint_management_tab(tab_frame)
     
-    def load_capital_components(self):
-        """Load capital components from the JSON file for the blueprint editor"""
-        import os
-        import json
+    # def load_capital_components(self):
+    #     """Load capital components from the JSON file for the blueprint editor"""
+    #     import os
+    #     import json
         
-        capital_components = {}
-        components_path = os.path.join(os.path.dirname(__file__), "data", "capitalcomponents.json")
+    #     capital_components = {}
+    #     components_path = os.path.join(os.path.dirname(__file__), "data", "capitalcomponents.json")
         
-        try:
-            with open(components_path, 'r') as f:
-                data = json.load(f)
+    #     try:
+    #         with open(components_path, 'r') as f:
+    #             data = json.load(f)
                 
-            if 'capital_components' in data:
-                for key, component in data['capital_components'].items():
-                    capital_components[key] = {
-                        'display_name': component.get('display_name', key),
-                        'blueprint_owned': component.get('owned_status', 'Unowned'),
-                        'details': component.get('details', '')
-                    }
-        except Exception as e:
-            print(f"Error loading capital components: {e}")
+    #         if 'capital_components' in data:
+    #             for key, component in data['capital_components'].items():
+    #                 capital_components[key] = {
+    #                     'display_name': component.get('display_name', key),
+    #                     'blueprint_owned': component.get('owned_status', 'Unowned'),
+    #                     'details': component.get('details', '')
+    #                 }
+    #     except Exception as e:
+    #         print(f"Error loading capital components: {e}")
             
-        return capital_components
+    #     return capital_components
     
     def export_settings(self):
         """Export settings to a JSON file"""

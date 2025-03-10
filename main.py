@@ -8,11 +8,11 @@ import os
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-from module_registry import ModuleRegistry
-from data_loaders import load_ships, load_components, load_pi_data, load_ore_data
-from calculator import RequirementsCalculator
-from blueprint_config import load_blueprint_ownership, apply_blueprint_ownership
-from gui import EveProductionCalculator
+from core.module_registry import ModuleRegistry
+from core.data_loaders import load_ships, load_components, load_pi_data, load_ore_data
+from core.calculator import RequirementsCalculator
+from config.blueprint_config import load_blueprint_ownership, apply_blueprint_ownership
+from gui.gui import EveProductionCalculator
 
 def main():
     """
