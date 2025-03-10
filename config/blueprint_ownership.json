@@ -295,7 +295,7 @@
             "te": 0
         },
         "bowhead": {
-            "owned": false,
+            "owned": true,
             "invented": false,
             "me": 0,
             "te": 0
@@ -765,7 +765,7 @@
             "te": 0
         },
         "bowhead": {
-            "owned": false,
+            "owned": true,
             "invented": false,
             "me": 0,
             "te": 0

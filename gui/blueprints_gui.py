@@ -58,22 +58,22 @@ class BlueprintManager:
         
         # Create main tabs
         ships_tab = ttk.Frame(notebook)
-        capital_ships_tab = ttk.Frame(notebook)
         components_tab = ttk.Frame(notebook)
+        capital_components_tab = ttk.Frame(notebook)
         
         # Add tabs to notebook
         notebook.add(ships_tab, text="Ships")
-        notebook.add(capital_ships_tab, text="Capital Ships")
         notebook.add(components_tab, text="Components")
+        notebook.add(capital_components_tab, text="Capital Components")
         
-        # Create ship blueprint management tab
-        self.create_ships_blueprint_tab(ships_tab)
+        # Create combined ships blueprint management tab (regular + capital ships)
+        self.create_combined_ships_blueprint_tab(ships_tab)
         
-        # Create capital ship blueprint management tab
-        self.create_capital_ships_blueprint_tab(capital_ships_tab)
-        
-        # Create components blueprint tab (includes both regular and capital components)
+        # Create components blueprint tab
         self.create_components_blueprint_tab(components_tab)
+        
+        # Create capital components blueprint tab
+        self.create_capital_components_blueprint_tab(capital_components_tab)
         
         # Create save frame at the bottom
         save_frame = ttk.Frame(parent_tab)
@@ -89,9 +89,9 @@ class BlueprintManager:
                                 command=self.save_blueprint_config)
         save_button.pack(side="right", padx=5)
     
-    def create_ships_blueprint_tab(self, parent_tab):
-        """Create the ships blueprint tab"""
-        if 'ships' in self.discovered_modules:
+    def create_combined_ships_blueprint_tab(self, parent_tab):
+        """Create the combined ships blueprint tab"""
+        if 'ships' in self.discovered_modules or 'capital_ships' in self.discovered_modules:
             # Frame for ship blueprint management
             ship_frame = ttk.LabelFrame(parent_tab, text="Ship Blueprints")
             ship_frame.pack(fill="both", expand=True, padx=10, pady=10)
@@ -101,20 +101,8 @@ class BlueprintManager:
         else:
             ttk.Label(parent_tab, text="No ship modules discovered").pack(padx=10, pady=10)
     
-    def create_capital_ships_blueprint_tab(self, parent_tab):
-        """Create the capital ships blueprint tab"""
-        if 'capital_ships' in self.discovered_modules:
-            # Frame for capital ship blueprint management
-            cap_ship_frame = ttk.LabelFrame(parent_tab, text="Capital Ship Blueprints")
-            cap_ship_frame.pack(fill="both", expand=True, padx=10, pady=10)
-            
-            # Create grid view for capital ships
-            self.create_capital_ship_blueprint_grid(cap_ship_frame)
-        else:
-            ttk.Label(parent_tab, text="No capital ship modules discovered").pack(padx=10, pady=10)
-    
     def create_components_blueprint_tab(self, parent_tab):
-        """Create the components blueprint tab for both regular and capital components"""
+        """Create the components blueprint tab"""
         # Container for all components
         components_container = ttk.Frame(parent_tab)
         components_container.pack(fill="both", expand=True, padx=5, pady=5)
@@ -127,19 +115,8 @@ class BlueprintManager:
             # Create grid view for components
             self.create_component_blueprint_grid(component_frame)
         
-        # Create frame for capital components if they exist
-        if hasattr(self.module_registry, 'capital_components') and self.module_registry.capital_components:
-            cap_component_frame = ttk.LabelFrame(components_container, text="Capital Component Blueprints")
-            cap_component_frame.pack(fill="both", expand=True, padx=10, pady=10)
-            
-            # Store capital components in discovered_modules for consistency
-            self.discovered_modules['capital_components'] = self.module_registry.capital_components
-            
-            # Create grid for capital component blueprints
-            self.create_capital_component_blueprint_grid(cap_component_frame)
-        
         # Display message if no components found
-        if (not 'components' in self.discovered_modules or not self.discovered_modules['components']) and (not hasattr(self.module_registry, 'capital_components') or not self.module_registry.capital_components):
+        if (not 'components' in self.discovered_modules or not self.discovered_modules['components']):
             ttk.Label(components_container, text="No component modules discovered").pack(padx=10, pady=5)
     
     def create_capital_components_blueprint_tab(self, parent_tab):
@@ -156,114 +133,10 @@ class BlueprintManager:
     
     def create_ship_blueprint_grid(self, parent):
         """Create a grid for ship blueprints"""
-        if 'ships' in self.discovered_modules:
-            self.create_blueprint_grid(parent, "Ships", self.discovered_modules['ships'])
+        if 'ships' in self.discovered_modules or 'capital_ships' in self.discovered_modules:
+            self.create_blueprint_grid(parent, "Ships", self.get_combined_ships_dict())
         else:
             ttk.Label(parent, text="No ship modules discovered.").pack(padx=10, pady=10)
-    
-    def create_capital_ship_blueprint_grid(self, parent):
-        """Create a grid for capital ship blueprints"""
-        if 'capital_ships' in self.discovered_modules:
-            self.create_blueprint_grid(parent, "Capital Ships", self.discovered_modules['capital_ships'])
-        else:
-            ttk.Label(parent, text="No capital ship modules discovered.").pack(padx=10, pady=10)
-    
-    def create_component_blueprint_grid(self, parent):
-        """Create a grid for component blueprints"""
-        if 'components' in self.discovered_modules:
-            self.create_component_blueprint_grid_without_filters(parent, "Components", self.discovered_modules['components'])
-        else:
-            ttk.Label(parent, text="No component modules discovered.").pack(padx=10, pady=10)
-    
-    def create_capital_component_blueprint_grid(self, parent_tab):
-        """Create a grid for capital component blueprints"""
-        # Create a frame with scrollbar
-        frame = ttk.Frame(parent_tab)
-        frame.pack(fill="both", expand=True, padx=5, pady=5)
-        
-        # Create scrollable canvas
-        canvas = tk.Canvas(frame)
-        scrollbar = ttk.Scrollbar(frame, orient="vertical", command=canvas.yview)
-        scrollbar.pack(side="right", fill="y")
-        canvas.pack(side="left", fill="both", expand=True)
-        canvas.configure(yscrollcommand=scrollbar.set)
-        
-        # Create a frame for grid contents
-        grid_frame = ttk.Frame(canvas)
-        canvas_window = canvas.create_window((0, 0), window=grid_frame, anchor="nw")
-        
-        # Add headers
-        ttk.Label(grid_frame, text="Capital Component Blueprint", font=("Arial", 10, "bold")).grid(row=0, column=0, padx=5, pady=5, sticky="w")
-        ttk.Label(grid_frame, text="Unowned", font=("Arial", 10, "bold")).grid(row=0, column=1, padx=5, pady=5)
-        ttk.Label(grid_frame, text="Owned", font=("Arial", 10, "bold")).grid(row=0, column=2, padx=5, pady=5)
-        ttk.Label(grid_frame, text="ME%", font=("Arial", 10, "bold")).grid(row=0, column=3, padx=5, pady=5)
-        ttk.Label(grid_frame, text="TE%", font=("Arial", 10, "bold")).grid(row=0, column=4, padx=5, pady=5)
-        
-        # Add separator
-        separator = ttk.Separator(grid_frame, orient='horizontal')
-        separator.grid(row=1, column=0, columnspan=5, sticky="ew", pady=5)
-        
-        # Populate grid with capital component blueprints
-        row = 2
-        if 'capital_components' in self.discovered_modules:
-            for comp_name, comp_data in sorted(self.discovered_modules['capital_components'].items()):
-                # Display name
-                ttk.Label(grid_frame, text=comp_data.display_name).grid(row=row, column=0, padx=5, pady=2, sticky="w")
-                
-                # Create ownership variable if it doesn't exist
-                if not hasattr(comp_data, 'ownership_var'):
-                    # Get ownership value from blueprint config
-                    ownership_status = get_blueprint_ownership(self.blueprint_config, 'component_blueprints', comp_name)
-                    # Convert to lowercase to match the values expected by our radio buttons
-                    ownership_value = "owned" if ownership_status == "Owned" else "unowned"
-                    comp_data.ownership_var = tk.StringVar(value=ownership_value)
-                
-                # Unowned radiobutton
-                ttk.Radiobutton(
-                    grid_frame, 
-                    value="unowned", 
-                    variable=comp_data.ownership_var,
-                    command=lambda n=comp_name, d=comp_data, v="unowned": self.update_cap_component_ownership(n, d, v)
-                ).grid(row=row, column=1, padx=5, pady=2)
-                
-                # Owned radiobutton
-                ttk.Radiobutton(
-                    grid_frame, 
-                    value="owned", 
-                    variable=comp_data.ownership_var,
-                    command=lambda n=comp_name, d=comp_data, v="owned": self.update_cap_component_ownership(n, d, v)
-                ).grid(row=row, column=2, padx=5, pady=2)
-                
-                # ME% input field
-                if not hasattr(comp_data, 'me_var'):
-                    comp_data.me_var = tk.StringVar()
-                me_value = get_blueprint_me(self.blueprint_config, 'component_blueprints', comp_name)
-                comp_data.me_var.set(str(me_value))
-                me_entry = ttk.Entry(grid_frame, width=4, textvariable=comp_data.me_var)
-                me_entry.grid(row=row, column=3, padx=5, pady=2)
-                me_entry.bind("<FocusOut>", lambda event, n=comp_name: self.validate_capital_component_me(event, n))
-                
-                # TE% input field
-                if not hasattr(comp_data, 'te_var'):
-                    comp_data.te_var = tk.StringVar()
-                te_value = get_blueprint_te(self.blueprint_config, 'component_blueprints', comp_name)
-                comp_data.te_var.set(str(te_value))
-                te_entry = ttk.Entry(grid_frame, width=4, textvariable=comp_data.te_var)
-                te_entry.grid(row=row, column=4, padx=5, pady=2)
-                te_entry.bind("<FocusOut>", lambda event, n=comp_name: self.validate_capital_component_te(event, n))
-                
-                row += 1
-        
-        # Configure the canvas to adjust scrolling based on the grid size
-        grid_frame.update_idletasks()
-        canvas.config(scrollregion=canvas.bbox("all"))
-        
-        # Make sure the canvas size changes with window size
-        def _configure_canvas(event):
-            canvas.configure(scrollregion=canvas.bbox("all"))
-            canvas.itemconfig(canvas_window, width=event.width)
-            
-        frame.bind("<Configure>", _configure_canvas)
     
     def create_blueprint_grid(self, parent, modules_type, modules_dict):
         """Create a grid view for blueprint management"""
@@ -355,6 +228,13 @@ class BlueprintManager:
         grid_frame.bind("<Configure>", _configure_canvas)
         canvas.bind("<Configure>", _configure_canvas)
         
+    def create_component_blueprint_grid(self, parent):
+        """Create a grid for component blueprints"""
+        if 'components' in self.discovered_modules:
+            self.create_component_blueprint_grid_without_filters(parent, "Components", self.discovered_modules['components'])
+        else:
+            ttk.Label(parent, text="No component modules discovered.").pack(padx=10, pady=10)
+    
     def create_component_blueprint_grid_without_filters(self, parent, modules_type, modules_dict):
         """Create a grid view for blueprint management without ship filters"""
         # Container with scrollbar
@@ -438,6 +318,96 @@ class BlueprintManager:
         grid_frame.update_idletasks()
         canvas.config(scrollregion=canvas.bbox("all"))
     
+    def create_capital_component_blueprint_grid(self, parent_tab):
+        """Create a grid for capital component blueprints"""
+        # Create a frame with scrollbar
+        frame = ttk.Frame(parent_tab)
+        frame.pack(fill="both", expand=True, padx=5, pady=5)
+        
+        # Create scrollable canvas
+        canvas = tk.Canvas(frame)
+        scrollbar = ttk.Scrollbar(frame, orient="vertical", command=canvas.yview)
+        scrollbar.pack(side="right", fill="y")
+        canvas.pack(side="left", fill="both", expand=True)
+        canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Create a frame for grid contents
+        grid_frame = ttk.Frame(canvas)
+        canvas_window = canvas.create_window((0, 0), window=grid_frame, anchor="nw")
+        
+        # Add headers
+        ttk.Label(grid_frame, text="Capital Component Blueprint", font=("Arial", 10, "bold")).grid(row=0, column=0, padx=5, pady=5, sticky="w")
+        ttk.Label(grid_frame, text="Unowned", font=("Arial", 10, "bold")).grid(row=0, column=1, padx=5, pady=5)
+        ttk.Label(grid_frame, text="Owned", font=("Arial", 10, "bold")).grid(row=0, column=2, padx=5, pady=5)
+        ttk.Label(grid_frame, text="ME%", font=("Arial", 10, "bold")).grid(row=0, column=3, padx=5, pady=5)
+        ttk.Label(grid_frame, text="TE%", font=("Arial", 10, "bold")).grid(row=0, column=4, padx=5, pady=5)
+        
+        # Add separator
+        separator = ttk.Separator(grid_frame, orient='horizontal')
+        separator.grid(row=1, column=0, columnspan=5, sticky="ew", pady=5)
+        
+        # Populate grid with capital component blueprints
+        row = 2
+        if 'capital_components' in self.discovered_modules:
+            for comp_name, comp_data in sorted(self.discovered_modules['capital_components'].items()):
+                # Display name
+                ttk.Label(grid_frame, text=comp_data.display_name).grid(row=row, column=0, padx=5, pady=2, sticky="w")
+                
+                # Create ownership variable if it doesn't exist
+                if not hasattr(comp_data, 'ownership_var'):
+                    # Get ownership value from blueprint config
+                    ownership_status = get_blueprint_ownership(self.blueprint_config, 'component_blueprints', comp_name)
+                    # Convert to lowercase to match the values expected by our radio buttons
+                    ownership_value = "owned" if ownership_status == "Owned" else "unowned"
+                    comp_data.ownership_var = tk.StringVar(value=ownership_value)
+                
+                # Unowned radiobutton
+                ttk.Radiobutton(
+                    grid_frame, 
+                    value="unowned", 
+                    variable=comp_data.ownership_var,
+                    command=lambda n=comp_name, d=comp_data, v="unowned": self.update_cap_component_ownership(n, d, v)
+                ).grid(row=row, column=1, padx=5, pady=2)
+                
+                # Owned radiobutton
+                ttk.Radiobutton(
+                    grid_frame, 
+                    value="owned", 
+                    variable=comp_data.ownership_var,
+                    command=lambda n=comp_name, d=comp_data, v="owned": self.update_cap_component_ownership(n, d, v)
+                ).grid(row=row, column=2, padx=5, pady=2)
+                
+                # ME% input field
+                if not hasattr(comp_data, 'me_var'):
+                    comp_data.me_var = tk.StringVar()
+                me_value = get_blueprint_me(self.blueprint_config, 'component_blueprints', comp_name)
+                comp_data.me_var.set(str(me_value))
+                me_entry = ttk.Entry(grid_frame, width=4, textvariable=comp_data.me_var)
+                me_entry.grid(row=row, column=3, padx=5, pady=2)
+                me_entry.bind("<FocusOut>", lambda event, n=comp_name: self.validate_capital_component_me(event, n))
+                
+                # TE% input field
+                if not hasattr(comp_data, 'te_var'):
+                    comp_data.te_var = tk.StringVar()
+                te_value = get_blueprint_te(self.blueprint_config, 'component_blueprints', comp_name)
+                comp_data.te_var.set(str(te_value))
+                te_entry = ttk.Entry(grid_frame, width=4, textvariable=comp_data.te_var)
+                te_entry.grid(row=row, column=4, padx=5, pady=2)
+                te_entry.bind("<FocusOut>", lambda event, n=comp_name: self.validate_capital_component_te(event, n))
+                
+                row += 1
+        
+        # Configure the canvas to adjust scrolling based on the grid size
+        grid_frame.update_idletasks()
+        canvas.config(scrollregion=canvas.bbox("all"))
+        
+        # Make sure the canvas size changes with window size
+        def _configure_canvas(event):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+            canvas.itemconfig(canvas_window, width=event.width)
+            
+        frame.bind("<Configure>", _configure_canvas)
+    
     def populate_grid(self, grid_frame, modules_type, modules_dict, ship_type_filter="All", faction_filter="All"):
         """Populate the grid with modules that match the filter criteria"""
         # Clear existing grid content (except headers and separator)
@@ -507,7 +477,7 @@ class BlueprintManager:
                 grid_frame, 
                 value="unowned", 
                 variable=module.ownership_var,
-                command=lambda n=module_name, c=config_category, v="unowned": self.update_ownership(n, c, v)
+                command=lambda n=module_name, m=module, v="unowned", t=modules_type: self.update_module_ownership(n, m, v, t)
             ).grid(row=row, column=3, padx=5, pady=2)
             
             # Owned radio button
@@ -515,7 +485,7 @@ class BlueprintManager:
                 grid_frame, 
                 value="owned", 
                 variable=module.ownership_var,
-                command=lambda n=module_name, c=config_category, v="owned": self.update_ownership(n, c, v)
+                command=lambda n=module_name, m=module, v="owned", t=modules_type: self.update_module_ownership(n, m, v, t)
             ).grid(row=row, column=4, padx=5, pady=2)
             
             # ME% input field
@@ -580,13 +550,14 @@ class BlueprintManager:
         Returns:
             Category key for the blueprint config (e.g., 'ships', 'capital_ships')
         """
-        module_map = {
-            'Ships': 'ship_blueprints',
-            'Capital Ships': 'capital_ship_blueprints',
-            'Components': 'components',
-            'Capital Components': 'component_blueprints'
+        category_mapping = {
+            "Ships": "ship_blueprints",
+            "Capital Ships": "capital_ship_blueprints",
+            "Components": "components",
+            "Capital Components": "component_blueprints"
         }
-        return module_map.get(module_type, module_type.lower())
+        
+        return category_mapping.get(module_type, module_type.lower())
         
     def validate_me_entry(self, module):
         """
@@ -724,25 +695,14 @@ class BlueprintManager:
         notebook.pack(fill="both", expand=True, padx=10, pady=10)
         
         # Create tab for Ships
-        if 'ships' in self.discovered_modules:
+        if 'ships' in self.discovered_modules or 'capital_ships' in self.discovered_modules:
             ships_tab = ttk.Frame(notebook)
             notebook.add(ships_tab, text="Ships")
             
             self.create_blueprint_grid(
                 ships_tab, 
                 "Ships",
-                self.discovered_modules['ships']
-            )
-            
-        # Create tab for Capital Ships
-        if 'capital_ships' in self.discovered_modules:
-            capital_ships_tab = ttk.Frame(notebook)
-            notebook.add(capital_ships_tab, text="Capital Ships")
-            
-            self.create_blueprint_grid(
-                capital_ships_tab, 
-                "Capital Ships",
-                self.discovered_modules['capital_ships']
+                self.get_combined_ships_dict()
             )
             
         # Create tab for Components
@@ -1121,6 +1081,44 @@ class BlueprintManager:
         # Refresh the module registry if required
         self.refresh_registry_if_needed()
         
+    def update_capital_ship_ownership(self, module_name, module, value):
+        """Update capital ship blueprint ownership in configuration"""
+        # Convert from UI value (owned/unowned) to config value (Owned/Unowned)
+        config_value = "Owned" if value == "owned" else "Unowned"
+        
+        # Update in config (using capital_ship_blueprints as the category)
+        update_blueprint_ownership(self.blueprint_config, "capital_ship_blueprints", module_name, config_value)
+        
+        # Update module state
+        module.owned_status = (config_value == "Owned")
+        
+        # Update status
+        self.status_var.set(f"Updated {module.display_name} ownership to {config_value}")
+
+    def update_module_ownership(self, module_name, module, value, module_type):
+        """Update module ownership based on the module type"""
+        # Determine what type of module this is and use the appropriate update method
+        if hasattr(module, 'ship_type'): # This is a ship
+            if hasattr(module, 'is_capital_ship') and module.is_capital_ship:
+                self.update_capital_ship_ownership(module_name, module, value)
+            else:
+                self.update_ship_ownership(module_name, module, value)
+        elif module_type == "Components":
+            self.update_component_ownership(module_name, module, value)
+        elif module_type == "Capital Components":
+            self.update_cap_component_ownership(module_name, module, value)
+        else:
+            # Generic fallback using the correct category from module type
+            category = self.get_category_from_module_type(module_type)
+            # Convert from UI value (owned/unowned) to config value (Owned/Unowned)
+            config_value = "Owned" if value == "owned" else "Unowned"
+            # Update in config
+            update_blueprint_ownership(self.blueprint_config, category, module_name, config_value)
+            # Update module state
+            module.owned_status = (config_value == "Owned")
+            # Update status
+            self.status_var.set(f"Updated {module.display_name} ownership to {config_value}")
+        
     def validate_me(self, event, category, module_name):
         """Validate and update ME% value"""
         entry_widget = event.widget
@@ -1142,7 +1140,7 @@ class BlueprintManager:
             update_blueprint_me(self.blueprint_config, category, module_name, me_value)
             
         except ValueError:
-            # Reset to 0 if not a valid number
+            # Reset to 0 if invalid
             entry_widget.delete(0, tk.END)
             entry_widget.insert(0, "0")
             update_blueprint_me(self.blueprint_config, category, module_name, 0)
@@ -1171,7 +1169,7 @@ class BlueprintManager:
             update_blueprint_te(self.blueprint_config, category, module_name, te_value)
             
         except ValueError:
-            # Reset to 0 if not a valid number
+            # Reset to 0 if invalid
             entry_widget.delete(0, tk.END)
             entry_widget.insert(0, "0")
             update_blueprint_te(self.blueprint_config, category, module_name, 0)
@@ -1225,3 +1223,15 @@ class BlueprintManager:
         # Placeholder implementation
         print("DEBUG: Initializing capital component variables")
         # Initialize any necessary variables here
+
+    def get_combined_ships_dict(self):
+        """Get a combined dictionary of ships and capital ships"""
+        combined_dict = {}
+        
+        if 'ships' in self.discovered_modules:
+            combined_dict.update(self.discovered_modules['ships'])
+        
+        if 'capital_ships' in self.discovered_modules:
+            combined_dict.update(self.discovered_modules['capital_ships'])
+        
+        return combined_dict

@@ -52,13 +52,11 @@ class EveProductionCalculator(tk.Tk):
         self.selected_faction = tk.StringVar(value="All")
         self.selected_ship_type = tk.StringVar(value="All")
         self.selected_ship = tk.StringVar()
-        self.selected_capital_ship = tk.StringVar()
         self.selected_component = tk.StringVar()
         self.selected_pi_level = tk.StringVar(value="P1")
         
         # Quantity variables for calculation
         self.ship_quantity = tk.StringVar(value="1")
-        self.capital_ship_quantity = tk.StringVar(value="1")
         self.component_quantity = tk.StringVar(value="1")
         self.pi_quantity = tk.StringVar(value="1")
         
@@ -79,7 +77,6 @@ class EveProductionCalculator(tk.Tk):
         
         # Create tabs
         self.ship_tab = ttk.Frame(self.notebook)
-        self.capital_ship_tab = ttk.Frame(self.notebook)
         self.component_tab = ttk.Frame(self.notebook)
         self.pi_tab = ttk.Frame(self.notebook)
         # self.ore_tab = ttk.Frame(self.notebook)
@@ -87,7 +84,6 @@ class EveProductionCalculator(tk.Tk):
         
         # Add tabs to notebook
         self.notebook.add(self.ship_tab, text="Ships")
-        self.notebook.add(self.capital_ship_tab, text="Capital Ships")
         self.notebook.add(self.component_tab, text="Components")
         self.notebook.add(self.pi_tab, text="PI Materials")
         # self.notebook.add(self.ore_tab, text="Ore Refining")
@@ -116,7 +112,6 @@ class EveProductionCalculator(tk.Tk):
         
         # Create content for each tab
         self.create_ship_tab()
-        self.create_capital_ship_tab()
         self.create_component_tab()
         self.create_pi_tab()
         # self.create_ore_tab()
@@ -138,11 +133,9 @@ class EveProductionCalculator(tk.Tk):
         # Update the displayed information based on the selected tab
         if tab_index == 0:  # Ships tab
             self.update_ship_details()
-        elif tab_index == 1:  # Capital Ships tab
-            self.update_capital_ship_details()
-        elif tab_index == 2:  # Components tab
+        elif tab_index == 1:  # Components tab
             self.update_component_details()
-        elif tab_index == 3:  # PI Materials tab
+        elif tab_index == 2:  # PI Materials tab
             self.update_pi_details()
     
     def create_ship_tab(self):
@@ -159,12 +152,13 @@ class EveProductionCalculator(tk.Tk):
             command=self.update_ship_dropdown
         )
         
-        # Create ship type dropdown
+        # Create ship type dropdown - include capital ship types
+        all_ship_types = ["All"] + sorted(list(set(self.registry.get_ship_types())))
         self.ship_type_dropdown = create_labeled_dropdown(
             selection_frame,
             "Ship Type:",
             self.selected_ship_type,
-            self.registry.get_ship_types(),
+            all_ship_types,
             command=self.update_ship_dropdown
         )
         
@@ -199,52 +193,6 @@ class EveProductionCalculator(tk.Tk):
         
         # Initialize the ship dropdown
         self.update_ship_dropdown()
-    
-    def create_capital_ship_tab(self):
-        """Create the Capital Ships tab content"""
-        # Frame for capital ship selection
-        selection_frame = create_label_frame(self.capital_ship_tab, "Capital Ship Selection")
-        
-        # Create capital ship type dropdown
-        self.capital_ship_type_dropdown = create_labeled_dropdown(
-            selection_frame,
-            "Ship Type:",
-            tk.StringVar(value="All"),
-            ["All", "Freighter", "Dreadnought", "Carrier", "Capital Industrial"],
-            command=self.update_capital_ship_dropdown
-        )
-        
-        # Create capital ship dropdown
-        self.capital_ship_dropdown = create_labeled_dropdown(
-            selection_frame,
-            "Capital Ship:",
-            self.selected_capital_ship,
-            [],
-            command=self.update_capital_ship_details
-        )
-        
-        # Create quantity input frame
-        quantity_frame = ttk.Frame(selection_frame)
-        quantity_frame.pack(fill="x", padx=5, pady=5)
-        
-        # Add quantity input field
-        self.capital_ship_quantity_entry = create_labeled_entry(
-            quantity_frame,
-            "Quantity:",
-            self.capital_ship_quantity,
-            width=5,
-            label_width=10
-        )
-        
-        # Calculate button
-        self.calculate_capital_button = create_button(
-            quantity_frame,
-            "Calculate Requirements",
-            self.calculate_capital_ship_requirements
-        )
-        
-        # Initialize the capital ship dropdown
-        self.update_capital_ship_dropdown()
     
     def create_component_tab(self):
         """Create the Components tab content"""
@@ -390,7 +338,8 @@ class EveProductionCalculator(tk.Tk):
         ship_type = self.selected_ship_type.get()
         
         # Filter ships (passing True for owned_only to show only owned ships)
-        filtered_ships = self.registry.get_ships_by_filter(
+        # Now using the combined method that includes both regular and capital ships
+        filtered_ships = self.registry.get_ships_combined_by_filter(
             faction if faction != "All" else None,
             ship_type if ship_type != "All" else None,
             True  # Set to True to show only owned ships
@@ -419,41 +368,6 @@ class EveProductionCalculator(tk.Tk):
             self.output_text.insert(tk.END, "No ships found with the current filter.\n\n"
                                           "Try selecting different filters or use the Blueprint Ownership Editor.")
     
-    def update_capital_ship_dropdown(self, event=None):
-        """Update the capital ship dropdown based on selected type"""
-        # Get the selected ship type
-        ship_type = self.capital_ship_type_dropdown.get()
-        
-        # Filter capital ships (passing True for owned_only to show only owned ships)
-        filtered_ships = self.registry.get_capital_ships_by_filter(
-            None,  # No faction filter for capital ships
-            ship_type if ship_type != "All" else None,
-            True  # Set to True to show only owned ships
-        )
-        
-        # Get display names
-        ship_display_names = [ship.display_name for ship in filtered_ships]
-        
-        # Sort the names
-        ship_display_names.sort()
-        
-        # Update the dropdown with the filtered ships
-        self.capital_ship_dropdown.configure(values=ship_display_names)
-        
-        # Clear the capital ship text and disable manufacturing button
-        self.output_text.delete(1.0, tk.END)
-        self.calculate_capital_button.configure(state="disabled")
-        
-        # If there are ships, select the first one
-        if ship_display_names:
-            self.capital_ship_dropdown.set(ship_display_names[0])
-            self.update_capital_ship_details()  # Trigger the selection event
-        else:
-            self.capital_ship_dropdown.set("")
-            # Show a message if no ships are found with the current filter
-            self.output_text.insert(tk.END, "No capital ships found with the current filter.\n\n"
-                                          "Try selecting different filters or use the Blueprint Ownership Editor.")
-    
     def update_ship_details(self, event=None):
         """
         Update the ship details text based on selected ship
@@ -467,8 +381,8 @@ class EveProductionCalculator(tk.Tk):
             set_text_content(self.output_text, "No ship selected.")
             return
             
-        # Find ship in registry
-        ship = self.registry.get_ship_by_display_name(ship_name)
+        # Find ship in registry (checking both regular and capital ships)
+        ship = self.registry.get_ship_by_display_name_combined(ship_name)
         
         if not ship:
             set_text_content(self.output_text, f"Ship '{ship_name}' not found in registry.")
@@ -476,29 +390,6 @@ class EveProductionCalculator(tk.Tk):
             
         # Update details text
         set_text_content(self.output_text, ship.details)
-    
-    def update_capital_ship_details(self, event=None):
-        """
-        Update the capital ship details text based on selected capital ship
-        
-        Args:
-            event: Tkinter event (optional)
-        """
-        capital_ship_name = self.selected_capital_ship.get()
-        
-        if not capital_ship_name:
-            set_text_content(self.output_text, "No capital ship selected.")
-            return
-            
-        # Find capital ship in registry
-        capital_ship = self.registry.get_capital_ship_by_display_name(capital_ship_name)
-        
-        if not capital_ship:
-            set_text_content(self.output_text, f"Capital ship '{capital_ship_name}' not found in registry.")
-            return
-            
-        # Update details text
-        set_text_content(self.output_text, capital_ship.details)
     
     def update_component_details(self, event=None):
         """
@@ -587,21 +478,29 @@ class EveProductionCalculator(tk.Tk):
             quantity = 1
             self.ship_quantity.set("1")
         
-        # Find ship in registry
-        ship = self.registry.get_ship_by_display_name(ship_name)
+        # Find ship in registry (checking both regular and capital ships)
+        ship = self.registry.get_ship_by_display_name_combined(ship_name)
         
         if not ship:
             messagebox.showerror("Error", f"Ship '{ship_name}' not found in registry.")
             return
         
-        # Calculate requirements
-        requirements = self.calculator.calculate_ship_requirements(ship.name)
+        # Determine if this is a capital ship or regular ship
+        is_capital_ship = isinstance(ship, CapitalShipModule)
         
-        # Get ME level from calculator for this specific ship
-        me_level = self.calculator.get_me_level('ships', ship.name)
+        # Calculate requirements based on ship type
+        if is_capital_ship:
+            requirements = self.calculator.calculate_capital_ship_requirements(ship.name)
+            config_category = 'capital_ship_blueprints'
+        else:
+            requirements = self.calculator.calculate_ship_requirements(ship.name)
+            config_category = 'ship_blueprints'
         
-        # Get TE level from calculator for this specific ship
-        te_level = self.calculator.get_te_level('ships', ship.name)
+        # Get ME level for ship
+        me_level = self.calculator.get_me_level(config_category, ship.name)
+        
+        # Get TE level for ship
+        te_level = self.calculator.get_te_level(config_category, ship.name)
         
         # Calculate production time (use default base time if not available)
         base_time = getattr(ship, 'production_time', 3600)  # Default to 1 hour if not specified
@@ -614,63 +513,6 @@ class EveProductionCalculator(tk.Tk):
         
         # Format requirements for display
         requirements_text = f"Material Requirements for {quantity}x {ship_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
-        requirements_text += f"Production Time per Unit: {time_str}\n\n"
-        
-        # Sort materials alphabetically
-        sorted_materials = sorted(requirements.items())
-        
-        for material, material_quantity in sorted_materials:
-            # Multiply by quantity
-            total_quantity = material_quantity * quantity
-            requirements_text += f"{material}: {total_quantity:,.2f}\n"
-            
-        set_text_content(self.output_text, requirements_text)
-    
-    def calculate_capital_ship_requirements(self):
-        """Calculate and display capital ship material requirements"""
-        # Get selected capital ship
-        capital_ship_name = self.selected_capital_ship.get()
-        
-        if not capital_ship_name:
-            messagebox.showwarning("Warning", "No capital ship selected.")
-            return
-        
-        # Get quantity (default to 1 if invalid)
-        try:
-            quantity = int(self.capital_ship_quantity.get())
-            if quantity < 1:
-                quantity = 1
-        except ValueError:
-            quantity = 1
-            self.capital_ship_quantity.set("1")
-        
-        # Find capital ship in registry
-        capital_ship = self.registry.get_capital_ship_by_display_name(capital_ship_name)
-        
-        if not capital_ship:
-            messagebox.showerror("Error", f"Capital ship '{capital_ship_name}' not found in registry.")
-            return
-        
-        # Calculate requirements
-        requirements = self.calculator.calculate_capital_ship_requirements(capital_ship.name)
-        
-        # Get ME level for capital ship
-        me_level = self.calculator.get_me_level('capital_ships', capital_ship.name)
-        
-        # Get TE level for capital ship
-        te_level = self.calculator.get_te_level('capital_ships', capital_ship.name)
-        
-        # Calculate production time (use default base time if not available)
-        base_time = getattr(capital_ship, 'production_time', 7200)  # Default to 2 hours if not specified
-        production_time = self.calculator.calculate_production_time(base_time, te_level)
-        
-        # Format time for display
-        hours, remainder = divmod(production_time, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        time_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
-        
-        # Format requirements for display
-        requirements_text = f"Material Requirements for {quantity}x {capital_ship_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
         requirements_text += f"Production Time per Unit: {time_str}\n\n"
         
         # Sort materials alphabetically
@@ -817,24 +659,22 @@ class EveProductionCalculator(tk.Tk):
     #     set_text_content(self.output_text, output_text)
     
     def edit_blueprint_ownership(self):
-        """Open the blueprint ownership editor"""
-        from gui.blueprints_gui import BlueprintManager
-        from config.blueprint_config import load_blueprint_ownership, save_blueprint_ownership
-        
+        """Open the Blueprint Ownership Editor"""
         try:
-            # Load the current blueprint configuration
-            self.blueprint_config = load_blueprint_ownership()
-            
-            # Create a new toplevel window
-            blueprint_window = tk.Toplevel(self)
-            blueprint_window.title("Blueprint Ownership Manager")
+            # Import here to avoid circular imports
+            from gui.blueprints_gui import BlueprintManager
             
             # Prepare the modules dictionary for the blueprint manager
             discovered_modules = {
                 'ships': self.registry.ships,
                 'capital_ships': self.registry.capital_ships,
-                'components': self.registry.components
+                'components': self.registry.components,
+                'capital_components': self.registry.capital_components
             }
+            
+            # Create and open the editor
+            blueprint_window = tk.Toplevel(self)
+            blueprint_window.title("Blueprint Ownership Manager")
             
             # Create the blueprint manager
             blueprint_manager = BlueprintManager(
@@ -847,53 +687,160 @@ class EveProductionCalculator(tk.Tk):
             # Create the blueprint window UI
             blueprint_manager.create_blueprint_window(blueprint_window)
             
-            # Make the window modal
+            # Configure window position
+            window_width = 800
+            window_height = 600
+            
+            # Center the window
+            position_right = int(self.winfo_screenwidth() / 2 - window_width / 2)
+            position_down = int(self.winfo_screenheight() / 2 - window_height / 2)
+            
+            # Set the window size and position
+            blueprint_window.geometry(f"{window_width}x{window_height}+{position_right}+{position_down}")
+            
+            # Set a flag to prevent multiple instances
+            self.ownership_editor_shown = True
+            
+            # Make the editor modal
             blueprint_window.transient(self)
             blueprint_window.grab_set()
+            blueprint_window.focus_set()
             
             # Wait for the window to be closed
             self.wait_window(blueprint_window)
             
             # Make sure to save changes after the window is closed
+            from config.blueprint_config import save_blueprint_ownership
             save_blueprint_ownership(self.blueprint_config)
             
             # Apply the updated ownership to the registry
             from config.blueprint_config import apply_blueprint_ownership
             apply_blueprint_ownership(self.blueprint_config, self.registry)
             
-            # Refresh the UI to reflect any changes
+            # Refresh the UI when the editor returns
             current_tab = self.notebook.index(self.notebook.select())
             if current_tab == 0:  # Ships tab
                 self.update_ship_dropdown()
-            elif current_tab == 1:  # Capital Ships tab
-                self.update_capital_ship_dropdown()
                 
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open Blueprint Ownership Editor: {str(e)}")
     
-    # def load_capital_components(self):
-    #     """Load capital components from the JSON file for the blueprint editor"""
-    #     import os
-    #     import json
+    def reset_ship_ownership(self):
+        """Reset ownership status for all ships"""
+        # Confirm with the user
+        if not messagebox.askyesno("Confirm Reset", 
+                                  "Are you sure you want to reset ownership status for ALL ships?\n\n"
+                                   "This action cannot be undone."):
+            return
         
-    #     capital_components = {}
-    #     components_path = os.path.join(os.path.dirname(__file__), "data", "capitalcomponents.json")
-        
-    #     try:
-    #         with open(components_path, 'r') as f:
-    #             data = json.load(f)
-                
-    #         if 'capital_components' in data:
-    #             for key, component in data['capital_components'].items():
-    #                 capital_components[key] = {
-    #                     'display_name': component.get('display_name', key),
-    #                     'blueprint_owned': component.get('owned_status', 'Unowned'),
-    #                     'details': component.get('details', '')
-    #                 }
-    #     except Exception as e:
-    #         print(f"Error loading capital components: {e}")
+        # Reset ownership for all ships
+        for ship_name, ship in self.registry.ships.items():
+            ship.owned_status = False
             
-    #     return capital_components
+            # Update the blueprint config
+            if ship_name in self.blueprint_config.get('ship_blueprints', {}):
+                self.blueprint_config['ship_blueprints'][ship_name]['owned'] = False
+            elif hasattr(ship, 'display_name') and ship.display_name in self.blueprint_config.get('ship_blueprints', {}):
+                self.blueprint_config['ship_blueprints'][ship.display_name]['owned'] = False
+        
+        # Reset ownership for all capital ships
+        for ship_name, ship in self.registry.capital_ships.items():
+            ship.owned_status = False
+            
+            # Update the blueprint config
+            if ship_name in self.blueprint_config.get('capital_ship_blueprints', {}):
+                self.blueprint_config['capital_ship_blueprints'][ship_name]['owned'] = False
+            elif hasattr(ship, 'display_name') and ship.display_name in self.blueprint_config.get('capital_ship_blueprints', {}):
+                self.blueprint_config['capital_ship_blueprints'][ship.display_name]['owned'] = False
+        
+        # Save the changes
+        try:
+            from config.blueprint_config import save_blueprint_ownership
+            
+            # Run the save function
+            success = save_blueprint_ownership(self.blueprint_config)
+            
+            if success:
+                messagebox.showinfo("Success", "All ship ownership status has been reset.")
+                
+                # Refresh the UI based on the current tab
+                current_tab = self.notebook.index(self.notebook.select())
+                if current_tab == 0:  # Ships tab
+                    self.update_ship_dropdown()
+            else:
+                messagebox.showerror("Error", "Failed to save ownership changes.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to save ownership changes: {str(e)}")
+    
+    def _on_editor_closed(self):
+        """Callback to handle the blueprint editor being closed"""
+        # Reset the ownership editor shown flag
+        self.ownership_editor_shown = False
+        
+        # Refresh the UI based on the current tab
+        current_tab = self.notebook.index(self.notebook.select())
+        if current_tab == 0:  # Ships tab
+            self.update_ship_dropdown()
+    
+    def update_pi_material_dropdown(self, event=None):
+        """Update the PI material dropdown based on selected PI level"""
+        # Get the PI level
+        pi_level = self.selected_pi_level.get()
+        
+        # Get filtered PI materials
+        pi_materials = self.registry.get_pi_materials_by_level(pi_level)
+        
+        # Get display names
+        pi_material_names = [material.display_name for material in pi_materials]
+        
+        # Sort the names
+        pi_material_names.sort()
+        
+        # Update the dropdown
+        self.pi_material_dropdown.configure(values=pi_material_names)
+        
+        # If there are materials, select the first one
+        if pi_material_names:
+            self.pi_material_dropdown.set(pi_material_names[0])
+            self.update_pi_details()
+        else:
+            self.pi_material_dropdown.set("")
+            set_text_content(self.output_text, "No PI materials found matching the filters.")
+
+    def on_close(self):
+        """Save blueprint configuration before closing the application"""
+        try:
+            from config.blueprint_config import save_blueprint_ownership
+            # Save the configuration
+            success = save_blueprint_ownership(self.blueprint_config)
+            if success:
+                print("Blueprint configuration saved successfully.")
+            else:
+                print("Failed to save blueprint configuration.")
+        except Exception as e:
+            print(f"Error saving blueprint configuration: {e}")
+        
+        # Destroy the application
+        self.destroy()
+
+    def _create_menus(self):
+        """Create application menus"""
+        # Create main menu
+        menu_bar = tk.Menu(self)
+        self.config(menu=menu_bar)
+        
+        # Create File menu
+        file_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label="Exit", command=self.destroy)
+        
+        # Create Settings menu
+        settings_menu = tk.Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Settings", menu=settings_menu)
+        settings_menu.add_command(label="Blueprint Ownership Editor", command=self.edit_blueprint_ownership)
+        settings_menu.add_command(label="Reset All Ship Ownership", command=self.reset_ship_ownership)
+        settings_menu.add_command(label="Export Settings", command=self.export_settings)
+        settings_menu.add_command(label="Import Settings", command=self.import_settings)
     
     def export_settings(self):
         """Export settings to a JSON file"""
@@ -944,139 +891,3 @@ class EveProductionCalculator(tk.Tk):
                 
         except Exception as e:
             messagebox.showerror("Error", f"Failed to import settings: {str(e)}")
-    
-    def _create_menus(self):
-        """Create application menus"""
-        # Create main menu
-        menu_bar = tk.Menu(self)
-        self.config(menu=menu_bar)
-        
-        # Create File menu
-        file_menu = tk.Menu(menu_bar, tearoff=0)
-        menu_bar.add_cascade(label="File", menu=file_menu)
-        file_menu.add_command(label="Exit", command=self.destroy)
-        
-        # Create Settings menu
-        settings_menu = tk.Menu(menu_bar, tearoff=0)
-        menu_bar.add_cascade(label="Settings", menu=settings_menu)
-        settings_menu.add_command(label="Blueprint Ownership Editor", command=self.edit_blueprint_ownership)
-        settings_menu.add_command(label="Reset All Ship Ownership", command=self.reset_ship_ownership)
-        settings_menu.add_command(label="Export Settings", command=self.export_settings)
-        settings_menu.add_command(label="Import Settings", command=self.import_settings)
-    
-    def reset_ship_ownership(self):
-        """Reset ownership status for all ships and capital ships"""
-        # Confirm with the user
-        if not messagebox.askyesno("Confirm Reset", 
-                                  "Are you sure you want to reset ownership status for ALL ships and capital ships?\n\n"
-                                  "This action cannot be undone."):
-            return
-        
-        # Reset ownership for all ships
-        for ship_name, ship in self.registry.ships.items():
-            ship.owned_status = False
-            
-            # Update the blueprint config
-            if ship_name in self.blueprint_config.get('ships', {}):
-                self.blueprint_config['ships'][ship_name]['owned'] = False
-            elif hasattr(ship, 'display_name') and ship.display_name in self.blueprint_config.get('ships', {}):
-                self.blueprint_config['ships'][ship.display_name]['owned'] = False
-        
-        # Reset ownership for all capital ships
-        for ship_name, ship in self.registry.capital_ships.items():
-            ship.owned_status = False
-            
-            # Update the blueprint config
-            if ship_name in self.blueprint_config.get('capital_ships', {}):
-                self.blueprint_config['capital_ships'][ship_name]['owned'] = False
-            elif hasattr(ship, 'display_name') and ship.display_name in self.blueprint_config.get('capital_ships', {}):
-                self.blueprint_config['capital_ships'][ship.display_name]['owned'] = False
-        
-        # Save the changes
-        try:
-            from config.blueprint_config import save_blueprint_ownership
-            # Save the configuration
-            success = save_blueprint_ownership(self.blueprint_config)
-            if success:
-                messagebox.showinfo("Success", "All ship ownership has been reset. The changes have been saved.")
-                
-                # Reset the editor shown flag so it can appear again
-                self.ownership_editor_shown = False
-                
-                # Refresh dropdown displays if needed
-                current_tab = self.notebook.index(self.notebook.select())
-                if current_tab == 0:  # Ships tab
-                    self.update_ship_dropdown()
-                elif current_tab == 1:  # Capital Ships tab
-                    self.update_capital_ship_dropdown()
-            else:
-                messagebox.showerror("Error", "Failed to save ownership changes.")
-        except Exception as e:
-            messagebox.showerror("Error", f"An error occurred: {str(e)}")
-    
-    def test_set_atron_owned(self):
-        """Test function to set Atron as owned for testing the ownership functionality"""
-        try:
-            # Create BlueprintManager instance
-            from gui.blueprints_gui import BlueprintManager
-            manager = BlueprintManager(
-                self,
-                self.discovered_modules,
-                self.blueprint_config,
-                self.registry
-            )
-            
-            # Call the test function
-            success = manager.set_atron_as_owned_test()
-            
-            if success:
-                # Force a refresh of the ship dropdowns to show the changes
-                self.update_ship_dropdown()
-                messagebox.showinfo("Test Successful", "Atron has been set as owned. Check blueprint_ownership.json to verify the changes were saved.")
-            else:
-                messagebox.showerror("Test Failed", "Failed to set Atron as owned. Check console for details.")
-                
-        except Exception as e:
-            error_msg = f"Error in test_set_atron_owned: {str(e)}"
-            messagebox.showerror("Error", error_msg)
-    
-    def update_pi_material_dropdown(self, event=None):
-        """Update the PI material dropdown based on selected PI level"""
-        # Get the PI level
-        pi_level = self.selected_pi_level.get()
-        
-        # Get filtered PI materials
-        pi_materials = self.registry.get_pi_materials_by_level(pi_level)
-        
-        # Get display names
-        pi_material_names = [material.display_name for material in pi_materials]
-        
-        # Sort the names
-        pi_material_names.sort()
-        
-        # Update the dropdown
-        self.pi_material_dropdown.configure(values=pi_material_names)
-        
-        # If there are materials, select the first one
-        if pi_material_names:
-            self.pi_material_dropdown.set(pi_material_names[0])
-            self.update_pi_details()
-        else:
-            self.pi_material_dropdown.set("")
-            set_text_content(self.output_text, "No PI materials found matching the filters.")
-
-    def on_close(self):
-        """Save blueprint configuration before closing the application"""
-        try:
-            from config.blueprint_config import save_blueprint_ownership
-            # Save the configuration
-            success = save_blueprint_ownership(self.blueprint_config)
-            if success:
-                print("Blueprint configuration saved successfully.")
-            else:
-                print("Failed to save blueprint configuration.")
-        except Exception as e:
-            print(f"Error saving blueprint configuration: {e}")
-        
-        # Destroy the application
-        self.destroy()

@@ -236,6 +236,15 @@ class ModuleRegistry:
         """
         return list(self.capital_components.values())
     
+    def get_all_ships_combined(self):
+        """
+        Get all registered ships and capital ships combined in a single list
+        
+        Returns:
+            List of all ShipModule and CapitalShipModule objects
+        """
+        return list(self.ships.values()) + list(self.capital_ships.values())
+    
     def get_filtered_ships(self, faction: str = "All", ship_type: str = "All"):
         """
         Get ships filtered by faction and ship type
@@ -335,6 +344,27 @@ class ModuleRegistry:
             
         return filtered_capital_ships
     
+    def get_ships_combined_by_filter(self, faction: Optional[str] = None, ship_type: Optional[str] = None, owned_only: bool = False):
+        """
+        Get both regular ships and capital ships filtered by faction, ship type, and ownership
+        
+        Args:
+            faction: Optional faction to filter by, or None for no filtering
+            ship_type: Optional ship type to filter by, or None for no filtering
+            owned_only: If True, only return ships that are owned
+            
+        Returns:
+            List of ShipModule and CapitalShipModule objects matching the filter criteria
+        """
+        # Get filtered regular ships
+        filtered_ships = self.get_ships_by_filter(faction, ship_type, owned_only)
+        
+        # Get filtered capital ships
+        filtered_capital_ships = self.get_capital_ships_by_filter(faction, ship_type, owned_only)
+        
+        # Combine the results
+        return filtered_ships + filtered_capital_ships
+        
     def get_factions(self):
         """
         Get sorted list of all available factions
@@ -382,6 +412,24 @@ class ModuleRegistry:
             if capital_ship.display_name == display_name:
                 return capital_ship
         return None
+    
+    def get_ship_by_display_name_combined(self, display_name: str):
+        """
+        Get any ship (regular or capital) by its display name
+        
+        Args:
+            display_name: The display name of the ship to find
+            
+        Returns:
+            ShipModule or CapitalShipModule if found, None otherwise
+        """
+        # First check regular ships
+        ship = self.get_ship_by_display_name(display_name)
+        if ship:
+            return ship
+            
+        # If not found, check capital ships
+        return self.get_capital_ship_by_display_name(display_name)
     
     def get_component_by_display_name(self, display_name: str):
         """
