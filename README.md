@@ -94,6 +94,28 @@ No installation is required beyond having Python with Tkinter.
 1. Clone or download this repository
 2. Run `python main.py` to start the application
 
+## Building an Executable (Windows)
+
+To create a standalone executable for Windows:
+
+1. Install PyInstaller:
+   ```
+   pip install pyinstaller
+   ```
+
+2. Create an icon for the application (optional):
+   - Place an .ico file in a `resources` folder
+   - Reference the icon in your PyInstaller spec file
+
+3. Build the executable using the provided spec file:
+   ```
+   python -m PyInstaller eve_production_tracker.spec
+   ```
+
+4. The executable will be created in the `dist\EVE Production Tracker` directory
+
+The executable can be distributed to users who don't have Python installed.
+
 ## Usage
 
 1. Launch the application by running `python main.py`
