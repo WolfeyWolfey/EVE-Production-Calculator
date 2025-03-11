@@ -6,11 +6,11 @@ Handles saving and loading blueprint ownership status
 import os
 import json
 from collections import defaultdict
-from utils.debug import debug_print
+from core.utils.debug import debug_print
 
 # Constants
 CONFIG_FILENAME = "blueprint_ownership.json"
-CONFIG_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', CONFIG_FILENAME)
+CONFIG_FILE = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'core', 'data', CONFIG_FILENAME)
 
 def create_default_blueprint_config():
     """

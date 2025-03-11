@@ -1,0 +1,79 @@
+{
+  "P0_Raw_Materials": [
+    {
+      "name": "Aqueous Liquids",
+      "harvestable_planet_types": ["Barren", "Gas", "Ice", "Oceanic", "Storm", "Temperate"],
+      "refines_to_P1": "Water"
+    },
+    {
+      "name": "Autotrophs",
+      "harvestable_planet_types": ["Temperate"],
+      "refines_to_P1": "Industrial Fibers"
+    },
+    {
+      "name": "Base Metals",
+      "harvestable_planet_types": ["Barren", "Gas", "Lava", "Plasma", "Storm"],
+      "refines_to_P1": "Reactive Metals"
+    },
+    {
+      "name": "Carbon Compounds",
+      "harvestable_planet_types": ["Barren", "Oceanic", "Temperate"],
+      "refines_to_P1": "Biofuels"
+    },
+    {
+      "name": "Complex Organisms",
+      "harvestable_planet_types": ["Oceanic", "Temperate"],
+      "refines_to_P1": "Proteins"
+    },
+    {
+      "name": "Felsic Magma",
+      "harvestable_planet_types": ["Lava"],
+      "refines_to_P1": "Silicon"
+    },
+    {
+      "name": "Heavy Metals",
+      "harvestable_planet_types": ["Ice", "Lava", "Plasma"],
+      "refines_to_P1": "Toxic Metals"
+    },
+    {
+      "name": "Ionic Solutions",
+      "harvestable_planet_types": ["Gas", "Storm"],
+      "refines_to_P1": "Electrolytes"
+    },
+    {
+      "name": "Microorganisms",
+      "harvestable_planet_types": ["Barren", "Ice", "Oceanic", "Temperate"],
+      "refines_to_P1": "Bacteria"
+    },
+    {
+      "name": "Noble Gas",
+      "harvestable_planet_types": ["Gas", "Ice", "Storm"],
+      "refines_to_P1": "Oxygen"
+    },
+    {
+      "name": "Noble Metals",
+      "harvestable_planet_types": ["Barren", "Plasma"],
+      "refines_to_P1": "Precious Metals"
+    },
+    {
+      "name": "Non-CS Crystals",
+      "harvestable_planet_types": ["Lava", "Plasma"],
+      "refines_to_P1": "Chiral Structures"
+    },
+    {
+      "name": "Planktic Colonies",
+      "harvestable_planet_types": ["Ice", "Oceanic"],
+      "refines_to_P1": "Biomass"
+    },
+    {
+      "name": "Reactive Gas",
+      "harvestable_planet_types": ["Gas"],
+      "refines_to_P1": "Oxidizing Compound"
+    },
+    {
+      "name": "Suspended Plasma",
+      "harvestable_planet_types": ["Lava", "Plasma", "Storm"],
+      "refines_to_P1": "Plasmoids"
+    }
+  ]
+}

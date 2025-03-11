@@ -1,0 +1,1206 @@
+{
+  "ships": [
+    {
+      "name": "Burst",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 24000,
+        "pyerite": 4500,
+        "mexallon": 1875,
+        "isogen": 375
+      },
+      "description": "Tech I Support Frigate. Build Time: ~3h; Skills: Industry I (basic manufacturing)"
+    },
+    {
+      "name": "Breacher",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500
+      },
+      "description": "Tech I Attack Frigate. Build Time: ~3h; Skills: Industry I"
+    },
+    {
+      "name": "Slasher",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500
+      },
+      "description": "Tech I Attack Frigate. Build Time: ~3h; Skills: Industry I"
+    },
+    {
+      "name": "Rifter",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500
+      },
+      "description": "Tech I Attack Frigate. Build Time: ~3h; Skills: Industry I"
+    },
+    {
+      "name": "Vigil",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500
+      },
+      "description": "Tech I EWAR Frigate. Build Time: ~3h; Skills: Industry I"
+    },
+    {
+      "name": "Probe",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500
+      },
+      "description": "Tech I Exploration Frigate. Build Time: ~3h; Skills: Industry I"
+    },
+    {
+      "name": "Republic Fleet Firetail",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500,
+        "nocxium": 30,
+        "zydrine": 20,
+        "megacyte": 10,
+        "life_support_backup_unit": 5,
+        "auto_integrity_preservation_seal": 10
+      },
+      "description": "Navy Frigate. Build Time: ~3h; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Vigil Fleet Issue",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500,
+        "nocxium": 30,
+        "zydrine": 20,
+        "megacyte": 10,
+        "life_support_backup_unit": 5,
+        "auto_integrity_preservation_seal": 10
+      },
+      "description": "Navy Frigate. Build Time: ~3h; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Probe Fleet Issue",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 32000,
+        "pyerite": 6000,
+        "mexallon": 2500,
+        "isogen": 500,
+        "nocxium": 30,
+        "zydrine": 20,
+        "megacyte": 10,
+        "life_support_backup_unit": 5,
+        "auto_integrity_preservation_seal": 10
+      },
+      "description": "Navy Frigate. Build Time: ~3h; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Dramiel",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 38400,
+        "pyerite": 7200,
+        "mexallon": 3000,
+        "isogen": 600,
+        "nocxium": 36,
+        "zydrine": 24,
+        "megacyte": 12,
+        "life_support_backup_unit": 6,
+        "auto_integrity_preservation_seal": 12,
+        "angel_net_resonator": 20
+      },
+      "description": "Angel Cartel Pirate Frigate. Build Time: ~3h; Skills: Industry I (Pirate BPC from loot)"
+    },
+    {
+      "name": "Daredevil",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 38400,
+        "pyerite": 7200,
+        "mexallon": 3000,
+        "isogen": 600,
+        "nocxium": 36,
+        "zydrine": 24,
+        "megacyte": 12,
+        "life_support_backup_unit": 6,
+        "auto_integrity_preservation_seal": 12,
+        "serpentis_net_resonator": 20
+      },
+      "description": "Serpentis Pirate Frigate. Build Time: ~3h; Skills: Industry I (Pirate BPC from loot)"
+    },
+    {
+      "name": "Cruor",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 38400,
+        "pyerite": 7200,
+        "mexallon": 3000,
+        "isogen": 600,
+        "nocxium": 36,
+        "zydrine": 24,
+        "megacyte": 12,
+        "life_support_backup_unit": 6,
+        "auto_integrity_preservation_seal": 12,
+        "blood_raider_net_resonator": 20
+      },
+      "description": "Blood Raider Pirate Frigate. Build Time: ~3h; Skills: Industry I (Pirate BPC from loot)"
+    },
+    {
+      "name": "Wolf",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "rifter": 1,
+        "morphite": 45,
+        "ram_starship_tech": 6,
+        "nuclear_reactor_unit": 8,
+        "plasma_thruster": 23,
+        "fernite_carbide_composite_armor_plate": 900,
+        "ladar_sensor_cluster": 30,
+        "nanomechanical_microprocessor": 135,
+        "deflection_shield_emitter": 30,
+        "electrolytic_capacitor_unit": 90
+      },
+      "description": "Tech II Assault Frigate. Build Time: ~6h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Mechanical Engineering I"
+    },
+    {
+      "name": "Jaguar",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "rifter": 1,
+        "morphite": 45,
+        "ram_starship_tech": 6,
+        "nuclear_reactor_unit": 8,
+        "plasma_thruster": 30,
+        "fernite_carbide_composite_armor_plate": 750,
+        "ladar_sensor_cluster": 30,
+        "nanomechanical_microprocessor": 135,
+        "deflection_shield_emitter": 30,
+        "electrolytic_capacitor_unit": 90
+      },
+      "description": "Tech II Assault Frigate. Build Time: ~6h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Mechanical Engineering I"
+    },
+    {
+      "name": "Claw",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "rifter": 1,
+        "morphite": 15,
+        "ram_starship_tech": 3,
+        "nuclear_reactor_unit": 4,
+        "plasma_thruster": 18,
+        "fernite_carbide_composite_armor_plate": 375,
+        "ladar_sensor_cluster": 23,
+        "nanomechanical_microprocessor": 90,
+        "deflection_shield_emitter": 15,
+        "electrolytic_capacitor_unit": 45
+      },
+      "description": "Tech II Interceptor. Build Time: ~4h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, High Energy Physics I"
+    },
+    {
+      "name": "Stiletto",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "slasher": 1,
+        "morphite": 15,
+        "ram_starship_tech": 3,
+        "nuclear_reactor_unit": 6,
+        "plasma_thruster": 25,
+        "fernite_carbide_composite_armor_plate": 375,
+        "ladar_sensor_cluster": 60,
+        "nanomechanical_microprocessor": 125,
+        "deflection_shield_emitter": 15,
+        "electrolytic_capacitor_unit": 125
+      },
+      "description": "Tech II Interceptor. Build Time: ~4h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Electronic Engineering I"
+    },
+    {
+      "name": "Hound",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "breacher": 1,
+        "morphite": 38,
+        "ram_starship_tech": 3,
+        "nuclear_reactor_unit": 6,
+        "plasma_thruster": 30,
+        "fernite_carbide_composite_armor_plate": 300,
+        "ladar_sensor_cluster": 60,
+        "nanomechanical_microprocessor": 180,
+        "deflection_shield_emitter": 15,
+        "electrolytic_capacitor_unit": 60
+      },
+      "description": "Tech II Stealth Bomber. Build Time: ~6h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Rocket Science I"
+    },
+    {
+      "name": "Cheetah",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "probe": 1,
+        "morphite": 15,
+        "ram_starship_tech": 3,
+        "oscillator_capacitor_unit": 60,
+        "pulse_shield_emitter": 15,
+        "gravimetric_sensor_cluster": 68,
+        "construction_blocks": 23,
+        "quantum_microprocessor": 165,
+        "scalar_capacitor_unit": 75,
+        "titanium_diborite_armor_plate": 300,
+        "graviton_reactor_unit": 3
+      },
+      "description": "Tech II Covert Ops. Build Time: ~4h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Electronic Engineering I"
+    },
+    {
+      "name": "Hyena",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "vigil": 1,
+        "morphite": 15,
+        "ram_starship_tech": 3,
+        "plasma_thruster": 30,
+        "fernite_carbide_composite_armor_plate": 300,
+        "ladar_sensor_cluster": 60,
+        "nanomechanical_microprocessor": 180,
+        "deflection_shield_emitter": 15,
+        "electrolytic_capacitor_unit": 60
+      },
+      "description": "Tech II Electronic Attack Frigate. Build Time: ~4h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Molecular Engineering I"
+    },
+    {
+      "name": "Scalpel",
+      "type": "Frigate",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "burst": 1,
+        "morphite": 15,
+        "ram_starship_tech": 6,
+        "nuclear_reactor_unit": 4,
+        "plasma_thruster": 25,
+        "fernite_carbide_composite_armor_plate": 375,
+        "ladar_sensor_cluster": 60,
+        "nanomechanical_microprocessor": 125,
+        "deflection_shield_emitter": 15,
+        "electrolytic_capacitor_unit": 125,
+        "construction_blocks": 25
+      },
+      "description": "Tech II Logistics Frigate. Build Time: ~4h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Mechanical Engineering I"
+    },
+    {
+      "name": "Thrasher",
+      "type": "Destroyer",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 80000,
+        "pyerite": 15000,
+        "mexallon": 5000,
+        "isogen": 1000
+      },
+      "description": "Tech I Destroyer. Build Time: ~5h; Skills: Industry I"
+    },
+    {
+      "name": "Talwar",
+      "type": "Destroyer",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 80000,
+        "pyerite": 15000,
+        "mexallon": 5000,
+        "isogen": 1000
+      },
+      "description": "Tech I Destroyer. Build Time: ~5h; Skills: Industry I"
+    },
+    {
+      "name": "Thrasher Fleet Issue",
+      "type": "Destroyer",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 80000,
+        "pyerite": 15000,
+        "mexallon": 5000,
+        "isogen": 1000,
+        "nocxium": 30,
+        "zydrine": 20,
+        "megacyte": 10,
+        "life_support_backup_unit": 5,
+        "auto_integrity_preservation_seal": 10
+      },
+      "description": "Navy Destroyer. Build Time: ~5h; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Sabre",
+      "type": "Destroyer",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "thrasher": 1,
+        "morphite": 38,
+        "ram_starship_tech": 8,
+        "plasma_thruster": 60,
+        "fernite_carbide_composite_armor_plate": 750,
+        "ladar_sensor_cluster": 60,
+        "nanomechanical_microprocessor": 180,
+        "deflection_shield_emitter": 30,
+        "electrolytic_capacitor_unit": 60,
+        "construction_blocks": 30
+      },
+      "description": "Tech II Interdictor Destroyer. Build Time: ~8h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, Mechanical Engineering I"
+    },
+    {
+      "name": "Bifrost",
+      "type": "Destroyer",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "talwar": 1,
+        "morphite": 38,
+        "ram_starship_tech": 8,
+        "plasma_thruster": 60,
+        "fernite_carbide_composite_armor_plate": 750,
+        "ladar_sensor_cluster": 60,
+        "nanomechanical_microprocessor": 180,
+        "deflection_shield_emitter": 30,
+        "electrolytic_capacitor_unit": 60,
+        "construction_blocks": 30
+      },
+      "description": "Tech II Command Destroyer. Build Time: ~8h; Skills: Industry V, Advanced Small Ship Construction IV, Minmatar Starship Engineering I, High Energy Physics I"
+    },
+    {
+      "name": "Stabber",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 540000,
+        "pyerite": 180000,
+        "mexallon": 36000,
+        "isogen": 10000,
+        "nocxium": 1500,
+        "zydrine": 350,
+        "megacyte": 140
+      },
+      "description": "Tech I Combat Cruiser. Build Time: ~10h; Skills: Industry I"
+    },
+    {
+      "name": "Rupture",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 540000,
+        "pyerite": 180000,
+        "mexallon": 36000,
+        "isogen": 10000,
+        "nocxium": 1500,
+        "zydrine": 350,
+        "megacyte": 140
+      },
+      "description": "Tech I Combat Cruiser. Build Time: ~10h; Skills: Industry I"
+    },
+    {
+      "name": "Bellicose",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 540000,
+        "pyerite": 180000,
+        "mexallon": 36000,
+        "isogen": 10000,
+        "nocxium": 1500,
+        "zydrine": 350,
+        "megacyte": 140
+      },
+      "description": "Tech I Combat Cruiser. Build Time: ~10h; Skills: Industry I"
+    },
+    {
+      "name": "Scythe",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 566667,
+        "pyerite": 211111,
+        "mexallon": 52222,
+        "isogen": 8333,
+        "nocxium": 2333,
+        "zydrine": 1088,
+        "megacyte": 222
+      },
+      "description": "Tech I Logistics Cruiser. Build Time: ~10h; Skills: Industry I"
+    },
+    {
+      "name": "Stabber Fleet Issue",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 540000,
+        "pyerite": 180000,
+        "mexallon": 36000,
+        "isogen": 10000,
+        "nocxium": 1500,
+        "zydrine": 1000,
+        "megacyte": 500,
+        "life_support_backup_unit": 25,
+        "auto_integrity_preservation_seal": 50
+      },
+      "description": "Navy Cruiser. Build Time: ~10h; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Scythe Fleet Issue",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 566667,
+        "pyerite": 211111,
+        "mexallon": 52222,
+        "isogen": 8333,
+        "nocxium": 2333,
+        "zydrine": 1088,
+        "megacyte": 222
+      },
+      "description": "Navy Cruiser. Build Time: ~10h; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Cynabal",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 712800,
+        "pyerite": 237600,
+        "mexallon": 47520,
+        "isogen": 13200,
+        "nocxium": 1980,
+        "zydrine": 1320,
+        "megacyte": 660,
+        "life_support_backup_unit": 25,
+        "auto_integrity_preservation_seal": 50,
+        "angel_net_resonator": 60
+      },
+      "description": "Angel Cartel Pirate Cruiser. Build Time: ~12h; Skills: Industry I (Pirate BPC drop)"
+    },
+    {
+      "name": "Vigilant",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 712800,
+        "pyerite": 237600,
+        "mexallon": 47520,
+        "isogen": 13200,
+        "nocxium": 1980,
+        "zydrine": 1320,
+        "megacyte": 660,
+        "life_support_backup_unit": 25,
+        "auto_integrity_preservation_seal": 50,
+        "serpentis_net_resonator": 60
+      },
+      "description": "Serpentis Pirate Cruiser. Build Time: ~12h; Skills: Industry I (Pirate BPC drop)"
+    },
+    {
+      "name": "Ashimmu",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 712800,
+        "pyerite": 237600,
+        "mexallon": 47520,
+        "isogen": 13200,
+        "nocxium": 1980,
+        "zydrine": 1320,
+        "megacyte": 660,
+        "life_support_backup_unit": 25,
+        "auto_integrity_preservation_seal": 50,
+        "blood_raider_net_resonator": 60
+      },
+      "description": "Blood Raider Pirate Cruiser. Build Time: ~12h; Skills: Industry I (Pirate BPC drop)"
+    },
+    {
+      "name": "Vagabond",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "stabber": 1,
+        "morphite": 150,
+        "ram_starship_tech": 18,
+        "plasma_thruster": 75,
+        "fernite_carbide_composite_armor_plate": 5625,
+        "ladar_sensor_cluster": 398,
+        "nanomechanical_microprocessor": 1350,
+        "deflection_shield_emitter": 450,
+        "electrolytic_capacitor_unit": 450,
+        "construction_blocks": 150
+      },
+      "description": "Tech II Heavy Assault Cruiser. Build Time: ~1d; Skills: Industry V, Advanced Medium Ship Construction IV, Minmatar Starship Engineering I, Mechanical Engineering I"
+    },
+    {
+      "name": "Muninn",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "rupture": 1,
+        "morphite": 150,
+        "ram_starship_tech": 18,
+        "plasma_thruster": 75,
+        "fernite_carbide_composite_armor_plate": 5625,
+        "ladar_sensor_cluster": 398,
+        "nanomechanical_microprocessor": 1350,
+        "deflection_shield_emitter": 450,
+        "electrolytic_capacitor_unit": 450,
+        "construction_blocks": 150
+      },
+      "description": "Tech II Heavy Assault Cruiser. Build Time: ~1d; Skills: Industry V, Advanced Medium Ship Construction IV, Minmatar Starship Engineering I, Molecular Engineering I"
+    },
+    {
+      "name": "Scimitar",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "scythe": 1,
+        "morphite": 150,
+        "ram_starship_tech": 18,
+        "fusion_thruster": 75,
+        "tesseract_capacitor_unit": 90,
+        "nanoelectrical_microprocessor": 135,
+        "radar_sensor_cluster": 30,
+        "tungsten_carbide_armor_plate": 900,
+        "antimatter_reactor_unit": 8,
+        "linear_shield_emitter": 30,
+        "construction_blocks": 38
+      },
+      "description": "Tech II Logistics Cruiser. Build Time: ~1d; Skills: Industry V, Advanced Medium Ship Construction IV, Minmatar Starship Engineering I, High Energy Physics I"
+    },
+    {
+      "name": "Huginn",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "bellicose": 1,
+        "morphite": 150,
+        "ram_starship_tech": 18,
+        "plasma_thruster": 75,
+        "fernite_carbide_composite_armor_plate": 5625,
+        "ladar_sensor_cluster": 398,
+        "nanomechanical_microprocessor": 1350,
+        "deflection_shield_emitter": 450,
+        "electrolytic_capacitor_unit": 450,
+        "construction_blocks": 150
+      },
+      "description": "Tech II Combat Recon Cruiser. Build Time: ~1d; Skills: Industry V, Advanced Medium Ship Construction IV, Minmatar Starship Engineering I, Electronic Engineering I"
+    },
+    {
+      "name": "Rapier",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "bellicose": 1,
+        "morphite": 150,
+        "ram_starship_tech": 18,
+        "plasma_thruster": 75,
+        "fernite_carbide_composite_armor_plate": 5625,
+        "ladar_sensor_cluster": 398,
+        "nanomechanical_microprocessor": 1350,
+        "deflection_shield_emitter": 450,
+        "electrolytic_capacitor_unit": 450,
+        "construction_blocks": 150
+      },
+      "description": "Tech II Force Recon Cruiser. Build Time: ~1d; Skills: Industry V, Advanced Medium Ship Construction IV, Minmatar Starship Engineering I, Electronic Engineering I"
+    },
+    {
+      "name": "Broadsword",
+      "type": "Cruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "rupture": 1,
+        "morphite": 150,
+        "ram_starship_tech": 18,
+        "plasma_thruster": 75,
+        "fernite_carbide_composite_armor_plate": 5625,
+        "ladar_sensor_cluster": 398,
+        "nanomechanical_microprocessor": 1350,
+        "deflection_shield_emitter": 450,
+        "electrolytic_capacitor_unit": 450,
+        "construction_blocks": 150
+      },
+      "description": "Tech II Heavy Interdictor Cruiser. Build Time: ~1d; Skills: Industry V, Advanced Medium Ship Construction IV, Minmatar Starship Engineering I, Graviton Physics I"
+    },
+    {
+      "name": "Cyclone",
+      "type": "Battlecruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 1600000,
+        "pyerite": 400000,
+        "mexallon": 100000,
+        "isogen": 25000,
+        "nocxium": 3000,
+        "zydrine": 750,
+        "megacyte": 300
+      },
+      "description": "Tech I Battlecruiser. Build Time: ~1d; Skills: Industry I"
+    },
+    {
+      "name": "Hurricane",
+      "type": "Battlecruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 1600000,
+        "pyerite": 400000,
+        "mexallon": 100000,
+        "isogen": 25000,
+        "nocxium": 3000,
+        "zydrine": 750,
+        "megacyte": 300
+      },
+      "description": "Tech I Battlecruiser. Build Time: ~1d; Skills: Industry I"
+    },
+    {
+      "name": "Cyclone Fleet Issue",
+      "type": "Battlecruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 1600000,
+        "pyerite": 400000,
+        "mexallon": 100000,
+        "isogen": 25000,
+        "nocxium": 3000,
+        "zydrine": 3000,
+        "megacyte": 750,
+        "life_support_backup_unit": 50,
+        "auto_integrity_preservation_seal": 100
+      },
+      "description": "Navy Battlecruiser. Build Time: ~1d; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Hurricane Fleet Issue",
+      "type": "Battlecruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 1600000,
+        "pyerite": 400000,
+        "mexallon": 100000,
+        "isogen": 25000,
+        "nocxium": 3000,
+        "zydrine": 3000,
+        "megacyte": 750,
+        "life_support_backup_unit": 50,
+        "auto_integrity_preservation_seal": 100
+      },
+      "description": "Navy Battlecruiser. Build Time: ~1d; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Sleipnir",
+      "type": "Battlecruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "hurricane": 1,
+        "morphite": 300,
+        "ram_starship_tech": 36,
+        "plasma_thruster": 150,
+        "fernite_carbide_composite_armor_plate": 11250,
+        "ladar_sensor_cluster": 863,
+        "nanomechanical_microprocessor": 2700,
+        "deflection_shield_emitter": 900,
+        "electrolytic_capacitor_unit": 900,
+        "construction_blocks": 300
+      },
+      "description": "Tech II Command Ship. Build Time: ~2d; Skills: Industry V, Advanced Large Ship Construction IV, Minmatar Starship Engineering I, Nuclear Physics I"
+    },
+    {
+      "name": "Claymore",
+      "type": "Battlecruiser",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "cyclone": 1,
+        "morphite": 300,
+        "ram_starship_tech": 36,
+        "plasma_thruster": 150,
+        "fernite_carbide_composite_armor_plate": 11250,
+        "ladar_sensor_cluster": 863,
+        "nanomechanical_microprocessor": 2700,
+        "deflection_shield_emitter": 900,
+        "electrolytic_capacitor_unit": 900,
+        "construction_blocks": 300
+      },
+      "description": "Tech II Command Ship. Build Time: ~2d; Skills: Industry V, Advanced Large Ship Construction IV, Minmatar Starship Engineering I, Nuclear Physics I"
+    },
+    {
+      "name": "Tempest",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 6400000,
+        "pyerite": 1600000,
+        "mexallon": 560000,
+        "isogen": 80000,
+        "nocxium": 16000,
+        "zydrine": 2800,
+        "megacyte": 560
+      },
+      "description": "Tech I Battleship. Build Time: ~2d; Skills: Industry I"
+    },
+    {
+      "name": "Typhoon",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 6400000,
+        "pyerite": 1600000,
+        "mexallon": 560000,
+        "isogen": 80000,
+        "nocxium": 16000,
+        "zydrine": 2800,
+        "megacyte": 560
+      },
+      "description": "Tech I Battleship. Build Time: ~2d; Skills: Industry I"
+    },
+    {
+      "name": "Maelstrom",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 6400000,
+        "pyerite": 1600000,
+        "mexallon": 560000,
+        "isogen": 80000,
+        "nocxium": 16000,
+        "zydrine": 2800,
+        "megacyte": 560
+      },
+      "description": "Tech I Battleship. Build Time: ~2d; Skills: Industry I"
+    },
+    {
+      "name": "Tempest Fleet Issue",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 6400000,
+        "pyerite": 1600000,
+        "mexallon": 560000,
+        "isogen": 80000,
+        "nocxium": 16000,
+        "zydrine": 5000,
+        "megacyte": 1800,
+        "life_support_backup_unit": 130,
+        "auto_integrity_preservation_seal": 260
+      },
+      "description": "Navy Battleship. Build Time: ~2d; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Typhoon Fleet Issue",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 6400000,
+        "pyerite": 1600000,
+        "mexallon": 560000,
+        "isogen": 80000,
+        "nocxium": 16000,
+        "zydrine": 5000,
+        "megacyte": 1800,
+        "life_support_backup_unit": 130,
+        "auto_integrity_preservation_seal": 260
+      },
+      "description": "Navy Battleship. Build Time: ~2d; Skills: Industry I (Faction BPC from LP store)"
+    },
+    {
+      "name": "Panther",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tempest": 1,
+        "morphite": 600,
+        "ram_starship_tech": 54,
+        "plasma_thruster": 225,
+        "fernite_carbide_composite_armor_plate": 16875,
+        "ladar_sensor_cluster": 1290,
+        "nanomechanical_microprocessor": 4050,
+        "deflection_shield_emitter": 1350,
+        "electrolytic_capacitor_unit": 1350,
+        "construction_blocks": 450
+      },
+      "description": "Tech II Black Ops Battleship. Build Time: ~3d; Skills: Industry V, Advanced Large Ship Construction IV, Minmatar Starship Engineering I, Electronic Engineering I"
+    },
+    {
+      "name": "Vargur",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "maelstrom": 1,
+        "morphite": 600,
+        "ram_starship_tech": 54,
+        "plasma_thruster": 225,
+        "fernite_carbide_composite_armor_plate": 16875,
+        "ladar_sensor_cluster": 1290,
+        "nanomechanical_microprocessor": 4050,
+        "deflection_shield_emitter": 1350,
+        "electrolytic_capacitor_unit": 1350,
+        "construction_blocks": 450
+      },
+      "description": "Tech II Marauder Battleship. Build Time: ~3d; Skills: Industry V, Advanced Large Ship Construction IV, Minmatar Starship Engineering I, High Energy Physics I"
+    },
+    {
+      "name": "Machariel",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 8448000,
+        "pyerite": 2112000,
+        "mexallon": 739200,
+        "isogen": 105600,
+        "nocxium": 21120,
+        "zydrine": 7392,
+        "megacyte": 1848,
+        "life_support_backup_unit": 130,
+        "auto_integrity_preservation_seal": 260,
+        "angel_net_resonator": 160
+      },
+      "description": "Angel Cartel Pirate Battleship. Build Time: ~2d; Skills: Industry I (Pirate BPC drop)"
+    },
+    {
+      "name": "Nightmare",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 8448000,
+        "pyerite": 2112000,
+        "mexallon": 739200,
+        "isogen": 105600,
+        "nocxium": 21120,
+        "zydrine": 7392,
+        "megacyte": 1848,
+        "life_support_backup_unit": 130,
+        "auto_integrity_preservation_seal": 260,
+        "blood_raider_net_resonator": 160
+      },
+      "description": "Blood Raider Pirate Battleship. Build Time: ~2d; Skills: Industry I (Pirate BPC drop)"
+    },
+    {
+      "name": "Vindicator",
+      "type": "Battleship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 8448000,
+        "pyerite": 2112000,
+        "mexallon": 739200,
+        "isogen": 105600,
+        "nocxium": 21120,
+        "zydrine": 7392,
+        "megacyte": 1848,
+        "life_support_backup_unit": 130,
+        "auto_integrity_preservation_seal": 260,
+        "serpentis_net_resonator": 160
+      },
+      "description": "Serpentis Pirate Battleship. Build Time: ~2d; Skills: Industry I (Pirate BPC drop)"
+    },
+    {
+      "name": "Mammoth",
+      "type": "Industrial",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 600000,
+        "pyerite": 90000,
+        "mexallon": 25000,
+        "isogen": 8000,
+        "nocxium": 1000,
+        "zydrine": 100,
+        "megacyte": 40
+      },
+      "description": "Tech I Industrial Ship. Build Time: ~8h; Skills: Industry I"
+    },
+    {
+      "name": "Wreathe",
+      "type": "Industrial",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 600000,
+        "pyerite": 90000,
+        "mexallon": 25000,
+        "isogen": 8000,
+        "nocxium": 1000,
+        "zydrine": 100,
+        "megacyte": 40
+      },
+      "description": "Tech I Industrial Ship. Build Time: ~8h; Skills: Industry I"
+    },
+    {
+      "name": "Hoarder",
+      "type": "Industrial",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 600000,
+        "pyerite": 90000,
+        "mexallon": 25000,
+        "isogen": 8000,
+        "nocxium": 1000,
+        "zydrine": 100,
+        "megacyte": 40
+      },
+      "description": "Tech I Industrial Ship. Build Time: ~8h; Skills: Industry I"
+    },
+    {
+      "name": "Mastodon",
+      "type": "Industrial",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "mammoth": 1,
+        "morphite": 75,
+        "ram_starship_tech": 9,
+        "plasma_thruster": 36,
+        "fernite_carbide_composite_armor_plate": 2835,
+        "ladar_sensor_cluster": 188,
+        "nanomechanical_microprocessor": 675,
+        "deflection_shield_emitter": 225,
+        "electrolytic_capacitor_unit": 225,
+        "construction_blocks": 75
+      },
+      "description": "Tech II Deep Space Transport. Build Time: ~12h; Skills: Industry V, Advanced Industrial Ship Construction IV, Minmatar Starship Engineering I, Molecular Engineering I"
+    },
+    {
+      "name": "Prowler",
+      "type": "Industrial",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "wreathe": 1,
+        "morphite": 75,
+        "ram_starship_tech": 9,
+        "plasma_thruster": 36,
+        "fernite_carbide_composite_armor_plate": 2835,
+        "ladar_sensor_cluster": 188,
+        "nanomechanical_microprocessor": 675,
+        "deflection_shield_emitter": 225,
+        "electrolytic_capacitor_unit": 225,
+        "construction_blocks": 75
+      },
+      "description": "Tech II Blockade Runner. Build Time: ~12h; Skills: Industry V, Advanced Industrial Ship Construction IV, Minmatar Starship Engineering I, Electronic Engineering I"
+    },
+    {
+      "name": "Fenrir",
+      "type": "Industrial",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 50000000,
+        "pyerite": 8000000,
+        "mexallon": 2500000,
+        "isogen": 200000,
+        "nocxium": 65000,
+        "zydrine": 20000,
+        "megacyte": 5000
+      },
+      "description": "Freighter. Build Time: ~3d; Skills: Industry V, Capital Ship Construction I"
+    },
+    {
+      "name": "Nomad",
+      "type": "Industrial",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "fenrir": 1,
+        "morphite": 3000,
+        "ram_starship_tech": 100,
+        "plasma_thruster": 1200,
+        "fernite_carbide_composite_armor_plate": 75000,
+        "ladar_sensor_cluster": 7500,
+        "nanomechanical_microprocessor": 22500,
+        "deflection_shield_emitter": 7500,
+        "electrolytic_capacitor_unit": 7500,
+        "construction_blocks": 2500
+      },
+      "description": "Jump Freighter. Build Time: ~3.5d; Skills: Industry V, Capital Ship Construction IV, Jump Drive Calibration V, Minmatar Starship Engineering IV"
+    },
+    {
+      "name": "Nidhoggur",
+      "type": "Capital Ship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 75000000,
+        "pyerite": 18000000,
+        "mexallon": 4500000,
+        "isogen": 450000,
+        "nocxium": 125000,
+        "zydrine": 45000,
+        "megacyte": 12000,
+        "capital_construction_parts": 6,
+        "capital_propulsion_engine": 1,
+        "capital_sensor_cluster": 1,
+        "capital_armor_plates": 4,
+        "capital_capacitor_battery": 1,
+        "capital_power_generator": 1,
+        "capital_cargo_bay": 1,
+        "capital_drone_bay": 1,
+        "capital_computer_system": 1
+      },
+      "description": "Carrier. Build Time: ~5d; Skills: Industry V, Capital Ship Construction IV"
+    },
+    {
+      "name": "Naglfar",
+      "type": "Capital Ship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 125000000,
+        "pyerite": 20000000,
+        "mexallon": 6500000,
+        "isogen": 800000,
+        "nocxium": 240000,
+        "zydrine": 65000,
+        "megacyte": 15000,
+        "capital_construction_parts": 9,
+        "capital_propulsion_engine": 1,
+        "capital_sensor_cluster": 1,
+        "capital_armor_plates": 8,
+        "capital_capacitor_battery": 1,
+        "capital_power_generator": 1,
+        "capital_cargo_bay": 1,
+        "capital_computer_system": 1,
+        "capital_siege_array": 1
+      },
+      "description": "Dreadnought. Build Time: ~7d; Skills: Industry V, Capital Ship Construction IV"
+    },
+    {
+      "name": "Hel",
+      "type": "Capital Ship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 175000000,
+        "pyerite": 32000000,
+        "mexallon": 8500000,
+        "isogen": 2200000,
+        "nocxium": 320000,
+        "zydrine": 75000,
+        "megacyte": 22000,
+        "capital_construction_parts": 14,
+        "capital_propulsion_engine": 2,
+        "capital_sensor_cluster": 2,
+        "capital_armor_plates": 16,
+        "capital_capacitor_battery": 2,
+        "capital_power_generator": 2,
+        "capital_cargo_bay": 1,
+        "capital_drone_bay": 1,
+        "capital_computer_system": 2,
+        "capital_jump_drive": 1
+      },
+      "description": "Supercarrier. Build Time: ~14d; Skills: Industry V, Capital Ship Construction IV, Jump Drive Calibration V"
+    },
+    {
+      "name": "Ragnarok",
+      "type": "Capital Ship",
+      "faction": "Minmatar",
+      "owned_status": false,
+      "materials": {
+        "tritanium": 240000000,
+        "pyerite": 56000000,
+        "mexallon": 14000000,
+        "isogen": 3400000,
+        "nocxium": 900000,
+        "zydrine": 180000,
+        "megacyte": 42000,
+        "capital_construction_parts": 20,
+        "capital_propulsion_engine": 3,
+        "capital_sensor_cluster": 3,
+        "capital_armor_plates": 24,
+        "capital_capacitor_battery": 3,
+        "capital_power_generator": 3,
+        "capital_cargo_bay": 1,
+        "capital_computer_system": 3,
+        "capital_jump_drive": 1,
+        "capital_doomsday_weapon": 1
+      },
+      "description": "Titan. Build Time: ~21d; Skills: Industry V, Capital Ship Construction IV, Jump Drive Calibration V"
+    }
+  ]
+}

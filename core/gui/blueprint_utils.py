@@ -5,7 +5,7 @@ Provides functions for blueprint ownership management and integration with the m
 
 import tkinter as tk
 from tkinter import messagebox
-from gui.blueprints_gui import BlueprintManager
+from core.gui.blueprints_gui import BlueprintManager
 
 def open_blueprint_editor(app, registry, blueprint_config, callback=None):
     """
@@ -99,7 +99,7 @@ def reset_ship_ownership(registry, blueprint_config, refresh_callback=None):
     Args:
         registry: The module registry
         blueprint_config: The blueprint configuration
-        refresh_callback: Optional callback to refresh the UI
+        refresh_callback: Optional callback to refresh the UI after reset
     
     Returns:
         bool: True if the reset was successful
@@ -132,7 +132,7 @@ def reset_ship_ownership(registry, blueprint_config, refresh_callback=None):
     
     # Save the changes
     try:
-        from config.blueprint_config import save_blueprint_ownership
+        from core.config.blueprint_config import save_blueprint_ownership
         
         # Run the save function
         success = save_blueprint_ownership(blueprint_config)
@@ -161,7 +161,7 @@ def apply_blueprint_changes(blueprint_config, registry):
         registry: The module registry
     """
     try:
-        from config.blueprint_config import save_blueprint_ownership, apply_blueprint_ownership
+        from core.config.blueprint_config import save_blueprint_ownership, apply_blueprint_ownership
         
         # Save the ownership
         save_blueprint_ownership(blueprint_config)

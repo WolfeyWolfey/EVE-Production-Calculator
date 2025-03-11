@@ -1,0 +1,148 @@
+{
+  "P2_Refined_Commodities": [
+    {
+      "name": "Biocells",
+      "inputs": ["Precious Metals", "Biofuels"],
+      "example_uses": "Used in capital ship components; component for Transcranial Microcontrollers (P3)",
+      "inputs_for_P3": ["Gel-Matrix Biopaste", "Neocoms", "Transcranial Microcontrollers"]
+    },
+    {
+      "name": "Construction Blocks",
+      "inputs": ["Toxic Metals", "Reactive Metals"],
+      "example_uses": "Used in Tech II component construction; input for Robotics, Smartfab Units (P3)",
+      "inputs_for_P3": ["Biotech Research Reports", "Smartfab Units"]
+    },
+    {
+      "name": "Consumer Electronics",
+      "inputs": ["Chiral Structures", "Toxic Metals"],
+      "example_uses": "Used in Tech II and research components; input for Robotics, Supercomputers (P3)",
+      "inputs_for_P3": ["Robotics", "Supercomputers"]
+    },
+    {
+      "name": "Coolant",
+      "inputs": ["Water", "Electrolytes"],
+      "example_uses": "Used in structure fuel (fuel blocks); input for Condensates, Supercomputers (P3)",
+      "inputs_for_P3": ["Condensates", "Supercomputers"]
+    },
+    {
+      "name": "Enriched Uranium",
+      "inputs": ["Toxic Metals", "Precious Metals"],
+      "example_uses": "Used in structure fuel (fuel blocks); input for Nuclear Reactors (P3)",
+      "inputs_for_P3": ["Nuclear Reactors"]
+    },
+    {
+      "name": "Fertilizer",
+      "inputs": ["Proteins", "Bacteria"],
+      "example_uses": "(No direct use) Used to make Industrial Explosives, Cryoprotectant Solution (P3)",
+      "inputs_for_P3": ["Cryoprotectant Solution", "Industrial Explosives"]
+    },
+    {
+      "name": "Genetically Enhanced Livestock",
+      "inputs": ["Biomass", "Proteins"],
+      "example_uses": "(No direct use) Used to make Hermetic Membranes (P3)",
+      "inputs_for_P3": ["Hermetic Membranes"]
+    },
+    {
+      "name": "Livestock",
+      "inputs": ["Biofuels", "Proteins"],
+      "example_uses": "(No direct use) Used to make Biotech Research Reports, Vaccines (P3)",
+      "inputs_for_P3": ["Biotech Research Reports", "Vaccines"]
+    },
+    {
+      "name": "Mechanical Parts",
+      "inputs": ["Precious Metals", "Reactive Metals"],
+      "example_uses": "Used in structure fuel, Tech II components; input for Planetary Vehicles, Robotics (P3)",
+      "inputs_for_P3": ["Planetary Vehicles", "Robotics"]
+    },
+    {
+      "name": "Microfiber Shielding",
+      "inputs": ["Silicon", "Industrial Fibers"],
+      "example_uses": "(No direct use) Used to make Data Chips, Nuclear Reactors (P3)",
+      "inputs_for_P3": ["Data Chips", "Nuclear Reactors"]
+    },
+    {
+      "name": "Miniature Electronics",
+      "inputs": ["Silicon", "Chiral Structures"],
+      "example_uses": "Used in Tech II components; input for Planetary Vehicles, Smartfab Units (P3)",
+      "inputs_for_P3": ["Planetary Vehicles", "Smartfab Units"]
+    },
+    {
+      "name": "Nanites",
+      "inputs": ["Reactive Metals", "Bacteria"],
+      "example_uses": "Used in Nanite Repair Paste (consumable); input for Biotech Reports, Transcranial Microcontrollers (P3)",
+      "inputs_for_P3": ["Biotech Research Reports", "Transcranial Microcontrollers"]
+    },
+    {
+      "name": "Oxides",
+      "inputs": ["Oxygen", "Oxidizing Compound"],
+      "example_uses": "(No direct use) Used to make Condensates, Gel-Matrix Biopaste (P3)",
+      "inputs_for_P3": ["Condensates", "Gel-Matrix Biopaste"]
+    },
+    {
+      "name": "Polyaramids",
+      "inputs": ["Industrial Fibers", "Oxidizing Compound"],
+      "example_uses": "(No direct use) Used to make Hermetic Membranes, High-Tech Transmitters (P3)",
+      "inputs_for_P3": ["Hermetic Membranes", "High-Tech Transmitters"]
+    },
+    {
+      "name": "Polytextiles",
+      "inputs": ["Industrial Fibers", "Biofuels"],
+      "example_uses": "(No direct use) Used to make Hazmat Detection Systems, Industrial Explosives (P3)",
+      "inputs_for_P3": ["Hazmat Detection Systems", "Industrial Explosives"]
+    },
+    {
+      "name": "Rocket Fuel",
+      "inputs": ["Electrolytes", "Plasmoids"],
+      "example_uses": "Used in Tech II missiles/ammunition; input for Camera Drones (P3)",
+      "inputs_for_P3": ["Camera Drones"]
+    },
+    {
+      "name": "Silicate Glass",
+      "inputs": ["Silicon", "Oxidizing Compound"],
+      "example_uses": "(No direct use) Used to make Camera Drones, Neocoms (P3)",
+      "inputs_for_P3": ["Camera Drones", "Neocoms"]
+    },
+    {
+      "name": "Superconductors",
+      "inputs": ["Water", "Plasmoids"],
+      "example_uses": "Used in some Tech II components; input for Gel-Matrix Biopaste, Ukomi Superconductors (P3)",
+      "inputs_for_P3": ["Gel-Matrix Biopaste", "Ukomi Superconductors"]
+    },
+    {
+      "name": "Supertensile Plastics",
+      "inputs": ["Biomass", "Oxygen"],
+      "example_uses": "(No direct use) Used to make Data Chips, Planetary Vehicles, Synthetic Synapses (P3)",
+      "inputs_for_P3": ["Data Chips", "Planetary Vehicles", "Synthetic Synapses"]
+    },
+    {
+      "name": "Synthetic Oil",
+      "inputs": ["Oxygen", "Electrolytes"],
+      "example_uses": "(No direct use) Used to make Cryoprotectant Solution, Ukomi Superconductors (P3)",
+      "inputs_for_P3": ["Cryoprotectant Solution", "Ukomi Superconductors"]
+    },
+    {
+      "name": "Test Cultures",
+      "inputs": ["Water", "Bacteria"],
+      "example_uses": "Used in capital ship components; input for Cryoprotectant Solution, Synthetic Synapses (P3)",
+      "inputs_for_P3": ["Cryoprotectant Solution", "Synthetic Synapses"]
+    },
+    {
+      "name": "Transmitter",
+      "inputs": ["Chiral Structures", "Plasmoids"],
+      "example_uses": "Used in Tech II components (e.g. sensors); input for Guidance Systems, Hazmat Detection Systems, High-Tech Transmitters (P3)",
+      "inputs_for_P3": ["Guidance Systems", "Hazmat Detection Systems", "High-Tech Transmitters"]
+    },
+    {
+      "name": "Viral Agent",
+      "inputs": ["Biomass", "Bacteria"],
+      "example_uses": "(No direct use) Used to make Hazmat Detection Systems, Vaccines (P3)",
+      "inputs_for_P3": ["Hazmat Detection Systems", "Vaccines"]
+    },
+    {
+      "name": "Water-Cooled CPU",
+      "inputs": ["Water", "Reactive Metals"],
+      "example_uses": "Used in Tech II industrial cores; input for Guidance Systems (P3)",
+      "inputs_for_P3": ["Guidance Systems"]
+    }
+  ]
+}

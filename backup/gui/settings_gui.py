@@ -6,8 +6,8 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import os
 
-from gui.gui_utils import create_button, create_label_frame, create_labeled_dropdown
-from config.settings import load_settings, save_settings
+from core.gui.gui_utils import create_button, create_label_frame, create_labeled_dropdown
+from core.config.settings import load_settings, save_settings
 
 class SettingsWindow(tk.Toplevel):
     """Settings window for EVE Production Calculator"""

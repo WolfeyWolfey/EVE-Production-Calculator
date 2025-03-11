@@ -7,7 +7,7 @@ import os
 import json
 import importlib.util
 import sys
-from utils.debug import debug_print
+from core.utils.debug import debug_print
 from typing import Dict, List, Any, Optional, Set, Tuple
 import glob
 
@@ -19,283 +19,181 @@ def load_ships(registry: ModuleRegistry, base_path: str):
     Load ship data from JSON files into the registry
     
     Args:
-        registry: The module registry
-        base_path: Base path of the application
-    """
-    # Store existing ownership status before loading
-    existing_ownership = {}
-    for ship in registry.get_all_ships():
-        existing_ownership[ship.name] = ship.owned_status
-    
-    # Initialize counters
-    ship_count = 0
-    capital_ship_count = 0
-    
-    # Create ships directory if it doesn't exist
-    ships_dir = os.path.join(base_path, 'data', 'ships')
-    if not os.path.exists(ships_dir):
-        os.makedirs(ships_dir)
-    
-    # Get all JSON files in the ships directory
-    ship_files = glob.glob(os.path.join(ships_dir, '*.json'))
-    
-    # If no files in ships directory, check for legacy ships.json in data directory
-    if not ship_files:
-        legacy_ship_path = os.path.join(base_path, 'data', 'ships.json')
-        if os.path.exists(legacy_ship_path):
-            ship_files = [legacy_ship_path]
-    
-    if not ship_files:
-        debug_print("No ship data files found")
-        return
-    
-    try:
-        # Combine all ship data from all files
-        all_ship_data = {}
-        
-        for ship_file in ship_files:
-            debug_print(f"Loading ship data from: {ship_file}")
-            try:
-                with open(ship_file, 'r') as f:
-                    file_data = json.load(f)
-                    
-                # Check if this file contains capital ships as a top-level key
-                if 'capital_ships' in file_data:
-                    # Process capital ships directly
-                    capital_ships_data = file_data.pop('capital_ships')
-                    for ship_type, ships in capital_ships_data.items():
-                        for ship_name, ship_data in ships.items():
-                            if 'display_name' in ship_data:
-                                # Create capital ship module
-                                capital_ship = CapitalShipModule(
-                                    name=ship_name,
-                                    display_name=ship_data.get('display_name', ship_name.title()),
-                                    requirements=ship_data.get('requirements', {}),
-                                    details=ship_data.get('details', ''),
-                                    faction=ship_data.get('faction', 'unknown'),
-                                    ship_type=ship_data.get('ship_type', ship_type),
-                                    # Use existing ownership status if available, otherwise default to "Unowned"
-                                    owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
-                                )
-                                
-                                # Register the capital ship
-                                registry.register_capital_ship(capital_ship)
-                                capital_ship_count += 1
-                
-                # Merge the remaining data (regular ships)
-                for key, value in file_data.items():
-                    if key in all_ship_data:
-                        # If the key already exists, merge the nested dictionaries
-                        if isinstance(value, dict) and isinstance(all_ship_data[key], dict):
-                            all_ship_data[key].update(value)
-                    else:
-                        # If the key doesn't exist, add it
-                        all_ship_data[key] = value
-            
-            except Exception as e:
-                debug_print(f"Error loading ship data from {ship_file}: {e}")
-        
-        # Process regular ships (hierarchical structure by faction)
-        for faction, faction_data in all_ship_data.items():
-            if isinstance(faction_data, dict):
-                # Process each ship class (frigates, destroyers, etc.)
-                for ship_class, class_data in faction_data.items():
-                    if isinstance(class_data, dict):
-                        # Process tech levels (tech1, tech2, etc.)
-                        for tech_level, tech_data in class_data.items():
-                            if isinstance(tech_data, dict):
-                                # Process individual ships
-                                for ship_name, ship_data in tech_data.items():
-                                    if isinstance(ship_data, dict) and 'display_name' in ship_data:
-                                        # Create ship module
-                                        ship = ShipModule(
-                                            name=ship_name,
-                                            display_name=ship_data.get('display_name', ship_name.title()),
-                                            requirements=ship_data.get('requirements', {}),
-                                            details=ship_data.get('details', ''),
-                                            faction=ship_data.get('faction', faction),
-                                            ship_type=ship_data.get('ship_type', ship_class),
-                                            # Use existing ownership status if available, otherwise use from data or default to "Unowned"
-                                            owned_status=ship_data.get('owned_status', "Unowned") == "Owned"
-                                        )
-                                        
-                                        # Register the ship
-                                        registry.register_ship(ship)
-                                        ship_count += 1
-        
-        debug_print(f"Loaded {ship_count} ships and {capital_ship_count} capital ships from {len(ship_files)} files")
-    
-    except Exception as e:
-        debug_print(f"Error loading ships: {e}")
-
-def process_ship_category(registry: ModuleRegistry, parent_key: str, category_data: Dict, existing_ownership: Dict = None):
-    """
-    Process a ship category and add to registry
-    
-    Args:
-        registry: The module registry
-        parent_key: Parent key for the ships (e.g. faction)
-        category_data: Data for this category
-        existing_ownership: Dictionary of existing ownership values
-    """
-    # Check if this is a ship or a nested category
-    if is_ship_data(category_data):
-        # This is a ship, extract tier if available
-        tier = category_data.get('tier', 1)
-        
-        # Create a ship module
-        ship_module = ShipModule(
-            name=parent_key.lower(),
-            display_name=category_data.get('display_name', parent_key.title()),
-            faction=category_data.get('faction', 'unknown'),
-            ship_type=category_data.get('type', 'unknown'),
-            tier=tier,
-            # Use existing ownership status if available, otherwise default to False
-            owned_status=existing_ownership.get(parent_key.lower(), False) if existing_ownership else False
-        )
-        
-        # Register the ship
-        registry.register_ship(ship_module)
-    else:
-        # This is a nested category, process each child
-        for key, value in category_data.items():
-            # Process child category
-            process_ship_category(registry, key, value, existing_ownership)
-
-def process_capital_ships(registry: ModuleRegistry, capital_ships_data: Dict, existing_ownership: Dict = None):
-    """
-    Process capital ships and add to registry
-    
-    Args:
-        registry: The module registry
-        capital_ships_data: Data for capital ships
-        existing_ownership: Dictionary of existing ownership values
-    """
-    # Process each capital ship
-    for ship_key, ship_data in capital_ships_data.items():
-        # Create a capital ship module
-        capital_ship = CapitalShipModule(
-            name=ship_key.lower(),
-            display_name=ship_data.get('display_name', ship_key.title()),
-            ship_type=ship_data.get('type', 'unknown'),
-            # Use existing ownership status if available, otherwise default to False
-            owned_status=existing_ownership.get(ship_key.lower(), False) if existing_ownership else False
-        )
-        
-        # Register the capital ship
-        registry.register_capital_ship(capital_ship)
-
-def is_ship_data(data: Dict) -> bool:
-    """
-    Check if a dictionary represents ship data
-    
-    Args:
-        data: Dictionary to check
-        
-    Returns:
-        True if this is ship data, False otherwise
-    """
-    # Ship data has display_name and requirements keys
-    return isinstance(data, dict) and 'display_name' in data and 'requirements' in data
-
-def load_capital_components(registry: ModuleRegistry, base_path: str):
-    """
-    Load capital components from JSON file
-    
-    Args:
         registry: The module registry to populate
         base_path: Base path of the application
     """
-    # Load capital components from JSON file
-    components_path = os.path.join(base_path, 'data', 'capitalcomponents.json')
+    ships_folder = os.path.join(base_path, 'core', 'data', 'ships')
     
-    try:
-        if os.path.exists(components_path):
-            with open(components_path, 'r') as f:
-                components_data = json.load(f)
-            
-            capital_components = components_data.get("capital_components", {})
-            for component_name, component_data in capital_components.items():
-                component = ComponentModule(
-                    name=component_name,
-                    display_name=component_data.get("display_name", component_name),
-                    requirements=component_data.get("requirements", {}),
-                    details=component_data.get("details", ""),
-                    owned_status=component_data.get("owned_status", False)
-                )
-                registry.register_capital_component(component)
+    # Debug output
+    debug_print(f"Loading ships from folder: {ships_folder}")
+    
+    if not os.path.exists(ships_folder):
+        debug_print(f"Ships folder not found: {ships_folder}")
+        return
+    
+    ship_files = glob.glob(os.path.join(ships_folder, "*.json"))
+    debug_print(f"Found {len(ship_files)} ship files")
+    
+    for ship_file in ship_files:
+        try:
+            with open(ship_file, 'r') as f:
+                ships_data = json.load(f)
+                debug_print(f"Loading ships from file: {ship_file}")
                 
-    except Exception as e:
-        debug_print(f"Error loading capital components: {e}")
+                # Check if the file uses the array format with a "ships" key
+                if "ships" in ships_data and isinstance(ships_data["ships"], list):
+                    # Extract filename to determine faction
+                    filename = os.path.basename(ship_file)
+                    faction = filename.split('_')[1].split('.')[0] if '_' in filename else "unknown"
+                    debug_print(f"Processing array-style ship data for faction: {faction}")
+                    
+                    # Process each ship in the array
+                    for ship_data in ships_data["ships"]:
+                        try:
+                            ship_name = ship_data.get("name", "Unknown Ship")
+                            
+                            # Create ship module
+                            registry.ships[ship_name] = ShipModule(
+                                name=ship_name,
+                                display_name=ship_name,
+                                requirements=ship_data.get("materials", {}),
+                                details=ship_data.get("description", ""),
+                                faction=ship_data.get("faction", faction),
+                                ship_type=ship_data.get("type", "Unknown"),
+                                owned_status=False  # Default to unowned
+                            )
+                            debug_print(f"Added ship: {ship_name} from faction {faction}")
+                        except Exception as e:
+                            debug_print(f"Error adding ship {ship_name}: {e}")
+                else:
+                    # Each file might have a faction key
+                    for faction, ships in ships_data.items():
+                        for ship_name, ship_data in ships.items():
+                            try:
+                                # Safe fallback for display name
+                                display_name = ship_data.get('display_name', ship_name)
+                                
+                                # Load ship into registry
+                                registry.ships[ship_name] = ShipModule(
+                                    name=ship_name,
+                                    display_name=display_name,
+                                    requirements=ship_data.get('requirements', {}),
+                                    details=ship_data.get('details', ''),
+                                    faction=faction,
+                                    ship_type=ship_data.get('ship_type', 'Unknown'),
+                                    owned_status=False  # Default to unowned
+                                )
+                                debug_print(f"Added ship: {display_name} from faction {faction}")
+                            except Exception as e:
+                                debug_print(f"Error loading ship {ship_name}: {e}")
+        except Exception as e:
+            debug_print(f"Error loading ship file {ship_file}: {e}")
 
 def load_components(registry: ModuleRegistry, base_path: str):
     """
-    Load components from JSON files and Python modules
+    Load component data from JSON files into the registry
     
     Args:
         registry: The module registry to populate
         base_path: Base path of the application
     """
-    # First load capital components
-    load_capital_components(registry, base_path)
+    components_folder = os.path.join(base_path, 'core', 'data', 'components')
+    debug_print(f"Loading components from folder: {components_folder}")
     
-    # Load regular components from JSON file
-    components_path = os.path.join(base_path, 'data', 'components.json')
+    if not os.path.exists(components_folder):
+        debug_print(f"Components folder not found: {components_folder}")
+        return
     
-    try:
-        if os.path.exists(components_path):
-            with open(components_path, 'r') as f:
+    component_files = glob.glob(os.path.join(components_folder, "*.json"))
+    debug_print(f"Found {len(component_files)} component files")
+    
+    for component_file in component_files:
+        try:
+            with open(component_file, 'r') as f:
                 components_data = json.load(f)
-            
-            components = components_data.get("components", {})
-            for component_name, component_data in components.items():
-                component = ComponentModule(
-                    name=component_name,
-                    display_name=component_data.get("display_name", component_name),
-                    requirements=component_data.get("requirements", {}),
-                    details=component_data.get("details", ""),
-                    owned_status=component_data.get("owned_status", False)
-                )
-                registry.register_component(component)
+                debug_print(f"Loading components from file: {component_file}")
                 
-    except Exception as e:
-        debug_print(f"Error loading components from JSON: {e}")
-    
-    # Also try loading from Python modules in Components directory
-    components_dir = os.path.join(base_path, 'Components')
-    
-    if os.path.exists(components_dir):
-        components_loaded = 0
-        for filename in os.listdir(components_dir):
-            if filename.endswith('.py'):
-                # Module name is the filename without extension
-                module_name = filename[:-3]
+                # Check if we're dealing with capital components
+                is_capital = 'capital' in os.path.basename(component_file).lower()
                 
-                # Construct absolute path to the module
-                module_path = os.path.join(components_dir, filename)
+                # Handle possible nested structure where components are under a key
+                if is_capital and 'capital_components' in components_data:
+                    components_data = components_data['capital_components']
+                elif not is_capital and 'components' in components_data:
+                    components_data = components_data['components']
                 
-                try:
-                    # Create a module spec and load the module
-                    spec = importlib.util.spec_from_file_location(module_name, module_path)
-                    module = importlib.util.module_from_spec(spec)
-                    spec.loader.exec_module(module)
-                    
-                    # Check if module has required attributes
-                    if hasattr(module, 'display_name'):
+                for component_name, component_data in components_data.items():
+                    try:
+                        # Safe fallback for display name
+                        display_name = component_data.get('display_name', component_name)
+                        
                         # Create component module
                         component = ComponentModule(
-                            name=module_name,
-                            display_name=getattr(module, 'display_name', module_name),
-                            requirements=getattr(module, module_name + '_requirements', {}),
-                            details=getattr(module, 'details', ''),
-                            owned_status=getattr(module, 'owned_status', False)
+                            name=component_name,
+                            display_name=display_name,
+                            requirements=component_data.get('requirements', {}),
+                            details=component_data.get('details', ''),
+                            owned_status=False  # Default to unowned
                         )
                         
-                        # Register component
-                        registry.register_component(component)
-                        components_loaded += 1
-                except Exception as e:
-                    debug_print(f"Error loading component module {module_path}: {e}")
+                        # Add to appropriate registry
+                        if is_capital:
+                            registry.capital_components[component_name] = component
+                            debug_print(f"Added capital component: {display_name}")
+                        else:
+                            registry.components[component_name] = component
+                            debug_print(f"Added component: {display_name}")
+                    except Exception as e:
+                        debug_print(f"Error loading component {component_name}: {e}")
+        except Exception as e:
+            debug_print(f"Error loading component file {component_file}: {e}")
+
+def load_capital_ships(registry: ModuleRegistry, base_path: str):
+    """
+    Load capital ship data from JSON files into the registry
+    
+    Args:
+        registry: The module registry to populate
+        base_path: Base path of the application
+    """
+    capital_ships_folder = os.path.join(base_path, 'core', 'data', 'capital_ships')
+    debug_print(f"Loading capital ships from folder: {capital_ships_folder}")
+    
+    if not os.path.exists(capital_ships_folder):
+        debug_print(f"Capital ships folder not found: {capital_ships_folder}")
+        return
+    
+    ship_files = glob.glob(os.path.join(capital_ships_folder, "*.json"))
+    debug_print(f"Found {len(ship_files)} capital ship files")
+    
+    for ship_file in ship_files:
+        try:
+            with open(ship_file, 'r') as f:
+                ships_data = json.load(f)
+                debug_print(f"Loading capital ships from file: {ship_file}")
+                
+                # Each file might have a faction key
+                for faction, ships in ships_data.items():
+                    for ship_name, ship_data in ships.items():
+                        try:
+                            # Safe fallback for display name
+                            display_name = ship_data.get('display_name', ship_name)
+                            
+                            # Load ship into registry
+                            registry.capital_ships[ship_name] = CapitalShipModule(
+                                name=ship_name,
+                                display_name=display_name,
+                                components=ship_data.get('components', {}),
+                                details=ship_data.get('details', ''),
+                                faction=faction,
+                                ship_type=ship_data.get('ship_type', 'Capital'),
+                                owned_status=False  # Default to unowned
+                            )
+                            debug_print(f"Added capital ship: {display_name} from faction {faction}")
+                        except Exception as e:
+                            debug_print(f"Error loading capital ship {ship_name}: {e}")
+        except Exception as e:
+            debug_print(f"Error loading capital ship file {ship_file}: {e}")
 
 def load_pi_data(registry: ModuleRegistry, base_path: str):
     """
@@ -305,11 +203,11 @@ def load_pi_data(registry: ModuleRegistry, base_path: str):
         registry: The module registry to populate
         base_path: Base path of the application
     """
-    pi_folder = os.path.join(base_path, 'data', 'PI')
+    pi_folder = os.path.join(base_path, 'core', 'data', 'PI')
     
     # If the PI folder doesn't exist, fallback to the legacy file
     if not os.path.exists(pi_folder):
-        legacy_pi_path = os.path.join(base_path, 'data', 'PI_Components.json')
+        legacy_pi_path = os.path.join(base_path, 'core', 'data', 'PI_Components.json')
         debug_print(f"PI folder not found, trying legacy path: {legacy_pi_path}")
         
         try:
@@ -321,293 +219,111 @@ def load_pi_data(registry: ModuleRegistry, base_path: str):
             debug_print(f"Error loading legacy PI data: {e}")
         return
     
-    debug_print(f"Loading PI data from folder: {pi_folder}")
+    # Process each PI level file (P0, P1, P2, P3, P4)
+    pi_files = glob.glob(os.path.join(pi_folder, "*.json"))
+    debug_print(f"Found {len(pi_files)} PI data files")
     
-    # Load P0 components
-    p0_path = os.path.join(pi_folder, 'P0_PI_Components.json')
-    if os.path.exists(p0_path):
+    for pi_file in pi_files:
         try:
-            with open(p0_path, 'r') as f:
-                p0_data = json.load(f)
-                debug_print(f"Loading P0 PI components from: {p0_path}")
-                load_pi_data_from_dict(registry, p0_data)
+            with open(pi_file, 'r', encoding='utf-8') as f:
+                pi_data = json.load(f)
+                debug_print(f"Loading PI data from file: {pi_file}")
+                
+                # Extract PI level from filename (P0, P1, P2, P3, P4)
+                filename = os.path.basename(pi_file)
+                pi_level = filename.split('_')[0] if '_' in filename else 'unknown'
+                
+                # PI files use a category key with an array of materials
+                for category_name, materials_list in pi_data.items():
+                    if isinstance(materials_list, list):
+                        # Process array-style PI data
+                        for material_data in materials_list:
+                            try:
+                                material_name = material_data.get('name', 'Unknown Material')
+                                
+                                registry.pi_materials[material_name] = PiMaterialModule(
+                                    name=material_name,
+                                    display_name=material_name,
+                                    pi_level=pi_level,
+                                    requirements={},  # Empty requirements for P0 materials
+                                    details=material_data.get('description', ''),
+                                    planet_types=material_data.get('harvestable_planet_types', []),
+                                    outputs={'refines_to': material_data.get('refines_to_P1', '')}
+                                )
+                                debug_print(f"Added PI material: {material_name} (Level: {pi_level})")
+                            except Exception as e:
+                                debug_print(f"Error adding PI material {material_name}: {e}")
         except Exception as e:
-            debug_print(f"Error loading P0 PI data: {e}")
-    else:
-        debug_print(f"P0 PI components file not found: {p0_path}")
-    
-    # Load P1 components
-    p1_path = os.path.join(pi_folder, 'P1_PI_Components.json')
-    if os.path.exists(p1_path):
-        try:
-            with open(p1_path, 'r') as f:
-                p1_data = json.load(f)
-                debug_print(f"Loading P1 PI components from: {p1_path}")
-                load_pi_data_from_dict(registry, p1_data)
-        except Exception as e:
-            debug_print(f"Error loading P1 PI data: {e}")
-    else:
-        debug_print(f"P1 PI components file not found: {p1_path}")
-    
-    # Load P2 components
-    p2_path = os.path.join(pi_folder, 'P2_PI_Components.json')
-    if os.path.exists(p2_path):
-        try:
-            with open(p2_path, 'r') as f:
-                p2_data = json.load(f)
-                debug_print(f"Loading P2 PI components from: {p2_path}")
-                load_pi_data_from_dict(registry, p2_data)
-        except Exception as e:
-            debug_print(f"Error loading P2 PI data: {e}")
-    else:
-        debug_print(f"P2 PI components file not found: {p2_path}")
-    
-    # Load P3 components
-    p3_path = os.path.join(pi_folder, 'P3_PI_Components.json')
-    if os.path.exists(p3_path):
-        try:
-            with open(p3_path, 'r') as f:
-                p3_data = json.load(f)
-                debug_print(f"Loading P3 PI components from: {p3_path}")
-                load_pi_data_from_dict(registry, p3_data)
-        except Exception as e:
-            debug_print(f"Error loading P3 PI data: {e}")
-    else:
-        debug_print(f"P3 PI components file not found: {p3_path}")
-    
-    # Load P4 components
-    p4_path = os.path.join(pi_folder, 'P4_PI_Components.json')
-    if os.path.exists(p4_path):
-        try:
-            with open(p4_path, 'r') as f:
-                p4_data = json.load(f)
-                debug_print(f"Loading P4 PI components from: {p4_path}")
-                load_pi_data_from_dict(registry, p4_data)
-        except Exception as e:
-            debug_print(f"Error loading P4 PI data: {e}")
-    else:
-        debug_print(f"P4 PI components file not found: {p4_path}")
-    
-    debug_print("Finished loading all PI component files")
+            debug_print(f"Error loading PI file {pi_file}: {e}")
 
-def load_pi_data_from_dict(registry: ModuleRegistry, pi_data: dict):
+def load_pi_data_from_dict(registry: ModuleRegistry, pi_data: Dict[str, Any]):
     """
-    Process PI data from a dictionary and add to registry
+    Load PI data from a dictionary
     
     Args:
         registry: The module registry to populate
-        pi_data: Dictionary containing PI component data
+        pi_data: Dictionary containing PI data
     """
-    # Initialize counters for each PI level
-    p0_count = 0
-    p1_count = 0
-    p2_count = 0
-    p3_count = 0
-    p4_count = 0
-    
-    # Process P0 materials (raw materials)
-    if 'P0_Raw_Materials' in pi_data:
-        for material in pi_data['P0_Raw_Materials']:
-            name = material['name']
+    try:
+        # Process each PI level
+        for pi_level, materials in pi_data.items():
+            debug_print(f"Loading PI level: {pi_level}")
             
-            # Create a standardized details string
-            details = f"P0 Raw Material: {name}\n\n"
-            details += f"Harvestable from: {', '.join(material.get('harvestable_planet_types', []))}\n\n"
-            details += f"Refines to: {material.get('refines_to_P1', 'Unknown')}\n"
+            # Clean up pi_level to match expected format (p0, p1, p2, etc.)
+            clean_level = pi_level.lower().replace('_materials', '')
             
-            # Create PiMaterialModule
-            pi_material = PiMaterialModule(
-                name=name.lower().replace(' ', '_'),
-                display_name=name,
-                requirements={},  # P0 materials have no requirements
-                details=details,
-                pi_level="P0",
-                planet_types=material.get('harvestable_planet_types', []),
-                outputs={material.get('refines_to_P1', ''): 1}
-            )
+            # Add to registry.pi_data
+            if clean_level not in registry.pi_data:
+                registry.pi_data[clean_level] = {}
             
-            # Register in registry
-            registry.register_pi_material(pi_material)
-            p0_count += 1
-    
-    # Process P1 materials (processed materials)
-    if 'P1_Processed_Materials' in pi_data:
-        for material in pi_data['P1_Processed_Materials']:
-            name = material['name']
-            
-            # Create a standardized details string
-            details = f"P1 Processed Material: {name}\n\n"
-            details += f"Produced from: {material.get('produced_from_P0', 'Unknown')}\n\n"
-            if 'example_uses' in material and material['example_uses'] != "None known":
-                details += f"Uses: {material['example_uses']}\n\n"
-            if 'inputs_for_P2' in material:
-                details += "Used in P2 Materials:\n"
-                for output in material['inputs_for_P2']:
-                    details += f"- {output}\n"
-            
-            # Create PiMaterialModule
-            pi_material = PiMaterialModule(
-                name=name.lower().replace(' ', '_'),
-                display_name=name,
-                requirements={material.get('produced_from_P0', ''): 3000},  # P1 standard requirement
-                details=details,
-                pi_level="P1"
-            )
-            
-            # Register in registry
-            registry.register_pi_material(pi_material)
-            p1_count += 1
-    
-    # Process P2 materials (refined commodities)
-    if 'P2_Refined_Commodities' in pi_data:
-        for material in pi_data['P2_Refined_Commodities']:
-            name = material['name']
-            
-            # Create a standardized details string
-            details = f"P2 Refined Commodity: {name}\n\n"
-            if 'inputs' in material:
-                details += "Input Requirements:\n"
-                for input_mat in material['inputs']:
-                    details += f"- {input_mat}: 40\n"  # P2 standard requirement
-            details += "\n"
-            if 'example_uses' in material and material['example_uses'] != "(No direct use)":
-                details += f"Uses: {material['example_uses']}\n\n"
-            if 'inputs_for_P3' in material:
-                details += "Used in P3 Materials:\n"
-                for output in material['inputs_for_P3']:
-                    details += f"- {output}\n"
-            
-            # Create input requirements dictionary
-            requirements = {}
-            if 'inputs' in material:
-                for input_mat in material['inputs']:
-                    requirements[input_mat] = 40  # P2 standard requirement
-            
-            # Create PiMaterialModule
-            pi_material = PiMaterialModule(
-                name=name.lower().replace(' ', '_'),
-                display_name=name,
-                requirements=requirements,
-                details=details,
-                pi_level="P2"
-            )
-            
-            # Register in registry
-            registry.register_pi_material(pi_material)
-            p2_count += 1
-    
-    # Process P3 materials (specialized commodities)
-    if 'P3_Specialized_Commodities' in pi_data:
-        for material in pi_data['P3_Specialized_Commodities']:
-            name = material['name']
-            
-            # Create a standardized details string
-            details = f"P3 Specialized Commodity: {name}\n\n"
-            if 'inputs' in material:
-                details += "Input Requirements:\n"
-                for input_mat in material['inputs']:
-                    details += f"- {input_mat}: 10\n"  # P3 standard requirement
-            details += "\n"
-            if 'example_uses' in material and material['example_uses'] != "(No direct use)":
-                details += f"Uses: {material['example_uses']}\n\n"
-            if 'inputs_for_P4' in material:
-                details += "Used in P4 Materials:\n"
-                for output in material['inputs_for_P4']:
-                    details += f"- {output}\n"
-            
-            # Create input requirements dictionary
-            requirements = {}
-            if 'inputs' in material:
-                for input_mat in material['inputs']:
-                    requirements[input_mat] = 10  # P3 standard requirement
-            
-            # Create PiMaterialModule
-            pi_material = PiMaterialModule(
-                name=name.lower().replace(' ', '_'),
-                display_name=name,
-                requirements=requirements,
-                details=details,
-                pi_level="P3"
-            )
-            
-            # Register in registry
-            registry.register_pi_material(pi_material)
-            p3_count += 1
-    
-    # Process P4 materials (advanced commodities)
-    if 'P4_Advanced_Commodities' in pi_data:
-        for material in pi_data['P4_Advanced_Commodities']:
-            name = material['name']
-            
-            # Create a standardized details string
-            details = f"P4 Advanced Commodity: {name}\n\n"
-            if 'inputs' in material:
-                details += "Input Requirements:\n"
-                for input_mat in material['inputs']:
-                    details += f"- {input_mat}: 6\n"  # P4 standard requirement
-            details += "\n"
-            if 'ultimate_use' in material:
-                details += f"Uses: {material['ultimate_use']}\n"
-            
-            # Create input requirements dictionary
-            requirements = {}
-            if 'inputs' in material:
-                for input_mat in material['inputs']:
-                    requirements[input_mat] = 6  # P4 standard requirement
-            
-            # Create PiMaterialModule
-            pi_material = PiMaterialModule(
-                name=name.lower().replace(' ', '_'),
-                display_name=name,
-                requirements=requirements,
-                details=details,
-                pi_level="P4"
-            )
-            
-            # Register in registry
-            registry.register_pi_material(pi_material)
-            p4_count += 1
-    
-    # Log the total number of PI materials loaded
-    debug_print(f"Registered PI materials: P0: {p0_count}, P1: {p1_count}, P2: {p2_count}, P3: {p3_count}, P4: {p4_count}")
+            # Process each material in this level
+            for material_name, material_data in materials.items():
+                try:
+                    # Add to registry
+                    registry.pi_materials[material_name] = PiMaterialModule(
+                        name=material_name,
+                        display_name=material_data.get('display_name', material_name),
+                        requirements=material_data.get('requirements', {}),
+                        details=material_data.get('details', ''),
+                        pi_level=clean_level,
+                        planet_types=material_data.get('planet_types', []),
+                        outputs=material_data.get('outputs', {})
+                    )
+                    
+                    # Also track in PI data by level
+                    registry.pi_data[clean_level][material_name] = material_data
+                    
+                    debug_print(f"Added PI material: {material_name} (Level: {clean_level})")
+                except Exception as e:
+                    debug_print(f"Error loading PI material {material_name}: {e}")
+    except Exception as e:
+        debug_print(f"Error in load_pi_data_from_dict: {e}")
 
-def load_ore_data(base_path: str):
+def load_ore_data(registry: ModuleRegistry, base_path: str):
     """
-    Load ore data from ore.json
+    Load ore data from JSON files
     
     Args:
+        registry: The module registry to populate
         base_path: Base path of the application
-        
-    Returns:
-        dict: Dictionary of ore data
     """
-    import json
+    # Try multiple possible ore data file names
+    possible_ore_paths = [
+        os.path.join(base_path, 'core', 'data', 'ores.json'),
+        os.path.join(base_path, 'core', 'data', 'ore.json')
+    ]
     
-    ore_data_path = os.path.join(base_path, 'data', 'ore.json')
-    
-    try:
-        with open(ore_data_path, 'r') as f:
-            ore_json = json.load(f)
-            
-        # Convert the structured JSON into a flat dictionary for compatibility with existing code
-        flat_ore_data = {}
-        for sec_level, ores in ore_json['ores'].items():
-            for ore_key, ore_info in ores.items():
-                flat_ore_data[ore_info['display_name']] = ore_info['yields']
-                
-        return flat_ore_data
+    for ore_path in possible_ore_paths:
+        debug_print(f"Trying to load ore data from: {ore_path}")
         
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        debug_print(f"Error loading ore data: {e}")
-        # Fallback to the original ore_data if JSON loading fails
-        try:
-            import importlib.util
-            old_ore_data_path = os.path.join(base_path, 'ore_data.py')
-            spec = importlib.util.spec_from_file_location('ore_data', old_ore_data_path)
-            module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(module)
-            debug_print("Falling back to original ore_data.py")
-            return module.ore_data
-        except Exception as e2:
-            debug_print(f"Fatal error, could not load ore data: {e2}")
-            return {}
+        if os.path.exists(ore_path):
+            try:
+                with open(ore_path, 'r', encoding='utf-8') as f:
+                    ore_data = json.load(f)
+                    debug_print(f"Loaded ore data with {len(ore_data)} entries")
+                    registry.ores = ore_data
+                    return
+            except Exception as e:
+                debug_print(f"Error loading ore data from {ore_path}: {e}")
+    
+    debug_print("Could not find any ore data files")

@@ -10,10 +10,10 @@ import os
 import platform
 import re
 
-from config.blueprint_config import save_blueprint_ownership, update_blueprint_ownership
-from config.blueprint_config import get_blueprint_ownership, get_blueprint_me, get_blueprint_te
-from config.blueprint_config import update_blueprint_me, update_blueprint_te
-from utils.debug import debug_print
+from core.config.blueprint_config import save_blueprint_ownership, update_blueprint_ownership
+from core.config.blueprint_config import get_blueprint_ownership, get_blueprint_me, get_blueprint_te
+from core.config.blueprint_config import update_blueprint_me, update_blueprint_te
+from core.utils.debug import debug_print
 
 class BlueprintManager:
     """
@@ -767,7 +767,7 @@ class BlueprintManager:
             self.update_all_ownership_values()
             
             # Import the function directly here to avoid any import issues
-            from config.blueprint_config import save_blueprint_ownership
+            from core.config.blueprint_config import save_blueprint_ownership
             
             # Save the configuration directly
             result = save_blueprint_ownership(self.blueprint_config)
@@ -776,7 +776,7 @@ class BlueprintManager:
                 self.status_var.set("Blueprint ownership settings saved successfully")
                 
                 # Apply ownership settings to the registry to ensure they take effect immediately
-                from config.blueprint_config import apply_blueprint_ownership
+                from core.config.blueprint_config import apply_blueprint_ownership
                 
                 # Apply updated ownership to the module registry
                 apply_blueprint_ownership(self.blueprint_config, self.module_registry)
@@ -990,7 +990,7 @@ class BlueprintManager:
                         self.blueprint_config['capital_ship_blueprints'][ship_name]['owned'] = False
             
             # Save the updated configuration
-            from config.blueprint_config import save_blueprint_ownership
+            from core.config.blueprint_config import save_blueprint_ownership
             success = save_blueprint_ownership(self.blueprint_config)
             
             if success:

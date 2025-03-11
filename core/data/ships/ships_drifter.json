@@ -1,0 +1,118 @@
+{
+  "drifter": {
+    "battleships": {
+      "tech1": {
+        "apollo": {
+          "display_name": "Apollo Tyrannos",
+          "ship_type": "Battleship",
+          "faction": "Drifter",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 10000000,
+            "Pyerite": 5000000,
+            "Mexallon": 800000,
+            "Isogen": 500000,
+            "Nocxium": 45000,
+            "Zydrine": 15000,
+            "Megacyte": 8500,
+            "Drifter Neural Cortex": 45,
+            "Drifter Hyper-Processing Unit": 45,
+            "Advanced Quantum Core": 25,
+            "Auto-Integrity Preservation Seal": 280,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 140
+          },
+          "details": "Apollo Tyrannos\nType: Drifter Battleship\nBase Build Time: 6h\nRequired Skill: Advanced Shipbuilding III\n\nMaterials:\n- Tritanium: 10000000\n- Pyerite: 5000000\n- Mexallon: 800000\n- Isogen: 500000\n- Nocxium: 45000\n- Zydrine: 15000\n- Megacyte: 8500\n- Drifter Neural Cortex: 45\n- Drifter Hyper-Processing Unit: 45\n- Advanced Quantum Core: 25\n- Auto-Integrity Preservation Seal: 280\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 140\n\nDrifter ships require special materials obtained from Drifter encounters."
+        },
+        "artemis": {
+          "display_name": "Artemis Tyrannos",
+          "ship_type": "Battleship",
+          "faction": "Drifter",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 10000000,
+            "Pyerite": 5000000,
+            "Mexallon": 800000,
+            "Isogen": 500000,
+            "Nocxium": 45000,
+            "Zydrine": 15000,
+            "Megacyte": 8500,
+            "Drifter Neural Cortex": 45,
+            "Drifter Hyper-Processing Unit": 45,
+            "Advanced Quantum Core": 25,
+            "Auto-Integrity Preservation Seal": 280,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 140
+          },
+          "details": "Artemis Tyrannos\nType: Drifter Battleship\nBase Build Time: 6h\nRequired Skill: Advanced Shipbuilding III\n\nMaterials:\n- Tritanium: 10000000\n- Pyerite: 5000000\n- Mexallon: 800000\n- Isogen: 500000\n- Nocxium: 45000\n- Zydrine: 15000\n- Megacyte: 8500\n- Drifter Neural Cortex: 45\n- Drifter Hyper-Processing Unit: 45\n- Advanced Quantum Core: 25\n- Auto-Integrity Preservation Seal: 280\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 140\n\nDrifter ships require special materials obtained from Drifter encounters."
+        },
+        "barbatos": {
+          "display_name": "Barbatos Tyrannos",
+          "ship_type": "Battleship",
+          "faction": "Drifter",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 10000000,
+            "Pyerite": 5000000,
+            "Mexallon": 800000,
+            "Isogen": 500000,
+            "Nocxium": 45000,
+            "Zydrine": 15000,
+            "Megacyte": 8500,
+            "Drifter Neural Cortex": 45,
+            "Drifter Hyper-Processing Unit": 45,
+            "Advanced Quantum Core": 25,
+            "Auto-Integrity Preservation Seal": 280,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 140
+          },
+          "details": "Barbatos Tyrannos\nType: Drifter Battleship\nBase Build Time: 6h\nRequired Skill: Advanced Shipbuilding III\n\nMaterials:\n- Tritanium: 10000000\n- Pyerite: 5000000\n- Mexallon: 800000\n- Isogen: 500000\n- Nocxium: 45000\n- Zydrine: 15000\n- Megacyte: 8500\n- Drifter Neural Cortex: 45\n- Drifter Hyper-Processing Unit: 45\n- Advanced Quantum Core: 25\n- Auto-Integrity Preservation Seal: 280\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 140\n\nDrifter ships require special materials obtained from Drifter encounters."
+        },
+        "kronos": {
+          "display_name": "Kronos Tyrannos",
+          "ship_type": "Battleship",
+          "faction": "Drifter",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 10000000,
+            "Pyerite": 5000000,
+            "Mexallon": 800000,
+            "Isogen": 500000,
+            "Nocxium": 45000,
+            "Zydrine": 15000,
+            "Megacyte": 8500,
+            "Drifter Neural Cortex": 45,
+            "Drifter Hyper-Processing Unit": 45,
+            "Advanced Quantum Core": 25,
+            "Auto-Integrity Preservation Seal": 280,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 140
+          },
+          "details": "Kronos Tyrannos\nType: Drifter Battleship\nBase Build Time: 6h\nRequired Skill: Advanced Shipbuilding III\n\nMaterials:\n- Tritanium: 10000000\n- Pyerite: 5000000\n- Mexallon: 800000\n- Isogen: 500000\n- Nocxium: 45000\n- Zydrine: 15000\n- Megacyte: 8500\n- Drifter Neural Cortex: 45\n- Drifter Hyper-Processing Unit: 45\n- Advanced Quantum Core: 25\n- Auto-Integrity Preservation Seal: 280\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 140\n\nDrifter ships require special materials obtained from Drifter encounters."
+        },
+        "hikanta": {
+          "display_name": "Hikanta Tyrannos",
+          "ship_type": "Battleship",
+          "faction": "Drifter",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 10000000,
+            "Pyerite": 5000000,
+            "Mexallon": 800000,
+            "Isogen": 500000,
+            "Nocxium": 45000,
+            "Zydrine": 15000,
+            "Megacyte": 8500,
+            "Drifter Neural Cortex": 45,
+            "Drifter Hyper-Processing Unit": 45,
+            "Advanced Quantum Core": 25,
+            "Auto-Integrity Preservation Seal": 280,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 140
+          },
+          "details": "Hikanta Tyrannos\nType: Drifter Battleship\nBase Build Time: 6h\nRequired Skill: Advanced Shipbuilding III\n\nMaterials:\n- Tritanium: 10000000\n- Pyerite: 5000000\n- Mexallon: 800000\n- Isogen: 500000\n- Nocxium: 45000\n- Zydrine: 15000\n- Megacyte: 8500\n- Drifter Neural Cortex: 45\n- Drifter Hyper-Processing Unit: 45\n- Advanced Quantum Core: 25\n- Auto-Integrity Preservation Seal: 280\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 140\n\nDrifter ships require special materials obtained from Drifter encounters."
+        }
+      }
+    }
+  }
+}

@@ -179,16 +179,18 @@ class ModuleRegistry:
                 return material
         return None
     
-    def get_pi_materials_by_level(self, pi_level: str):
+    def get_pi_materials_by_level(self, pi_level: Optional[str] = None):
         """
         Get PI materials filtered by level (P0, P1, P2, P3, P4)
         
         Args:
-            pi_level: The PI level to filter by
+            pi_level: The PI level to filter by, or None to get all materials
             
         Returns:
             List of PiMaterialModule objects at the specified level
         """
+        if pi_level is None:
+            return list(self.pi_materials.values())
         return [m for m in self.pi_materials.values() if m.pi_level == pi_level]
     
     def get_all_pi_materials(self):

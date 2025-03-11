@@ -1,0 +1,44 @@
+{
+  "P4_Advanced_Commodities": [
+    {
+      "name": "Broadcast Node",
+      "inputs": ["Neocoms", "Data Chips", "High-Tech Transmitters"],
+      "ultimate_use": "Used for Upwell structure construction (e.g. Citadels) and sovereignty infrastructure upgrades; also in certain capital ship modules."
+    },
+    {
+      "name": "Integrity Response Drones",
+      "inputs": ["Gel-Matrix Biopaste", "Hazmat Detection Systems", "Planetary Vehicles"],
+      "ultimate_use": "Used for Upwell structures and Sov upgrades (e.g. Infrastructure Hubs); also in some capital ship modules."
+    },
+    {
+      "name": "Nano-Factory",
+      "inputs": ["Industrial Explosives", "Ukomi Superconductors", "Reactive Metals"],
+      "ultimate_use": "Used for structures/sov upgrades and in some advanced implant manufacturing (e.g. Nirvana, Hydra implant sets)."
+    },
+    {
+      "name": "Organic Mortar Applicators",
+      "inputs": ["Condensates", "Robotics", "Bacteria"],
+      "ultimate_use": "Used for structures and deployable structures (e.g. Mobile Backup Units)."
+    },
+    {
+      "name": "Recursive Computing Module",
+      "inputs": ["Synthetic Synapses", "Guidance Systems", "Transcranial Microcontrollers"],
+      "ultimate_use": "Used for structures/sov upgrades and high-end capital ship components."
+    },
+    {
+      "name": "Self-Harmonizing Power Core",
+      "inputs": ["Camera Drones", "Nuclear Reactors", "Hermetic Membranes"],
+      "ultimate_use": "Used for structures/sov upgrades and some capital modules (e.g. Doomsday devices)."
+    },
+    {
+      "name": "Sterile Conduits",
+      "inputs": ["Smartfab Units", "Vaccines", "Water"],
+      "ultimate_use": "Used for structures/sov upgrades and capital ship construction (structure components)."
+    },
+    {
+      "name": "Wetware Mainframe",
+      "inputs": ["Supercomputers", "Biotech Research Reports", "Cryoprotectant Solution"],
+      "ultimate_use": "Used for structures/sov upgrades, capital modules, and some mobile structures (e.g. Cyno Beacon)."
+    }
+  ]
+}

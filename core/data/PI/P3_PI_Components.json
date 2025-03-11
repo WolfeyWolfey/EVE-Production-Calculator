@@ -1,0 +1,130 @@
+{
+  "P3_Specialized_Commodities": [
+    {
+      "name": "Biotech Research Reports",
+      "inputs": ["Nanites", "Livestock", "Construction Blocks"],
+      "example_uses": "(No direct use by itself) Component for Wetware Mainframe (P4)",
+      "inputs_for_P4": ["Wetware Mainframe"]
+    },
+    {
+      "name": "Camera Drones",
+      "inputs": ["Silicate Glass", "Rocket Fuel"],
+      "example_uses": "Used in Tactical Capsuleer Recloner module; component for Self-Harmonizing Power Core (P4)",
+      "inputs_for_P4": ["Self-Harmonizing Power Core"]
+    },
+    {
+      "name": "Condensates",
+      "inputs": ["Oxides", "Coolant"],
+      "example_uses": "(No direct use) Component for Organic Mortar Applicators (P4)",
+      "inputs_for_P4": ["Organic Mortar Applicators"]
+    },
+    {
+      "name": "Cryoprotectant Solution",
+      "inputs": ["Test Cultures", "Synthetic Oil", "Fertilizer"],
+      "example_uses": "Used in manufacturing advanced implants and boosters (e.g. Ascendancy, Hydra); component for Wetware Mainframe (P4)",
+      "inputs_for_P4": ["Wetware Mainframe"]
+    },
+    {
+      "name": "Data Chips",
+      "inputs": ["Supertensile Plastics", "Microfiber Shielding"],
+      "example_uses": "Used in Nanite Repair Paste; component for Broadcast Node (P4)",
+      "inputs_for_P4": ["Broadcast Node"]
+    },
+    {
+      "name": "Gel-Matrix Biopaste",
+      "inputs": ["Oxides", "Biocells", "Superconductors"],
+      "example_uses": "Used in Nanite Repair Paste and implant manufacturing; component for Integrity Response Drones (P4)",
+      "inputs_for_P4": ["Integrity Response Drones"]
+    },
+    {
+      "name": "Guidance Systems",
+      "inputs": ["Water-Cooled CPU", "Transmitter"],
+      "example_uses": "Used in Tech II fighters and deployable structures; component for Recursive Computing Module (P4)",
+      "inputs_for_P4": ["Recursive Computing Module"]
+    },
+    {
+      "name": "Hazmat Detection Systems",
+      "inputs": ["Polytextiles", "Viral Agent", "Transmitter"],
+      "example_uses": "(No direct use) Component for Integrity Response Drones (P4)",
+      "inputs_for_P4": ["Integrity Response Drones"]
+    },
+    {
+      "name": "Hermetic Membranes",
+      "inputs": ["Polyaramids", "Genetically Enhanced Livestock"],
+      "example_uses": "Used in Prototype Cloaking Device I (tech module); component for Self-Harmonizing Power Core (P4)",
+      "inputs_for_P4": ["Self-Harmonizing Power Core"]
+    },
+    {
+      "name": "High-Tech Transmitters",
+      "inputs": ["Polyaramids", "Transmitter"],
+      "example_uses": "Used in mobile structures (depots, jump units) and Entosis Link II; component for Broadcast Node (P4)",
+      "inputs_for_P4": ["Broadcast Node"]
+    },
+    {
+      "name": "Industrial Explosives",
+      "inputs": ["Fertilizer", "Polytextiles"],
+      "example_uses": "(No direct use) Component for Nano-Factory (P4)",
+      "inputs_for_P4": ["Nano-Factory"]
+    },
+    {
+      "name": "Neocoms",
+      "inputs": ["Biocells", "Silicate Glass"],
+      "example_uses": "Used in Tactical Capsuleer Recloner; component for Broadcast Node (P4)",
+      "inputs_for_P4": ["Broadcast Node"]
+    },
+    {
+      "name": "Nuclear Reactors",
+      "inputs": ["Microfiber Shielding", "Enriched Uranium"],
+      "example_uses": "Used in mobile structures (e.g. Depot); component for Self-Harmonizing Power Core (P4)",
+      "inputs_for_P4": ["Self-Harmonizing Power Core"]
+    },
+    {
+      "name": "Planetary Vehicles",
+      "inputs": ["Supertensile Plastics", "Mechanical Parts", "Miniature Electronics"],
+      "example_uses": "(No direct use) Component for Integrity Response Drones (P4)",
+      "inputs_for_P4": ["Integrity Response Drones"]
+    },
+    {
+      "name": "Robotics",
+      "inputs": ["Mechanical Parts", "Consumer Electronics"],
+      "example_uses": "Used as structure fuel (fuel block ingredient) and in Tech II manufacturing; component for Organic Mortar Applicators (P4)",
+      "inputs_for_P4": ["Organic Mortar Applicators"]
+    },
+    {
+      "name": "Smartfab Units",
+      "inputs": ["Construction Blocks", "Miniature Electronics"],
+      "example_uses": "Used in deployable structures; component for Sterile Conduits (P4)",
+      "inputs_for_P4": ["Sterile Conduits"]
+    },
+    {
+      "name": "Supercomputers",
+      "inputs": ["Water-Cooled CPU", "Coolant", "Consumer Electronics"],
+      "example_uses": "Used in Prototype Cloaking Device I; component for Wetware Mainframe (P4)",
+      "inputs_for_P4": ["Wetware Mainframe"]
+    },
+    {
+      "name": "Synthetic Synapses",
+      "inputs": ["Supertensile Plastics", "Test Cultures"],
+      "example_uses": "Used in command burst modules and capital components; component for Recursive Computing Module (P4)",
+      "inputs_for_P4": ["Recursive Computing Module"]
+    },
+    {
+      "name": "Transcranial Microcontrollers",
+      "inputs": ["Biocells", "Nanites"],
+      "example_uses": "Used in advanced implants (Ascendancy, etc.); component for Recursive Computing Module (P4)",
+      "inputs_for_P4": ["Recursive Computing Module"]
+    },
+    {
+      "name": "Ukomi Superconductors",
+      "inputs": ["Synthetic Oil", "Superconductors"],
+      "example_uses": "Used in mobile tractor units and implant manufacturing; component for Nano-Factory (P4)",
+      "inputs_for_P4": ["Nano-Factory"]
+    },
+    {
+      "name": "Vaccines",
+      "inputs": ["Livestock", "Viral Agent"],
+      "example_uses": "(No direct use) Component for Sterile Conduits (P4)",
+      "inputs_for_P4": ["Sterile Conduits"]
+    }
+  ]
+}

@@ -1,0 +1,635 @@
+{
+  "angel_cartel": {
+    "frigates": {
+      "tech1": {
+        "dramiel": {
+          "display_name": "Dramiel",
+          "ship_type": "Frigate",
+          "faction": "Angel Cartel",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 38400,
+            "Pyerite": 7200,
+            "Mexallon": 3000,
+            "Isogen": 600,
+            "Nocxium": 150,
+            "Zydrine": 75,
+            "Megacyte": 30,
+            "S-R Trigger Neurolink Conduit": 2,
+            "G-O Trigger Neurolink Conduit": 2,
+            "Auto-Integrity Preservation Seal": 30,
+            "Life Support Backup Unit": 15
+          },
+          "details": "Dramiel\nType: Angel Cartel Pirate Frigate\nBase Build Time: 1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 38400\n- Pyerite: 7200\n- Mexallon: 3000\n- Isogen: 600\n- Nocxium: 150\n- Zydrine: 75\n- Megacyte: 30\n- S-R Trigger Neurolink Conduit: 2\n- G-O Trigger Neurolink Conduit: 2\n- Auto-Integrity Preservation Seal: 30\n- Life Support Backup Unit: 15\n\nRequires an Angel Cartel BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "cynabal": {
+          "display_name": "Cynabal",
+          "ship_type": "Cruiser",
+          "faction": "Angel Cartel",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 648000,
+            "Pyerite": 216000,
+            "Mexallon": 43200,
+            "Isogen": 12000,
+            "Nocxium": 1800,
+            "Zydrine": 1200,
+            "Megacyte": 600,
+            "S-R Trigger Neurolink Conduit": 4,
+            "G-O Trigger Neurolink Conduit": 4,
+            "Auto-Integrity Preservation Seal": 60,
+            "Life Support Backup Unit": 30
+          },
+          "details": "Cynabal\nType: Angel Cartel Pirate Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 648000\n- Pyerite: 216000\n- Mexallon: 43200\n- Isogen: 12000\n- Nocxium: 1800\n- Zydrine: 1200\n- Megacyte: 600\n- S-R Trigger Neurolink Conduit: 4\n- G-O Trigger Neurolink Conduit: 4\n- Auto-Integrity Preservation Seal: 60\n- Life Support Backup Unit: 30\n\nRequires an Angel Cartel BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "machariel": {
+          "display_name": "Machariel",
+          "ship_type": "Battleship",
+          "faction": "Angel Cartel",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 9600000,
+            "Pyerite": 4800000,
+            "Mexallon": 720000,
+            "Isogen": 480000,
+            "Nocxium": 36000,
+            "Zydrine": 9600,
+            "Megacyte": 4800,
+            "S-R Trigger Neurolink Conduit": 16,
+            "G-O Trigger Neurolink Conduit": 16,
+            "Auto-Integrity Preservation Seal": 240,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 120
+          },
+          "details": "Machariel\nType: Angel Cartel Pirate Battleship\nBase Build Time: 5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 9600000\n- Pyerite: 4800000\n- Mexallon: 720000\n- Isogen: 480000\n- Nocxium: 36000\n- Zydrine: 9600\n- Megacyte: 4800\n- S-R Trigger Neurolink Conduit: 16\n- G-O Trigger Neurolink Conduit: 16\n- Auto-Integrity Preservation Seal: 240\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 120\n\nRequires an Angel Cartel BPC from LP store or exploration sites."
+        }
+      }
+    }
+  },
+  "blood_raiders": {
+    "frigates": {
+      "tech1": {
+        "cruor": {
+          "display_name": "Cruor",
+          "ship_type": "Frigate",
+          "faction": "Blood Raiders",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500,
+            "Nocxium": 100,
+            "Zydrine": 50,
+            "Megacyte": 15,
+            "U-C Trigger Neurolink Conduit": 2,
+            "G-O Trigger Neurolink Conduit": 2,
+            "Auto-Integrity Preservation Seal": 30,
+            "Life Support Backup Unit": 15
+          },
+          "details": "Cruor\nType: Blood Raiders Pirate Frigate\nBase Build Time: 1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500\n- Nocxium: 100\n- Zydrine: 50\n- Megacyte: 15\n- U-C Trigger Neurolink Conduit: 2\n- G-O Trigger Neurolink Conduit: 2\n- Auto-Integrity Preservation Seal: 30\n- Life Support Backup Unit: 15\n\nRequires a Blood Raiders BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "ashimmu": {
+          "display_name": "Ashimmu",
+          "ship_type": "Cruiser",
+          "faction": "Blood Raiders",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 648000,
+            "Pyerite": 216000,
+            "Mexallon": 43200,
+            "Isogen": 12000,
+            "Nocxium": 1800,
+            "Zydrine": 1200,
+            "Megacyte": 600,
+            "U-C Trigger Neurolink Conduit": 4,
+            "G-O Trigger Neurolink Conduit": 4,
+            "Auto-Integrity Preservation Seal": 60,
+            "Life Support Backup Unit": 30
+          },
+          "details": "Ashimmu\nType: Blood Raiders Pirate Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 648000\n- Pyerite: 216000\n- Mexallon: 43200\n- Isogen: 12000\n- Nocxium: 1800\n- Zydrine: 1200\n- Megacyte: 600\n- U-C Trigger Neurolink Conduit: 4\n- G-O Trigger Neurolink Conduit: 4\n- Auto-Integrity Preservation Seal: 60\n- Life Support Backup Unit: 30\n\nRequires a Blood Raiders BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "bhaalgorn": {
+          "display_name": "Bhaalgorn",
+          "ship_type": "Battleship",
+          "faction": "Blood Raiders",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 9600000,
+            "Pyerite": 4800000,
+            "Mexallon": 720000,
+            "Isogen": 480000,
+            "Nocxium": 36000,
+            "Zydrine": 9600,
+            "Megacyte": 4800,
+            "U-C Trigger Neurolink Conduit": 16,
+            "G-O Trigger Neurolink Conduit": 16,
+            "Auto-Integrity Preservation Seal": 240,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 120
+          },
+          "details": "Bhaalgorn\nType: Blood Raiders Pirate Battleship\nBase Build Time: 5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 9600000\n- Pyerite: 4800000\n- Mexallon: 720000\n- Isogen: 480000\n- Nocxium: 36000\n- Zydrine: 9600\n- Megacyte: 4800\n- U-C Trigger Neurolink Conduit: 16\n- G-O Trigger Neurolink Conduit: 16\n- Auto-Integrity Preservation Seal: 240\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 120\n\nRequires a Blood Raiders BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "capitals": {
+      "dreadnought": {
+        "chemosh": {
+          "display_name": "Chemosh",
+          "ship_type": "Dreadnought",
+          "faction": "Blood Raiders",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 40,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 4,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "U-C Trigger Neurolink Conduit": 60,
+            "G-O Trigger Neurolink Conduit": 60,
+            "Advanced Capital Ship Components": 8
+          },
+          "details": "Chemosh\nType: Blood Raiders Pirate Dreadnought\nBase Build Time: 15h\nRequired Skill: Capital Ship Construction I\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      },
+      "supercarrier": {
+        "dagon": {
+          "display_name": "Dagon",
+          "ship_type": "Supercarrier",
+          "faction": "Blood Raiders",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 120,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 8,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "U-C Trigger Neurolink Conduit": 120,
+            "G-O Trigger Neurolink Conduit": 120,
+            "Advanced Capital Ship Components": 15
+          },
+          "details": "Dagon\nType: Blood Raiders Pirate Supercarrier\nBase Build Time: 24h\nRequired Skill: Capital Ship Construction V\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      },
+      "titan": {
+        "molok": {
+          "display_name": "Molok",
+          "ship_type": "Titan",
+          "faction": "Blood Raiders",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 160,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 10,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "U-C Trigger Neurolink Conduit": 180,
+            "G-O Trigger Neurolink Conduit": 180,
+            "Advanced Capital Ship Components": 25
+          },
+          "details": "Molok\nType: Blood Raiders Pirate Titan\nBase Build Time: 36h\nRequired Skill: Capital Ship Construction V\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      }
+    }
+  },
+  "guristas": {
+    "frigates": {
+      "tech1": {
+        "worm": {
+          "display_name": "Worm",
+          "ship_type": "Frigate",
+          "faction": "Guristas",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 38400,
+            "Pyerite": 7200,
+            "Mexallon": 3000,
+            "Isogen": 600,
+            "Nocxium": 150,
+            "Zydrine": 75,
+            "Megacyte": 30,
+            "R-O Trigger Neurolink Conduit": 2,
+            "S-R Trigger Neurolink Conduit": 2,
+            "Auto-Integrity Preservation Seal": 30,
+            "Life Support Backup Unit": 15
+          },
+          "details": "Worm\nType: Guristas Pirate Frigate\nBase Build Time: 1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 38400\n- Pyerite: 7200\n- Mexallon: 3000\n- Isogen: 600\n- Nocxium: 150\n- Zydrine: 75\n- Megacyte: 30\n- R-O Trigger Neurolink Conduit: 2\n- S-R Trigger Neurolink Conduit: 2\n- Auto-Integrity Preservation Seal: 30\n- Life Support Backup Unit: 15\n\nRequires a Guristas BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "gila": {
+          "display_name": "Gila",
+          "ship_type": "Cruiser",
+          "faction": "Guristas",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 648000,
+            "Pyerite": 216000,
+            "Mexallon": 43200,
+            "Isogen": 12000,
+            "Nocxium": 1800,
+            "Zydrine": 1200,
+            "Megacyte": 600,
+            "R-O Trigger Neurolink Conduit": 4,
+            "S-R Trigger Neurolink Conduit": 4,
+            "Auto-Integrity Preservation Seal": 60,
+            "Life Support Backup Unit": 30
+          },
+          "details": "Gila\nType: Guristas Pirate Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 648000\n- Pyerite: 216000\n- Mexallon: 43200\n- Isogen: 12000\n- Nocxium: 1800\n- Zydrine: 1200\n- Megacyte: 600\n- R-O Trigger Neurolink Conduit: 4\n- S-R Trigger Neurolink Conduit: 4\n- Auto-Integrity Preservation Seal: 60\n- Life Support Backup Unit: 30\n\nRequires a Guristas BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "rattlesnake": {
+          "display_name": "Rattlesnake",
+          "ship_type": "Battleship",
+          "faction": "Guristas",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 9600000,
+            "Pyerite": 4800000,
+            "Mexallon": 720000,
+            "Isogen": 480000,
+            "Nocxium": 36000,
+            "Zydrine": 9600,
+            "Megacyte": 4800,
+            "R-O Trigger Neurolink Conduit": 16,
+            "S-R Trigger Neurolink Conduit": 16,
+            "Auto-Integrity Preservation Seal": 240,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 120
+          },
+          "details": "Rattlesnake\nType: Guristas Pirate Battleship\nBase Build Time: 5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 9600000\n- Pyerite: 4800000\n- Mexallon: 720000\n- Isogen: 480000\n- Nocxium: 36000\n- Zydrine: 9600\n- Megacyte: 4800\n- R-O Trigger Neurolink Conduit: 16\n- S-R Trigger Neurolink Conduit: 16\n- Auto-Integrity Preservation Seal: 240\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 120\n\nRequires a Guristas BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "capitals": {
+      "carrier": {
+        "caiman": {
+          "display_name": "Caiman",
+          "ship_type": "Carrier",
+          "faction": "Guristas",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 40,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 4,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "R-O Trigger Neurolink Conduit": 60,
+            "S-R Trigger Neurolink Conduit": 60,
+            "Advanced Capital Ship Components": 8
+          },
+          "details": "Caiman\nType: Guristas Pirate Carrier\nBase Build Time: 15h\nRequired Skill: Capital Ship Construction I\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      },
+      "supercarrier": {
+        "loggerhead": {
+          "display_name": "Loggerhead",
+          "ship_type": "Supercarrier",
+          "faction": "Guristas",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 120,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 8,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "R-O Trigger Neurolink Conduit": 120,
+            "S-R Trigger Neurolink Conduit": 120,
+            "Advanced Capital Ship Components": 15
+          },
+          "details": "Loggerhead\nType: Guristas Pirate Supercarrier\nBase Build Time: 24h\nRequired Skill: Capital Ship Construction V\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      },
+      "titan": {
+        "komodo": {
+          "display_name": "Komodo",
+          "ship_type": "Titan",
+          "faction": "Guristas",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 160,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 10,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "R-O Trigger Neurolink Conduit": 180,
+            "S-R Trigger Neurolink Conduit": 180,
+            "Advanced Capital Ship Components": 25
+          },
+          "details": "Komodo\nType: Guristas Pirate Titan\nBase Build Time: 36h\nRequired Skill: Capital Ship Construction V\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      }
+    }
+  },
+  "sanshas_nation": {
+    "frigates": {
+      "tech1": {
+        "succubus": {
+          "display_name": "Succubus",
+          "ship_type": "Frigate",
+          "faction": "Sansha's Nation",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 38400,
+            "Pyerite": 7200,
+            "Mexallon": 3000,
+            "Isogen": 600,
+            "Nocxium": 150,
+            "Zydrine": 75,
+            "Megacyte": 30,
+            "U-C Trigger Neurolink Conduit": 2,
+            "R-O Trigger Neurolink Conduit": 2,
+            "Auto-Integrity Preservation Seal": 30,
+            "Life Support Backup Unit": 15
+          },
+          "details": "Succubus\nType: Sansha's Nation Pirate Frigate\nBase Build Time: 1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 38400\n- Pyerite: 7200\n- Mexallon: 3000\n- Isogen: 600\n- Nocxium: 150\n- Zydrine: 75\n- Megacyte: 30\n- U-C Trigger Neurolink Conduit: 2\n- R-O Trigger Neurolink Conduit: 2\n- Auto-Integrity Preservation Seal: 30\n- Life Support Backup Unit: 15\n\nRequires a Sansha's Nation BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "phantasm": {
+          "display_name": "Phantasm",
+          "ship_type": "Cruiser",
+          "faction": "Sansha's Nation",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 648000,
+            "Pyerite": 216000,
+            "Mexallon": 43200,
+            "Isogen": 12000,
+            "Nocxium": 1800,
+            "Zydrine": 1200,
+            "Megacyte": 600,
+            "U-C Trigger Neurolink Conduit": 4,
+            "R-O Trigger Neurolink Conduit": 4,
+            "Auto-Integrity Preservation Seal": 60,
+            "Life Support Backup Unit": 30
+          },
+          "details": "Phantasm\nType: Sansha's Nation Pirate Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 648000\n- Pyerite: 216000\n- Mexallon: 43200\n- Isogen: 12000\n- Nocxium: 1800\n- Zydrine: 1200\n- Megacyte: 600\n- U-C Trigger Neurolink Conduit: 4\n- R-O Trigger Neurolink Conduit: 4\n- Auto-Integrity Preservation Seal: 60\n- Life Support Backup Unit: 30\n\nRequires a Sansha's Nation BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "nightmare": {
+          "display_name": "Nightmare",
+          "ship_type": "Battleship",
+          "faction": "Sansha's Nation",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 9600000,
+            "Pyerite": 4800000,
+            "Mexallon": 720000,
+            "Isogen": 480000,
+            "Nocxium": 36000,
+            "Zydrine": 9600,
+            "Megacyte": 4800,
+            "U-C Trigger Neurolink Conduit": 16,
+            "R-O Trigger Neurolink Conduit": 16,
+            "Auto-Integrity Preservation Seal": 240,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 120
+          },
+          "details": "Nightmare\nType: Sansha's Nation Pirate Battleship\nBase Build Time: 5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 9600000\n- Pyerite: 4800000\n- Mexallon: 720000\n- Isogen: 480000\n- Nocxium: 36000\n- Zydrine: 9600\n- Megacyte: 4800\n- U-C Trigger Neurolink Conduit: 16\n- R-O Trigger Neurolink Conduit: 16\n- Auto-Integrity Preservation Seal: 240\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 120\n\nRequires a Sansha's Nation BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "capitals": {
+      "supercarrier": {
+        "revenant": {
+          "display_name": "Revenant",
+          "ship_type": "Supercarrier",
+          "faction": "Sansha's Nation",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 120,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 8,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "U-C Trigger Neurolink Conduit": 120,
+            "R-O Trigger Neurolink Conduit": 120,
+            "Advanced Capital Ship Components": 15
+          },
+          "details": "Revenant\nType: Sansha's Nation Pirate Supercarrier\nBase Build Time: 24h\nRequired Skill: Capital Ship Construction V\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      }
+    }
+  },
+  "serpentis": {
+    "frigates": {
+      "tech1": {
+        "daredevil": {
+          "display_name": "Daredevil",
+          "ship_type": "Frigate",
+          "faction": "Serpentis",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 38400,
+            "Pyerite": 7200,
+            "Mexallon": 3000,
+            "Isogen": 600,
+            "Nocxium": 150,
+            "Zydrine": 75,
+            "Megacyte": 30,
+            "S-R Trigger Neurolink Conduit": 2,
+            "R-O Trigger Neurolink Conduit": 2,
+            "Auto-Integrity Preservation Seal": 30,
+            "Life Support Backup Unit": 15
+          },
+          "details": "Daredevil\nType: Serpentis Pirate Frigate\nBase Build Time: 1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 38400\n- Pyerite: 7200\n- Mexallon: 3000\n- Isogen: 600\n- Nocxium: 150\n- Zydrine: 75\n- Megacyte: 30\n- S-R Trigger Neurolink Conduit: 2\n- R-O Trigger Neurolink Conduit: 2\n- Auto-Integrity Preservation Seal: 30\n- Life Support Backup Unit: 15\n\nRequires a Serpentis BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "vigilant": {
+          "display_name": "Vigilant",
+          "ship_type": "Cruiser",
+          "faction": "Serpentis",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 648000,
+            "Pyerite": 216000,
+            "Mexallon": 43200,
+            "Isogen": 12000,
+            "Nocxium": 1800,
+            "Zydrine": 1200,
+            "Megacyte": 600,
+            "S-R Trigger Neurolink Conduit": 4,
+            "R-O Trigger Neurolink Conduit": 4,
+            "Auto-Integrity Preservation Seal": 60,
+            "Life Support Backup Unit": 30
+          },
+          "details": "Vigilant\nType: Serpentis Pirate Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 648000\n- Pyerite: 216000\n- Mexallon: 43200\n- Isogen: 12000\n- Nocxium: 1800\n- Zydrine: 1200\n- Megacyte: 600\n- S-R Trigger Neurolink Conduit: 4\n- R-O Trigger Neurolink Conduit: 4\n- Auto-Integrity Preservation Seal: 60\n- Life Support Backup Unit: 30\n\nRequires a Serpentis BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "vindicator": {
+          "display_name": "Vindicator",
+          "ship_type": "Battleship",
+          "faction": "Serpentis",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 9600000,
+            "Pyerite": 4800000,
+            "Mexallon": 720000,
+            "Isogen": 480000,
+            "Nocxium": 36000,
+            "Zydrine": 9600,
+            "Megacyte": 4800,
+            "S-R Trigger Neurolink Conduit": 16,
+            "R-O Trigger Neurolink Conduit": 16,
+            "Auto-Integrity Preservation Seal": 240,
+            "Core Temperature Regulator": 1,
+            "Life Support Backup Unit": 120
+          },
+          "details": "Vindicator\nType: Serpentis Pirate Battleship\nBase Build Time: 5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 9600000\n- Pyerite: 4800000\n- Mexallon: 720000\n- Isogen: 480000\n- Nocxium: 36000\n- Zydrine: 9600\n- Megacyte: 4800\n- S-R Trigger Neurolink Conduit: 16\n- R-O Trigger Neurolink Conduit: 16\n- Auto-Integrity Preservation Seal: 240\n- Core Temperature Regulator: 1\n- Life Support Backup Unit: 120\n\nRequires a Serpentis BPC from LP store or exploration sites."
+        }
+      }
+    },
+    "capitals": {
+      "dreadnought": {
+        "vehement": {
+          "display_name": "Vehement",
+          "ship_type": "Dreadnought",
+          "faction": "Serpentis",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 40,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 4,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "S-R Trigger Neurolink Conduit": 60,
+            "R-O Trigger Neurolink Conduit": 60,
+            "Advanced Capital Ship Components": 8
+          },
+          "details": "Vehement\nType: Serpentis Pirate Dreadnought\nBase Build Time: 15h\nRequired Skill: Capital Ship Construction I\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      },
+      "supercarrier": {
+        "vendetta": {
+          "display_name": "Vendetta",
+          "ship_type": "Supercarrier",
+          "faction": "Serpentis",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 120,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 8,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "S-R Trigger Neurolink Conduit": 120,
+            "R-O Trigger Neurolink Conduit": 120,
+            "Advanced Capital Ship Components": 15
+          },
+          "details": "Vendetta\nType: Serpentis Pirate Supercarrier\nBase Build Time: 24h\nRequired Skill: Capital Ship Construction V\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      },
+      "titan": {
+        "vanquisher": {
+          "display_name": "Vanquisher",
+          "ship_type": "Titan",
+          "faction": "Serpentis",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 160,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 10,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "S-R Trigger Neurolink Conduit": 180,
+            "R-O Trigger Neurolink Conduit": 180,
+            "Advanced Capital Ship Components": 25
+          },
+          "details": "Vanquisher\nType: Serpentis Pirate Titan\nBase Build Time: 36h\nRequired Skill: Capital Ship Construction V\n\nRequires special pirate faction BPC from high-end PvE content."
+        }
+      }
+    }
+  }
+}

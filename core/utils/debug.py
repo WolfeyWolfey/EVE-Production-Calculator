@@ -30,4 +30,4 @@ def debug_print(*args, **kwargs):
         **kwargs: Keyword arguments to pass to print()
     """
     if DEBUG_MODE:
-        print("[DEBUG]", *args, **kwargs)
+        print(*args, **kwargs)

@@ -1,0 +1,711 @@
+{
+  "caldari": {
+    "frigates": {
+      "tech1": {
+        "bantam": {
+          "display_name": "Bantam",
+          "ship_type": "Logistics Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 24000,
+            "Pyerite": 4500,
+            "Mexallon": 1875,
+            "Isogen": 375
+          },
+          "details": "Bantam\nType: Caldari Tech I Logistics Frigate\nBase Build Time: ~1h 15m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 24000\n- Pyerite: 4500\n- Mexallon: 1875\n- Isogen: 375"
+        },
+        "condor": {
+          "display_name": "Condor",
+          "ship_type": "Combat Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Condor\nType: Caldari Tech I Combat Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "griffin": {
+          "display_name": "Griffin",
+          "ship_type": "EWAR Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Griffin\nType: Caldari Tech I EWAR Frigate\nBase Build Time: ~1h 15m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "heron": {
+          "display_name": "Heron",
+          "ship_type": "Scanning Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Heron\nType: Caldari Tech I Scanning Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "kestrel": {
+          "display_name": "Kestrel",
+          "ship_type": "Combat Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Kestrel\nType: Caldari Tech I Combat Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "merlin": {
+          "display_name": "Merlin",
+          "ship_type": "Combat Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 6000,
+            "Mexallon": 2500,
+            "Isogen": 500
+          },
+          "details": "Merlin\nType: Caldari Tech I Combat Frigate\nBase Build Time: ~1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 6000\n- Mexallon: 2500\n- Isogen: 500"
+        },
+        "worm": {
+          "display_name": "Worm",
+          "ship_type": "Combat Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 40000,
+            "Pyerite": 8000,
+            "Mexallon": 3000,
+            "Isogen": 750,
+            "Nocxium": 100
+          },
+          "details": "Worm\nType: Caldari Pirate Combat Frigate\nBase Build Time: ~2h\nRequired Skill: Industry II\n\nMaterials:\n- Tritanium: 40000\n- Pyerite: 8000\n- Mexallon: 3000\n- Isogen: 750\n- Nocxium: 100"
+        }
+      },
+      "tech2": {
+        "crow": {
+          "display_name": "Crow",
+          "ship_type": "Interceptor",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 45000,
+            "Pyerite": 10000,
+            "Mexallon": 3500,
+            "Isogen": 1000,
+            "Nocxium": 180,
+            "Zydrine": 50
+          },
+          "details": "Crow\nType: Caldari Tech II Interceptor\nBase Build Time: ~5h\nRequired Skill: Frigate Construction IV\n\nMaterials:\n- Tritanium: 45000\n- Pyerite: 10000\n- Mexallon: 3500\n- Isogen: 1000\n- Nocxium: 180\n- Zydrine: 50"
+        },
+        "raptor": {
+          "display_name": "Raptor",
+          "ship_type": "Interceptor",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Condor": 1,
+            "Morphite": 8,
+            "R.A.M.-Starship Tech": 1,
+            "Construction Blocks": 15,
+            "Power Circuit": 75,
+            "Plasma Thruster": 23,
+            "Graviton Reactor Unit": 30,
+            "Quantum Microprocessor": 120,
+            "Super Conductor Rail": 45,
+            "Fernite Carbide Composite Armor Plate": 450,
+            "Nuclear Reactor Unit": 5
+          },
+          "details": "Raptor Interceptor\nType: Caldari Tech II Interceptor\nBase Build Time: ~2h 00m\nRequired Skill: Advanced Small Ship Construction II\n\nMaterials:\n- Condor: 1\n- Morphite: 8\n- R.A.M.-Starship Tech: 1\n- Construction Blocks: 15\n- Power Circuit: 75\n- Plasma Thruster: 23\n- Graviton Reactor Unit: 30\n- Quantum Microprocessor: 120\n- Super Conductor Rail: 45\n- Fernite Carbide Composite Armor Plate: 450\n- Nuclear Reactor Unit: 5"
+        },
+        "harpy": {
+          "display_name": "Harpy",
+          "ship_type": "Assault Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 50000,
+            "Pyerite": 12000,
+            "Mexallon": 4000,
+            "Isogen": 1200,
+            "Nocxium": 220,
+            "Zydrine": 65
+          },
+          "details": "Harpy\nType: Caldari Tech II Assault Frigate\nBase Build Time: ~5h 30m\nRequired Skill: Frigate Construction IV\n\nMaterials:\n- Tritanium: 50000\n- Pyerite: 12000\n- Mexallon: 4000\n- Isogen: 1200\n- Nocxium: 220\n- Zydrine: 65"
+        },
+        "buzzard": {
+          "display_name": "Buzzard",
+          "ship_type": "Covert Ops",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 46000,
+            "Pyerite": 11000,
+            "Mexallon": 3800,
+            "Isogen": 950,
+            "Nocxium": 170,
+            "Zydrine": 45
+          },
+          "details": "Buzzard\nType: Caldari Tech II Covert Ops\nBase Build Time: ~5h\nRequired Skill: Frigate Construction IV\n\nMaterials:\n- Tritanium: 46000\n- Pyerite: 11000\n- Mexallon: 3800\n- Isogen: 950\n- Nocxium: 170\n- Zydrine: 45"
+        },
+        "hawk": {
+          "display_name": "Hawk",
+          "ship_type": "Assault Frigate",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 50000,
+            "Pyerite": 12000,
+            "Mexallon": 4000,
+            "Isogen": 1200,
+            "Nocxium": 220,
+            "Zydrine": 65
+          },
+          "details": "Hawk\nType: Caldari Tech II Assault Frigate\nBase Build Time: ~5h 30m\nRequired Skill: Frigate Construction IV\n\nMaterials:\n- Tritanium: 50000\n- Pyerite: 12000\n- Mexallon: 4000\n- Isogen: 1200\n- Nocxium: 220\n- Zydrine: 65"
+        },
+        "manticore": {
+          "display_name": "Manticore",
+          "ship_type": "Stealth Bomber",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 47000,
+            "Pyerite": 11500,
+            "Mexallon": 3900,
+            "Isogen": 1100,
+            "Nocxium": 200,
+            "Zydrine": 55,
+            "Megacyte": 10
+          },
+          "details": "Manticore\nType: Caldari Tech II Stealth Bomber\nBase Build Time: ~6h\nRequired Skill: Frigate Construction V\n\nMaterials:\n- Tritanium: 47000\n- Pyerite: 11500\n- Mexallon: 3900\n- Isogen: 1100\n- Nocxium: 200\n- Zydrine: 55\n- Megacyte: 10"
+        }
+      }
+    },
+    "destroyers": {
+      "tech1": {
+        "corax": {
+          "display_name": "Corax",
+          "ship_type": "Destroyer",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 65000,
+            "Pyerite": 15000,
+            "Mexallon": 5000,
+            "Isogen": 1200,
+            "Nocxium": 50
+          },
+          "details": "Corax\nType: Caldari Tech I Destroyer\nBase Build Time: ~3h\nRequired Skill: Industry II\n\nMaterials:\n- Tritanium: 65000\n- Pyerite: 15000\n- Mexallon: 5000\n- Isogen: 1200\n- Nocxium: 50"
+        },
+        "cormorant": {
+          "display_name": "Cormorant",
+          "ship_type": "Destroyer",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 65000,
+            "Pyerite": 15000,
+            "Mexallon": 5000,
+            "Isogen": 1200,
+            "Nocxium": 50
+          },
+          "details": "Cormorant\nType: Caldari Tech I Destroyer\nBase Build Time: ~3h\nRequired Skill: Industry II\n\nMaterials:\n- Tritanium: 65000\n- Pyerite: 15000\n- Mexallon: 5000\n- Isogen: 1200\n- Nocxium: 50"
+        }
+      },
+      "tech2": {
+        "flycatcher": {
+          "display_name": "Flycatcher",
+          "ship_type": "Interdictor",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 90000,
+            "Pyerite": 22000,
+            "Mexallon": 7500,
+            "Isogen": 2000,
+            "Nocxium": 350,
+            "Zydrine": 100
+          },
+          "details": "Flycatcher\nType: Caldari Tech II Interdictor\nBase Build Time: ~8h\nRequired Skill: Destroyer Construction IV\n\nMaterials:\n- Tritanium: 90000\n- Pyerite: 22000\n- Mexallon: 7500\n- Isogen: 2000\n- Nocxium: 350\n- Zydrine: 100"
+        },
+        "jackdaw": {
+          "display_name": "Jackdaw",
+          "ship_type": "Tactical Destroyer",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 100000,
+            "Pyerite": 25000,
+            "Mexallon": 8000,
+            "Isogen": 2500,
+            "Nocxium": 450,
+            "Zydrine": 150,
+            "Megacyte": 30
+          },
+          "details": "Jackdaw\nType: Caldari Tech III Tactical Destroyer\nBase Build Time: ~10h\nRequired Skill: Destroyer Construction V\n\nMaterials:\n- Tritanium: 100000\n- Pyerite: 25000\n- Mexallon: 8000\n- Isogen: 2500\n- Nocxium: 450\n- Zydrine: 150\n- Megacyte: 30"
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "blackbird": {
+          "display_name": "Blackbird",
+          "ship_type": "EWAR Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 120000,
+            "Pyerite": 30000,
+            "Mexallon": 9000,
+            "Isogen": 2500,
+            "Nocxium": 500,
+            "Zydrine": 100
+          },
+          "details": "Blackbird\nType: Caldari Tech I EWAR Cruiser\nBase Build Time: ~8h\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 120000\n- Pyerite: 30000\n- Mexallon: 9000\n- Isogen: 2500\n- Nocxium: 500\n- Zydrine: 100"
+        },
+        "caracal": {
+          "display_name": "Caracal",
+          "ship_type": "Combat Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 120000,
+            "Pyerite": 30000,
+            "Mexallon": 9000,
+            "Isogen": 2500,
+            "Nocxium": 500,
+            "Zydrine": 100
+          },
+          "details": "Caracal\nType: Caldari Tech I Combat Cruiser\nBase Build Time: ~8h\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 120000\n- Pyerite: 30000\n- Mexallon: 9000\n- Isogen: 2500\n- Nocxium: 500\n- Zydrine: 100"
+        },
+        "moa": {
+          "display_name": "Moa",
+          "ship_type": "Combat Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 120000,
+            "Pyerite": 30000,
+            "Mexallon": 9000,
+            "Isogen": 2500,
+            "Nocxium": 500,
+            "Zydrine": 100
+          },
+          "details": "Moa\nType: Caldari Tech I Combat Cruiser\nBase Build Time: ~8h\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 120000\n- Pyerite: 30000\n- Mexallon: 9000\n- Isogen: 2500\n- Nocxium: 500\n- Zydrine: 100"
+        },
+        "osprey": {
+          "display_name": "Osprey",
+          "ship_type": "Logistics Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 120000,
+            "Pyerite": 30000,
+            "Mexallon": 9000,
+            "Isogen": 2500,
+            "Nocxium": 500,
+            "Zydrine": 100
+          },
+          "details": "Osprey\nType: Caldari Tech I Logistics Cruiser\nBase Build Time: ~8h\nRequired Skill: Cruiser Construction I\n\nMaterials:\n- Tritanium: 120000\n- Pyerite: 30000\n- Mexallon: 9000\n- Isogen: 2500\n- Nocxium: 500\n- Zydrine: 100"
+        }
+      },
+      "tech2": {
+        "cerberus": {
+          "display_name": "Cerberus",
+          "ship_type": "Heavy Assault Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 180000,
+            "Pyerite": 45000,
+            "Mexallon": 15000,
+            "Isogen": 4000,
+            "Nocxium": 1000,
+            "Zydrine": 400,
+            "Megacyte": 120
+          },
+          "details": "Cerberus\nType: Caldari Tech II Heavy Assault Cruiser\nBase Build Time: ~14h\nRequired Skill: Cruiser Construction IV\n\nMaterials:\n- Tritanium: 180000\n- Pyerite: 45000\n- Mexallon: 15000\n- Isogen: 4000\n- Nocxium: 1000\n- Zydrine: 400\n- Megacyte: 120"
+        },
+        "eagle": {
+          "display_name": "Eagle",
+          "ship_type": "Heavy Assault Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 180000,
+            "Pyerite": 45000,
+            "Mexallon": 15000,
+            "Isogen": 4000,
+            "Nocxium": 1000,
+            "Zydrine": 400,
+            "Megacyte": 120
+          },
+          "details": "Eagle\nType: Caldari Tech II Heavy Assault Cruiser\nBase Build Time: ~14h\nRequired Skill: Cruiser Construction IV\n\nMaterials:\n- Tritanium: 180000\n- Pyerite: 45000\n- Mexallon: 15000\n- Isogen: 4000\n- Nocxium: 1000\n- Zydrine: 400\n- Megacyte: 120"
+        },
+        "onyx": {
+          "display_name": "Onyx",
+          "ship_type": "Heavy Interdictor",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 190000,
+            "Pyerite": 48000,
+            "Mexallon": 16000,
+            "Isogen": 4500,
+            "Nocxium": 1100,
+            "Zydrine": 450,
+            "Megacyte": 150
+          },
+          "details": "Onyx\nType: Caldari Tech II Heavy Interdictor\nBase Build Time: ~15h\nRequired Skill: Cruiser Construction IV\n\nMaterials:\n- Tritanium: 190000\n- Pyerite: 48000\n- Mexallon: 16000\n- Isogen: 4500\n- Nocxium: 1100\n- Zydrine: 450\n- Megacyte: 150"
+        },
+        "basilisk": {
+          "display_name": "Basilisk",
+          "ship_type": "Logistics Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 170000,
+            "Pyerite": 42000,
+            "Mexallon": 14000,
+            "Isogen": 3800,
+            "Nocxium": 950,
+            "Zydrine": 380,
+            "Megacyte": 100
+          },
+          "details": "Basilisk\nType: Caldari Tech II Logistics Cruiser\nBase Build Time: ~13h\nRequired Skill: Cruiser Construction IV\n\nMaterials:\n- Tritanium: 170000\n- Pyerite: 42000\n- Mexallon: 14000\n- Isogen: 3800\n- Nocxium: 950\n- Zydrine: 380\n- Megacyte: 100"
+        },
+        "falcon": {
+          "display_name": "Falcon",
+          "ship_type": "Force Recon Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 175000,
+            "Pyerite": 43000,
+            "Mexallon": 14500,
+            "Isogen": 3900,
+            "Nocxium": 975,
+            "Zydrine": 390,
+            "Megacyte": 110
+          },
+          "details": "Falcon\nType: Caldari Tech II Force Recon Cruiser\nBase Build Time: ~14h\nRequired Skill: Cruiser Construction IV\n\nMaterials:\n- Tritanium: 175000\n- Pyerite: 43000\n- Mexallon: 14500\n- Isogen: 3900\n- Nocxium: 975\n- Zydrine: 390\n- Megacyte: 110"
+        },
+        "rook": {
+          "display_name": "Rook",
+          "ship_type": "Combat Recon Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 175000,
+            "Pyerite": 43000,
+            "Mexallon": 14500,
+            "Isogen": 3900,
+            "Nocxium": 975,
+            "Zydrine": 390,
+            "Megacyte": 110
+          },
+          "details": "Rook\nType: Caldari Tech II Combat Recon Cruiser\nBase Build Time: ~14h\nRequired Skill: Cruiser Construction IV\n\nMaterials:\n- Tritanium: 175000\n- Pyerite: 43000\n- Mexallon: 14500\n- Isogen: 3900\n- Nocxium: 975\n- Zydrine: 390\n- Megacyte: 110"
+        },
+        "tengu": {
+          "display_name": "Tengu",
+          "ship_type": "Strategic Cruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 200000,
+            "Pyerite": 50000,
+            "Mexallon": 17000,
+            "Isogen": 5000,
+            "Nocxium": 1200,
+            "Zydrine": 500,
+            "Megacyte": 180
+          },
+          "details": "Tengu\nType: Caldari Tech III Strategic Cruiser\nBase Build Time: ~18h\nRequired Skill: Cruiser Construction V\n\nMaterials:\n- Tritanium: 200000\n- Pyerite: 50000\n- Mexallon: 17000\n- Isogen: 5000\n- Nocxium: 1200\n- Zydrine: 500\n- Megacyte: 180"
+        }
+      }
+    },
+    "battlecruisers": {
+      "tech1": {
+        "drake": {
+          "display_name": "Drake",
+          "ship_type": "Combat Battlecruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 250000,
+            "Pyerite": 65000,
+            "Mexallon": 22000,
+            "Isogen": 6000,
+            "Nocxium": 1500,
+            "Zydrine": 500,
+            "Megacyte": 100
+          },
+          "details": "Drake\nType: Caldari Tech I Combat Battlecruiser\nBase Build Time: ~18h\nRequired Skill: Battlecruiser Construction I\n\nMaterials:\n- Tritanium: 250000\n- Pyerite: 65000\n- Mexallon: 22000\n- Isogen: 6000\n- Nocxium: 1500\n- Zydrine: 500\n- Megacyte: 100"
+        },
+        "ferox": {
+          "display_name": "Ferox",
+          "ship_type": "Combat Battlecruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 250000,
+            "Pyerite": 65000,
+            "Mexallon": 22000,
+            "Isogen": 6000,
+            "Nocxium": 1500,
+            "Zydrine": 500,
+            "Megacyte": 100
+          },
+          "details": "Ferox\nType: Caldari Tech I Combat Battlecruiser\nBase Build Time: ~18h\nRequired Skill: Battlecruiser Construction I\n\nMaterials:\n- Tritanium: 250000\n- Pyerite: 65000\n- Mexallon: 22000\n- Isogen: 6000\n- Nocxium: 1500\n- Zydrine: 500\n- Megacyte: 100"
+        },
+        "naga": {
+          "display_name": "Naga",
+          "ship_type": "Attack Battlecruiser",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 275000,
+            "Pyerite": 70000,
+            "Mexallon": 24000,
+            "Isogen": 6500,
+            "Nocxium": 1700,
+            "Zydrine": 600,
+            "Megacyte": 150
+          },
+          "details": "Naga\nType: Caldari Tech I Attack Battlecruiser\nBase Build Time: ~20h\nRequired Skill: Battlecruiser Construction II\n\nMaterials:\n- Tritanium: 275000\n- Pyerite: 70000\n- Mexallon: 24000\n- Isogen: 6500\n- Nocxium: 1700\n- Zydrine: 600\n- Megacyte: 150"
+        }
+      },
+      "tech2": {
+        "vulture": {
+          "display_name": "Vulture",
+          "ship_type": "Command Ship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 400000,
+            "Pyerite": 100000,
+            "Mexallon": 35000,
+            "Isogen": 10000,
+            "Nocxium": 2200,
+            "Zydrine": 900,
+            "Megacyte": 400
+          },
+          "details": "Vulture\nType: Caldari Tech II Command Ship\nBase Build Time: ~24h\nRequired Skill: Battlecruiser Construction IV\n\nMaterials:\n- Tritanium: 400000\n- Pyerite: 100000\n- Mexallon: 35000\n- Isogen: 10000\n- Nocxium: 2200\n- Zydrine: 900\n- Megacyte: 400"
+        },
+        "nighthawk": {
+          "display_name": "Nighthawk",
+          "ship_type": "Command Ship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 400000,
+            "Pyerite": 100000,
+            "Mexallon": 35000,
+            "Isogen": 10000,
+            "Nocxium": 2200,
+            "Zydrine": 900,
+            "Megacyte": 400
+          },
+          "details": "Nighthawk\nType: Caldari Tech II Command Ship\nBase Build Time: ~24h\nRequired Skill: Battlecruiser Construction IV\n\nMaterials:\n- Tritanium: 400000\n- Pyerite: 100000\n- Mexallon: 35000\n- Isogen: 10000\n- Nocxium: 2200\n- Zydrine: 900\n- Megacyte: 400"
+        },
+        "sleipnir": {
+          "display_name": "Sleipnir",
+          "ship_type": "Command Ship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 400000,
+            "Pyerite": 100000,
+            "Mexallon": 35000,
+            "Isogen": 10000,
+            "Nocxium": 2200,
+            "Zydrine": 900,
+            "Megacyte": 400
+          },
+          "details": "Sleipnir\nType: Caldari Tech II Command Ship\nBase Build Time: ~24h\nRequired Skill: Battlecruiser Construction IV\n\nMaterials:\n- Tritanium: 400000\n- Pyerite: 100000\n- Mexallon: 35000\n- Isogen: 10000\n- Nocxium: 2200\n- Zydrine: 900\n- Megacyte: 400"
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "raven": {
+          "display_name": "Raven",
+          "ship_type": "Combat Battleship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 550000,
+            "Pyerite": 130000,
+            "Mexallon": 45000,
+            "Isogen": 13000,
+            "Nocxium": 3500,
+            "Zydrine": 1500,
+            "Megacyte": 450
+          },
+          "details": "Raven\nType: Caldari Tech I Combat Battleship\nBase Build Time: ~36h\nRequired Skill: Battleship Construction I\n\nMaterials:\n- Tritanium: 550000\n- Pyerite: 130000\n- Mexallon: 45000\n- Isogen: 13000\n- Nocxium: 3500\n- Zydrine: 1500\n- Megacyte: 450"
+        },
+        "rokh": {
+          "display_name": "Rokh",
+          "ship_type": "Combat Battleship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 550000,
+            "Pyerite": 130000,
+            "Mexallon": 45000,
+            "Isogen": 13000,
+            "Nocxium": 3500,
+            "Zydrine": 1500,
+            "Megacyte": 450
+          },
+          "details": "Rokh\nType: Caldari Tech I Combat Battleship\nBase Build Time: ~36h\nRequired Skill: Battleship Construction I\n\nMaterials:\n- Tritanium: 550000\n- Pyerite: 130000\n- Mexallon: 45000\n- Isogen: 13000\n- Nocxium: 3500\n- Zydrine: 1500\n- Megacyte: 450"
+        },
+        "scorpion": {
+          "display_name": "Scorpion",
+          "ship_type": "EWAR Battleship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 550000,
+            "Pyerite": 130000,
+            "Mexallon": 45000,
+            "Isogen": 13000,
+            "Nocxium": 3500,
+            "Zydrine": 1500,
+            "Megacyte": 450
+          },
+          "details": "Scorpion\nType: Caldari Tech I EWAR Battleship\nBase Build Time: ~36h\nRequired Skill: Battleship Construction I\n\nMaterials:\n- Tritanium: 550000\n- Pyerite: 130000\n- Mexallon: 45000\n- Isogen: 13000\n- Nocxium: 3500\n- Zydrine: 1500\n- Megacyte: 450"
+        },
+        "rattlesnake": {
+          "display_name": "Rattlesnake",
+          "ship_type": "Pirate Battleship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 650000,
+            "Pyerite": 160000,
+            "Mexallon": 55000,
+            "Isogen": 16000,
+            "Nocxium": 4200,
+            "Zydrine": 1800,
+            "Megacyte": 600
+          },
+          "details": "Rattlesnake\nType: Caldari/Gallente Pirate Battleship\nBase Build Time: ~48h\nRequired Skill: Battleship Construction III\n\nMaterials:\n- Tritanium: 650000\n- Pyerite: 160000\n- Mexallon: 55000\n- Isogen: 16000\n- Nocxium: 4200\n- Zydrine: 1800\n- Megacyte: 600"
+        }
+      },
+      "tech2": {
+        "widow": {
+          "display_name": "Widow",
+          "ship_type": "Black Ops",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 700000,
+            "Pyerite": 180000,
+            "Mexallon": 65000,
+            "Isogen": 19000,
+            "Nocxium": 4800,
+            "Zydrine": 2200,
+            "Megacyte": 800
+          },
+          "details": "Widow\nType: Caldari Tech II Black Ops Battleship\nBase Build Time: ~48h\nRequired Skill: Battleship Construction IV\n\nMaterials:\n- Tritanium: 700000\n- Pyerite: 180000\n- Mexallon: 65000\n- Isogen: 19000\n- Nocxium: 4800\n- Zydrine: 2200\n- Megacyte: 800"
+        },
+        "golem": {
+          "display_name": "Golem",
+          "ship_type": "Marauder",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 700000,
+            "Pyerite": 180000,
+            "Mexallon": 65000,
+            "Isogen": 19000,
+            "Nocxium": 4800,
+            "Zydrine": 2200,
+            "Megacyte": 800
+          },
+          "details": "Golem\nType: Caldari Tech II Marauder Battleship\nBase Build Time: ~48h\nRequired Skill: Battleship Construction IV\n\nMaterials:\n- Tritanium: 700000\n- Pyerite: 180000\n- Mexallon: 65000\n- Isogen: 19000\n- Nocxium: 4800\n- Zydrine: 2200\n- Megacyte: 800"
+        }
+      }
+    },
+    "industrial": {
+      "tech1": {
+        "badger": {
+          "display_name": "Badger",
+          "ship_type": "Industrial",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 85000,
+            "Pyerite": 21000,
+            "Mexallon": 7500,
+            "Isogen": 2000,
+            "Nocxium": 300
+          },
+          "details": "Badger\nType: Caldari Tech I Industrial\nBase Build Time: ~6h\nRequired Skill: Industry III\n\nMaterials:\n- Tritanium: 85000\n- Pyerite: 21000\n- Mexallon: 7500\n- Isogen: 2000\n- Nocxium: 300"
+        },
+        "tayra": {
+          "display_name": "Tayra",
+          "ship_type": "Industrial",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 85000,
+            "Pyerite": 21000,
+            "Mexallon": 7500,
+            "Isogen": 2000,
+            "Nocxium": 300
+          },
+          "details": "Tayra\nType: Caldari Tech I Industrial\nBase Build Time: ~6h\nRequired Skill: Industry III\n\nMaterials:\n- Tritanium: 85000\n- Pyerite: 21000\n- Mexallon: 7500\n- Isogen: 2000\n- Nocxium: 300"
+        }
+      },
+      "tech2": {
+        "crane": {
+          "display_name": "Crane",
+          "ship_type": "Transport Ship",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 130000,
+            "Pyerite": 33000,
+            "Mexallon": 12000,
+            "Isogen": 3500,
+            "Nocxium": 650,
+            "Zydrine": 250,
+            "Megacyte": 75
+          },
+          "details": "Crane\nType: Caldari Tech II Transport Ship\nBase Build Time: ~12h\nRequired Skill: Industrial Construction IV\n\nMaterials:\n- Tritanium: 130000\n- Pyerite: 33000\n- Mexallon: 12000\n- Isogen: 3500\n- Nocxium: 650\n- Zydrine: 250\n- Megacyte: 75"
+        },
+        "bustard": {
+          "display_name": "Bustard",
+          "ship_type": "Deep Space Transport",
+          "faction": "Caldari",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 135000,
+            "Pyerite": 35000,
+            "Mexallon": 13000,
+            "Isogen": 3800,
+            "Nocxium": 700,
+            "Zydrine": 300,
+            "Megacyte": 90
+          },
+          "details": "Bustard\nType: Caldari Tech II Deep Space Transport\nBase Build Time: ~12h\nRequired Skill: Industrial Construction IV\n\nMaterials:\n- Tritanium: 135000\n- Pyerite: 35000\n- Mexallon: 13000\n- Isogen: 3800\n- Nocxium: 700\n- Zydrine: 300\n- Megacyte: 90"
+        }
+      }
+    }
+  }
+}

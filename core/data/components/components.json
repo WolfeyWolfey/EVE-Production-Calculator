@@ -1,0 +1,99 @@
+{
+  "components": {
+    "construction_blocks": {
+      "display_name": "Construction Blocks",
+      "build_time": "20m",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Tritanium": 4000,
+        "Pyerite": 3000, 
+        "Mexallon": 250
+      },
+      "details": "Construction Blocks\nType: Tech 1 Component\nBase Build Time: ~20m\n\nMaterials:\n- Tritanium: 4000\n- Pyerite: 3000\n- Mexallon: 250"
+    },
+    "crystalline_microprocessor": {
+      "display_name": "Crystalline Microprocessor",
+      "build_time": "1h",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Morphite": 5,
+        "Phenolic Composites": 5,
+        "Sylramic Fibers": 3,
+        "Ferrogel": 1
+      },
+      "details": "Crystalline Microprocessor\nType: Tech 2 Component\nBase Build Time: ~1h\n\nMaterials:\n- Morphite: 5\n- Phenolic Composites: 5\n- Sylramic Fibers: 3\n- Ferrogel: 1"
+    },
+    "fernite_carbide_composite_armor_plate": {
+      "display_name": "Fernite Carbide Composite Armor Plate",
+      "build_time": "1h",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Morphite": 3,
+        "Ferrogel": 2,
+        "Fermionic Condensates": 3,
+        "Sylramic Fibers": 5
+      },
+      "details": "Fernite Carbide Composite Armor Plate\nType: Tech 2 Component\nBase Build Time: ~1h\n\nMaterials:\n- Morphite: 3\n- Ferrogel: 2\n- Fermionic Condensates: 3\n- Sylramic Fibers: 5"
+    },
+    "fusion_reactor_unit": {
+      "display_name": "Fusion Reactor Unit",
+      "build_time": "1h",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Morphite": 8,
+        "Ferrogel": 1,
+        "Fermionic Condensates": 3,
+        "Hypersynaptic Fibers": 5
+      },
+      "details": "Fusion Reactor Unit\nType: Tech 2 Component\nBase Build Time: ~1h\n\nMaterials:\n- Morphite: 8\n- Ferrogel: 1\n- Fermionic Condensates: 3\n- Hypersynaptic Fibers: 5"
+    },
+    "oscillator_capacitor_unit": {
+      "display_name": "Oscillator Capacitor Unit",
+      "build_time": "1h",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Morphite": 2,
+        "Ferrogel": 1,
+        "Nanotransistors": 5,
+        "Hypersynaptic Fibers": 2
+      },
+      "details": "Oscillator Capacitor Unit\nType: Tech 2 Component\nBase Build Time: ~1h\n\nMaterials:\n- Morphite: 2\n- Ferrogel: 1\n- Nanotransistors: 5\n- Hypersynaptic Fibers: 2"
+    },
+    "plasma_thruster": {
+      "display_name": "Plasma Thruster",
+      "build_time": "1h",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Morphite": 6,
+        "Ferrogel": 2,
+        "Fermionic Condensates": 5,
+        "Phenolic Composites": 8
+      },
+      "details": "Plasma Thruster\nType: Tech 2 Component\nBase Build Time: ~1h\n\nMaterials:\n- Morphite: 6\n- Ferrogel: 2\n- Fermionic Condensates: 5\n- Phenolic Composites: 8"
+    },
+    "pulse_shield_emitter": {
+      "display_name": "Pulse Shield Emitter",
+      "build_time": "1h",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Morphite": 4,
+        "Ferrogel": 3,
+        "Nanotransistors": 3,
+        "Phenolic Composites": 3
+      },
+      "details": "Pulse Shield Emitter\nType: Tech 2 Component\nBase Build Time: ~1h\n\nMaterials:\n- Morphite: 4\n- Ferrogel: 3\n- Nanotransistors: 3\n- Phenolic Composites: 3"
+    },
+    "radar_sensor_cluster": {
+      "display_name": "Radar Sensor Cluster",
+      "build_time": "1h",
+      "owned_status": "Unowned",
+      "requirements": {
+        "Morphite": 4,
+        "Ferrogel": 3,
+        "Nanotransistors": 5,
+        "Hypersynaptic Fibers": 3
+      },
+      "details": "Radar Sensor Cluster\nType: Tech 2 Component\nBase Build Time: ~1h\n\nMaterials:\n- Morphite: 4\n- Ferrogel: 3\n- Nanotransistors: 5\n- Hypersynaptic Fibers: 3"
+    }
+  }
+}

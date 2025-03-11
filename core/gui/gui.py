@@ -8,11 +8,11 @@ import json
 import os
 import shutil
 
-from utils.debug import debug_print
+from core.utils.debug import debug_print
 
 from core.module_registry import ModuleRegistry, ShipModule, CapitalShipModule, ComponentModule
 from core.calculator import RequirementsCalculator
-from gui.gui_utils import (
+from core.gui.gui_utils import (
     create_labeled_dropdown,
     create_labeled_entry,
     create_button,
@@ -21,27 +21,27 @@ from gui.gui_utils import (
     set_text_content,
     create_grid_view
 )
-from gui.blueprints_gui import BlueprintManager
-from gui.settings_gui import SettingsWindow
-from gui.blueprint_utils import open_blueprint_editor, reset_ship_ownership, apply_blueprint_changes
-from config.settings import load_settings, save_settings
+from core.gui.blueprints_gui import BlueprintManager
+from core.gui.settings_gui import SettingsWindow
+from core.gui.blueprint_utils import open_blueprint_editor, reset_ship_ownership, apply_blueprint_changes
+from core.config.settings import load_settings, save_settings
 
 class EveProductionCalculator(tk.Tk):
     """Main GUI application for EVE Production Calculator"""
-    def __init__(self, ore_data, registry, calculator, blueprint_config):
+    def __init__(self, registry, calculator, blueprint_config, ore_data=None):
         """
         Initialize the main application
         
         Args:
-            ore_data (dict): Ore data dictionary
             registry (ModuleRegistry): Module registry
             calculator (RequirementsCalculator): Requirements calculator
             blueprint_config (dict): Blueprint configuration
+            ore_data (dict, optional): Ore data dictionary
         """
         super().__init__()
         
         # Store references to external data
-        self.ore_data = ore_data
+        self.ore_data = ore_data if ore_data is not None else {}
         self.registry = registry
         self.calculator = calculator
         self.blueprint_config = blueprint_config
@@ -624,8 +624,25 @@ class EveProductionCalculator(tk.Tk):
             style.configure("TLabelframe", background="#2e2e2e", foreground="#ffffff")
             style.configure("TLabelframe.Label", background="#2e2e2e", foreground="#ffffff")
             
-            # Configure the Combobox
-            style.configure("TCombobox", fieldbackground="#3c3c3c", background="#3c3c3c", foreground="#ffffff")
+            # Configure the Combobox with improved contrast
+            style.configure("TCombobox", fieldbackground="#3c3c3c", background="#3c3c3c", foreground="black")
+            style.map("TCombobox", 
+                fieldbackground=[("readonly", "#3c3c3c")],
+                background=[("readonly", "#3c3c3c")],
+                foreground=[("readonly", "white")])
+            
+            # Ensure radio buttons have good contrast
+            style.configure("TRadiobutton", background="#2e2e2e", foreground="#ffffff")
+            
+            # Configure Treeview (for grid displays)
+            style.configure("Treeview", 
+                background="#2e2e2e", 
+                fieldbackground="#3c3c3c", 
+                foreground="#ffffff")
+            style.configure("Treeview.Heading", 
+                background="#4c4c4c", 
+                foreground="#ffffff", 
+                relief="flat")
             
             # Configure Text widgets
             self.output_text.config(bg="#3c3c3c", fg="#ffffff", insertbackground="#ffffff")
@@ -686,7 +703,7 @@ class EveProductionCalculator(tk.Tk):
                 self.blueprint_config.update(imported_data["blueprint_config"])
                 
                 # Apply blueprint ownership
-                from config.blueprint_config import apply_blueprint_ownership
+                from core.config.blueprint_config import apply_blueprint_ownership
                 apply_blueprint_ownership(self.blueprint_config, self.registry)
                 
                 # Update UI
