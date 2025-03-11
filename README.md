@@ -103,16 +103,22 @@ To create a standalone executable for Windows:
    pip install pyinstaller
    ```
 
-2. Create an icon for the application (optional):
-   - Place an .ico file in a `resources` folder
-   - Reference the icon in your PyInstaller spec file
+2. Navigate to the Build directory:
+   ```
+   cd Build
+   ```
 
-3. Build the executable using the provided spec file:
+3. Run the icon creation script (optional):
+   ```
+   python create_icon.py
+   ```
+
+4. Build the executable using the spec file:
    ```
    python -m PyInstaller eve_production_tracker.spec
    ```
 
-4. The executable will be created in the `dist\EVE Production Tracker` directory
+5. The executable will be created in the `dist\EVE Production Tracker` directory
 
 The executable can be distributed to users who don't have Python installed.
 
