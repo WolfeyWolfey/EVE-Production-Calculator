@@ -1,0 +1,77 @@
+{
+  "edencom": {
+    "destroyers": {
+      "tech1": {
+        "skybreaker": {
+          "display_name": "Skybreaker",
+          "ship_type": "Destroyer",
+          "faction": "EDENCOM",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 50000,
+            "Pyerite": 13000,
+            "Mexallon": 4000,
+            "Isogen": 1300,
+            "Nocxium": 320,
+            "Zydrine": 110,
+            "Megacyte": 55,
+            "Tetryon Exotic Plasma": 180,
+            "Diamond Chromatic Plating": 180,
+            "Auto-Integrity Preservation Seal": 40,
+            "Life Support Backup Unit": 20
+          },
+          "details": "Skybreaker\nType: EDENCOM Destroyer\nBase Build Time: 2h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 50000\n- Pyerite: 13000\n- Mexallon: 4000\n- Isogen: 1300\n- Nocxium: 320\n- Zydrine: 110\n- Megacyte: 55\n- Tetryon Exotic Plasma: 180\n- Diamond Chromatic Plating: 180\n- Auto-Integrity Preservation Seal: 40\n- Life Support Backup Unit: 20\n\nEDENCOM materials come from EDENCOM loyalty point stores."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "stormbringer": {
+          "display_name": "Stormbringer",
+          "ship_type": "Cruiser",
+          "faction": "EDENCOM",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 620000,
+            "Pyerite": 160000,
+            "Mexallon": 40000,
+            "Isogen": 10000,
+            "Nocxium": 2500,
+            "Zydrine": 1250,
+            "Megacyte": 375,
+            "Tetryon Exotic Plasma": 400,
+            "Diamond Chromatic Plating": 440,
+            "Auto-Integrity Preservation Seal": 50,
+            "Life Support Backup Unit": 25
+          },
+          "details": "Stormbringer\nType: EDENCOM Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 620000\n- Pyerite: 160000\n- Mexallon: 40000\n- Isogen: 10000\n- Nocxium: 2500\n- Zydrine: 1250\n- Megacyte: 375\n- Tetryon Exotic Plasma: 400\n- Diamond Chromatic Plating: 440\n- Auto-Integrity Preservation Seal: 50\n- Life Support Backup Unit: 25\n\nEDENCOM materials come from EDENCOM loyalty point stores."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "thunderchild": {
+          "display_name": "Thunderchild",
+          "ship_type": "Battleship",
+          "faction": "EDENCOM",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 9000000,
+            "Pyerite": 4500000,
+            "Mexallon": 675000,
+            "Isogen": 450000,
+            "Nocxium": 34000,
+            "Zydrine": 11300,
+            "Megacyte": 7900,
+            "Tetryon Exotic Plasma": 850,
+            "Diamond Chromatic Plating": 850,
+            "Auto-Integrity Preservation Seal": 220,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 110
+          },
+          "details": "Thunderchild\nType: EDENCOM Battleship\nBase Build Time: 5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 9000000\n- Pyerite: 4500000\n- Mexallon: 675000\n- Isogen: 450000\n- Nocxium: 34000\n- Zydrine: 11300\n- Megacyte: 7900\n- Tetryon Exotic Plasma: 850\n- Diamond Chromatic Plating: 850\n- Auto-Integrity Preservation Seal: 220\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 110\n\nEDENCOM materials come from EDENCOM loyalty point stores."
+        }
+      }
+    }
+  }
+}

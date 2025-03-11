@@ -1,0 +1,172 @@
+{
+  "triglavian": {
+    "frigates": {
+      "tech1": {
+        "damavik": {
+          "display_name": "Damavik",
+          "ship_type": "Frigate",
+          "faction": "Triglavian",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 32000,
+            "Pyerite": 8100,
+            "Mexallon": 2700,
+            "Isogen": 900,
+            "Nocxium": 240,
+            "Zydrine": 80,
+            "Megacyte": 40,
+            "Zero-Point Condensate": 150,
+            "Crystalline Isogen-10": 150,
+            "Auto-Integrity Preservation Seal": 20,
+            "Life Support Backup Unit": 10
+          },
+          "details": "Damavik\nType: Triglavian Frigate\nBase Build Time: 1h 40m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 32000\n- Pyerite: 8100\n- Mexallon: 2700\n- Isogen: 900\n- Nocxium: 240\n- Zydrine: 80\n- Megacyte: 40\n- Zero-Point Condensate: 150\n- Crystalline Isogen-10: 150\n- Auto-Integrity Preservation Seal: 20\n- Life Support Backup Unit: 10\n\nRequires Triglavian materials from Abyssal Deadspace."
+        }
+      }
+    },
+    "destroyers": {
+      "tech1": {
+        "kikimora": {
+          "display_name": "Kikimora",
+          "ship_type": "Destroyer",
+          "faction": "Triglavian",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 48000,
+            "Pyerite": 12000,
+            "Mexallon": 3600,
+            "Isogen": 1200,
+            "Nocxium": 300,
+            "Zydrine": 100,
+            "Megacyte": 50,
+            "Zero-Point Condensate": 180,
+            "Crystalline Isogen-10": 180,
+            "Auto-Integrity Preservation Seal": 40,
+            "Life Support Backup Unit": 20
+          },
+          "details": "Kikimora\nType: Triglavian Destroyer\nBase Build Time: 2h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 48000\n- Pyerite: 12000\n- Mexallon: 3600\n- Isogen: 1200\n- Nocxium: 300\n- Zydrine: 100\n- Megacyte: 50\n- Zero-Point Condensate: 180\n- Crystalline Isogen-10: 180\n- Auto-Integrity Preservation Seal: 40\n- Life Support Backup Unit: 20\n\nRequires Triglavian materials from Abyssal Deadspace."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "vedmak": {
+          "display_name": "Vedmak",
+          "ship_type": "Cruiser",
+          "faction": "Triglavian",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 614356,
+            "Pyerite": 154233,
+            "Mexallon": 39907,
+            "Isogen": 9687,
+            "Nocxium": 2387,
+            "Zydrine": 1202,
+            "Megacyte": 356,
+            "Zero-Point Condensate": 400,
+            "Crystalline Isogen-10": 435,
+            "Auto-Integrity Preservation Seal": 50,
+            "Life Support Backup Unit": 25
+          },
+          "details": "Vedmak\nType: Triglavian Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 614356\n- Pyerite: 154233\n- Mexallon: 39907\n- Isogen: 9687\n- Nocxium: 2387\n- Zydrine: 1202\n- Megacyte: 356\n- Zero-Point Condensate: 400\n- Crystalline Isogen-10: 435\n- Auto-Integrity Preservation Seal: 50\n- Life Support Backup Unit: 25\n\nRequires Triglavian materials from Abyssal Deadspace."
+        },
+        "rodiva": {
+          "display_name": "Rodiva",
+          "ship_type": "Logistics Cruiser",
+          "faction": "Triglavian",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 540000,
+            "Pyerite": 154000,
+            "Mexallon": 39900,
+            "Isogen": 9700,
+            "Nocxium": 2400,
+            "Zydrine": 1200,
+            "Megacyte": 360,
+            "Zero-Point Condensate": 400,
+            "Crystalline Isogen-10": 435,
+            "Auto-Integrity Preservation Seal": 50,
+            "Life Support Backup Unit": 25
+          },
+          "details": "Rodiva\nType: Triglavian Logistics Cruiser\nBase Build Time: 3h 20m\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 540000\n- Pyerite: 154000\n- Mexallon: 39900\n- Isogen: 9700\n- Nocxium: 2400\n- Zydrine: 1200\n- Megacyte: 360\n- Zero-Point Condensate: 400\n- Crystalline Isogen-10: 435\n- Auto-Integrity Preservation Seal: 50\n- Life Support Backup Unit: 25\n\nRequires Triglavian materials from Abyssal Deadspace."
+        }
+      }
+    },
+    "battlecruisers": {
+      "tech1": {
+        "drekavac": {
+          "display_name": "Drekavac",
+          "ship_type": "Battlecruiser",
+          "faction": "Triglavian",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 712800,
+            "Pyerite": 237600,
+            "Mexallon": 47520,
+            "Isogen": 13200,
+            "Nocxium": 3960,
+            "Zydrine": 1320,
+            "Megacyte": 660,
+            "Zero-Point Condensate": 560,
+            "Crystalline Isogen-10": 560,
+            "Auto-Integrity Preservation Seal": 110,
+            "Life Support Backup Unit": 55
+          },
+          "details": "Drekavac\nType: Triglavian Battlecruiser\nBase Build Time: 4h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 712800\n- Pyerite: 237600\n- Mexallon: 47520\n- Isogen: 13200\n- Nocxium: 3960\n- Zydrine: 1320\n- Megacyte: 660\n- Zero-Point Condensate: 560\n- Crystalline Isogen-10: 560\n- Auto-Integrity Preservation Seal: 110\n- Life Support Backup Unit: 55\n\nRequires Triglavian materials from Abyssal Deadspace."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "leshak": {
+          "display_name": "Leshak",
+          "ship_type": "Battleship",
+          "faction": "Triglavian",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 8800000,
+            "Pyerite": 4400000,
+            "Mexallon": 660000,
+            "Isogen": 440000,
+            "Nocxium": 33000,
+            "Zydrine": 11000,
+            "Megacyte": 7700,
+            "Zero-Point Condensate": 850,
+            "Crystalline Isogen-10": 845,
+            "Auto-Integrity Preservation Seal": 220,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 110
+          },
+          "details": "Leshak\nType: Triglavian Battleship\nBase Build Time: 5h\nRequired Skill: Industry I\n\nMaterials:\n- Tritanium: 8800000\n- Pyerite: 4400000\n- Mexallon: 660000\n- Isogen: 440000\n- Nocxium: 33000\n- Zydrine: 11000\n- Megacyte: 7700\n- Zero-Point Condensate: 850\n- Crystalline Isogen-10: 845\n- Auto-Integrity Preservation Seal: 220\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 110\n\nRequires Triglavian materials from Abyssal Deadspace."
+        }
+      }
+    },
+    "capitals": {
+      "dreadnought": {
+        "zirnitra": {
+          "display_name": "Zirnitra",
+          "ship_type": "Dreadnought",
+          "faction": "Triglavian",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Capital Construction Parts": 40,
+            "Capital Propulsion Engine": 1,
+            "Capital Sensor Cluster": 1,
+            "Capital Armor Plates": 4,
+            "Capital Power Generator": 1,
+            "Capital Shield Emitter": 1,
+            "Capital Jump Drive": 1,
+            "Capital Computer System": 1,
+            "Capital Clone Vat Bay": 1,
+            "Capital Ship Maintenance Bay": 1,
+            "Capital Corporate Hangar Bay": 1,
+            "Zero-Point Condensate": 320,
+            "Crystalline Isogen-10": 320,
+            "Advanced Capital Ship Components": 8
+          },
+          "details": "Zirnitra\nType: Triglavian Dreadnought\nBase Build Time: 15h\nRequired Skill: Capital Ship Construction I\n\nMaterials:\n- Capital Construction Parts: 40\n- Capital Propulsion Engine: 1\n- Capital Sensor Cluster: 1\n- Capital Armor Plates: 4\n- Capital Power Generator: 1\n- Capital Shield Emitter: 1\n- Capital Jump Drive: 1\n- Capital Computer System: 1\n- Capital Clone Vat Bay: 1\n- Capital Ship Maintenance Bay: 1\n- Capital Corporate Hangar Bay: 1\n- Zero-Point Condensate: 320\n- Crystalline Isogen-10: 320\n- Advanced Capital Ship Components: 8\n\nRequires Triglavian materials from Abyssal Deadspace."
+        }
+      }
+    }
+  }
+}

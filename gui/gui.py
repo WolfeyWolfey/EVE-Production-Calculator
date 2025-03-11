@@ -23,6 +23,8 @@ from gui.gui_utils import (
 )
 from gui.blueprints_gui import BlueprintManager
 from gui.settings_gui import SettingsWindow
+from gui.blueprint_utils import open_blueprint_editor, reset_ship_ownership, apply_blueprint_changes
+from config.settings import load_settings, save_settings
 
 class EveProductionCalculator(tk.Tk):
     """Main GUI application for EVE Production Calculator"""
@@ -43,6 +45,9 @@ class EveProductionCalculator(tk.Tk):
         self.registry = registry
         self.calculator = calculator
         self.blueprint_config = blueprint_config
+        
+        # Load settings
+        self.settings = load_settings()
         
         # Set application title and geometry
         self.title("EVE Online Production Calculator")
@@ -70,6 +75,9 @@ class EveProductionCalculator(tk.Tk):
         
         # Create UI
         self.create_ui()
+        
+        # Apply theme based on settings
+        self.apply_theme(self.settings.get('theme', 'light'))
         
         # Register save function on window close
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -170,24 +178,13 @@ class EveProductionCalculator(tk.Tk):
             command=self.update_ship_details
         )
         
-        # Create quantity input frame
-        quantity_frame = ttk.Frame(selection_frame)
-        quantity_frame.pack(fill="x", padx=5, pady=5)
-        
-        # Add quantity input field
-        self.ship_quantity_entry = create_labeled_entry(
-            quantity_frame,
-            "Quantity:",
+        # Create quantity input and calculate button
+        self._create_quantity_frame(
+            selection_frame,
             self.ship_quantity,
-            width=5,
-            label_width=10
-        )
-        
-        # Calculate button
-        self.calculate_button = create_button(
-            quantity_frame,
-            "Calculate Requirements",
-            self.calculate_ship_requirements
+            self.calculate_ship_requirements,
+            quantity_attr_name="ship_quantity_entry",
+            button_attr_name="calculate_button"
         )
         
         # Initialize the ship dropdown
@@ -211,24 +208,13 @@ class EveProductionCalculator(tk.Tk):
             command=self.update_component_details
         )
         
-        # Create quantity input frame
-        quantity_frame = ttk.Frame(selection_frame)
-        quantity_frame.pack(fill="x", padx=5, pady=5)
-        
-        # Add quantity input field
-        self.component_quantity_entry = create_labeled_entry(
-            quantity_frame,
-            "Quantity:",
+        # Create quantity input and calculate button
+        self._create_quantity_frame(
+            selection_frame,
             self.component_quantity,
-            width=5,
-            label_width=10
-        )
-        
-        # Calculate button
-        self.calculate_component_button = create_button(
-            quantity_frame,
-            "Calculate Requirements",
-            self.calculate_component_requirements
+            self.calculate_component_requirements,
+            quantity_attr_name="component_quantity_entry",
+            button_attr_name="calculate_component_button"
         )
     
     def create_pi_tab(self):
@@ -255,28 +241,112 @@ class EveProductionCalculator(tk.Tk):
             command=self.update_pi_details
         )
         
-        # Create quantity input frame
-        quantity_frame = ttk.Frame(selection_frame)
-        quantity_frame.pack(fill="x", padx=5, pady=5)
-        
-        # Add quantity input field
-        self.pi_quantity_entry = create_labeled_entry(
-            quantity_frame,
-            "Quantity:",
+        # Create quantity input and calculate button
+        self._create_quantity_frame(
+            selection_frame,
             self.pi_quantity,
-            width=5,
-            label_width=10
-        )
-        
-        # Calculate button
-        self.calculate_pi_button = create_button(
-            quantity_frame,
-            "Calculate Requirements",
-            self.calculate_pi_requirements
+            self.calculate_pi_requirements,
+            quantity_attr_name="pi_quantity_entry",
+            button_attr_name="calculate_pi_button"
         )
         
         # Initialize the PI material dropdown
         self.update_pi_material_dropdown()
+    
+    def _create_quantity_frame(self, parent, quantity_var, calculate_command, quantity_attr_name=None, button_attr_name=None):
+        """
+        Create a standard quantity input frame with calculate button
+        
+        Args:
+            parent: Parent frame to add this frame to
+            quantity_var: StringVar for the quantity input
+            calculate_command: Command to execute when calculate button is pressed
+            quantity_attr_name: Attribute name to store the quantity entry widget
+            button_attr_name: Attribute name to store the calculate button widget
+        """
+        # Create quantity input frame
+        quantity_frame = ttk.Frame(parent)
+        quantity_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Add quantity input field
+        quantity_entry = create_labeled_entry(
+            quantity_frame,
+            "Quantity:",
+            quantity_var,
+            width=5,
+            label_width=10
+        )
+        
+        # Store reference if attribute name is provided
+        if quantity_attr_name:
+            setattr(self, quantity_attr_name, quantity_entry)
+        
+        # Calculate button
+        calculate_button = create_button(
+            quantity_frame,
+            "Calculate Requirements",
+            calculate_command
+        )
+        
+        # Store reference if attribute name is provided
+        if button_attr_name:
+            setattr(self, button_attr_name, calculate_button)
+        
+        return quantity_frame
+    
+    def update_ship_details(self, event=None):
+        """
+        Update the ship details text based on selected ship
+        
+        Args:
+            event: Tkinter event (optional)
+        """
+        self._update_details('ship', self.selected_ship.get(), self.registry.get_ship_by_display_name_combined)
+    
+    def update_component_details(self, event=None):
+        """
+        Update the component details text based on selected component
+        
+        Args:
+            event: Tkinter event (optional)
+        """
+        self._update_details('component', self.selected_component.get(), self.registry.get_component_by_display_name)
+    
+    def update_pi_details(self, event=None):
+        """
+        Update the PI details text based on selected PI material
+        
+        Args:
+            event: Tkinter event (optional)
+        """
+        self._update_details('PI material', self.pi_material_dropdown.get(), self.registry.get_pi_material_by_display_name)
+    
+    def _update_details(self, item_type, item_name, getter_func):
+        """
+        Generic method to update details text for an item
+        
+        Args:
+            item_type: Type of item ('ship', 'component', or 'PI material')
+            item_name: Name of the item to display details for
+            getter_func: Function to retrieve the item from registry
+        """
+        if not item_name:
+            set_text_content(self.output_text, f"No {item_type} selected.")
+            return
+            
+        # Find item in registry
+        item = getter_func(item_name)
+        
+        if not item:
+            set_text_content(self.output_text, f"{item_type.capitalize()} '{item_name}' not found in registry.")
+            return
+            
+        # Update details text
+        set_text_content(self.output_text, item.details)
+        
+        # Enable calculate button for ships
+        if item_type == 'ship' and hasattr(self, 'calculate_button'):
+            self.calculate_button.configure(state="normal")
     
     def update_ship_dropdown(self, event=None):
         """Update the ship dropdown based on selected faction and type"""
@@ -315,179 +385,107 @@ class EveProductionCalculator(tk.Tk):
             self.output_text.insert(tk.END, "No ships found with the current filter.\n\n"
                                           "Try selecting different filters or use the Blueprint Ownership Editor.")
     
-    def update_ship_details(self, event=None):
-        """
-        Update the ship details text based on selected ship
-        
-        Args:
-            event: Tkinter event (optional)
-        """
-        ship_name = self.selected_ship.get()
-        
-        if not ship_name:
-            set_text_content(self.output_text, "No ship selected.")
-            return
-            
-        # Find ship in registry (checking both regular and capital ships)
-        ship = self.registry.get_ship_by_display_name_combined(ship_name)
-        
-        if not ship:
-            set_text_content(self.output_text, f"Ship '{ship_name}' not found in registry.")
-            return
-            
-        # Update details text
-        set_text_content(self.output_text, ship.details)
-        
-        # Enable the calculate button now that a valid ship is selected
-        self.calculate_button.configure(state="normal")
-    
-    def update_component_details(self, event=None):
-        """
-        Update the component details text based on selected component
-        
-        Args:
-            event: Tkinter event (optional)
-        """
-        component_name = self.selected_component.get()
-        
-        if not component_name:
-            set_text_content(self.output_text, "No component selected.")
-            return
-            
-        # Find component in registry
-        component = self.registry.get_component_by_display_name(component_name)
-        
-        if not component:
-            set_text_content(self.output_text, f"Component '{component_name}' not found in registry.")
-            return
-            
-        # Update details text
-        set_text_content(self.output_text, component.details)
-    
-    def update_pi_details(self, event=None):
-        """
-        Update the PI details text based on selected PI material
-        
-        Args:
-            event: Tkinter event (optional)
-        """
-        pi_material_name = self.pi_material_dropdown.get()
-        
-        if not pi_material_name:
-            set_text_content(self.output_text, "No PI material selected.")
-            return
-            
-        # Find PI material in registry
-        pi_material = self.registry.get_pi_material_by_display_name(pi_material_name)
-        
-        if not pi_material:
-            set_text_content(self.output_text, f"PI material '{pi_material_name}' not found in registry.")
-            return
-            
-        # Update details text
-        set_text_content(self.output_text, pi_material.details)
-    
     def calculate_ship_requirements(self):
         """Calculate and display ship material requirements"""
-        # Get selected ship
-        ship_name = self.selected_ship.get()
+        selected_item = self.selected_ship.get()
+        quantity_var = self.ship_quantity
         
-        if not ship_name:
-            messagebox.showwarning("Warning", "No ship selected.")
+        if not self._validate_calculation_input(selected_item, 'ship', quantity_var):
             return
-        
-        # Get quantity (default to 1 if invalid)
-        try:
-            quantity = int(self.ship_quantity.get())
-            if quantity < 1:
-                quantity = 1
-        except ValueError:
-            quantity = 1
-            self.ship_quantity.set("1")
-        
-        # Find ship in registry (checking both regular and capital ships)
-        ship = self.registry.get_ship_by_display_name_combined(ship_name)
-        
-        if not ship:
-            messagebox.showerror("Error", f"Ship '{ship_name}' not found in registry.")
-            return
-        
-        # Determine if this is a capital ship or regular ship
-        is_capital_ship = isinstance(ship, CapitalShipModule)
-        
-        # Calculate requirements based on ship type
-        if is_capital_ship:
-            requirements = self.calculator.calculate_capital_ship_requirements(ship.name)
-            config_category = 'capital_ship_blueprints'
-        else:
-            requirements = self.calculator.calculate_ship_requirements(ship.name)
-            config_category = 'ship_blueprints'
-        
-        # Get ME level for ship
-        me_level = self.calculator.get_me_level(config_category, ship.name)
-        
-        # Get TE level for ship
-        te_level = self.calculator.get_te_level(config_category, ship.name)
-        
-        # Calculate production time (use default base time if not available)
-        base_time = getattr(ship, 'production_time', 3600)  # Default to 1 hour if not specified
-        production_time = self.calculator.calculate_production_time(base_time, te_level)
-        
-        # Format time for display
-        hours, remainder = divmod(production_time, 3600)
-        minutes, seconds = divmod(remainder, 60)
-        time_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
-        
-        # Format requirements for display
-        requirements_text = f"Material Requirements for {quantity}x {ship_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
-        requirements_text += f"Production Time per Unit: {time_str}\n\n"
-        
-        # Sort materials alphabetically
-        sorted_materials = sorted(requirements.items())
-        
-        for material, material_quantity in sorted_materials:
-            # Multiply by quantity
-            total_quantity = material_quantity * quantity
-            requirements_text += f"{material}: {total_quantity:,.2f}\n"
             
-        set_text_content(self.output_text, requirements_text)
+        # Find ship in registry
+        item = self.registry.get_ship_by_display_name_combined(selected_item)
+        
+        # Calculate requirements based on item type
+        is_capital_ship = isinstance(item, CapitalShipModule)
+        config_category = 'capital_ship_blueprints' if is_capital_ship else 'ship_blueprints'
+        
+        if is_capital_ship:
+            requirements = self.calculator.calculate_capital_ship_requirements(item.name)
+        else:
+            requirements = self.calculator.calculate_ship_requirements(item.name)
+            
+        # Format and display requirements with proper quantity
+        self._display_requirements(item, requirements, config_category, int(quantity_var.get()))
     
     def calculate_component_requirements(self):
         """Calculate and display component material requirements"""
-        # Get selected component
-        component_name = self.selected_component.get()
+        selected_item = self.selected_component.get()
+        quantity_var = self.component_quantity
         
-        if not component_name:
-            messagebox.showwarning("Warning", "No component selected.")
+        if not self._validate_calculation_input(selected_item, 'component', quantity_var):
             return
-        
-        # Get quantity (default to 1 if invalid)
-        try:
-            quantity = int(self.component_quantity.get())
-            if quantity < 1:
-                quantity = 1
-        except ValueError:
-            quantity = 1
-            self.component_quantity.set("1")
-        
+            
         # Find component in registry
-        component = self.registry.get_component_by_display_name(component_name)
-        
-        if not component:
-            messagebox.showerror("Error", f"Component '{component_name}' not found in registry.")
-            return
+        item = self.registry.get_component_by_display_name(selected_item)
         
         # Calculate requirements
-        requirements = self.calculator.calculate_component_requirements(component.name)
+        requirements = self.calculator.calculate_component_requirements(item.name)
         
-        # Get ME level for component
-        me_level = self.calculator.get_me_level('components', component.name)
+        # Format and display requirements with proper quantity
+        self._display_requirements(item, requirements, 'components', int(quantity_var.get()))
+    
+    def calculate_pi_requirements(self):
+        """Calculate and display PI material requirements"""
+        selected_item = self.pi_material_dropdown.get()
+        quantity_var = self.pi_quantity
         
-        # Get TE level for component
-        te_level = self.calculator.get_te_level('components', component.name)
+        if not self._validate_calculation_input(selected_item, 'PI material', quantity_var):
+            return
+            
+        # Find PI material in registry
+        item = self.registry.get_pi_material_by_display_name(selected_item)
         
-        # Calculate production time (use default base time if not available)
-        base_time = getattr(component, 'production_time', 1800)  # Default to 30 minutes if not specified
+        # Calculate requirements
+        requirements = self.calculator.calculate_pi_requirements(item.name)
+        
+        # Format and display requirements with proper quantity
+        self._display_requirements(item, requirements, 'pi_materials', int(quantity_var.get()))
+    
+    def _validate_calculation_input(self, selected_item, item_type, quantity_var):
+        """
+        Validate calculation inputs
+        
+        Args:
+            selected_item: The selected item name
+            item_type: Type of item (ship, component, PI material)
+            quantity_var: The quantity StringVar
+            
+        Returns:
+            bool: True if inputs are valid, False otherwise
+        """
+        if not selected_item:
+            messagebox.showwarning("Warning", f"No {item_type} selected.")
+            return False
+        
+        # Validate quantity
+        try:
+            quantity = int(quantity_var.get())
+            if quantity < 1:
+                quantity = 1
+                quantity_var.set("1")
+        except ValueError:
+            quantity = 1
+            quantity_var.set("1")
+            
+        return True
+    
+    def _display_requirements(self, item, requirements, config_category, quantity):
+        """
+        Format and display calculation requirements
+        
+        Args:
+            item: The item module
+            requirements: The calculated requirements dictionary
+            config_category: The configuration category for ME/TE retrieval
+            quantity: The number of items to produce
+        """
+        # Get ME and TE levels
+        me_level = self.calculator.get_me_level(config_category, item.name)
+        te_level = self.calculator.get_te_level(config_category, item.name)
+        
+        # Calculate production time
+        base_time = getattr(item, 'production_time', 3600)  # Default to 1 hour if not specified
         production_time = self.calculator.calculate_production_time(base_time, te_level)
         
         # Format time for display
@@ -496,52 +494,8 @@ class EveProductionCalculator(tk.Tk):
         time_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
         
         # Format requirements for display
-        requirements_text = f"Material Requirements for {quantity}x {component_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
+        requirements_text = f"Material Requirements for {quantity}x {item.display_name} (ME: {me_level}%, TE: {te_level}%):\n\n"
         requirements_text += f"Production Time per Unit: {time_str}\n\n"
-        
-        # Sort materials alphabetically
-        sorted_materials = sorted(requirements.items())
-        
-        for material, material_quantity in sorted_materials:
-            # Multiply by quantity
-            total_quantity = material_quantity * quantity
-            requirements_text += f"{material}: {total_quantity:,.2f}\n"
-            
-        set_text_content(self.output_text, requirements_text)
-    
-    def calculate_pi_requirements(self):
-        """Calculate and display PI material requirements"""
-        # Get selected PI material
-        pi_material_name = self.pi_material_dropdown.get()
-        
-        if not pi_material_name:
-            messagebox.showwarning("Warning", "No PI material selected.")
-            return
-        
-        # Get quantity (default to 1 if invalid)
-        try:
-            quantity = int(self.pi_quantity.get())
-            if quantity < 1:
-                quantity = 1
-        except ValueError:
-            quantity = 1
-            self.pi_quantity.set("1")
-        
-        # Find PI material in registry
-        pi_material = self.registry.get_pi_material_by_display_name(pi_material_name)
-        
-        if not pi_material:
-            messagebox.showerror("Error", f"PI material '{pi_material_name}' not found in registry.")
-            return
-        
-        # Calculate requirements
-        requirements = self.calculator.calculate_pi_requirements(pi_material.name)
-        
-        # Get ME level from calculator for this specific PI material
-        me_level = self.calculator.get_me_level('pi', pi_material.name)
-        
-        # Format requirements for display
-        requirements_text = f"Material Requirements for {quantity}x {pi_material_name} (ME: {me_level}%):\n\n"
         
         # Sort materials alphabetically
         sorted_materials = sorted(requirements.items())
@@ -555,119 +509,35 @@ class EveProductionCalculator(tk.Tk):
     
     def edit_blueprint_ownership(self):
         """Open the Blueprint Ownership Editor"""
-        try:
-            # Prepare the modules dictionary for the blueprint manager
-            discovered_modules = {
-                'ships': self.registry.ships,
-                'capital_ships': self.registry.capital_ships,
-                'components': self.registry.components,
-                'capital_components': self.registry.capital_components
-            }
-            
-            # Create and open the editor
-            blueprint_window = tk.Toplevel(self)
-            blueprint_window.title("Blueprint Ownership Manager")
-            
-            # Create the blueprint manager
-            blueprint_manager = BlueprintManager(
-                blueprint_window, 
-                discovered_modules,
-                self.blueprint_config,
-                self.registry
-            )
-            
-            # Create the blueprint window UI
-            blueprint_manager.create_blueprint_window(blueprint_window)
-            
-            # Configure window position
-            window_width = 800
-            window_height = 600
-            
-            # Center the window
-            position_right = int(self.winfo_screenwidth() / 2 - window_width / 2)
-            position_down = int(self.winfo_screenheight() / 2 - window_height / 2)
-            
-            # Set the window size and position
-            blueprint_window.geometry(f"{window_width}x{window_height}+{position_right}+{position_down}")
-            
-            # Set a flag to prevent multiple instances
-            self.ownership_editor_shown = True
-            
-            # Make the editor modal
-            blueprint_window.transient(self)
-            blueprint_window.grab_set()
-            blueprint_window.focus_set()
-            
-            # Wait for the window to be closed
-            self.wait_window(blueprint_window)
-            
-            # Make sure to save changes after the window is closed
-            from config.blueprint_config import save_blueprint_ownership
-            save_blueprint_ownership(self.blueprint_config)
-            
-            # Apply the updated ownership to the registry
-            from config.blueprint_config import apply_blueprint_ownership
-            apply_blueprint_ownership(self.blueprint_config, self.registry)
-            
-            # Refresh the UI when the editor returns
-            current_tab = self.notebook.index(self.notebook.select())
-            if current_tab == 0:  # Ships tab
-                self.update_ship_dropdown()
-                
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to open Blueprint Ownership Editor: {str(e)}")
+        open_blueprint_editor(
+            self, 
+            self.registry, 
+            self.blueprint_config, 
+            callback=self._on_editor_closed
+        )
     
     def reset_ship_ownership(self):
         """Reset ownership status for all ships"""
-        # Confirm with the user
-        if not messagebox.askyesno("Confirm Reset", 
-                                  "Are you sure you want to reset ownership status for ALL ships?\n\n"
-                                   "This action cannot be undone."):
-            return
+        # Define refresh function
+        def refresh_ui():
+            current_tab = self.notebook.index(self.notebook.select())
+            if current_tab == 0:  # Ships tab
+                self.update_ship_dropdown()
         
-        # Reset ownership for all ships
-        for ship_name, ship in self.registry.ships.items():
-            ship.owned_status = False
-            
-            # Update the blueprint config
-            if ship_name in self.blueprint_config.get('ship_blueprints', {}):
-                self.blueprint_config['ship_blueprints'][ship_name]['owned'] = False
-            elif hasattr(ship, 'display_name') and ship.display_name in self.blueprint_config.get('ship_blueprints', {}):
-                self.blueprint_config['ship_blueprints'][ship.display_name]['owned'] = False
-        
-        # Reset ownership for all capital ships
-        for ship_name, ship in self.registry.capital_ships.items():
-            ship.owned_status = False
-            
-            # Update the blueprint config
-            if ship_name in self.blueprint_config.get('capital_ship_blueprints', {}):
-                self.blueprint_config['capital_ship_blueprints'][ship_name]['owned'] = False
-            elif hasattr(ship, 'display_name') and ship.display_name in self.blueprint_config.get('capital_ship_blueprints', {}):
-                self.blueprint_config['capital_ship_blueprints'][ship.display_name]['owned'] = False
-        
-        # Save the changes
-        try:
-            from config.blueprint_config import save_blueprint_ownership
-            
-            # Run the save function
-            success = save_blueprint_ownership(self.blueprint_config)
-            
-            if success:
-                messagebox.showinfo("Success", "All ship ownership status has been reset.")
-                
-                # Refresh the UI based on the current tab
-                current_tab = self.notebook.index(self.notebook.select())
-                if current_tab == 0:  # Ships tab
-                    self.update_ship_dropdown()
-            else:
-                messagebox.showerror("Error", "Failed to save ownership changes.")
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to save ownership changes: {str(e)}")
+        # Call the reset function
+        reset_ship_ownership(
+            self.registry,
+            self.blueprint_config,
+            refresh_callback=refresh_ui
+        )
     
     def _on_editor_closed(self):
         """Callback to handle the blueprint editor being closed"""
         # Reset the ownership editor shown flag
         self.ownership_editor_shown = False
+        
+        # Apply the changes
+        apply_blueprint_changes(self.blueprint_config, self.registry)
         
         # Refresh the UI based on the current tab
         current_tab = self.notebook.index(self.notebook.select())
@@ -699,60 +569,76 @@ class EveProductionCalculator(tk.Tk):
             self.pi_material_dropdown.set("")
             set_text_content(self.output_text, "No PI materials found matching the filters.")
 
-    def on_close(self):
-        """Save blueprint configuration before closing the application"""
-        try:
-            if hasattr(self, 'blueprint_config'):
-                from config.blueprint_config import save_blueprint_ownership
-                success = save_blueprint_ownership(self.blueprint_config)
-                if success:
-                    debug_print("Blueprint configuration saved successfully.")
-                else:
-                    debug_print("Failed to save blueprint configuration.")
-        except Exception as e:
-            debug_print(f"Error saving blueprint configuration: {e}")
-        
-        # Destroy the application
-        self.destroy()
-
     def _create_menus(self):
-        """Create application menus"""
-        # Create main menu
-        menu_bar = tk.Menu(self)
-        self.config(menu=menu_bar)
+        """Create menu bar items"""
+        # Create menu bar
+        menubar = tk.Menu(self)
         
-        # Create File menu
-        file_menu = tk.Menu(menu_bar, tearoff=0)
-        menu_bar.add_cascade(label="File", menu=file_menu)
-        file_menu.add_command(label="Exit", command=self.destroy)
+        # File menu
+        file_menu = tk.Menu(menubar, tearoff=0)
+        file_menu.add_command(label="Export Settings", command=self.export_settings)
+        file_menu.add_command(label="Import Settings", command=self.import_settings)
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.on_close)
+        menubar.add_cascade(label="File", menu=file_menu)
         
-        # Create Options menu
-        options_menu = tk.Menu(menu_bar, tearoff=0)
-        menu_bar.add_cascade(label="Options", menu=options_menu)
-        options_menu.add_command(label="Settings", command=self.open_settings)
-        options_menu.add_separator()
-        options_menu.add_command(label="Blueprint Ownership Editor", command=self.edit_blueprint_ownership)
-        options_menu.add_separator()
-        options_menu.add_command(label="Export Settings", command=self.export_settings)
-        options_menu.add_command(label="Import Settings", command=self.import_settings)
+        # Settings menu
+        settings_menu = tk.Menu(menubar, tearoff=0)
+        settings_menu.add_command(label="Settings", command=self.open_settings)
+        settings_menu.add_separator()
+        settings_menu.add_command(label="Edit Blueprint Ownership", command=self.edit_blueprint_ownership)
+        settings_menu.add_command(label="Reset Ship Ownership", command=self.reset_ship_ownership)
+        menubar.add_cascade(label="Options", menu=settings_menu)
+        
+        # Help menu
+        help_menu = tk.Menu(menubar, tearoff=0)
+        help_menu.add_command(label="Help", command=self.show_help)
+        help_menu.add_command(label="About", command=self.show_about)
+        menubar.add_cascade(label="Help", menu=help_menu)
+        
+        # Set the menu bar
+        self.config(menu=menubar)
     
     def open_settings(self):
         """Open the settings window"""
-        # Check if settings window is already open
-        for widget in self.winfo_children():
-            if isinstance(widget, SettingsWindow) and widget.winfo_exists():
-                widget.focus_force()  # Bring window to front
-                return
-        
-        # Create a new settings window
         settings_window = SettingsWindow(self, self.registry, self.calculator, self.blueprint_config)
+    
+    def apply_theme(self, theme):
+        """Apply the selected theme to the application"""
+        if theme == "dark":
+            self.configure(bg="#2e2e2e")
+            style = ttk.Style(self)
+            style.theme_use('clam')  # Use clam as base
+            
+            # Configure the dark theme
+            style.configure("TFrame", background="#2e2e2e")
+            style.configure("TLabel", background="#2e2e2e", foreground="#ffffff")
+            style.configure("TButton", background="#3c3c3c", foreground="#ffffff")
+            style.configure("TNotebook", background="#2e2e2e", foreground="#ffffff")
+            style.configure("TNotebook.Tab", background="#3c3c3c", foreground="#ffffff")
+            style.map("TNotebook.Tab",
+                background=[("selected", "#4c4c4c"), ("active", "#3c3c3c")],
+                foreground=[("selected", "#ffffff"), ("active", "#ffffff")])
+            
+            # Configure the Labelframe
+            style.configure("TLabelframe", background="#2e2e2e", foreground="#ffffff")
+            style.configure("TLabelframe.Label", background="#2e2e2e", foreground="#ffffff")
+            
+            # Configure the Combobox
+            style.configure("TCombobox", fieldbackground="#3c3c3c", background="#3c3c3c", foreground="#ffffff")
+            
+            # Configure Text widgets
+            self.output_text.config(bg="#3c3c3c", fg="#ffffff", insertbackground="#ffffff")
+        else:
+            # Reset to default theme
+            style = ttk.Style(self)
+            style.theme_use('default')
+            
+            # Reset Text widget colors
+            self.output_text.config(bg="white", fg="black", insertbackground="black")
         
-        # Use try/except to handle potential errors when main window is closed
-        try:
-            settings_window.transient(self)  # Make window a child of the main window
-        except tk.TclError:
-            # Main window might be destroyed, ignore the error
-            pass
+        # Update settings
+        self.settings['theme'] = theme
     
     def export_settings(self):
         """Export settings to a JSON file"""
@@ -767,8 +653,14 @@ class EveProductionCalculator(tk.Tk):
             return
         
         try:
+            # Create export data combining blueprint config and other settings
+            export_data = {
+                "blueprint_config": self.blueprint_config,
+                "app_settings": self.settings
+            }
+            
             with open(file_path, 'w') as f:
-                json.dump(self.blueprint_config, f, indent=4)
+                json.dump(export_data, f, indent=4)
             messagebox.showinfo("Success", "Settings exported successfully.")
         except Exception as e:
             messagebox.showerror("Error", f"Failed to export settings: {str(e)}")
@@ -787,23 +679,106 @@ class EveProductionCalculator(tk.Tk):
         
         try:
             with open(file_path, 'r') as f:
-                imported_config = json.load(f)
+                imported_data = json.load(f)
             
-            # Check if file contains blueprint ownership data
-            if 'ship_blueprints' in imported_config:
-                # Update blueprint config
-                self.blueprint_config.update(imported_config)
+            # Import blueprint config if available
+            if "blueprint_config" in imported_data:
+                self.blueprint_config.update(imported_data["blueprint_config"])
                 
                 # Apply blueprint ownership
                 from config.blueprint_config import apply_blueprint_ownership
-                apply_blueprint_ownership(self.registry, self.blueprint_config)
+                apply_blueprint_ownership(self.blueprint_config, self.registry)
                 
                 # Update UI
                 self.update_ship_dropdown()
+            
+            # Import app settings if available
+            if "app_settings" in imported_data:
+                self.settings.update(imported_data["app_settings"])
                 
-                messagebox.showinfo("Success", "Settings imported successfully.")
-            else:
-                messagebox.showwarning("Warning", "No blueprint ownership settings found in file.")
+                # Apply theme
+                if "theme" in imported_data["app_settings"]:
+                    self.apply_theme(imported_data["app_settings"]["theme"])
+            
+            messagebox.showinfo("Success", "Settings imported successfully.")
                 
         except Exception as e:
             messagebox.showerror("Error", f"Failed to import settings: {str(e)}")
+        
+    def show_help(self):
+        """Display help information"""
+        help_text = """
+EVE Production Calculator Help
+
+Ship Tab:
+- Select a faction and ship type to filter the ship list
+- Choose a ship from the dropdown to view its details
+- Enter the quantity and click Calculate to see the resource requirements
+
+Components Tab:
+- Select a component to view its details
+- Enter the quantity and click Calculate to see the resource requirements
+
+PI Materials Tab:
+- Select a PI level to filter the materials
+- Choose a material to view its details
+- Enter the quantity and click Calculate to see the resource requirements
+
+Blueprint Ownership:
+- Access the Blueprint Ownership Editor from the Blueprints menu
+- Set which blueprints you own by using the radio buttons
+- Ownership status affects which ships appear in the "Only Owned" filter
+
+Settings:
+- Change theme between light and dark mode
+- Export or import your settings to backup your configuration
+"""
+        help_window = tk.Toplevel(self)
+        help_window.title("Help")
+        help_window.geometry("600x500")
+        help_window.minsize(500, 400)
+        
+        # Help text widget
+        help_text_widget = tk.Text(help_window, wrap="word", padx=10, pady=10)
+        help_text_widget.pack(fill="both", expand=True)
+        help_text_widget.insert("1.0", help_text)
+        help_text_widget.config(state="disabled")
+        
+        # Apply current theme to help window
+        if self.settings.get('theme') == 'dark':
+            help_window.config(bg="#2e2e2e")
+            help_text_widget.config(bg="#3c3c3c", fg="#ffffff")
+    
+    def show_about(self):
+        """Display about information"""
+        about_text = """
+EVE Production Calculator
+
+Version: 1.0.0
+
+A tool for calculating resource requirements for manufacturing ships, 
+components, and managing Planetary Interaction (PI) materials in EVE Online.
+
+Features:
+- Ship production calculation
+- Component production calculation
+- PI material processing
+- Blueprint ownership management
+- Dark mode support
+- Settings import/export
+
+ 2025 EVE Production Calculator
+"""
+        messagebox.showinfo("About", about_text)
+        
+    def on_close(self):
+        """Handle window close event"""
+        # Save blueprint configuration
+        with open(os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config', 'blueprint_ownership.json'), 'w') as f:
+            json.dump(self.blueprint_config, f, indent=4)
+        
+        # Save settings
+        save_settings(self.settings)
+        
+        # Destroy the window
+        self.destroy()

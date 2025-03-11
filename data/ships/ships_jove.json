@@ -1,0 +1,125 @@
+{
+  "jove": {
+    "frigates": {
+      "tech1": {
+        "implier": {
+          "display_name": "Implier",
+          "ship_type": "Frigate",
+          "faction": "Jove",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 45000,
+            "Pyerite": 8000,
+            "Mexallon": 3500,
+            "Isogen": 800,
+            "Nocxium": 200,
+            "Zydrine": 90,
+            "Megacyte": 45,
+            "Jove Propulsion Matrix": 10,
+            "Jove Tactical Array": 10,
+            "Auto-Integrity Preservation Seal": 35,
+            "Life Support Backup Unit": 18
+          },
+          "details": "Implier\nType: Jove Frigate\nBase Build Time: 2h\nRequired Skill: Advanced Shipbuilding II\n\nMaterials:\n- Tritanium: 45000\n- Pyerite: 8000\n- Mexallon: 3500\n- Isogen: 800\n- Nocxium: 200\n- Zydrine: 90\n- Megacyte: 45\n- Jove Propulsion Matrix: 10\n- Jove Tactical Array: 10\n- Auto-Integrity Preservation Seal: 35\n- Life Support Backup Unit: 18\n\nJove ships require special materials that are rare and difficult to obtain."
+        }
+      }
+    },
+    "cruisers": {
+      "tech1": {
+        "eidolon": {
+          "display_name": "Eidolon",
+          "ship_type": "Cruiser",
+          "faction": "Jove",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 700000,
+            "Pyerite": 230000,
+            "Mexallon": 50000,
+            "Isogen": 15000,
+            "Nocxium": 2500,
+            "Zydrine": 1500,
+            "Megacyte": 800,
+            "Jove Propulsion Matrix": 20,
+            "Jove Tactical Array": 20,
+            "Jove Power Core": 4,
+            "Auto-Integrity Preservation Seal": 65,
+            "Life Support Backup Unit": 33
+          },
+          "details": "Eidolon\nType: Jove Cruiser\nBase Build Time: 4h\nRequired Skill: Advanced Shipbuilding II\n\nMaterials:\n- Tritanium: 700000\n- Pyerite: 230000\n- Mexallon: 50000\n- Isogen: 15000\n- Nocxium: 2500\n- Zydrine: 1500\n- Megacyte: 800\n- Jove Propulsion Matrix: 20\n- Jove Tactical Array: 20\n- Jove Power Core: 4\n- Auto-Integrity Preservation Seal: 65\n- Life Support Backup Unit: 33\n\nJove ships require special materials that are rare and difficult to obtain."
+        }
+      }
+    },
+    "battleships": {
+      "tech1": {
+        "gnosis": {
+          "display_name": "Gnosis",
+          "ship_type": "Battlecruiser",
+          "faction": "Jove",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 750000,
+            "Pyerite": 250000,
+            "Mexallon": 50000,
+            "Isogen": 15000,
+            "Nocxium": 5000,
+            "Zydrine": 1500,
+            "Megacyte": 750,
+            "Jove Propulsion Matrix": 10,
+            "Jove Tactical Array": 10,
+            "Auto-Integrity Preservation Seal": 100,
+            "Life Support Backup Unit": 50
+          },
+          "details": "Gnosis\nType: Special Edition Society of Conscious Thought Battlecruiser\nBase Build Time: 4h\nRequired Skill: Battlecruiser Construction I\n\nMaterials:\n- Tritanium: 750000\n- Pyerite: 250000\n- Mexallon: 50000\n- Isogen: 15000\n- Nocxium: 5000\n- Zydrine: 1500\n- Megacyte: 750\n- Jove Propulsion Matrix: 10\n- Jove Tactical Array: 10\n- Auto-Integrity Preservation Seal: 100\n- Life Support Backup Unit: 50\n\nThe Gnosis is occasionally available as a special edition ship."
+        },
+        "praxis": {
+          "display_name": "Praxis",
+          "ship_type": "Battleship",
+          "faction": "Jove",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 9000000,
+            "Pyerite": 4500000,
+            "Mexallon": 675000,
+            "Isogen": 450000,
+            "Nocxium": 34000,
+            "Zydrine": 11000,
+            "Megacyte": 5500,
+            "Jove Propulsion Matrix": 25,
+            "Jove Tactical Array": 25,
+            "Jove Power Core": 10,
+            "Auto-Integrity Preservation Seal": 240,
+            "Core Temperature Regulator": 2,
+            "Life Support Backup Unit": 120
+          },
+          "details": "Praxis\nType: Special Edition Society of Conscious Thought Battleship\nBase Build Time: 5h\nRequired Skill: Battleship Construction I\n\nMaterials:\n- Tritanium: 9000000\n- Pyerite: 4500000\n- Mexallon: 675000\n- Isogen: 450000\n- Nocxium: 34000\n- Zydrine: 11000\n- Megacyte: 5500\n- Jove Propulsion Matrix: 25\n- Jove Tactical Array: 25\n- Jove Power Core: 10\n- Auto-Integrity Preservation Seal: 240\n- Core Temperature Regulator: 2\n- Life Support Backup Unit: 120\n\nThe Praxis is occasionally available as a special edition ship."
+        }
+      }
+    },
+    "capitals": {
+      "tech3": {
+        "nestor": {
+          "display_name": "Nestor",
+          "ship_type": "Battleship",
+          "faction": "Jove",
+          "owned_status": "Unowned",
+          "requirements": {
+            "Tritanium": 10000000,
+            "Pyerite": 5000000,
+            "Mexallon": 750000,
+            "Isogen": 500000,
+            "Nocxium": 40000,
+            "Zydrine": 13000,
+            "Megacyte": 6500,
+            "Jove Propulsion Matrix": 35,
+            "Jove Tactical Array": 35,
+            "Jove Power Core": 15,
+            "Auto-Integrity Preservation Seal": 250,
+            "Core Temperature Regulator": 3,
+            "Life Support Backup Unit": 125
+          },
+          "details": "Nestor\nType: Society of Conscious Thought Tech 3 Battleship\nBase Build Time: 6h\nRequired Skill: Advanced Shipbuilding III\n\nMaterials:\n- Tritanium: 10000000\n- Pyerite: 5000000\n- Mexallon: 750000\n- Isogen: 500000\n- Nocxium: 40000\n- Zydrine: 13000\n- Megacyte: 6500\n- Jove Propulsion Matrix: 35\n- Jove Tactical Array: 35\n- Jove Power Core: 15\n- Auto-Integrity Preservation Seal: 250\n- Core Temperature Regulator: 3\n- Life Support Backup Unit: 125\n\nThe Nestor is a special Tech 3 battleship available via limited means."
+        }
+      }
+    }
+  }
+}

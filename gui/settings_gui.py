@@ -4,8 +4,10 @@ Settings GUI for EVE Production Calculator
 
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
+import os
 
-from gui.gui_utils import create_button, create_label_frame
+from gui.gui_utils import create_button, create_label_frame, create_labeled_dropdown
+from config.settings import load_settings, save_settings
 
 class SettingsWindow(tk.Toplevel):
     """Settings window for EVE Production Calculator"""
@@ -18,6 +20,12 @@ class SettingsWindow(tk.Toplevel):
         self.registry = registry
         self.calculator = calculator
         self.blueprint_config = blueprint_config
+        
+        # Load settings
+        self.settings = load_settings()
+        
+        # Theme variable
+        self.theme_var = tk.StringVar(value=self.settings.get('theme', 'light'))
         
         # Configure window
         self.title("Settings")
@@ -42,6 +50,19 @@ class SettingsWindow(tk.Toplevel):
         # Main frame
         main_frame = ttk.Frame(self)
         main_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Frame for UI settings
+        ui_frame = create_label_frame(main_frame, "UI Settings")
+        ui_frame.pack(fill="x", padx=5, pady=5)
+        
+        # Theme selection dropdown
+        self.theme_dropdown = create_labeled_dropdown(
+            ui_frame,
+            "Theme:",
+            self.theme_var,
+            ["light", "dark"],
+            command=self.on_theme_change
+        )
         
         # Frame for blueprint ownership settings
         blueprint_frame = create_label_frame(main_frame, "Blueprint Ownership")
@@ -89,8 +110,49 @@ class SettingsWindow(tk.Toplevel):
         close_button = create_button(
             close_button_frame,
             "Close",
-            self.destroy
+            self.on_close
         )
+    
+    def on_theme_change(self, *args):
+        """Handle theme change"""
+        # Update settings with new theme
+        theme = self.theme_var.get()
+        self.settings['theme'] = theme
+        
+        # Apply theme to parent application
+        self.parent.apply_theme(theme)
+        
+        # Apply theme to this window
+        self.apply_theme(theme)
+    
+    def apply_theme(self, theme):
+        """Apply the selected theme to this window"""
+        # This function can be extended with more styling options
+        if theme == "dark":
+            self.config(bg="#2e2e2e")
+            style = ttk.Style(self)
+            style.theme_use('clam')  # Use clam as base
+            
+            # Configure the dark theme
+            style.configure("TFrame", background="#2e2e2e")
+            style.configure("TLabel", background="#2e2e2e", foreground="#ffffff")
+            style.configure("TButton", background="#3c3c3c", foreground="#ffffff")
+            style.configure("TNotebook", background="#2e2e2e", foreground="#ffffff")
+            style.configure("TNotebook.Tab", background="#3c3c3c", foreground="#ffffff")
+            style.map("TNotebook.Tab",
+                background=[("selected", "#4c4c4c"), ("active", "#3c3c3c")],
+                foreground=[("selected", "#ffffff"), ("active", "#ffffff")])
+            
+            # Configure the LabelFrame
+            style.configure("TLabelframe", background="#2e2e2e", foreground="#ffffff")
+            style.configure("TLabelframe.Label", background="#2e2e2e", foreground="#ffffff")
+            
+            # Configure the Combobox
+            style.configure("TCombobox", fieldbackground="#3c3c3c", background="#3c3c3c", foreground="#ffffff")
+        else:
+            # Reset to default theme
+            style = ttk.Style(self)
+            style.theme_use('default')
     
     def edit_blueprint_ownership(self):
         """Open the Blueprint Ownership Editor"""
@@ -107,3 +169,12 @@ class SettingsWindow(tk.Toplevel):
     def import_settings(self):
         """Import settings from a JSON file"""
         self.parent.import_settings()
+    
+    def on_close(self):
+        """Handle close button click"""
+        # Save settings before closing
+        base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        save_settings(self.settings, base_path)
+        
+        # Close the window
+        self.destroy()
